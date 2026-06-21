@@ -2,7 +2,7 @@ import { getSessionTitle, getSlotTitle, getThemeLabel } from "./i18n.js";
 
 const DATA_URL = "data/program.json";
 const LANGUAGE = "cs";
-const FAVORITES_KEY = "ceeducon-2026-favorites";
+const FAVORITES_KEY = "ceeducon-2025-favorites";
 const DEMO_TIME = "14:26";
 
 const state = {
@@ -289,17 +289,17 @@ function compactTime(time) {
 function downloadIcs() {
   const session = state.modalSession;
   if (!session) return;
-  const description = `CEEDUCON 2026 – ${session.theme}`;
+  const description = `CEEDUCON 2025 – ${session.theme}`;
   const content = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//DZS//CEEDUCON 2026//CS",
+    "PRODID:-//DZS//CEEDUCON 2025//CS",
     "BEGIN:VEVENT",
     `UID:${session.id}@ceeducon.cz`,
     `DTSTART;TZID=Europe/Prague:${compactDate(session.date)}T${compactTime(session.start)}`,
     `DTEND;TZID=Europe/Prague:${compactDate(session.date)}T${compactTime(session.end)}`,
     `SUMMARY:${session.title.replaceAll(",", "\\,")}`,
-    `LOCATION:Cubex Centrum Praha – ${session.rooms.join(" + ")}`,
+    `LOCATION:${state.data.event.location} – ${session.rooms.join(" + ")}`,
     `DESCRIPTION:${description}`,
     "END:VEVENT",
     "END:VCALENDAR",

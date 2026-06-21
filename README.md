@@ -1,4 +1,4 @@
-# CEEDUCON 2026 – responzivní program konference
+# CEEDUCON 2025 – responzivní program konference
 
 Samostatné řešení úkolu pro pozici Webmaster/ka v Domě zahraniční spolupráce. Web převádí rozsáhlý program z tabulky čas × místnost do čitelné časové osy, která funguje na desktopu i mobilu.
 
