@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Responzivní program konference CEEDUCON 2026. Vyhledávejte podle času, místnosti a tématu." />
+    <meta name="theme-color" content="#0f3358" />
+    <title>Program | CEEDUCON 2026</title>
+    <link rel="icon" href="assets/favicon.png" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script type="module" src="js/program.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#schedule">Přejít na program</a>
+
+    <header class="site-header">
+      <div class="header-inner shell">
+        <a class="brand" href="#top" aria-label="CEEDUCON 2026 – úvod">
+          <img src="assets/dzs-logo.png" alt="Dům zahraniční spolupráce" />
+        </a>
+        <nav class="header-nav" aria-label="Hlavní navigace">
+          <a class="is-active" href="#schedule">Program</a>
+          <a href="#about">O řešení</a>
+        </nav>
+        <div class="header-actions">
+          <button class="header-print" type="button" data-print>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-5h18v5a2 2 0 0 1-2 2h-2M7 14h10v7H7z" /></svg>
+            <span>Tisk / PDF</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-shape hero-shape--red" aria-hidden="true">C</div>
+        <div class="hero-shape hero-shape--yellow" aria-hidden="true">26</div>
+        <div class="hero-inner shell">
+          <div class="hero-copy">
+            <div class="event-pill"><span></span> International conference</div>
+            <p class="hero-kicker">CEEDUCON 2026</p>
+            <h1>Program,<br /><em>ve kterém se neztratíte.</em></h1>
+            <p class="hero-lead">Jeden den, osm místností a desítky pohledů na budoucnost mezinárodního vzdělávání.</p>
+          </div>
+          <aside class="event-card" aria-label="Informace o konferenci">
+            <p>Konference</p>
+            <div class="event-card-row"><span>Datum</span><strong>15. května 2026</strong></div>
+            <div class="event-card-row"><span>Místo</span><strong>Praha · Cubex Centrum</strong></div>
+            <div class="event-card-row"><span>Začátek</span><strong>08:30</strong></div>
+            <a href="#schedule">Prohlédnout program <span>↓</span></a>
+          </aside>
+        </div>
+        <div class="hero-stats shell" aria-label="Souhrn programu">
+          <div><strong data-session-count>—</strong><span>příspěvků</span></div>
+          <div><strong data-room-count>—</strong><span>místností</span></div>
+          <div><strong data-theme-count>—</strong><span>tematické linky</span></div>
+          <div><strong>1</strong><span>den plný inspirace</span></div>
+        </div>
+      </section>
+
+      <section class="schedule-section" id="schedule">
+        <div class="shell">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">01 / Harmonogram</p>
+              <h2>Vyberte si svou cestu programem</h2>
+            </div>
+            <p>Filtrujte podle místnosti nebo tematické linky. Kliknutím na příspěvek zobrazíte detail a můžete si jej uložit.</p>
+          </div>
+
+          <div class="day-bar" aria-label="Výběr dne">
+            <button class="day-tab is-active" type="button" data-day="2026-05-15" aria-pressed="true">
+              <span>Pátek</span><strong>15. května</strong>
+            </button>
+            <div class="day-context"><span class="day-context-dot"></span><span>Hlavní konferenční den</span></div>
+          </div>
+
+          <div class="control-panel" aria-label="Nástroje programu">
+            <label class="search-field" for="program-search">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m16 16 5 5" /></svg>
+              <span class="sr-only">Hledat v programu</span>
+              <input id="program-search" type="search" placeholder="Hledat přednášku nebo téma…" autocomplete="off" />
+              <kbd>⌘ K</kbd>
+            </label>
+            <div class="control-actions">
+              <button class="control-button live-button" type="button" data-live-toggle aria-pressed="false">
+                <span class="live-dot"></span><span data-live-label>Live režim</span>
+              </button>
+              <button class="control-button favorites-button" type="button" data-favorites-toggle aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z" /></svg>
+                <span>Moje volba</span><b data-favorite-count>0</b>
+              </button>
+              <button class="control-button mobile-filter-button" type="button" data-filter-toggle aria-expanded="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4" /></svg>
+                <span>Filtry</span>
+              </button>
+            </div>
+
+            <div class="filter-drawer" data-filter-drawer>
+              <div class="filter-group">
+                <div class="filter-label"><span>Témata</span><small>Vyberte jednu linku</small></div>
+                <div class="filter-chips" data-theme-filters></div>
+              </div>
+              <div class="filter-group">
+                <div class="filter-label"><span>Místnosti</span><small>Kde se chcete pohybovat?</small></div>
+                <div class="filter-chips filter-chips--rooms" data-room-filters></div>
+              </div>
+              <div class="filter-footer">
+                <p data-result-count aria-live="polite">Načítám program…</p>
+                <button type="button" data-reset-filters>Vymazat filtry <span>×</span></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="live-banner" data-live-banner hidden>
+            <span class="live-dot"></span>
+            <p><strong>Live demo · 14:26</strong><span>Právě zvýrazňujeme probíhající blok programu.</span></p>
+            <button type="button" data-jump-live>Přejít na aktuální blok ↓</button>
+          </div>
+
+          <div class="schedule" data-schedule aria-live="polite"></div>
+
+          <div class="empty-state" data-empty hidden>
+            <span>0</span><h3>Žádný příspěvek neodpovídá výběru</h3><p>Zkuste jiné téma, místnost nebo hledaný výraz.</p><button type="button" data-empty-reset>Obnovit celý program</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="solution" id="about">
+        <div class="shell solution-grid">
+          <div>
+            <p class="section-kicker">02 / Koncept řešení</p>
+            <h2>Navrženo pro rychlou orientaci.<br />Postaveno pro snadnou editaci.</h2>
+          </div>
+          <div class="solution-list">
+            <article><span>01</span><div><h3>Čas je hlavní navigace</h3><p>Program je seskupen do jasných časových bloků. Místnost a téma jsou vždy vidět ještě před otevřením detailu.</p></div></article>
+            <article><span>02</span><div><h3>Mobil není zmenšený desktop</h3><p>Na úzkém displeji se program mění v čitelnou časovou osu. Žádné horizontální posouvání tabulky.</p></div></article>
+            <article><span>03</span><div><h3>Obsah žije mimo šablonu</h3><p>Přednášky jsou v samostatném JSON souboru. Stejná struktura může být napojená na WordPress REST API a ACF.</p></div></article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <img src="assets/dzs-logo.png" alt="Dům zahraniční spolupráce" />
+        <p>CEEDUCON 2026<br /><span>Program konference · prototyp responzivního řešení</span></p>
+        <a href="#top">Zpět nahoru ↑</a>
+      </div>
+    </footer>
+
+    <div class="modal-backdrop" data-modal-backdrop hidden>
+      <section class="session-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="modal-close" type="button" data-modal-close aria-label="Zavřít detail">×</button>
+        <div class="modal-track" data-modal-track></div>
+        <p class="modal-theme" data-modal-theme></p>
+        <h2 id="modal-title" data-modal-title></h2>
+        <div class="modal-meta">
+          <div><span>Čas</span><strong data-modal-time></strong></div>
+          <div><span>Místnost</span><strong data-modal-room></strong></div>
+        </div>
+        <p class="modal-description">Detail příspěvku lze v produkční verzi doplnit o anotaci, řečníky, prezentaci nebo odkaz na stream.</p>
+        <div class="modal-actions">
+          <button type="button" data-modal-favorite><span>☆</span> Přidat do mého programu</button>
+          <button class="modal-calendar" type="button" data-download-ics>Stáhnout do kalendáře <span>↓</span></button>
+        </div>
+      </section>
+    </div>
+
+    <div class="toast" data-toast role="status" aria-live="polite"><span>✓</span><p></p></div>
+  </body>
+</html>
