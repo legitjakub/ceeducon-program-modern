@@ -11,6 +11,7 @@
     <script type="module" src="js/program.js" defer></script>
   </head>
   <body>
+    <div class="page-progress" aria-hidden="true"><i data-page-progress></i></div>
     <a class="skip-link" href="#schedule">Přejít na program</a>
 
     <header class="site-header">
@@ -74,6 +75,8 @@
             <div class="day-context"><span class="day-context-dot"></span><span>Hlavní konferenční den</span></div>
           </div>
 
+          <nav class="timeline-nav" data-timeline-nav aria-label="Rychlá navigace v programu"></nav>
+
           <div class="control-panel" aria-label="Nástroje programu">
             <label class="search-field" for="program-search">
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m16 16 5 5" /></svg>
@@ -88,6 +91,10 @@
               <button class="control-button favorites-button" type="button" data-favorites-toggle aria-pressed="false">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z" /></svg>
                 <span>Moje volba</span><b data-favorite-count>0</b>
+              </button>
+              <button class="control-button random-button" type="button" data-random-session>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.7 5.3L19 9l-5.3 1.7L12 16l-1.7-5.3L5 9l5.3-1.7L12 2Z"/><path d="m19 15 .9 2.6 2.6.9-2.6.9L19 22l-.9-2.6-2.6-.9 2.6-.9L19 15Z"/></svg>
+                <span>Doporučit</span>
               </button>
               <button class="control-button mobile-filter-button" type="button" data-filter-toggle aria-expanded="false">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4" /></svg>

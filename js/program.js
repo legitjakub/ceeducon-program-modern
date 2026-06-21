@@ -4,6 +4,7 @@ const DATA_URL = "data/program.json";
 const LANGUAGE = "cs";
 const FAVORITES_KEY = "ceeducon-2025-favorites";
 const DEMO_TIME = "14:26";
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 const state = {
   data: null,
@@ -41,7 +42,15 @@ const elements = {
   modalRoom: document.querySelector("[data-modal-room]"),
   modalFavorite: document.querySelector("[data-modal-favorite]"),
   toast: document.querySelector("[data-toast]"),
+  timelineNav: document.querySelector("[data-timeline-nav]"),
+  randomSession: document.querySelector("[data-random-session]"),
+  pageProgress: document.querySelector("[data-page-progress]"),
+  hero: document.querySelector(".hero"),
 };
+
+let slotObserver;
+let revealObserver;
+let lastRandomSessionId = "";
 
 function escapeHtml(value) {
   return String(value)
@@ -205,7 +214,7 @@ function renderSchedule() {
     if (!content) continue;
     const live = isLiveSlot(slot);
     slots.push(`
-      <section class="time-slot${live ? " is-live" : ""}" id="slot-${escapeHtml(slot.id)}" data-slot-id="${escapeHtml(slot.id)}">
+      <section class="time-slot${live ? " is-live" : ""}" id="slot-${escapeHtml(slot.id)}" data-slot-id="${escapeHtml(slot.id)}" data-slot-start="${escapeHtml(slot.start)}">
         <div class="slot-time"><strong>${escapeHtml(slot.start)}</strong><span>${escapeHtml(slot.end)}</span></div>
         <div class="slot-content">${content}</div>
       </section>`);
@@ -217,6 +226,75 @@ function renderSchedule() {
   elements.resultCount.textContent = activeFilters()
     ? `Zobrazeno ${visibleSessions} odpovídajících příspěvků`
     : `Kompletní program · ${visibleSessions} příspěvků`;
+  enhanceRenderedSchedule();
+}
+
+function renderTimelineNav() {
+  const slots = [...elements.schedule.querySelectorAll(".time-slot")];
+  elements.timelineNav.hidden = slots.length < 2;
+  elements.timelineNav.innerHTML = slots.map((slot, index) => `
+    <button class="${index === 0 ? "is-active" : ""}" type="button" data-jump-slot="${escapeHtml(slot.dataset.slotId)}" aria-label="Přejít na blok v ${escapeHtml(slot.dataset.slotStart)}">
+      <i></i><span>${escapeHtml(slot.dataset.slotStart)}</span>
+    </button>
+  `).join("");
+}
+
+function observeVisibleSlots() {
+  slotObserver?.disconnect();
+  if (!("IntersectionObserver" in window)) return;
+  slotObserver = new IntersectionObserver((entries) => {
+    const visible = entries.filter((entry) => entry.isIntersecting)
+      .sort((a, b) => Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top));
+    if (!visible.length) return;
+    const id = visible[0].target.dataset.slotId;
+    elements.timelineNav.querySelectorAll("button").forEach((button) => {
+      const active = button.dataset.jumpSlot === id;
+      button.classList.toggle("is-active", active);
+      if (active) {
+        const left = button.offsetLeft - elements.timelineNav.clientWidth / 2 + button.offsetWidth / 2;
+        elements.timelineNav.scrollTo({ left, behavior: reducedMotion.matches ? "auto" : "smooth" });
+      }
+    });
+  }, { rootMargin: "-28% 0px -58% 0px" });
+  elements.schedule.querySelectorAll(".time-slot").forEach((slot) => slotObserver.observe(slot));
+}
+
+function revealSlots() {
+  revealObserver?.disconnect();
+  const slots = elements.schedule.querySelectorAll(".time-slot");
+  if (reducedMotion.matches || !("IntersectionObserver" in window)) {
+    slots.forEach((slot) => slot.classList.add("is-revealed"));
+    return;
+  }
+  revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-revealed");
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: "0px 0px -8%", threshold: 0.08 });
+  slots.forEach((slot) => {
+    slot.classList.add("will-reveal");
+    revealObserver.observe(slot);
+  });
+}
+
+function bindCardSpotlights() {
+  if (!window.matchMedia("(pointer: fine)").matches) return;
+  elements.schedule.querySelectorAll(".session-card").forEach((card) => {
+    card.addEventListener("pointermove", (event) => {
+      const bounds = card.getBoundingClientRect();
+      card.style.setProperty("--spot-x", `${event.clientX - bounds.left}px`);
+      card.style.setProperty("--spot-y", `${event.clientY - bounds.top}px`);
+    });
+  });
+}
+
+function enhanceRenderedSchedule() {
+  renderTimelineNav();
+  observeVisibleSlots();
+  revealSlots();
+  bindCardSpotlights();
 }
 
 function render() {
@@ -329,6 +407,51 @@ function showToast(message) {
   toastTimer = setTimeout(() => elements.toast.classList.remove("is-visible"), 2800);
 }
 
+function recommendSession() {
+  const sessions = [...state.sessionMap.values()];
+  if (!sessions.length) {
+    resetFilters();
+    showToast("Filtry byly obnoveny, ať máme z čeho vybírat.");
+    return;
+  }
+  const pool = sessions.filter((session) => session.id !== lastRandomSessionId);
+  const candidates = pool.length ? pool : sessions;
+  const session = candidates[Math.floor(Math.random() * candidates.length)];
+  lastRandomSessionId = session.id;
+  openModal(session.id);
+}
+
+function bindPageMotion() {
+  let frame = 0;
+  const updateProgress = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0;
+    elements.pageProgress.style.transform = `scaleX(${progress})`;
+    frame = 0;
+  };
+  window.addEventListener("scroll", () => {
+    if (!frame) frame = requestAnimationFrame(updateProgress);
+  }, { passive: true });
+  window.addEventListener("resize", updateProgress);
+  updateProgress();
+
+  if (reducedMotion.matches || !window.matchMedia("(pointer: fine)").matches) return;
+  elements.hero.addEventListener("pointermove", (event) => {
+    const x = event.clientX / window.innerWidth - 0.5;
+    const y = event.clientY / Math.max(elements.hero.offsetHeight, 1) - 0.5;
+    elements.hero.style.setProperty("--hero-red-x", `${x * 22}px`);
+    elements.hero.style.setProperty("--hero-red-y", `${y * 18}px`);
+    elements.hero.style.setProperty("--hero-yellow-x", `${x * -14}px`);
+    elements.hero.style.setProperty("--hero-yellow-y", `${y * -12}px`);
+  });
+  elements.hero.addEventListener("pointerleave", () => {
+    elements.hero.style.removeProperty("--hero-red-x");
+    elements.hero.style.removeProperty("--hero-red-y");
+    elements.hero.style.removeProperty("--hero-yellow-x");
+    elements.hero.style.removeProperty("--hero-yellow-y");
+  });
+}
+
 function bindEvents() {
   elements.search.addEventListener("input", () => {
     state.query = elements.search.value.trim().toLocaleLowerCase("cs");
@@ -373,6 +496,13 @@ function bindEvents() {
     renderSchedule();
   });
 
+  elements.randomSession.addEventListener("click", recommendSession);
+  elements.timelineNav.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-jump-slot]");
+    if (!button) return;
+    document.getElementById(`slot-${button.dataset.jumpSlot}`)?.scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth", block: "start" });
+  });
+
   document.querySelector("[data-jump-live]").addEventListener("click", () => {
     document.querySelector(".time-slot.is-live")?.scrollIntoView({ behavior: "smooth", block: "center" });
   });
@@ -414,6 +544,7 @@ async function init() {
     updateStats();
     render();
     bindEvents();
+    bindPageMotion();
   } catch (error) {
     console.error("Program se nepodařilo načíst:", error);
     elements.schedule.innerHTML = `<div class="empty-state"><span>!</span><h3>Program se nepodařilo načíst</h3><p>Spusťte stránku přes lokální webový server.</p></div>`;
