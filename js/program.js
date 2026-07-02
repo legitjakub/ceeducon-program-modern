@@ -40,6 +40,10 @@ const elements = {
   modalTime: document.querySelector("[data-modal-time]"),
   modalRoom: document.querySelector("[data-modal-room]"),
   modalFavorite: document.querySelector("[data-modal-favorite]"),
+  modalNote: document.querySelector("[data-modal-note]"),
+  menuToggle: document.querySelector("[data-menu-toggle]"),
+  mobileMenu: document.querySelector("[data-mobile-menu]"),
+  navLinks: document.querySelectorAll(".header-nav a, .mobile-menu a"),
   toast: document.querySelector("[data-toast]"),
 };
 
@@ -240,6 +244,17 @@ function resetFilters() {
   render();
 }
 
+function applyThemeFromStory(themeId) {
+  state.theme = themeId;
+  state.room = "";
+  state.query = "";
+  state.favoritesOnly = false;
+  elements.search.value = "";
+  render();
+  document.querySelector("#schedule")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  showToast("Program je filtrovaný podle vybrané tematické linky.");
+}
+
 function saveFavorites() {
   localStorage.setItem(FAVORITES_KEY, JSON.stringify([...state.favorites]));
 }
@@ -267,6 +282,7 @@ function openModal(id) {
   elements.modalTrack.style.background = session.color;
   elements.modalTime.textContent = `${session.start} – ${session.end}`;
   elements.modalRoom.textContent = session.rooms.join(" + ");
+  elements.modalNote.textContent = `Tento blok patří do tematické linky „${session.theme}“. V programu jej najdete v místnosti ${session.rooms.join(" + ")}.`;
   updateModalFavorite();
   elements.modalBackdrop.hidden = false;
   document.body.classList.add("modal-open");
@@ -329,6 +345,39 @@ function showToast(message) {
   toastTimer = setTimeout(() => elements.toast.classList.remove("is-visible"), 2800);
 }
 
+function closeMobileMenu() {
+  if (!elements.mobileMenu || !elements.menuToggle) return;
+  elements.mobileMenu.hidden = true;
+  elements.menuToggle.setAttribute("aria-expanded", "false");
+}
+
+function setActiveNav(id) {
+  elements.navLinks.forEach((link) => {
+    const active = link.getAttribute("href") === `#${id}`;
+    link.classList.toggle("is-active", active);
+  });
+}
+
+function initNavObserver() {
+  const sections = ["about", "themes", "schedule", "venue"]
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+  if (!("IntersectionObserver" in window) || !sections.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (visible?.target?.id) setActiveNav(visible.target.id);
+  }, {
+    rootMargin: "-28% 0px -58% 0px",
+    threshold: [0.12, 0.35, 0.6],
+  });
+
+  sections.forEach((section) => observer.observe(section));
+}
+
 function bindEvents() {
   elements.search.addEventListener("input", () => {
     state.query = elements.search.value.trim().toLocaleLowerCase("cs");
@@ -360,6 +409,21 @@ function bindEvents() {
   });
 
   elements.resetButtons.forEach((button) => button.addEventListener("click", resetFilters));
+
+  document.querySelectorAll("[data-theme-jump]").forEach((button) => {
+    button.addEventListener("click", () => applyThemeFromStory(button.dataset.themeJump));
+  });
+
+  elements.menuToggle?.addEventListener("click", () => {
+    const open = elements.mobileMenu.hidden;
+    elements.mobileMenu.hidden = !open;
+    elements.menuToggle.setAttribute("aria-expanded", String(open));
+  });
+
+  elements.navLinks.forEach((link) => {
+    link.addEventListener("click", () => closeMobileMenu());
+  });
+
   elements.favoritesToggle.addEventListener("click", () => {
     state.favoritesOnly = !state.favoritesOnly;
     render();
@@ -396,7 +460,10 @@ function bindEvents() {
       elements.search.focus();
     }
     if (event.key === "Escape" && !elements.modalBackdrop.hidden) closeModal();
+    if (event.key === "Escape") closeMobileMenu();
   });
+
+  initNavObserver();
 }
 
 function updateStats() {
