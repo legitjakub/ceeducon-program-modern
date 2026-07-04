@@ -1,7 +1,7 @@
 import { getSessionTitle, getSlotTitle, getThemeLabel } from "./i18n.js";
 
 const DATA_URL = "data/program.json";
-const LANGUAGE = "cs";
+const LANGUAGE = "en";
 const FAVORITES_KEY = "ceeducon-2025-favorites";
 const DEMO_TIME = "14:26";
 
@@ -69,6 +69,19 @@ function themeById(id) {
   return state.data.themes.find((theme) => theme.id === id);
 }
 
+function roomPlacement(session) {
+  const indexes = session.rooms
+    .map((room) => state.data.rooms.indexOf(room))
+    .filter((index) => index >= 0)
+    .sort((a, b) => a - b);
+  const first = indexes[0] ?? 0;
+  const last = indexes[indexes.length - 1] ?? first;
+  return {
+    start: first + 1,
+    span: Math.max(1, last - first + 1),
+  };
+}
+
 function titleForSession(session) {
   return getSessionTitle(session, LANGUAGE);
 }
@@ -87,7 +100,7 @@ function matchesSession(session, id) {
   if (state.favoritesOnly && !state.favorites.has(id)) return false;
   if (state.query) {
     const themeLabel = getThemeLabel(session.theme, LANGUAGE);
-    const haystack = `${titleForSession(session)} ${session.title} ${session.rooms.join(" ")} ${themeLabel}`.toLocaleLowerCase("cs");
+    const haystack = `${titleForSession(session)} ${session.title} ${session.rooms.join(" ")} ${themeLabel}`.toLocaleLowerCase("en");
     if (!haystack.includes(state.query)) return false;
   }
   return true;
@@ -97,7 +110,7 @@ function matchesStandaloneSlot(slot) {
   if (state.theme || state.favoritesOnly) return false;
   if (state.room && slot.rooms && !slot.rooms.includes(state.room)) return false;
   if (state.query) {
-    return `${titleForSlot(slot)} ${slot.title || ""}`.toLocaleLowerCase("cs").includes(state.query);
+    return `${titleForSlot(slot)} ${slot.title || ""}`.toLocaleLowerCase("en").includes(state.query);
   }
   return true;
 }
@@ -129,6 +142,7 @@ function buildSessionCard(slot, session, wide = false) {
   const favorite = state.favorites.has(id);
   const title = titleForSession(session);
   const themeLabel = getThemeLabel(session.theme, LANGUAGE);
+  const placement = roomPlacement(session);
 
   state.sessionMap.set(id, {
     id,
@@ -143,12 +157,12 @@ function buildSessionCard(slot, session, wide = false) {
   });
 
   return `
-    <article class="session-card${wide ? " session-card--wide" : ""}" style="--track:${theme.color}">
+    <article class="session-card${wide ? " session-card--wide" : ""}" style="--track:${theme.color};--room-start:${placement.start};--room-span:${placement.span}" data-room-list="${escapeHtml(session.rooms.join(","))}">
       <div class="session-card-head">
         <span class="room-tag">${escapeHtml(session.rooms.join(" + "))}</span>
-        <button class="favorite-star${favorite ? " is-active" : ""}" type="button" data-favorite="${escapeHtml(id)}" aria-label="${favorite ? "Odebrat z mého programu" : "Přidat do mého programu"}" aria-pressed="${favorite}">${favorite ? "★" : "☆"}</button>
+        <button class="favorite-star${favorite ? " is-active" : ""}" type="button" data-favorite="${escapeHtml(id)}" aria-label="${favorite ? "Remove from my programme" : "Add to my programme"}" aria-pressed="${favorite}">${favorite ? "★" : "☆"}</button>
       </div>
-      <button class="session-card-open" type="button" data-session-open="${escapeHtml(id)}">
+      <button class="session-card-open" type="button" data-session-open="${escapeHtml(id)}" title="${escapeHtml(title)}">
         <h3>${escapeHtml(title)}</h3>
         <p class="session-theme">${escapeHtml(themeLabel)}</p>
         <span class="session-arrow" aria-hidden="true">↗</span>
@@ -160,9 +174,9 @@ function buildProgramBand(slot) {
   const title = titleForSlot(slot);
   const variant = slot.id === "registration" ? "registration" : slot.id === "lunch" ? "lunch" : "coffee";
   const notes = {
-    registration: "Registrace a vstup účastníků",
-    coffee: "Přestávka a prostor pro networking",
-    lunch: "Obědová přestávka a networking",
+    registration: "Participant registration and arrival",
+    coffee: "Coffee break and networking space",
+    lunch: "Lunch break and networking",
   };
   const icons = {
     registration: `<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 8h8M8 12h5"/><circle cx="9" cy="16" r="2"/><path d="M13 18c.8-1.4 2-2 3.5-2"/></svg>`,
@@ -186,6 +200,13 @@ function renderSchedule() {
   state.sessionMap.clear();
   let visibleSessions = 0;
   const slots = [];
+  const roomHeader = `
+    <div class="room-grid-header" style="--room-count:${state.data.rooms.length}" aria-hidden="true">
+      <span class="room-grid-spacer">Time</span>
+      <div class="room-grid-labels">
+        ${state.data.rooms.map((room) => `<span>${escapeHtml(room)}</span>`).join("")}
+      </div>
+    </div>`;
 
   for (const slot of state.data.slots) {
     let content = "";
@@ -194,13 +215,13 @@ function renderSchedule() {
       const sessions = slot.sessions.filter((session) => matchesSession(session, sessionId(slot, session)));
       visibleSessions += sessions.length;
       if (sessions.length) {
-        content = `<div class="slot-heading"><span>${sessions.length === 1 ? "1 příspěvek" : `${sessions.length} příspěvků`}</span></div><div class="sessions-grid">${sessions.map((session) => buildSessionCard(slot, session)).join("")}</div>`;
+        content = `<div class="slot-heading"><span>${sessions.length === 1 ? "1 session" : `${sessions.length} sessions`}</span></div><div class="sessions-grid" style="--room-count:${state.data.rooms.length}">${sessions.map((session) => buildSessionCard(slot, session)).join("")}</div>`;
       }
     } else if (matchesStandaloneSlot(slot)) {
       if (slot.type === "plenary") {
         const session = { title: titleForSlot(slot), rooms: slot.rooms, theme: "smart" };
         visibleSessions += 1;
-        content = `<div class="sessions-grid">${buildSessionCard(slot, session, true)}</div>`;
+        content = `<div class="sessions-grid" style="--room-count:${state.data.rooms.length}">${buildSessionCard(slot, session, true)}</div>`;
       } else {
         content = buildProgramBand(slot);
       }
@@ -215,12 +236,12 @@ function renderSchedule() {
       </section>`);
   }
 
-  elements.schedule.innerHTML = slots.join("");
+  elements.schedule.innerHTML = slots.length ? roomHeader + slots.join("") : "";
   elements.empty.hidden = slots.length > 0;
   elements.schedule.hidden = slots.length === 0;
   elements.resultCount.textContent = activeFilters()
-    ? `Zobrazeno ${visibleSessions} odpovídajících příspěvků`
-    : `Kompletní program · ${visibleSessions} příspěvků`;
+    ? `${visibleSessions} matching sessions shown`
+    : `Full programme · ${visibleSessions} sessions`;
 }
 
 function render() {
@@ -252,7 +273,7 @@ function applyThemeFromStory(themeId) {
   elements.search.value = "";
   render();
   document.querySelector("#schedule")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  showToast("Program je filtrovaný podle vybrané tematické linky.");
+  showToast("Programme filtered by the selected thematic track.");
 }
 
 function saveFavorites() {
@@ -262,10 +283,10 @@ function saveFavorites() {
 function toggleFavorite(id) {
   if (state.favorites.has(id)) {
     state.favorites.delete(id);
-    showToast("Příspěvek byl odebrán z vašeho programu.");
+    showToast("Session removed from your programme.");
   } else {
     state.favorites.add(id);
-    showToast("Příspěvek byl přidán do vašeho programu.");
+    showToast("Session added to your programme.");
   }
   saveFavorites();
   render();
@@ -282,7 +303,7 @@ function openModal(id) {
   elements.modalTrack.style.background = session.color;
   elements.modalTime.textContent = `${session.start} – ${session.end}`;
   elements.modalRoom.textContent = session.rooms.join(" + ");
-  elements.modalNote.textContent = `Tento blok patří do tematické linky „${session.theme}“. V programu jej najdete v místnosti ${session.rooms.join(" + ")}.`;
+  elements.modalNote.textContent = `This session belongs to the “${session.theme}” thematic track. You will find it in room ${session.rooms.join(" + ")}.`;
   updateModalFavorite();
   elements.modalBackdrop.hidden = false;
   document.body.classList.add("modal-open");
@@ -292,7 +313,7 @@ function openModal(id) {
 function updateModalFavorite() {
   const active = state.favorites.has(state.modalSessionId);
   elements.modalFavorite.classList.toggle("is-active", active);
-  elements.modalFavorite.innerHTML = `<span>${active ? "★" : "☆"}</span> ${active ? "Odebrat z mého programu" : "Přidat do mého programu"}`;
+  elements.modalFavorite.innerHTML = `<span>${active ? "★" : "☆"}</span> ${active ? "Remove from my programme" : "Add to my programme"}`;
 }
 
 function closeModal() {
@@ -317,7 +338,7 @@ function downloadIcs() {
   const content = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//DZS//CEEDUCON 2025//CS",
+    "PRODID:-//DZS//CEEDUCON 2025//EN",
     "BEGIN:VEVENT",
     `UID:${session.id}@ceeducon.cz`,
     `DTSTART;TZID=Europe/Prague:${compactDate(session.date)}T${compactTime(session.start)}`,
@@ -334,7 +355,7 @@ function downloadIcs() {
   link.download = `${session.id}.ics`;
   link.click();
   URL.revokeObjectURL(url);
-  showToast("Událost byla připravena ke stažení.");
+  showToast("Calendar file is ready to download.");
 }
 
 let toastTimer;
@@ -432,7 +453,7 @@ function bindEvents() {
   elements.liveToggle.addEventListener("click", () => {
     state.liveDemo = !state.liveDemo;
     elements.liveToggle.setAttribute("aria-pressed", String(state.liveDemo));
-    elements.liveLabel.textContent = state.liveDemo ? "Live režim zapnutý" : "Live režim";
+    elements.liveLabel.textContent = state.liveDemo ? "Live mode on" : "Live mode";
     elements.liveBanner.hidden = !state.liveDemo;
     renderSchedule();
   });
@@ -482,8 +503,8 @@ async function init() {
     render();
     bindEvents();
   } catch (error) {
-    console.error("Program se nepodařilo načíst:", error);
-    elements.schedule.innerHTML = `<div class="empty-state"><span>!</span><h3>Program se nepodařilo načíst</h3><p>Spusťte stránku přes lokální webový server.</p></div>`;
+    console.error("Programme could not be loaded:", error);
+    elements.schedule.innerHTML = `<div class="empty-state"><span>!</span><h3>Programme could not be loaded</h3><p>Run the page through a local web server.</p></div>`;
   }
 }
 
