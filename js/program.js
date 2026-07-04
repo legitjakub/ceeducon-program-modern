@@ -1,5 +1,3 @@
-import { getSessionTitle, getSlotTitle, getThemeLabel } from "./i18n.js";
-
 const DATA_URL = "data/program.json";
 const LANGUAGE = "en";
 const FAVORITES_KEY = "ceeducon-2025-favorites";
@@ -46,6 +44,18 @@ const elements = {
   navLinks: document.querySelectorAll(".header-nav a, .mobile-menu a"),
   toast: document.querySelector("[data-toast]"),
 };
+
+function getSessionTitle(session) {
+  return session.title;
+}
+
+function getSlotTitle(slot) {
+  return slot.title || slot.id;
+}
+
+function getThemeLabel(themeId) {
+  return state.data?.themes?.find((theme) => theme.id === themeId)?.label || themeId;
+}
 
 function escapeHtml(value) {
   return String(value)
@@ -499,13 +509,20 @@ async function init() {
     const response = await fetch(DATA_URL);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     state.data = await response.json();
-    updateStats();
-    render();
-    bindEvents();
   } catch (error) {
-    console.error("Programme could not be loaded:", error);
-    elements.schedule.innerHTML = `<div class="empty-state"><span>!</span><h3>Programme could not be loaded</h3><p>Run the page through a local web server.</p></div>`;
+    if (window.CEEDUCON_PROGRAM_DATA) {
+      console.info("Using embedded programme data fallback.", error);
+      state.data = window.CEEDUCON_PROGRAM_DATA;
+    } else {
+      console.error("Programme could not be loaded:", error);
+      elements.schedule.innerHTML = `<div class="empty-state"><span>!</span><h3>Programme could not be loaded</h3><p>Please reload the preview or open the GitHub Pages link.</p></div>`;
+      return;
+    }
   }
+
+  updateStats();
+  render();
+  bindEvents();
 }
 
 init();
