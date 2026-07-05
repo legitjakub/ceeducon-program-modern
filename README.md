@@ -1,6 +1,6 @@
-# CEEDUCON 2026 – responzivní konferenční stránka a programový modul
+# CEEDUCON 2026 – vícestránkový konferenční web a programový modul
 
-Samostatné řešení úkolu pro pozici Webmaster/ka v Domě zahraniční spolupráce. Web je sladěný s aktuálním ročníkem CEEDUCON 2026 a zároveň obsahuje interaktivní archivní programový modul z roku 2025, který ukazuje, jak lze publikovat rozsáhlý program ve formátu čas × místnost.
+Samostatné řešení úkolu pro pozici Webmaster/ka v Domě zahraniční spolupráce. Web je nově rozdělený do samostatných stránek podobně jako oficiální CEEDUCON web: Home, About, Programme, Practical, Speakers a Contact. Je sladěný s aktuálním ročníkem CEEDUCON 2026 a zároveň obsahuje interaktivní archivní programový modul z roku 2025, který ukazuje, jak lze publikovat rozsáhlý program ve formátu čas × místnost.
 
 ## Spuštění
 
@@ -10,11 +10,11 @@ Data se načítají přes `fetch`, proto je potřeba lokální server:
 python3 -m http.server 8080
 ```
 
-Poté otevřete `http://localhost:8080`.
+Poté otevřete `http://localhost:8080`. Hlavní programová stránka je `programme.html`.
 
 ## Jak jsem nad řešením přemýšlel
 
-Nejdůležitější otázky návštěvníka jsou: **kdy**, **kde** a **o čem** se něco děje. Čas je proto hlavní navigační osa. Každá karta ukazuje místnost, téma a název příspěvku bez nutnosti otevírat detail. Společné části programu mají odlišnou podobu a nepůsobí jako další přednáška.
+Nejdůležitější otázky návštěvníka jsou: **co je CEEDUCON**, **kdy a kde se koná**, **jak vypadá program** a **co potřebuji vědět před příjezdem**. Proto je web rozdělený do kratších podstránek. Čas je hlavní navigační osa programu, ale homepage už neslouží jako dlouhý scroll se všemi informacemi najednou.
 
 Původní široká tabulka je na mobilu obtížně použitelná. Nové řešení používá na všech zařízeních stejný mentální model, ale na úzkém displeji skládá příspěvky do jednoho sloupce. Uživatel nemusí horizontálně posouvat osm místností a neztrácí kontext času.
 
@@ -30,6 +30,7 @@ Původní široká tabulka je na mobilu obtížně použitelná. Nové řešení
 - tisková verze optimalizovaná pro export do PDF,
 - přístupné ovládání klávesnicí a respektování `prefers-reduced-motion`,
 - responzivní rozvržení bez horizontálního posouvání programu.
+- vícestránková informační architektura pro čistší orientaci návštěvníka.
 
 ## Udržitelnost a editace
 
@@ -71,6 +72,11 @@ data/program.json   editovatelný obsah programu
 dist/               ZIP balíček WordPress šablony
 js/i18n.js          české překlady názvů příspěvků
 js/program.js       vykreslení, filtry, live režim, modal a export
-index.html          sémantická kostra stránky
+index.html          homepage a rozcestník
+about.html          představení konference a témat
+programme.html      2026 overview a interaktivní programový modul
+practical.html      venue, doprava, fee, ubytování a FAQ
+speakers.html       instrukce a timeline pro řečníky
+contact.html        kontakt, organizátor a partneři
 wordpress-theme/    uploadovatelná WordPress šablona
 ```
