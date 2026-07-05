@@ -479,24 +479,40 @@ function setActiveNav(id) {
   });
 }
 
+function setActiveNavFromHash() {
+  const id = window.location.hash.replace("#", "");
+  if (id) setActiveNav(id);
+}
+
+function syncHashTarget() {
+  const id = window.location.hash.replace("#", "");
+  const target = id ? document.getElementById(id) : null;
+  if (!target) return;
+
+  target.scrollIntoView({ block: "start" });
+  setActiveNav(id);
+}
+
 function initNavObserver() {
   const sections = ["about", "themes", "programme-2026", "schedule", "practical", "speakers", "venue", "contact"]
     .map((id) => document.getElementById(id))
     .filter(Boolean);
 
-  if (!("IntersectionObserver" in window) || !sections.length) return;
+  if (!sections.length) return;
 
-  const observer = new IntersectionObserver((entries) => {
-    const visible = entries
-      .filter((entry) => entry.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-    if (visible?.target?.id) setActiveNav(visible.target.id);
-  }, {
-    rootMargin: "-28% 0px -58% 0px",
-    threshold: [0.12, 0.35, 0.6],
-  });
+  const updateActiveNav = () => {
+    const marker = 118;
+    const current = sections.find((section) => {
+      const rect = section.getBoundingClientRect();
+      return rect.top <= marker && rect.bottom > marker;
+    });
 
-  sections.forEach((section) => observer.observe(section));
+    if (current?.id) setActiveNav(current.id);
+  };
+
+  window.addEventListener("scroll", updateActiveNav, { passive: true });
+  window.addEventListener("resize", updateActiveNav);
+  requestAnimationFrame(updateActiveNav);
 }
 
 function bindEvents() {
@@ -549,7 +565,11 @@ function bindEvents() {
   });
 
   elements.navLinks.forEach((link) => {
-    link.addEventListener("click", () => closeMobileMenu());
+    link.addEventListener("click", () => {
+      const id = link.getAttribute("href")?.replace("#", "");
+      if (id) setActiveNav(id);
+      closeMobileMenu();
+    });
   });
 
   elements.favoritesToggle.addEventListener("click", () => {
@@ -598,6 +618,8 @@ function bindEvents() {
     if (event.key === "Escape") closeMobileMenu();
   });
 
+  window.addEventListener("hashchange", syncHashTarget);
+  setActiveNavFromHash();
   initNavObserver();
 }
 
@@ -644,6 +666,10 @@ async function init() {
   updateStats();
   render();
   bindEvents();
+  requestAnimationFrame(() => {
+    syncHashTarget();
+    setTimeout(syncHashTarget, 120);
+  });
 }
 
 init();

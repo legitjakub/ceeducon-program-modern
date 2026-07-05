@@ -294,11 +294,19 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .speakers-section .section-kicker { color: var(--sky); }
 .speakers-grid { display: grid; grid-template-columns: minmax(0,.85fr) minmax(320px,1.15fr); gap: 8vw; align-items: start; }
 .speakers-grid h2 { margin: 0; font-size: clamp(38px,4.8vw,72px); line-height: .98; letter-spacing: -.045em; }
+.speakers-lead { max-width: 560px; margin: 22px 0 0; color: rgba(255,255,255,.72); font-size: 15px; line-height: 1.7; }
+.speaker-facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.speaker-facts span { display: inline-flex; min-height: 34px; align-items: center; padding: 0 10px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.08); color: var(--white); font-size: 11px; font-weight: 700; }
+.speaker-facts span::before { content: ""; width: 7px; height: 7px; margin-right: 8px; background: var(--orange); }
 .speaker-list { display: grid; gap: 1px; background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.2); }
 .speaker-list article { min-width: 0; display: block; padding: 24px; background: var(--navy); }
 .speaker-list span { display: inline-flex; min-height: 30px; align-items: center; margin-bottom: 20px; padding: 0 9px; background: rgba(255,255,255,.1); color: var(--sky); font-size: 11px; font-weight: 700; }
 .speaker-list h3 { margin: 0 0 8px; font-size: 21px; line-height: 1.1; }
 .speaker-list p { margin: 0; color: rgba(255,255,255,.73); font-size: 13px; line-height: 1.65; }
+.speaker-timeline { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; margin-top: -42px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.2); }
+.speaker-timeline article { min-height: 112px; padding: 22px; background: rgba(13,94,157,.62); }
+.speaker-timeline span { display: block; margin-bottom: 24px; color: var(--sky); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.speaker-timeline strong { display: block; color: var(--white); font-size: clamp(17px,1.5vw,23px); line-height: 1.06; letter-spacing: -.025em; }
 .speaker-status { grid-column: 2; margin-top: 18px; padding: 24px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.08); }
 .speaker-status span { color: var(--sky); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 .speaker-status p { margin: 12px 0 0; color: rgba(255,255,255,.76); font-size: 13px; line-height: 1.65; }
@@ -353,6 +361,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   .theme-story-grid { grid-template-columns: 1fr 1fr; }
   .venue-card { align-items: start; }
   .venue-actions { justify-content: flex-start; }
+  .speaker-timeline { grid-column: auto; grid-template-columns: 1fr 1fr; margin-top: 0; }
   .speaker-status { grid-column: auto; }
   .filter-drawer { grid-template-columns: 1fr; }.filter-footer { grid-column: auto; }
   .schedule { overflow-x: visible; }
@@ -379,6 +388,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   .time-slot { grid-template-columns: 74px minmax(0,1fr); }.time-slot::before { left: 72px; }.time-slot.is-live::before { left: 84px; }.slot-time { padding: 24px 12px 24px 0; }.slot-time strong { font-size: 16px; }.slot-content { padding: 17px 0 17px 15px; }.session-card { min-height: 128px; padding: 15px; }.session-card h3 { font-size: 14px; -webkit-line-clamp: 5; }.session-card--wide { min-height: 115px; }
   .program-band { min-height: 82px; gap: 12px; padding: 14px; }.program-band-icon { flex-basis: 34px; width: 34px; height: 34px; }.program-band-icon svg { width: 18px; height: 18px; }
   .programme-overview, .info-section, .speakers-section { padding: 76px 0; }.info-grid article, .programme-days article { min-height: 0; }.info-grid h3, .programme-days h3 { margin-top: 28px; }
+  .speaker-timeline { grid-template-columns: 1fr; }
   .venue-section, .contact-section { padding-bottom: 76px; }.venue-card { padding-block: 42px; }.venue-actions { width: 100%; }.venue-card a { justify-content: center; width: 100%; }.room-key { align-items: flex-start; }
   .solution { padding: 80px 0; }.solution h2 { font-size: 36px; }.solution-grid { gap: 45px; }
   .footer-inner { grid-template-columns: 1fr; gap: 25px; }.footer-inner img { width: 200px; }.footer-links { justify-content: flex-start; }

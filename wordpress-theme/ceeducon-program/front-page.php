@@ -306,28 +306,41 @@ get_header();
         <div class="shell speakers-grid">
           <div>
             <p class="section-kicker"><?php ceeducon_text('speakers_kicker', 'For speakers'); ?></p>
-            <h2><?php ceeducon_text('speakers_title', 'Speaker information ready for proposals, registration and logistics.'); ?></h2>
+            <h2><?php ceeducon_text('speakers_title', 'Clear guidance for confirmed and prospective speakers.'); ?></h2>
+            <p class="speakers-lead"><?php ceeducon_text('speakers_lead', 'CEEDUCON sessions are built around practical experience, international cooperation and diverse institutional perspectives. The speaker area keeps the key rules visible before the full 2026 programme is published.'); ?></p>
+            <div class="speaker-facts" aria-label="Speaker quick facts">
+              <span><?php ceeducon_text('speaker_fact_1', 'No speaker fee'); ?></span>
+              <span><?php ceeducon_text('speaker_fact_2', 'Primarily onsite'); ?></span>
+              <span><?php ceeducon_text('speaker_fact_3', 'Up to 3 contributors'); ?></span>
+              <span><?php ceeducon_text('speaker_fact_4', 'Programme by September 1'); ?></span>
+            </div>
           </div>
           <div class="speaker-list">
             <article>
               <span>01</span>
-              <h3><?php ceeducon_text('speaker_1_title', 'Registration and participation'); ?></h3>
-              <p><?php ceeducon_text('speaker_1_text', 'Speakers are expected to register for the conference. Selected speakers do not pay a participation fee.'); ?></p>
+              <h3><?php ceeducon_text('speaker_1_title', 'Register with your proposal'); ?></h3>
+              <p><?php ceeducon_text('speaker_1_text', 'All speakers should be included during proposal submission. If final names are not confirmed yet, co-speakers can still be indicated in the registration.'); ?></p>
             </article>
             <article>
               <span>02</span>
-              <h3><?php ceeducon_text('speaker_2_title', 'Session delivery'); ?></h3>
-              <p><?php ceeducon_text('speaker_2_text', 'The conference is primarily onsite. Selected rooms may be recorded, and speakers can indicate recording preferences in the registration process.'); ?></p>
+              <h3><?php ceeducon_text('speaker_2_title', 'Onsite-first delivery'); ?></h3>
+              <p><?php ceeducon_text('speaker_2_text', 'The conference is planned primarily in person at O2 universum. Limited online participation may be considered only when requested and approved in advance.'); ?></p>
             </article>
             <article>
               <span>03</span>
-              <h3><?php ceeducon_text('speaker_3_title', 'Important milestones'); ?></h3>
-              <p><?php ceeducon_text('speaker_3_text', 'The original speaker guidance includes notification, registration, contract arrangements and publication of the programme by September 1.'); ?></p>
+              <h3><?php ceeducon_text('speaker_3_title', 'Recording and practical support'); ?></h3>
+              <p><?php ceeducon_text('speaker_3_text', 'Selected rooms may be recorded. Accepted speakers can indicate recording preferences and receive follow-up information about registration, contracts and presentation materials.'); ?></p>
             </article>
+          </div>
+          <div class="speaker-timeline" aria-label="Speaker timeline">
+            <article><span><?php ceeducon_text('speaker_milestone_1_label', 'By June 30'); ?></span><strong><?php ceeducon_text('speaker_milestone_1_text', 'Acceptance notifications'); ?></strong></article>
+            <article><span><?php ceeducon_text('speaker_milestone_2_label', 'By July 31'); ?></span><strong><?php ceeducon_text('speaker_milestone_2_text', 'Speaker registration and photo'); ?></strong></article>
+            <article><span><?php ceeducon_text('speaker_milestone_3_label', 'September'); ?></span><strong><?php ceeducon_text('speaker_milestone_3_text', 'Contracts and template'); ?></strong></article>
+            <article><span><?php ceeducon_text('speaker_milestone_4_label', 'By September 1'); ?></span><strong><?php ceeducon_text('speaker_milestone_4_text', 'Programme publication'); ?></strong></article>
           </div>
           <div class="speaker-status">
             <span><?php ceeducon_text('speaker_status_label', 'Speaker profiles'); ?></span>
-            <p><?php ceeducon_text('speaker_status_text', 'Names, photos and detailed abstracts can be published together with the official programme. The WordPress version is ready for speaker cards or links once profiles are confirmed.'); ?></p>
+            <p><?php ceeducon_text('speaker_status_text', 'Once the 2026 programme is confirmed, this block can switch to speaker cards with photos, institutions, short bios and links. Until then, it keeps expectations and contact paths clear.'); ?></p>
             <a href="<?php echo esc_url(ceeducon_text_value('speaker_status_url', 'mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20speaker%20question')); ?>"><?php ceeducon_text('speaker_status_button', 'Speaker contact'); ?></a>
           </div>
         </div>
