@@ -1,7 +1,9 @@
 const DATA_URL = window.CEEDUCON_DATA_URL || "data/program.json";
 const LANGUAGE = "en";
 const FAVORITES_KEY = "ceeducon-2025-favorites";
+const COOKIE_KEY = "ceeducon-cookie-note-accepted";
 const DEMO_TIME = "14:26";
+const TIMEZONE = "Europe/Prague";
 
 const state = {
   data: null,
@@ -10,7 +12,7 @@ const state = {
   query: "",
   favoritesOnly: false,
   favorites: new Set(JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]")),
-  liveDemo: false,
+  liveMode: false,
   sessionMap: new Map(),
   modalSessionId: "",
   modalSession: null,
@@ -43,6 +45,8 @@ const elements = {
   mobileMenu: document.querySelector("[data-mobile-menu]"),
   navLinks: document.querySelectorAll(".header-nav a, .mobile-menu a"),
   toast: document.querySelector("[data-toast]"),
+  cookieBanner: document.querySelector("[data-cookie-banner]"),
+  cookieAccept: document.querySelector("[data-cookie-accept]"),
 };
 
 function getSessionTitle(session) {
@@ -69,6 +73,34 @@ function escapeHtml(value) {
 function toMinutes(time) {
   const [hours, minutes] = time.split(":").map(Number);
   return hours * 60 + minutes;
+}
+
+function pragueDateTime() {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: TIMEZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(new Date());
+  const byType = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+
+  return {
+    date: `${byType.year}-${byType.month}-${byType.day}`,
+    time: `${byType.hour}:${byType.minute}`,
+  };
+}
+
+function liveContext() {
+  const now = pragueDateTime();
+  const isEventDay = now.date === state.data?.event?.date;
+
+  return {
+    isEventDay,
+    time: isEventDay ? now.time : DEMO_TIME,
+  };
 }
 
 function sessionId(slot, session) {
@@ -164,6 +196,9 @@ function buildSessionCard(slot, session, wide = false) {
     theme: themeLabel,
     color: theme.color,
     date: state.data.event.date,
+    format: session.format || (wide ? "Plenary session" : "Thematic session"),
+    speakers: session.speakers || [],
+    description: session.description || `Archive programme item from the ${themeLabel} thematic track. Add a session abstract and speaker names in data/program.json when confirmed.`,
   });
 
   return `
@@ -201,8 +236,8 @@ function buildProgramBand(slot) {
 }
 
 function isLiveSlot(slot) {
-  if (!state.liveDemo) return false;
-  const current = toMinutes(DEMO_TIME);
+  if (!state.liveMode) return false;
+  const current = toMinutes(liveContext().time);
   return current >= toMinutes(slot.start) && current < toMinutes(slot.end);
 }
 
@@ -258,12 +293,30 @@ function render() {
   renderFilters();
   renderSchedule();
   updateFavoritesUI();
+  updateLiveUI();
 }
 
 function updateFavoritesUI() {
   elements.favoriteCount.textContent = state.favorites.size;
   elements.favoritesToggle.setAttribute("aria-pressed", String(state.favoritesOnly));
   elements.favoritesToggle.classList.toggle("is-active", state.favoritesOnly);
+}
+
+function updateLiveUI() {
+  elements.liveToggle.setAttribute("aria-pressed", String(state.liveMode));
+  elements.liveLabel.textContent = state.liveMode ? "Live preview on" : "Live preview";
+  elements.liveBanner.hidden = !state.liveMode;
+
+  if (!state.liveMode) return;
+
+  const context = liveContext();
+  const heading = context.isEventDay ? `Happening now · ${context.time}` : `Demo live preview · ${context.time}`;
+  const copy = context.isEventDay
+    ? "The current programme block is highlighted."
+    : "The archive date is not today, so this preview uses a sample time to demonstrate the live state.";
+
+  elements.liveBanner.querySelector("strong").textContent = heading;
+  elements.liveBanner.querySelector("span:last-child").textContent = copy;
 }
 
 function resetFilters() {
@@ -313,7 +366,8 @@ function openModal(id) {
   elements.modalTrack.style.background = session.color;
   elements.modalTime.textContent = `${session.start} – ${session.end}`;
   elements.modalRoom.textContent = session.rooms.join(" + ");
-  elements.modalNote.textContent = `This session belongs to the “${session.theme}” thematic track. You will find it in room ${session.rooms.join(" + ")}.`;
+  const speakers = session.speakers.length ? session.speakers.join(", ") : "Speaker details to be added in programme data.";
+  elements.modalNote.textContent = `${session.description} Format: ${session.format}. Speakers: ${speakers}`;
   updateModalFavorite();
   elements.modalBackdrop.hidden = false;
   document.body.classList.add("modal-open");
@@ -344,7 +398,7 @@ function compactTime(time) {
 function downloadIcs() {
   const session = state.modalSession;
   if (!session) return;
-  const description = `CEEDUCON 2025 – ${session.theme}`;
+  const description = `${session.description} CEEDUCON 2025 archive programme – ${session.theme}.`;
   const content = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
@@ -390,7 +444,7 @@ function setActiveNav(id) {
 }
 
 function initNavObserver() {
-  const sections = ["about", "themes", "schedule", "venue"]
+  const sections = ["about", "themes", "programme-2026", "schedule", "practical", "speakers", "venue", "contact"]
     .map((id) => document.getElementById(id))
     .filter(Boolean);
 
@@ -461,10 +515,8 @@ function bindEvents() {
   });
 
   elements.liveToggle.addEventListener("click", () => {
-    state.liveDemo = !state.liveDemo;
-    elements.liveToggle.setAttribute("aria-pressed", String(state.liveDemo));
-    elements.liveLabel.textContent = state.liveDemo ? "Live mode on" : "Live mode";
-    elements.liveBanner.hidden = !state.liveDemo;
+    state.liveMode = !state.liveMode;
+    updateLiveUI();
     renderSchedule();
   });
 
@@ -485,6 +537,15 @@ function bindEvents() {
   elements.modalFavorite.addEventListener("click", () => toggleFavorite(state.modalSessionId));
   document.querySelector("[data-download-ics]").addEventListener("click", downloadIcs);
 
+  if (localStorage.getItem(COOKIE_KEY) === "1") {
+    elements.cookieBanner?.classList.add("is-hidden");
+  }
+
+  elements.cookieAccept?.addEventListener("click", () => {
+    localStorage.setItem(COOKIE_KEY, "1");
+    elements.cookieBanner?.classList.add("is-hidden");
+  });
+
   document.addEventListener("keydown", (event) => {
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
       event.preventDefault();
@@ -499,9 +560,13 @@ function bindEvents() {
 
 function updateStats() {
   const count = state.data.slots.reduce((total, slot) => total + (slot.sessions?.length || (slot.type === "plenary" ? 1 : 0)), 0);
-  document.querySelector("[data-session-count]").textContent = count;
-  document.querySelector("[data-room-count]").textContent = state.data.rooms.length;
-  document.querySelector("[data-theme-count]").textContent = state.data.themes.length;
+  const sessionCount = document.querySelector("[data-session-count]");
+  const roomCount = document.querySelector("[data-room-count]");
+  const themeCount = document.querySelector("[data-theme-count]");
+
+  if (sessionCount) sessionCount.textContent = count;
+  if (roomCount) roomCount.textContent = state.data.rooms.length;
+  if (themeCount) themeCount.textContent = state.data.themes.length;
 }
 
 async function init() {

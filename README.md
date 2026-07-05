@@ -1,6 +1,6 @@
-# CEEDUCON 2025 – responzivní program konference
+# CEEDUCON 2026 – responzivní konferenční stránka a programový modul
 
-Samostatné řešení úkolu pro pozici Webmaster/ka v Domě zahraniční spolupráce. Web převádí rozsáhlý program z tabulky čas × místnost do čitelné časové osy, která funguje na desktopu i mobilu.
+Samostatné řešení úkolu pro pozici Webmaster/ka v Domě zahraniční spolupráce. Web je sladěný s aktuálním ročníkem CEEDUCON 2026 a zároveň obsahuje interaktivní archivní programový modul z roku 2025, který ukazuje, jak lze publikovat rozsáhlý program ve formátu čas × místnost.
 
 ## Spuštění
 
@@ -31,7 +31,9 @@ Původní široká tabulka je na mobilu obtížně použitelná. Nové řešení
 
 ## Udržitelnost a editace
 
-Obsah je oddělený od šablony v [`data/program.json`](data/program.json). Editor upravuje pouze:
+Běžné texty WordPress verze se upravují v administraci přes **CEEDUCON Content**. Delší texty používají standardní WordPress editor, krátké položky jednoduchá textová pole.
+
+Archivní programový modul je oddělený od šablony v [`data/program.json`](data/program.json). Editor programu upravuje:
 
 - `rooms` – seznam místností,
 - `themes` – tematické linky a jejich barvy,
@@ -46,13 +48,13 @@ Součástí repozitáře je připravená WordPress šablona:
 - zdrojová složka: [`wordpress-theme/ceeducon-program`](wordpress-theme/ceeducon-program)
 - ZIP pro nahrání do WordPressu: [`dist/ceeducon-program-wordpress-theme.zip`](dist/ceeducon-program-wordpress-theme.zip)
 
-Po nahrání a aktivaci šablony lze běžné texty upravovat v administraci přes novou položku **CEEDUCON Content** v levém WordPress menu. Starší cesta **Vzhled → Přizpůsobit → CEEDUCON content** zůstává jako fallback. Editovatelné jsou hero texty, úvodní blok, tematické oblasti, popisy nástrojů, intro programu, venue a footer.
+Po nahrání a aktivaci šablony lze běžné texty upravovat v administraci přes novou položku **CEEDUCON Content** v levém WordPress menu. Delší texty se upravují přes standardní WordPress editor. Starší cesta **Vzhled → Přizpůsobit → CEEDUCON content** zůstává jako fallback. Editovatelné jsou hero texty, úvodní blok, tematické oblasti, popisy nástrojů, 2026 programme overview, archivní programový modul, practical information, for speakers, venue, contact a footer.
 
 Program jako takový zůstává ve strukturovaných datech `data/program.json` / `js/program-data.js`. Pro plnou produkční verzi bych další krok řešil přes vlastní typ obsahu `session` a ACF pole pro den, čas, místnost, tematickou linku, řečníky a anotaci. Frontend by potom získával data přes WordPress REST API ve stejné struktuře jako současný JSON.
 
 ## Další rozvoj
 
-- **Více dnů:** datový model lze rozšířit o pole `days`; přepínač dne už má samostatnou komponentu.
+- **Více dnů:** stránka už má textový overview pro 1.–2. prosince 2026; po zveřejnění detailního programu lze datový model rozšířit o `days`.
 - **Skutečný live režim:** demo čas se nahradí aktuálním časem v zóně `Europe/Prague` a aktivuje pouze v den konference.
 - **Řečníci a anotace:** detail karty je připravený na fotografie, medailonky a odkazy na prezentace nebo stream.
 - **Synchronizace programu:** REST API může načítat změny z WordPressu bez nového nasazení webu.

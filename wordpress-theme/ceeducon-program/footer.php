@@ -1,7 +1,7 @@
     <footer class="site-footer">
       <div class="shell footer-inner">
         <img src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-horizontal-white.png')); ?>" alt="CEEDUCON" />
-        <p><?php ceeducon_text('footer_title', 'CEEDUCON 2025'); ?><br /><span><?php ceeducon_text('footer_subtitle', 'Central European Conference on Internationalisation of Higher Education'); ?></span></p>
+        <p><?php ceeducon_text('footer_title', 'CEEDUCON 2026'); ?><br /><span><?php ceeducon_text('footer_subtitle', 'ceeducon@dzs.cz · +420 221 850 100'); ?></span></p>
         <a href="#top"><?php ceeducon_text('footer_back_top', 'Back to top'); ?> ↑</a>
       </div>
     </footer>
@@ -25,7 +25,10 @@
     </div>
 
     <div class="toast" data-toast role="status" aria-live="polite"><span>✓</span><p></p></div>
+    <div class="cookie-banner" data-cookie-banner>
+      <p>This theme uses local browser storage for “My programme” and live preferences. Add your production cookie solution if analytics or marketing tools are enabled.</p>
+      <button type="button" data-cookie-accept>OK</button>
+    </div>
     <?php wp_footer(); ?>
   </body>
 </html>
-

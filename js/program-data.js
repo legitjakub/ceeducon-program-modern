@@ -1,8 +1,8 @@
 window.CEEDUCON_PROGRAM_DATA = {
   "event": {
-    "title": "CEEDUCON 2025 Conference Programme",
+    "title": "CEEDUCON 2025 Archive Programme",
     "date": "2025-11-19",
-    "location": "O2 universum Praha",
+    "location": "O2 universum Prague",
     "timezone": "Europe/Prague"
   },
   "rooms": [

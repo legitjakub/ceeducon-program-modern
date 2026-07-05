@@ -8,7 +8,7 @@ Upload this folder as a WordPress theme or upload the prepared ZIP package.
 2. Upload `ceeducon-program-wordpress-theme.zip`.
 3. Activate **CEEDUCON Programme**.
 4. Open **CEEDUCON Content** in the left WordPress admin menu.
-5. Edit the homepage texts there and save.
+5. Edit the homepage texts there and save. Longer copy fields use the normal WordPress editor.
 
 The older **Appearance -> Customize -> CEEDUCON content** fields are still available as a fallback, but the dedicated admin page is easier to use.
 
@@ -17,8 +17,11 @@ The older **Appearance -> Customize -> CEEDUCON content** fields are still avail
 - Hero title, lead text, event date/card and CTA labels.
 - About section text and highlight chips.
 - Thematic area titles and descriptions.
+- CEEDUCON 2026 programme overview.
 - Programme intro text.
+- Practical information and speaker guidance.
 - Venue title, text, button and URL.
+- Contact and partner text.
 - Footer title and subtitle.
 
 ## Programme data
@@ -28,4 +31,4 @@ The interactive programme still uses structured JSON data:
 - `data/program.json`
 - `js/program-data.js`
 
-For a production WordPress build, this could later be moved to ACF repeaters or a custom post type. For this assignment version, the theme is intentionally lightweight and keeps the programme data file-based.
+For a production WordPress build, this could later be moved to ACF repeaters or a custom post type. For this assignment version, the theme is intentionally lightweight and keeps the archive programme data file-based.
