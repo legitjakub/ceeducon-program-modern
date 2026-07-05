@@ -46,7 +46,7 @@ Součástí repozitáře je připravená WordPress šablona:
 - zdrojová složka: [`wordpress-theme/ceeducon-program`](wordpress-theme/ceeducon-program)
 - ZIP pro nahrání do WordPressu: [`dist/ceeducon-program-wordpress-theme.zip`](dist/ceeducon-program-wordpress-theme.zip)
 
-Po nahrání a aktivaci šablony lze běžné texty upravovat v administraci přes **Vzhled → Přizpůsobit → CEEDUCON content**. Editovatelné jsou hero texty, úvodní blok, tematické oblasti, popisy nástrojů, intro programu, venue a footer.
+Po nahrání a aktivaci šablony lze běžné texty upravovat v administraci přes novou položku **CEEDUCON Content** v levém WordPress menu. Starší cesta **Vzhled → Přizpůsobit → CEEDUCON content** zůstává jako fallback. Editovatelné jsou hero texty, úvodní blok, tematické oblasti, popisy nástrojů, intro programu, venue a footer.
 
 Program jako takový zůstává ve strukturovaných datech `data/program.json` / `js/program-data.js`. Pro plnou produkční verzi bych další krok řešil přes vlastní typ obsahu `session` a ACF pole pro den, čas, místnost, tematickou linku, řečníky a anotaci. Frontend by potom získával data přes WordPress REST API ve stejné struktuře jako současný JSON.
 

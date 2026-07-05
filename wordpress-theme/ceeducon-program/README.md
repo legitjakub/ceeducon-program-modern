@@ -7,8 +7,10 @@ Upload this folder as a WordPress theme or upload the prepared ZIP package.
 1. In WordPress admin go to **Appearance -> Themes -> Add New -> Upload Theme**.
 2. Upload `ceeducon-program-wordpress-theme.zip`.
 3. Activate **CEEDUCON Programme**.
-4. Open **Appearance -> Customize -> CEEDUCON content**.
-5. Edit the homepage texts there.
+4. Open **CEEDUCON Content** in the left WordPress admin menu.
+5. Edit the homepage texts there and save.
+
+The older **Appearance -> Customize -> CEEDUCON content** fields are still available as a fallback, but the dedicated admin page is easier to use.
 
 ## What is editable in WordPress
 
@@ -27,4 +29,3 @@ The interactive programme still uses structured JSON data:
 - `js/program-data.js`
 
 For a production WordPress build, this could later be moved to ACF repeaters or a custom post type. For this assignment version, the theme is intentionally lightweight and keeps the programme data file-based.
-
