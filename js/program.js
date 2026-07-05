@@ -4,11 +4,18 @@ const FAVORITES_KEY = "ceeducon-2025-favorites";
 const COOKIE_KEY = "ceeducon-cookie-note-accepted";
 const DEMO_TIME = "14:26";
 const TIMEZONE = "Europe/Prague";
+const CONFERENCE_START = "2026-12-01T09:00:00+01:00";
+const PERIODS = [
+  { id: "", label: "All day" },
+  { id: "morning", label: "Morning" },
+  { id: "afternoon", label: "Afternoon" },
+];
 
 const state = {
   data: null,
   theme: "",
   room: "",
+  period: "",
   query: "",
   favoritesOnly: false,
   favorites: new Set(JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]")),
@@ -22,6 +29,7 @@ const elements = {
   schedule: document.querySelector("[data-schedule]"),
   themeFilters: document.querySelector("[data-theme-filters]"),
   roomFilters: document.querySelector("[data-room-filters]"),
+  periodFilters: document.querySelector("[data-period-filters]"),
   search: document.getElementById("program-search"),
   resultCount: document.querySelector("[data-result-count]"),
   resetButtons: document.querySelectorAll("[data-reset-filters], [data-empty-reset]"),
@@ -47,6 +55,7 @@ const elements = {
   toast: document.querySelector("[data-toast]"),
   cookieBanner: document.querySelector("[data-cookie-banner]"),
   cookieAccept: document.querySelector("[data-cookie-accept]"),
+  countdownDays: document.querySelector("[data-countdown-days]"),
 };
 
 function getSessionTitle(session) {
@@ -133,7 +142,16 @@ function titleForSlot(slot) {
 }
 
 function activeFilters() {
-  return Boolean(state.theme || state.room || state.query || state.favoritesOnly);
+  return Boolean(state.theme || state.room || state.period || state.query || state.favoritesOnly);
+}
+
+function matchesSlotPeriod(slot) {
+  if (!state.period) return true;
+  const start = toMinutes(slot.start);
+  const end = toMinutes(slot.end);
+  if (state.period === "morning") return start < 12 * 60;
+  if (state.period === "afternoon") return start >= 12 * 60 && end > 12 * 60;
+  return true;
 }
 
 function matchesSession(session, id) {
@@ -176,6 +194,15 @@ function renderFilters() {
       aria-pressed="${state.room === room}"
     >${escapeHtml(room)}</button>
   `).join("");
+
+  elements.periodFilters.innerHTML = PERIODS.map((period) => `
+    <button
+      class="filter-chip filter-chip--period${state.period === period.id ? " is-active" : ""}"
+      type="button"
+      data-period-filter="${escapeHtml(period.id)}"
+      aria-pressed="${state.period === period.id}"
+    >${escapeHtml(period.label)}</button>
+  `).join("");
 }
 
 function buildSessionCard(slot, session, wide = false) {
@@ -198,7 +225,7 @@ function buildSessionCard(slot, session, wide = false) {
     date: state.data.event.date,
     format: session.format || (wide ? "Plenary session" : "Thematic session"),
     speakers: session.speakers || [],
-    description: session.description || `Archive programme item from the ${themeLabel} thematic track. Add a session abstract and speaker names in data/program.json when confirmed.`,
+    description: session.description || `Archived CEEDUCON programme item in the ${themeLabel} thematic track. The final 2026 abstract and speaker details can be added when the official programme is confirmed.`,
   });
 
   return `
@@ -254,6 +281,8 @@ function renderSchedule() {
     </div>`;
 
   for (const slot of state.data.slots) {
+    if (!matchesSlotPeriod(slot)) continue;
+
     let content = "";
 
     if (slot.sessions) {
@@ -304,16 +333,19 @@ function updateFavoritesUI() {
 
 function updateLiveUI() {
   elements.liveToggle.setAttribute("aria-pressed", String(state.liveMode));
-  elements.liveLabel.textContent = state.liveMode ? "Live preview on" : "Live preview";
   elements.liveBanner.hidden = !state.liveMode;
+
+  const context = liveContext();
+  elements.liveLabel.textContent = state.liveMode
+    ? (context.isEventDay ? "Live mode on" : "Demo preview on")
+    : "Live preview";
 
   if (!state.liveMode) return;
 
-  const context = liveContext();
   const heading = context.isEventDay ? `Happening now · ${context.time}` : `Demo live preview · ${context.time}`;
   const copy = context.isEventDay
     ? "The current programme block is highlighted."
-    : "The archive date is not today, so this preview uses a sample time to demonstrate the live state.";
+    : "The archive date is not today, so the highlighted block uses a sample time and does not claim a live 2026 schedule.";
 
   elements.liveBanner.querySelector("strong").textContent = heading;
   elements.liveBanner.querySelector("span:last-child").textContent = copy;
@@ -322,6 +354,7 @@ function updateLiveUI() {
 function resetFilters() {
   state.theme = "";
   state.room = "";
+  state.period = "";
   state.query = "";
   state.favoritesOnly = false;
   elements.search.value = "";
@@ -331,6 +364,7 @@ function resetFilters() {
 function applyThemeFromStory(themeId) {
   state.theme = themeId;
   state.room = "";
+  state.period = "";
   state.query = "";
   state.favoritesOnly = false;
   elements.search.value = "";
@@ -366,8 +400,10 @@ function openModal(id) {
   elements.modalTrack.style.background = session.color;
   elements.modalTime.textContent = `${session.start} – ${session.end}`;
   elements.modalRoom.textContent = session.rooms.join(" + ");
-  const speakers = session.speakers.length ? session.speakers.join(", ") : "Speaker details to be added in programme data.";
-  elements.modalNote.textContent = `${session.description} Format: ${session.format}. Speakers: ${speakers}`;
+  const speakers = session.speakers.length
+    ? `Speakers: ${session.speakers.join(", ")}.`
+    : "Speaker details will be published with the official programme.";
+  elements.modalNote.textContent = `${session.description} Format: ${session.format}. ${speakers}`;
   updateModalFavorite();
   elements.modalBackdrop.hidden = false;
   document.body.classList.add("modal-open");
@@ -465,7 +501,7 @@ function initNavObserver() {
 
 function bindEvents() {
   elements.search.addEventListener("input", () => {
-    state.query = elements.search.value.trim().toLocaleLowerCase("cs");
+    state.query = elements.search.value.trim().toLocaleLowerCase("en");
     renderSchedule();
   });
 
@@ -480,6 +516,13 @@ function bindEvents() {
     const button = event.target.closest("[data-room-filter]");
     if (!button) return;
     state.room = state.room === button.dataset.roomFilter ? "" : button.dataset.roomFilter;
+    render();
+  });
+
+  elements.periodFilters.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-period-filter]");
+    if (!button) return;
+    state.period = state.period === button.dataset.periodFilter ? "" : button.dataset.periodFilter;
     render();
   });
 
@@ -516,8 +559,8 @@ function bindEvents() {
 
   elements.liveToggle.addEventListener("click", () => {
     state.liveMode = !state.liveMode;
-    updateLiveUI();
-    renderSchedule();
+    if (state.liveMode) state.period = "";
+    render();
   });
 
   document.querySelector("[data-jump-live]").addEventListener("click", () => {
@@ -558,6 +601,14 @@ function bindEvents() {
   initNavObserver();
 }
 
+function updateCountdown() {
+  if (!elements.countdownDays) return;
+  const now = new Date();
+  const start = new Date(CONFERENCE_START);
+  const days = Math.max(0, Math.ceil((start - now) / 86400000));
+  elements.countdownDays.textContent = days;
+}
+
 function updateStats() {
   const count = state.data.slots.reduce((total, slot) => total + (slot.sessions?.length || (slot.type === "plenary" ? 1 : 0)), 0);
   const sessionCount = document.querySelector("[data-session-count]");
@@ -571,9 +622,13 @@ function updateStats() {
 
 async function init() {
   try {
-    const response = await fetch(DATA_URL);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    state.data = await response.json();
+    if (window.CEEDUCON_PREFER_EMBEDDED_DATA && window.CEEDUCON_PROGRAM_DATA) {
+      state.data = window.CEEDUCON_PROGRAM_DATA;
+    } else {
+      const response = await fetch(DATA_URL);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      state.data = await response.json();
+    }
   } catch (error) {
     if (window.CEEDUCON_PROGRAM_DATA) {
       console.info("Using embedded programme data fallback.", error);
@@ -585,6 +640,7 @@ async function init() {
     }
   }
 
+  updateCountdown();
   updateStats();
   render();
   bindEvents();

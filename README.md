@@ -20,11 +20,13 @@ Původní široká tabulka je na mobilu obtížně použitelná. Nové řešení
 
 ## Funkce
 
-- filtrování podle tematické linky a místnosti,
-- fulltextové vyhledávání v českých i anglických názvech,
+- filtrování podle tematické linky, místnosti a části dne,
+- fulltextové vyhledávání v názvech, místnostech a tématech,
+- odpočet do začátku CEEDUCON 2026,
 - ukázkový live režim se zvýrazněním právě probíhajícího bloku,
 - vlastní výběr oblíbených příspěvků uložený v prohlížeči,
-- detail příspěvku a export do kalendáře ve formátu `.ics`,
+- detail příspěvku, jasný archive notice a export do kalendáře ve formátu `.ics`,
+- FAQ akordeon pro praktické informace,
 - tisková verze optimalizovaná pro export do PDF,
 - přístupné ovládání klávesnicí a respektování `prefers-reduced-motion`,
 - responzivní rozvržení bez horizontálního posouvání programu.
@@ -33,7 +35,7 @@ Původní široká tabulka je na mobilu obtížně použitelná. Nové řešení
 
 Běžné texty WordPress verze se upravují v administraci přes **CEEDUCON Content**. Delší texty používají standardní WordPress editor, krátké položky jednoduchá textová pole.
 
-Archivní programový modul je oddělený od šablony v [`data/program.json`](data/program.json). Editor programu upravuje:
+Archivní programový modul je oddělený od šablony v [`data/program.json`](data/program.json). Ve WordPress verzi lze stejnou strukturu upravit přímo v administraci přes **CEEDUCON Content → Programme data**. Editor programu upravuje:
 
 - `rooms` – seznam místností,
 - `themes` – tematické linky a jejich barvy,
@@ -50,7 +52,7 @@ Součástí repozitáře je připravená WordPress šablona:
 
 Po nahrání a aktivaci šablony lze běžné texty upravovat v administraci přes novou položku **CEEDUCON Content** v levém WordPress menu. Delší texty se upravují přes standardní WordPress editor. Starší cesta **Vzhled → Přizpůsobit → CEEDUCON content** zůstává jako fallback. Editovatelné jsou hero texty, úvodní blok, tematické oblasti, popisy nástrojů, 2026 programme overview, archivní programový modul, practical information, for speakers, venue, contact a footer.
 
-Program jako takový zůstává ve strukturovaných datech `data/program.json` / `js/program-data.js`. Pro plnou produkční verzi bych další krok řešil přes vlastní typ obsahu `session` a ACF pole pro den, čas, místnost, tematickou linku, řečníky a anotaci. Frontend by potom získával data přes WordPress REST API ve stejné struktuře jako současný JSON.
+Program jako takový běží nad strukturovanými daty `data/program.json` / `js/program-data.js`, ale uploadovatelná WordPress šablona umí tato data přepsat uloženým JSONem z administrace. Pro plnou produkční verzi bych další krok řešil přes vlastní typ obsahu `session` a ACF pole pro den, čas, místnost, tematickou linku, řečníky a anotaci. Frontend by potom získával data přes WordPress REST API ve stejné struktuře jako současný JSON.
 
 ## Další rozvoj
 

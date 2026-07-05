@@ -17,11 +17,16 @@ get_header();
           <div class="hero-copy">
             <p class="hero-kicker"><?php ceeducon_text('hero_kicker', 'Central European Conference on Internationalisation of Higher Education'); ?></p>
             <h1><?php ceeducon_text('hero_title', 'CEEDUCON 2026 for internationalisation in higher education.'); ?></h1>
-            <p class="hero-lead"><?php ceeducon_text('hero_lead', "Central Europe's conference on higher education internationalisation returns to O2 universum Prague on 1-2 December 2026. The detailed programme will be published by September 1; this WordPress version shows how the content can work as a clear, editable and interactive experience."); ?></p>
+            <p class="hero-lead"><?php ceeducon_text('hero_lead', "Central Europe's conference on higher education internationalisation returns to O2 universum Prague on 1-2 December 2026. The detailed programme will be published by September 1; this WordPress version is prepared as a clear, editable and interactive experience."); ?></p>
             <div class="hero-meta" aria-label="Event highlights">
               <span><?php ceeducon_html('hero_meta_1', '<strong>1-2 Dec</strong> 2026'); ?></span>
               <span><?php ceeducon_html('hero_meta_2', '<strong>O2 universum</strong> Prague'); ?></span>
               <span><?php ceeducon_html('hero_meta_3', '<strong>Registration</strong> opens in September'); ?></span>
+            </div>
+            <div class="countdown-strip" data-countdown aria-label="Countdown to CEEDUCON 2026">
+              <span><?php ceeducon_text('countdown_label_before', 'Conference starts in'); ?></span>
+              <strong data-countdown-days>149</strong>
+              <span><?php ceeducon_text('countdown_label_after', 'days'); ?></span>
             </div>
             <div class="hero-actions" aria-label="Quick actions">
               <a class="hero-action hero-action--primary" href="#programme-2026"><?php ceeducon_text('hero_primary_cta', 'View 2026 overview'); ?></a>
@@ -83,27 +88,27 @@ get_header();
           <div class="theme-story-grid" aria-label="Conference thematic tracks">
             <article class="theme-story theme-story--blue">
               <span>01</span>
-              <h3><?php ceeducon_text('theme_1_title', 'Smart & Sustainable International Cooperation'); ?></h3>
-              <p><?php ceeducon_text('theme_1_text', 'AI, digitalisation, smart mobility and sustainable funding models for global academic exchange.'); ?></p>
-              <button type="button" data-theme-jump="smart"><?php ceeducon_text('theme_button', 'Show sessions'); ?></button>
+              <h3><?php ceeducon_text('theme_1_title', 'Navigating the Technological Shift'); ?></h3>
+              <p><?php ceeducon_text('theme_1_text', 'Responsible use of AI, digitalisation, data and new tools while keeping academic values and human judgement in focus.'); ?></p>
+              <button type="button" data-theme-jump="smart"><?php ceeducon_text('theme_button', 'Show archive sessions'); ?></button>
             </article>
             <article class="theme-story theme-story--red">
               <span>02</span>
-              <h3><?php ceeducon_text('theme_2_title', 'Internationalisation for All'); ?></h3>
-              <p><?php ceeducon_text('theme_2_text', 'Breaking down barriers, supporting wellbeing and improving meaningful international experiences for students and staff.'); ?></p>
-              <button type="button" data-theme-jump="internationalisation"><?php ceeducon_text('theme_button', 'Show sessions'); ?></button>
+              <h3><?php ceeducon_text('theme_2_title', 'Challenges of Internationalisation'); ?></h3>
+              <p><?php ceeducon_text('theme_2_text', 'Structural, social and financial barriers, safety, wellbeing, funding and inclusive participation for all students and staff.'); ?></p>
+              <button type="button" data-theme-jump="internationalisation"><?php ceeducon_text('theme_button', 'Show archive sessions'); ?></button>
             </article>
             <article class="theme-story theme-story--yellow">
               <span>03</span>
               <h3><?php ceeducon_text('theme_3_title', 'Global & Regional Partnerships'); ?></h3>
-              <p><?php ceeducon_text('theme_3_text', 'Academic ties with emerging regions, talent mobility and cooperation strategies in shifting geopolitical contexts.'); ?></p>
-              <button type="button" data-theme-jump="partnerships"><?php ceeducon_text('theme_button', 'Show sessions'); ?></button>
+              <p><?php ceeducon_text('theme_3_text', 'Sustainable cooperation, European University alliances, global regions and equitable academic partnerships.'); ?></p>
+              <button type="button" data-theme-jump="partnerships"><?php ceeducon_text('theme_button', 'Show archive sessions'); ?></button>
             </article>
             <article class="theme-story theme-story--green">
               <span>04</span>
-              <h3><?php ceeducon_text('theme_4_title', 'Alumni — Employability — Future Skills'); ?></h3>
-              <p><?php ceeducon_text('theme_4_text', 'Graduate skills, lifelong learning, entrepreneurship and alumni networks for career development.'); ?></p>
-              <button type="button" data-theme-jump="alumni"><?php ceeducon_text('theme_button', 'Show sessions'); ?></button>
+              <h3><?php ceeducon_text('theme_4_title', 'From Recruitment to Retention'); ?></h3>
+              <p><?php ceeducon_text('theme_4_text', 'A student-centred journey from marketing and admissions to support services, alumni relations and graduate success.'); ?></p>
+              <button type="button" data-theme-jump="alumni"><?php ceeducon_text('theme_button', 'Show archive sessions'); ?></button>
             </article>
           </div>
         </div>
@@ -155,6 +160,20 @@ get_header();
               <p><?php ceeducon_text('programme_day_2_text', 'Second all-day conference block with the same editable programme structure prepared for sessions, rooms and themes.'); ?></p>
             </article>
           </div>
+          <div class="programme-actions">
+            <article class="programme-action-card">
+              <span><?php ceeducon_text('programme_action_1_label', 'Registration'); ?></span>
+              <h3><?php ceeducon_text('programme_action_1_title', 'Registration opens in September.'); ?></h3>
+              <p><?php ceeducon_text('programme_action_1_text', 'Until the form is published, participants can contact the CEEDUCON team for updates and practical questions.'); ?></p>
+              <a href="<?php echo esc_url(ceeducon_text_value('programme_action_1_url', 'mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20registration%20update')); ?>"><?php ceeducon_text('programme_action_1_button', 'Ask to be notified'); ?></a>
+            </article>
+            <article class="programme-action-card programme-action-card--blue">
+              <span><?php ceeducon_text('programme_action_2_label', 'Editable data'); ?></span>
+              <h3><?php ceeducon_text('programme_action_2_title', 'Prepared for final 2026 sessions.'); ?></h3>
+              <p><?php ceeducon_text('programme_action_2_text', 'The interactive grid can be switched from this archive sample to official 2026 session data through the WordPress content panel.'); ?></p>
+              <a href="#schedule"><?php ceeducon_text('programme_action_2_button', 'Open programme module'); ?></a>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -166,6 +185,11 @@ get_header();
               <h2><?php ceeducon_text('programme_title', 'Archive programme grid from CEEDUCON 2025.'); ?></h2>
             </div>
             <p><?php ceeducon_text('programme_intro', 'This module demonstrates the final publishing approach for a complex programme. Replace the JSON data with 2026 sessions once the official programme is confirmed.'); ?></p>
+          </div>
+
+          <div class="archive-notice" role="note">
+            <span><?php ceeducon_text('archive_notice_label', 'Archive sample'); ?></span>
+            <p><?php ceeducon_text('archive_notice_text', 'This is not the final CEEDUCON 2026 programme. The grid below uses archived CEEDUCON 2025 session titles only to demonstrate filters, personal selection, calendar export and mobile layout before the official 2026 programme is published.'); ?></p>
           </div>
 
           <div class="day-bar" aria-label="Day selection">
@@ -200,6 +224,10 @@ get_header();
               <div class="filter-group">
                 <div class="filter-label"><span>Themes</span></div>
                 <div class="filter-chips" data-theme-filters></div>
+              </div>
+              <div class="filter-group">
+                <div class="filter-label"><span>Time</span></div>
+                <div class="filter-chips filter-chips--periods" data-period-filters></div>
               </div>
               <div class="filter-group">
                 <div class="filter-label"><span>Rooms</span></div>
@@ -257,6 +285,20 @@ get_header();
               <p><?php ceeducon_text('practical_4_text', 'There is no conference fee for registered attendees. Accommodation is arranged individually; nearby options include Stages Hotel and Carol Hotel.'); ?></p>
             </article>
           </div>
+          <div class="faq-list" aria-label="Practical FAQ">
+            <details>
+              <summary><?php ceeducon_text('faq_1_title', 'Accommodation'); ?></summary>
+              <p><?php ceeducon_text('faq_1_text', 'Participants arrange accommodation individually. The official practical information currently lists nearby options including Stages Hotel and Carol Hotel.'); ?></p>
+            </details>
+            <details>
+              <summary><?php ceeducon_text('faq_2_title', 'Parking and metro status'); ?></summary>
+              <p><?php ceeducon_text('faq_2_text', 'Use the venue website and current Prague public transport updates before travelling. The official practical information notes changes around Ceskomoravska metro access.'); ?></p>
+            </details>
+            <details>
+              <summary><?php ceeducon_text('faq_3_title', 'Visa and travel questions'); ?></summary>
+              <p><?php ceeducon_text('faq_3_text', 'International participants should check travel requirements for the Czech Republic early and contact the organisers if they need event confirmation details.'); ?></p>
+            </details>
+          </div>
         </div>
       </section>
 
@@ -283,6 +325,11 @@ get_header();
               <p><?php ceeducon_text('speaker_3_text', 'The original speaker guidance includes notification, registration, contract arrangements and publication of the programme by September 1.'); ?></p>
             </article>
           </div>
+          <div class="speaker-status">
+            <span><?php ceeducon_text('speaker_status_label', 'Speaker profiles'); ?></span>
+            <p><?php ceeducon_text('speaker_status_text', 'Names, photos and detailed abstracts can be published together with the official programme. The WordPress version is ready for speaker cards or links once profiles are confirmed.'); ?></p>
+            <a href="<?php echo esc_url(ceeducon_text_value('speaker_status_url', 'mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20speaker%20question')); ?>"><?php ceeducon_text('speaker_status_button', 'Speaker contact'); ?></a>
+          </div>
         </div>
       </section>
 
@@ -293,7 +340,14 @@ get_header();
             <h2><?php ceeducon_text('venue_title', 'O2 universum Prague'); ?></h2>
             <p><?php ceeducon_text('venue_text', 'The venue block is kept as a compact anchor for map links and production information. Detailed 2026 rooms can be added once the final programme is available.'); ?></p>
           </div>
-          <a href="<?php echo esc_url(ceeducon_text_value('venue_url', 'https://www.o2universum.cz/en')); ?>" target="_blank" rel="noreferrer"><?php ceeducon_text('venue_button', 'Open venue website'); ?> ↗</a>
+          <div class="venue-actions">
+            <a href="<?php echo esc_url(ceeducon_text_value('venue_url', 'https://www.o2universum.cz/en')); ?>" target="_blank" rel="noreferrer"><?php ceeducon_text('venue_button', 'Open venue website'); ?> ↗</a>
+            <a href="<?php echo esc_url(ceeducon_text_value('venue_map_url', 'https://www.google.com/maps/search/?api=1&query=O2%20universum%20Ceskomoravska%2017%20Prague')); ?>" target="_blank" rel="noreferrer"><?php ceeducon_text('venue_map_button', 'Open map'); ?> ↗</a>
+          </div>
+        </div>
+        <div class="shell room-key" aria-label="Archive programme room labels">
+          <span><?php ceeducon_text('room_key_label', 'Archive room labels'); ?></span>
+          <strong>C1</strong><strong>C2</strong><strong>C3</strong><strong>D2</strong><strong>D3+D4</strong><strong>D6+D7</strong><strong>E1</strong><strong>E2</strong>
         </div>
       </section>
 

@@ -40,10 +40,23 @@ function ceeducon_html(string $key, string $default): void
     echo wp_kses_post(ceeducon_text_value($key, $default));
 }
 
+function ceeducon_default_programme_json(): string
+{
+    $path = get_template_directory() . '/data/program.json';
+    if (!is_readable($path)) {
+        return '';
+    }
+
+    $json = file_get_contents($path);
+    return is_string($json) ? $json : '';
+}
+
 function ceeducon_theme_scripts(): void
 {
     $theme = wp_get_theme();
     $version = $theme->get('Version');
+    $programme_json = ceeducon_text_value('programme_json', '');
+    $programme_data = $programme_json !== '' ? json_decode($programme_json, true) : null;
 
     wp_enqueue_style(
         'ceeducon-program',
@@ -73,6 +86,14 @@ function ceeducon_theme_scripts(): void
         'window.CEEDUCON_DATA_URL = ' . wp_json_encode(ceeducon_asset_url('data/program.json')) . ';',
         'before'
     );
+
+    if (is_array($programme_data)) {
+        wp_add_inline_script(
+            'ceeducon-program-data',
+            'window.CEEDUCON_PROGRAM_DATA = ' . wp_json_encode($programme_data) . '; window.CEEDUCON_PREFER_EMBEDDED_DATA = true;',
+            'after'
+        );
+    }
 }
 add_action('wp_enqueue_scripts', 'ceeducon_theme_scripts');
 
@@ -110,8 +131,8 @@ function ceeducon_customize_register(WP_Customize_Manager $wp_customize): void
         ['hero', 'hero_primary_cta', 'Primary CTA', 'View 2026 overview', 'text'],
         ['hero', 'hero_secondary_cta', 'Secondary CTA', 'Open archive programme module', 'text'],
         ['hero', 'event_label', 'Event card label', 'Conference overview', 'text'],
-        ['hero', 'event_day', 'Event day', '19', 'text'],
-        ['hero', 'event_month_year', 'Event month and year', 'NOV<br />2025', 'textarea'],
+        ['hero', 'event_day', 'Event day', '1-2', 'text'],
+        ['hero', 'event_month_year', 'Event month and year', 'DEC<br />2026', 'textarea'],
         ['hero', 'event_start', 'Event day 1', 'All-day conference', 'text'],
         ['hero', 'event_block', 'Event day 2', 'All-day conference', 'text'],
         ['hero', 'event_venue', 'Event venue', 'O2 universum Prague', 'text'],
@@ -132,14 +153,14 @@ function ceeducon_customize_register(WP_Customize_Manager $wp_customize): void
         ['themes', 'themes_title', 'Themes title', 'Main thematic areas of the conference.', 'textarea'],
         ['themes', 'themes_intro', 'Themes intro', 'The structure follows the CEEDUCON themes and helps participants quickly understand which sessions connect to their work.', 'textarea'],
         ['themes', 'theme_1_title', 'Theme 1 title', 'Navigating the Technological Shift', 'text'],
-        ['themes', 'theme_1_text', 'Theme 1 text', 'Responsible use of AI, digitalisation and data analytics for smarter internationalisation strategies.', 'textarea'],
-        ['themes', 'theme_2_title', 'Theme 2 title', 'Internationalisation for All', 'text'],
-        ['themes', 'theme_2_text', 'Theme 2 text', 'Structural, social and financial barriers, wellbeing, access and safe international experiences for all.', 'textarea'],
+        ['themes', 'theme_1_text', 'Theme 1 text', 'Responsible use of AI, digitalisation, data and new tools while keeping academic values and human judgement in focus.', 'textarea'],
+        ['themes', 'theme_2_title', 'Theme 2 title', 'Challenges of Internationalisation', 'text'],
+        ['themes', 'theme_2_text', 'Theme 2 text', 'Structural, social and financial barriers, safety, wellbeing, funding and inclusive participation for all students and staff.', 'textarea'],
         ['themes', 'theme_3_title', 'Theme 3 title', 'Global & Regional Partnerships', 'text'],
         ['themes', 'theme_3_text', 'Theme 3 text', 'Sustainable partnerships, European University alliances and cooperation across global regions.', 'textarea'],
-        ['themes', 'theme_4_title', 'Theme 4 title', 'Alumni — Employability — Future Skills', 'text'],
-        ['themes', 'theme_4_text', 'Theme 4 text', 'A student-centred journey from recruitment and admissions to support, alumni and employability.', 'textarea'],
-        ['themes', 'theme_button', 'Theme button label', 'Show sessions', 'text'],
+        ['themes', 'theme_4_title', 'Theme 4 title', 'From Recruitment to Retention', 'text'],
+        ['themes', 'theme_4_text', 'Theme 4 text', 'A student-centred journey from marketing and admissions to support services, alumni relations and graduate success.', 'textarea'],
+        ['themes', 'theme_button', 'Theme button label', 'Show archive sessions', 'text'],
 
         ['tools', 'tool_1_title', 'Tool 1 title', 'When, where, what', 'text'],
         ['tools', 'tool_1_text', 'Tool 1 text', 'The schedule translates the conference programme into time blocks, rooms and thematic context.', 'textarea'],
@@ -185,10 +206,12 @@ function ceeducon_admin_content_fields(): array
         'Hero' => [
             ['hero_kicker', 'Hero kicker', 'Central European Conference on Internationalisation of Higher Education', 'text'],
             ['hero_title', 'Hero title', 'CEEDUCON 2026 for internationalisation in higher education.', 'textarea'],
-            ['hero_lead', 'Hero lead', "Central Europe's conference on higher education internationalisation returns to O2 universum Prague on 1-2 December 2026. The detailed programme will be published by September 1; this WordPress version shows how the content can work as a clear, editable and interactive experience.", 'textarea'],
+            ['hero_lead', 'Hero lead', "Central Europe's conference on higher education internationalisation returns to O2 universum Prague on 1-2 December 2026. The detailed programme will be published by September 1; this WordPress version is prepared as a clear, editable and interactive experience.", 'textarea'],
             ['hero_meta_1', 'Hero meta 1', '<strong>1-2 Dec</strong> 2026', 'textarea'],
             ['hero_meta_2', 'Hero meta 2', '<strong>O2 universum</strong> Prague', 'textarea'],
             ['hero_meta_3', 'Hero meta 3', '<strong>Registration</strong> opens in September', 'textarea'],
+            ['countdown_label_before', 'Countdown label before number', 'Conference starts in', 'text'],
+            ['countdown_label_after', 'Countdown label after number', 'days', 'text'],
             ['hero_primary_cta', 'Primary CTA', 'View 2026 overview', 'text'],
             ['hero_secondary_cta', 'Secondary CTA', 'Open archive programme module', 'text'],
             ['event_label', 'Event card label', 'Conference overview', 'text'],
@@ -215,15 +238,15 @@ function ceeducon_admin_content_fields(): array
             ['themes_kicker', 'Themes kicker', 'Thematic tracks', 'text'],
             ['themes_title', 'Themes title', 'Main thematic areas for CEEDUCON 2026.', 'textarea'],
             ['themes_intro', 'Themes intro', 'The 2026 structure connects internationalisation with digitalisation, inclusion, partnerships and the skills graduates need for a changing labour market.', 'textarea'],
-            ['theme_1_title', 'Theme 1 title', 'Smart & Sustainable International Cooperation', 'text'],
-            ['theme_1_text', 'Theme 1 text', 'AI, digitalisation, smart mobility and sustainable funding models for global academic exchange.', 'textarea'],
-            ['theme_2_title', 'Theme 2 title', 'Internationalisation for All', 'text'],
-            ['theme_2_text', 'Theme 2 text', 'Breaking down barriers, supporting wellbeing and improving meaningful international experiences for students and staff.', 'textarea'],
+            ['theme_1_title', 'Theme 1 title', 'Navigating the Technological Shift', 'text'],
+            ['theme_1_text', 'Theme 1 text', 'Responsible use of AI, digitalisation, data and new tools while keeping academic values and human judgement in focus.', 'textarea'],
+            ['theme_2_title', 'Theme 2 title', 'Challenges of Internationalisation', 'text'],
+            ['theme_2_text', 'Theme 2 text', 'Structural, social and financial barriers, safety, wellbeing, funding and inclusive participation for all students and staff.', 'textarea'],
             ['theme_3_title', 'Theme 3 title', 'Global & Regional Partnerships', 'text'],
-            ['theme_3_text', 'Theme 3 text', 'Academic ties with emerging regions, talent mobility and cooperation strategies in shifting geopolitical contexts.', 'textarea'],
-            ['theme_4_title', 'Theme 4 title', 'Alumni — Employability — Future Skills', 'text'],
-            ['theme_4_text', 'Theme 4 text', 'Graduate skills, lifelong learning, entrepreneurship and alumni networks for career development.', 'textarea'],
-            ['theme_button', 'Theme button label', 'Show sessions', 'text'],
+            ['theme_3_text', 'Theme 3 text', 'Sustainable cooperation, European University alliances, global regions and equitable academic partnerships.', 'textarea'],
+            ['theme_4_title', 'Theme 4 title', 'From Recruitment to Retention', 'text'],
+            ['theme_4_text', 'Theme 4 text', 'A student-centred journey from marketing and admissions to support services, alumni relations and graduate success.', 'textarea'],
+            ['theme_button', 'Theme button label', 'Show archive sessions', 'text'],
         ],
         'Programme tools' => [
             ['tool_1_title', 'Tool 1 title', 'When, where, what', 'text'],
@@ -246,11 +269,22 @@ function ceeducon_admin_content_fields(): array
             ['programme_day_2_label', 'Day 2 label', 'Day 2', 'text'],
             ['programme_day_2_title', 'Day 2 title', 'Wednesday, 2 December 2026', 'text'],
             ['programme_day_2_text', 'Day 2 text', 'Second all-day conference block with the same editable programme structure prepared for sessions, rooms and themes.', 'textarea'],
+            ['programme_action_1_label', 'Programme action 1 label', 'Registration', 'text'],
+            ['programme_action_1_title', 'Programme action 1 title', 'Registration opens in September.', 'text'],
+            ['programme_action_1_text', 'Programme action 1 text', 'Until the form is published, participants can contact the CEEDUCON team for updates and practical questions.', 'textarea'],
+            ['programme_action_1_button', 'Programme action 1 button', 'Ask to be notified', 'text'],
+            ['programme_action_1_url', 'Programme action 1 URL', 'mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20registration%20update', 'url'],
+            ['programme_action_2_label', 'Programme action 2 label', 'Editable data', 'text'],
+            ['programme_action_2_title', 'Programme action 2 title', 'Prepared for final 2026 sessions.', 'text'],
+            ['programme_action_2_text', 'Programme action 2 text', 'The interactive grid can be switched from this archive sample to official 2026 session data through the WordPress content panel.', 'textarea'],
+            ['programme_action_2_button', 'Programme action 2 button', 'Open programme module', 'text'],
         ],
         'Programme intro' => [
             ['programme_kicker', 'Programme kicker', 'Interactive archive module', 'text'],
             ['programme_title', 'Programme title', 'Archive programme grid from CEEDUCON 2025.', 'text'],
             ['programme_intro', 'Programme intro', 'This module demonstrates the final publishing approach for a complex programme. Replace the JSON data with 2026 sessions once the official programme is confirmed.', 'textarea'],
+            ['archive_notice_label', 'Archive notice label', 'Archive sample', 'text'],
+            ['archive_notice_text', 'Archive notice text', 'This is not the final CEEDUCON 2026 programme. The grid below uses archived CEEDUCON 2025 session titles only to demonstrate filters, personal selection, calendar export and mobile layout before the official 2026 programme is published.', 'textarea'],
         ],
         'Practical information' => [
             ['practical_kicker', 'Practical kicker', 'Practical information', 'text'],
@@ -268,6 +302,12 @@ function ceeducon_admin_content_fields(): array
             ['practical_4_label', 'Practical card 4 label', 'Fee & stay', 'text'],
             ['practical_4_title', 'Practical card 4 title', 'No conference fee', 'text'],
             ['practical_4_text', 'Practical card 4 text', 'There is no conference fee for registered attendees. Accommodation is arranged individually; nearby options include Stages Hotel and Carol Hotel.', 'textarea'],
+            ['faq_1_title', 'FAQ 1 title', 'Accommodation', 'text'],
+            ['faq_1_text', 'FAQ 1 text', 'Participants arrange accommodation individually. The official practical information currently lists nearby options including Stages Hotel and Carol Hotel.', 'textarea'],
+            ['faq_2_title', 'FAQ 2 title', 'Parking and metro status', 'text'],
+            ['faq_2_text', 'FAQ 2 text', 'Use the venue website and current Prague public transport updates before travelling. The official practical information notes changes around Ceskomoravska metro access.', 'textarea'],
+            ['faq_3_title', 'FAQ 3 title', 'Visa and travel questions', 'text'],
+            ['faq_3_text', 'FAQ 3 text', 'International participants should check travel requirements for the Czech Republic early and contact the organisers if they need event confirmation details.', 'textarea'],
         ],
         'For speakers' => [
             ['speakers_kicker', 'Speakers kicker', 'For speakers', 'text'],
@@ -278,6 +318,10 @@ function ceeducon_admin_content_fields(): array
             ['speaker_2_text', 'Speaker 2 text', 'The conference is primarily onsite. Selected rooms may be recorded, and speakers can indicate recording preferences in the registration process.', 'textarea'],
             ['speaker_3_title', 'Speaker 3 title', 'Important milestones', 'text'],
             ['speaker_3_text', 'Speaker 3 text', 'The original speaker guidance includes notification, registration, contract arrangements and publication of the programme by September 1.', 'textarea'],
+            ['speaker_status_label', 'Speaker status label', 'Speaker profiles', 'text'],
+            ['speaker_status_text', 'Speaker status text', 'Names, photos and detailed abstracts can be published together with the official programme. The WordPress version is ready for speaker cards or links once profiles are confirmed.', 'textarea'],
+            ['speaker_status_button', 'Speaker status button', 'Speaker contact', 'text'],
+            ['speaker_status_url', 'Speaker status URL', 'mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20speaker%20question', 'url'],
         ],
         'Venue' => [
             ['venue_kicker', 'Venue kicker', 'Venue', 'text'],
@@ -285,6 +329,9 @@ function ceeducon_admin_content_fields(): array
             ['venue_text', 'Venue text', 'The venue block is kept as a compact anchor for map links and production information. Detailed 2026 rooms can be added once the final programme is available.', 'textarea'],
             ['venue_button', 'Venue button', 'Open venue website', 'text'],
             ['venue_url', 'Venue URL', 'https://www.o2universum.cz/en', 'url'],
+            ['venue_map_button', 'Venue map button', 'Open map', 'text'],
+            ['venue_map_url', 'Venue map URL', 'https://www.google.com/maps/search/?api=1&query=O2%20universum%20Ceskomoravska%2017%20Prague', 'url'],
+            ['room_key_label', 'Room key label', 'Archive room labels', 'text'],
         ],
         'Contact and partners' => [
             ['contact_kicker', 'Contact kicker', 'Contact and organisers', 'text'],
@@ -298,7 +345,15 @@ function ceeducon_admin_content_fields(): array
         'Footer' => [
             ['footer_title', 'Footer title', 'CEEDUCON 2026', 'text'],
             ['footer_subtitle', 'Footer subtitle', 'ceeducon@dzs.cz · +420 221 850 100', 'text'],
+            ['footer_official_label', 'Official website label', 'Official website', 'text'],
+            ['footer_official_url', 'Official website URL', 'https://www.ceeducon.cz/', 'url'],
+            ['footer_dzs_label', 'DZS label', 'DZS', 'text'],
+            ['footer_dzs_url', 'DZS URL', 'https://www.dzs.cz/', 'url'],
+            ['footer_contact_label', 'Contact label', 'Contact', 'text'],
             ['footer_back_top', 'Back to top label', 'Back to top', 'text'],
+        ],
+        'Programme data' => [
+            ['programme_json', 'Programme JSON', ceeducon_default_programme_json(), 'code'],
         ],
     ];
 }
@@ -334,12 +389,21 @@ function ceeducon_render_content_admin_page(): void
         foreach ($fields as $group_fields) {
             foreach ($group_fields as [$key, , , $type]) {
                 $value = isset($submitted[$key]) ? (string) $submitted[$key] : '';
-                $clean[$key] = $type === 'url' ? esc_url_raw($value) : wp_kses_post($value);
+                if ($type === 'url') {
+                    $clean[$key] = esc_url_raw($value);
+                } elseif ($type === 'code') {
+                    $clean[$key] = wp_check_invalid_utf8($value);
+                } else {
+                    $clean[$key] = wp_kses_post($value);
+                }
             }
         }
 
         update_option('ceeducon_content', $clean);
         echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('CEEDUCON content saved.', 'ceeducon-program') . '</p></div>';
+        if (!empty($clean['programme_json']) && json_decode($clean['programme_json'], true) === null) {
+            echo '<div class="notice notice-warning"><p>' . esc_html__('Programme JSON is not valid. The front end will keep using the bundled programme data until the JSON is fixed.', 'ceeducon-program') . '</p></div>';
+        }
     }
 
     $content = get_option('ceeducon_content', []);
@@ -349,7 +413,7 @@ function ceeducon_render_content_admin_page(): void
     ?>
     <div class="wrap">
       <h1><?php esc_html_e('CEEDUCON Content', 'ceeducon-program'); ?></h1>
-      <p><?php esc_html_e('Edit the visible texts used by the CEEDUCON programme homepage. The interactive programme sessions are still managed in data/program.json.', 'ceeducon-program'); ?></p>
+      <p><?php esc_html_e('Edit the visible texts used by the CEEDUCON programme homepage. The Programme JSON field controls rooms, themes and interactive schedule sessions.', 'ceeducon-program'); ?></p>
       <form method="post">
         <?php wp_nonce_field('ceeducon_save_content'); ?>
         <?php foreach ($fields as $group => $group_fields) : ?>
@@ -363,7 +427,10 @@ function ceeducon_render_content_admin_page(): void
                     <label for="ceeducon-<?php echo esc_attr($key); ?>"><?php echo esc_html($label); ?></label>
                   </th>
                   <td>
-                    <?php if ($type === 'textarea') : ?>
+                    <?php if ($type === 'code') : ?>
+                      <textarea id="ceeducon-<?php echo esc_attr($key); ?>" name="ceeducon_content[<?php echo esc_attr($key); ?>]" class="large-text code" rows="22"><?php echo esc_textarea($value); ?></textarea>
+                      <p class="description"><?php esc_html_e('Edit rooms, themes and sessions here. Keep valid JSON formatting.', 'ceeducon-program'); ?></p>
+                    <?php elseif ($type === 'textarea') : ?>
                       <?php
                       wp_editor($value, 'ceeducon_' . $key, [
                           'textarea_name' => 'ceeducon_content[' . $key . ']',

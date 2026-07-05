@@ -3,7 +3,7 @@
   <head>
     <meta charset="<?php bloginfo('charset'); ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="<?php echo esc_attr__('CEEDUCON 2026 takes place on 1-2 December 2026 at O2 universum Prague. Explore the conference overview, practical information and an interactive archive programme module.', 'ceeducon-program'); ?>" />
+    <meta name="description" content="<?php echo esc_attr__('CEEDUCON 2026 takes place on 1-2 December 2026 at O2 universum Prague. Explore the conference overview, practical information and an interactive archive programme module prepared for the final programme data.', 'ceeducon-program'); ?>" />
     <meta name="theme-color" content="#0D5E9D" />
     <link rel="canonical" href="<?php echo esc_url(home_url('/')); ?>" />
     <meta property="og:type" content="website" />

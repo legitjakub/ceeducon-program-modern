@@ -2,7 +2,12 @@
       <div class="shell footer-inner">
         <img src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-horizontal-white.png')); ?>" alt="CEEDUCON" />
         <p><?php ceeducon_text('footer_title', 'CEEDUCON 2026'); ?><br /><span><?php ceeducon_text('footer_subtitle', 'ceeducon@dzs.cz · +420 221 850 100'); ?></span></p>
-        <a href="#top"><?php ceeducon_text('footer_back_top', 'Back to top'); ?> ↑</a>
+        <nav class="footer-links" aria-label="Footer links">
+          <a href="<?php echo esc_url(ceeducon_text_value('footer_official_url', 'https://www.ceeducon.cz/')); ?>" target="_blank" rel="noreferrer"><?php ceeducon_text('footer_official_label', 'Official website'); ?></a>
+          <a href="<?php echo esc_url(ceeducon_text_value('footer_dzs_url', 'https://www.dzs.cz/')); ?>" target="_blank" rel="noreferrer"><?php ceeducon_text('footer_dzs_label', 'DZS'); ?></a>
+          <a href="#contact"><?php ceeducon_text('footer_contact_label', 'Contact'); ?></a>
+          <a href="#top"><?php ceeducon_text('footer_back_top', 'Back to top'); ?> ↑</a>
+        </nav>
       </div>
     </footer>
 

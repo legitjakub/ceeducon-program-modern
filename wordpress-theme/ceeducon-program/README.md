@@ -17,18 +17,19 @@ The older **Appearance -> Customize -> CEEDUCON content** fields are still avail
 - Hero title, lead text, event date/card and CTA labels.
 - About section text and highlight chips.
 - Thematic area titles and descriptions.
-- CEEDUCON 2026 programme overview.
-- Programme intro text.
+- CEEDUCON 2026 programme overview and registration CTA.
+- Programme intro, archive notice and FAQ text.
 - Practical information and speaker guidance.
 - Venue title, text, button and URL.
 - Contact and partner text.
-- Footer title and subtitle.
+- Footer title, subtitle and main footer links.
+- Programme JSON for rooms, themes and interactive schedule sessions.
 
 ## Programme data
 
-The interactive programme still uses structured JSON data:
+The interactive programme uses structured JSON data and can be edited in **CEEDUCON Content -> Programme data**:
 
 - `data/program.json`
 - `js/program-data.js`
 
-For a production WordPress build, this could later be moved to ACF repeaters or a custom post type. For this assignment version, the theme is intentionally lightweight and keeps the archive programme data file-based.
+When the Programme JSON field contains valid JSON, the front end uses that saved WordPress data instead of the bundled file. A future production build could still move the same structure to ACF repeaters or a custom post type, but this ZIP already lets editors update the schedule without opening code.
