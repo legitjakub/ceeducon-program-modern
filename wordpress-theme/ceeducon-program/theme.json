@@ -13,13 +13,13 @@
         },
         {
           "slug": "ceeducon-deep-blue",
-          "color": "#06304f",
-          "name": "Deep Blue"
+          "color": "#084c80",
+          "name": "CEEDUCON Dark Blue"
         },
         {
           "slug": "ceeducon-ink",
-          "color": "#041f35",
-          "name": "Ink"
+          "color": "#0d5e9d",
+          "name": "CEEDUCON Text Blue"
         },
         {
           "slug": "ceeducon-orange",
@@ -62,6 +62,11 @@
           "fontFamily": "\"Tabac Sans\", Arial, sans-serif",
           "slug": "tabac-sans",
           "name": "Tabac Sans"
+        },
+        {
+          "fontFamily": "\"Axiforma\", \"Tabac Sans\", Arial, sans-serif",
+          "slug": "axiforma",
+          "name": "Axiforma Bold"
         }
       ],
       "fontSizes": [
@@ -91,7 +96,7 @@
   "styles": {
     "color": {
       "background": "#ffffff",
-      "text": "#041f35"
+      "text": "#0d5e9d"
     },
     "typography": {
       "fontFamily": "var(--wp--preset--font-family--tabac-sans)",

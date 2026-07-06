@@ -8,7 +8,23 @@
 
 @font-face {
   font-family: "Tabac Sans";
+  src: url("../assets/fonts/Tabac-Sans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tabac Sans";
   src: url("../assets/fonts/Tabac-Sans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Axiforma";
+  src: url("../assets/fonts/Axiforma-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -16,8 +32,8 @@
 
 .editor-styles-wrapper {
   --ceeducon-blue: #0d5e9d;
-  --ceeducon-deep-blue: #06304f;
-  --ceeducon-ink: #041f35;
+  --ceeducon-deep-blue: #084c80;
+  --ceeducon-ink: #0d5e9d;
   --ceeducon-orange: #ec722f;
   --ceeducon-sky: #45c0ea;
 
@@ -33,8 +49,8 @@
 .editor-styles-wrapper h4 {
   color: var(--ceeducon-ink);
   font-family: "Tabac Sans", Arial, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.04em;
+  font-weight: 500;
+  letter-spacing: -0.03em;
   line-height: 0.95;
 }
 
@@ -53,7 +69,8 @@
 .editor-styles-wrapper .wp-block-button__link {
   background: var(--ceeducon-orange);
   border-radius: 999px;
-  color: var(--ceeducon-ink);
+  color: var(--ceeducon-deep-blue);
+  font-family: "Axiforma", "Tabac Sans", Arial, sans-serif;
   font-weight: 700;
 }
 

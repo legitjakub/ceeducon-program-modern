@@ -22,6 +22,8 @@ get_header();
         </div>
       </section>
 
+      <?php ceeducon_render_editor_content(); ?>
+
       <section class="section" id="programme-2026">
         <div class="shell">
           <div class="section-head">
@@ -118,6 +120,8 @@ get_header();
           <div class="empty-state" data-empty hidden>
             <span>0</span><h3><?php esc_html_e('No session matches your selection', 'ceeducon-program'); ?></h3><p><?php esc_html_e('Try another theme, room or search term.', 'ceeducon-program'); ?></p><button type="button" data-empty-reset><?php esc_html_e('Show full programme', 'ceeducon-program'); ?></button>
           </div>
+
+          <?php ceeducon_render_programme_seo_fallback(); ?>
         </div>
       </section>
     </main>

@@ -25,6 +25,8 @@ $con_phone = ceeducon_text_value('con_phone', '+420 221 850 100');
         </div>
       </section>
 
+      <?php ceeducon_render_editor_content(); ?>
+
       <section class="section">
         <div class="shell contact-band">
           <div data-reveal>
@@ -50,25 +52,25 @@ $con_phone = ceeducon_text_value('con_phone', '+420 221 850 100');
         <div class="shell">
           <div class="section-head">
             <div data-reveal>
-              <p class="kicker"><?php esc_html_e('Looking for something?', 'ceeducon-program'); ?></p>
-              <h2 class="display-2"><?php esc_html_e('Quick answers, one page away.', 'ceeducon-program'); ?></h2>
+              <p class="kicker"><?php ceeducon_text('con_links_kicker', 'Looking for something?'); ?></p>
+              <h2 class="display-2"><?php ceeducon_text('con_links_title', 'Quick answers, one page away.'); ?></h2>
             </div>
           </div>
           <div class="tile-grid">
             <a class="link-tile" href="<?php echo esc_url(ceeducon_page_url('programme')); ?>" data-reveal>
-              <span><?php esc_html_e('Programme', 'ceeducon-program'); ?></span>
-              <h3><?php esc_html_e('The two conference days', 'ceeducon-program'); ?></h3>
-              <p><?php esc_html_e('Day structure, thematic areas and the interactive programme grid.', 'ceeducon-program'); ?></p>
+              <span><?php ceeducon_text('con_link_1_label', 'Programme'); ?></span>
+              <h3><?php ceeducon_text('con_link_1_title', 'The two conference days'); ?></h3>
+              <p><?php ceeducon_text('con_link_1_text', 'Day structure, thematic areas and the interactive programme grid.'); ?></p>
             </a>
             <a class="link-tile" href="<?php echo esc_url(ceeducon_page_url('practical')); ?>" data-reveal="2">
-              <span><?php esc_html_e('Practical', 'ceeducon-program'); ?></span>
-              <h3><?php esc_html_e('Getting to the venue', 'ceeducon-program'); ?></h3>
-              <p><?php esc_html_e('Transport, accessibility, accommodation and travel tips for Prague.', 'ceeducon-program'); ?></p>
+              <span><?php ceeducon_text('con_link_2_label', 'Practical'); ?></span>
+              <h3><?php ceeducon_text('con_link_2_title', 'Getting to the venue'); ?></h3>
+              <p><?php ceeducon_text('con_link_2_text', 'Transport, accessibility, accommodation and travel tips for Prague.'); ?></p>
             </a>
             <a class="link-tile" href="<?php echo esc_url(ceeducon_page_url('speakers')); ?>" data-reveal="3">
-              <span><?php esc_html_e('For speakers', 'ceeducon-program'); ?></span>
-              <h3><?php esc_html_e('Session guidance', 'ceeducon-program'); ?></h3>
-              <p><?php esc_html_e('Expectations, delivery format and the speaker timeline for 2026.', 'ceeducon-program'); ?></p>
+              <span><?php ceeducon_text('con_link_3_label', 'For speakers'); ?></span>
+              <h3><?php ceeducon_text('con_link_3_title', 'Session guidance'); ?></h3>
+              <p><?php ceeducon_text('con_link_3_text', 'Expectations, delivery format and the speaker timeline for 2026.'); ?></p>
             </a>
           </div>
         </div>

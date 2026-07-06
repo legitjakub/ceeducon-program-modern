@@ -23,6 +23,8 @@ get_header();
         </div>
       </section>
 
+      <?php ceeducon_render_editor_content(); ?>
+
       <section class="section">
         <div class="shell statement-grid">
           <div data-reveal>

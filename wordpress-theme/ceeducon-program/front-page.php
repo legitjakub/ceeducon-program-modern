@@ -50,6 +50,8 @@ get_header();
         </div>
       </section>
 
+      <?php ceeducon_render_editor_content(); ?>
+
       <section class="section">
         <div class="shell statement-grid">
           <div data-reveal>
@@ -202,19 +204,19 @@ get_header();
           </div>
           <div class="tile-grid">
             <a class="link-tile" href="<?php echo esc_url(ceeducon_page_url('practical')); ?>" data-reveal>
-              <span><?php esc_html_e('Practical', 'ceeducon-program'); ?></span>
-              <h3><?php esc_html_e('Getting to the conference', 'ceeducon-program'); ?></h3>
-              <p><?php esc_html_e('Venue, transport from the airport and stations, accessibility and accommodation tips.', 'ceeducon-program'); ?></p>
+              <span><?php ceeducon_text('home_link_1_label', 'Practical'); ?></span>
+              <h3><?php ceeducon_text('home_link_1_title', 'Getting to the conference'); ?></h3>
+              <p><?php ceeducon_text('home_link_1_text', 'Venue, transport from the airport and stations, accessibility and accommodation tips.'); ?></p>
             </a>
             <a class="link-tile" href="<?php echo esc_url(ceeducon_page_url('speakers')); ?>" data-reveal="2">
-              <span><?php esc_html_e('For speakers', 'ceeducon-program'); ?></span>
-              <h3><?php esc_html_e('Speaking at CEEDUCON', 'ceeducon-program'); ?></h3>
-              <p><?php esc_html_e('Session expectations, onsite delivery, timeline and speaker support in one overview.', 'ceeducon-program'); ?></p>
+              <span><?php ceeducon_text('home_link_2_label', 'For speakers'); ?></span>
+              <h3><?php ceeducon_text('home_link_2_title', 'Speaking at CEEDUCON'); ?></h3>
+              <p><?php ceeducon_text('home_link_2_text', 'Session expectations, onsite delivery, timeline and speaker support in one overview.'); ?></p>
             </a>
             <a class="link-tile" href="<?php echo esc_url(ceeducon_page_url('contact')); ?>" data-reveal="3">
-              <span><?php esc_html_e('Contact', 'ceeducon-program'); ?></span>
-              <h3><?php esc_html_e('Talk to the team', 'ceeducon-program'); ?></h3>
-              <p><?php esc_html_e('Questions about registration, the programme or partnerships — the organisers are ready to help.', 'ceeducon-program'); ?></p>
+              <span><?php ceeducon_text('home_link_3_label', 'Contact'); ?></span>
+              <h3><?php ceeducon_text('home_link_3_title', 'Talk to the team'); ?></h3>
+              <p><?php ceeducon_text('home_link_3_text', 'Questions about registration, the programme or partnerships — the organisers are ready to help.'); ?></p>
             </a>
           </div>
         </div>

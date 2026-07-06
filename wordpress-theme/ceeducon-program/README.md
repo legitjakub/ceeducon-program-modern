@@ -20,11 +20,15 @@ Same design and front-end code as the static preview site — plain PHP template
 
 ## Editing content
 
-All visible texts live in **wp-admin → CEEDUCON Content**, grouped per page/section:
+All visible texts live in **wp-admin → CEEDUCON Content**, grouped per page/section.
+When ACF Pro is active, this screen is registered as an ACF Options Page and the theme reads
+fields with matching names from ACF first. When ACF is not active, the theme falls back to its
+built-in lightweight content editor, so the theme remains uploadable on a clean WordPress install.
 
 - Global header & footer (footer texts, contact links)
 - Navigation uses **Appearance → Menus → Primary navigation** when assigned, with a built-in fallback menu.
 - Brand colours, wide alignment and the Tabac Sans editor preview are registered through `theme.json` and `css/editor-style.css`, so normal WordPress blocks stay visually close to the CEEDUCON identity.
+- The normal WordPress page editor is also supported. If a page contains Gutenberg content, it is rendered below the hero section in a styled CEEDUCON content band; empty editor content outputs nothing.
 - Home hero, stats, media gallery and sections
 - Thematic areas (shared between Home and About)
 - Programme day cards and notices (shared between Home and Programme)
@@ -32,6 +36,21 @@ All visible texts live in **wp-admin → CEEDUCON Content**, grouped per page/se
 - **Programme data** — the `Programme JSON` field
 
 Fields left empty fall back to the built-in defaults.
+
+## ACF workflow
+
+The theme is ACF-compatible:
+
+- `get_field($key, 'option')` is used first when ACF is active.
+- ACF Options Page slug: `ceeducon-content`.
+- ACF JSON save/load path: `acf-json/`.
+- Field names intentionally match the fallback field keys, for example `home_hero_title`,
+  `media_hero_alt`, `spk_cta_url`, `programme_json`.
+
+The current fallback editor exists only so the theme can still run without ACF. In a production
+WordPress setup, install ACF Pro, open **CEEDUCON Content**, adjust/sync fields if needed, and let
+ACF write field-group JSON into `acf-json/` for version control. Concrete content values remain in
+the database, not in Git.
 
 The theme is intentionally a classic PHP theme, not a full Site Editor block theme. This keeps the
 conference layouts stable, while day-to-day copy, menu labels, contact links and programme data remain
@@ -48,6 +67,8 @@ The interactive grid on the Programme page reads, in order of priority:
 The JSON structure (`event`, `rooms`, `themes`, `slots`) matches the static site.
 Invalid JSON is not saved over the last valid value, so a formatting mistake in the admin cannot break
 the public programme.
+The Programme page also renders a server-side text version of sessions below the interactive grid,
+so important session titles, times and rooms are present in normal HTML for SEO and non-JavaScript users.
 The current data is the archived CEEDUCON 2025 programme, clearly labelled as an
 archive sample on the page; replace it with the official 2026 sessions when published.
 Theme track colours use the CEEDUCON brand palette (`#0d5e9d`, `#ec722f`, `#45c0ea`, `#06304f`).

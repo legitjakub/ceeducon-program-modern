@@ -22,6 +22,8 @@ get_header();
         </div>
       </section>
 
+      <?php ceeducon_render_editor_content(); ?>
+
       <section class="section section--navy on-dark">
         <div class="shell speakers-grid">
           <div data-reveal>
@@ -98,25 +100,25 @@ get_header();
         <div class="shell">
           <div class="section-head">
             <div data-reveal>
-              <p class="kicker"><?php esc_html_e('Also useful', 'ceeducon-program'); ?></p>
-              <h2 class="display-2"><?php esc_html_e('Before you travel.', 'ceeducon-program'); ?></h2>
+              <p class="kicker"><?php ceeducon_text('spk_links_kicker', 'Also useful'); ?></p>
+              <h2 class="display-2"><?php ceeducon_text('spk_links_title', 'Before you travel.'); ?></h2>
             </div>
           </div>
           <div class="tile-grid">
             <a class="link-tile" href="<?php echo esc_url(ceeducon_page_url('programme')); ?>" data-reveal>
-              <span><?php esc_html_e('Programme', 'ceeducon-program'); ?></span>
-              <h3><?php esc_html_e('The two-day structure', 'ceeducon-program'); ?></h3>
-              <p><?php esc_html_e('See how the conference days are planned and how the detailed programme will be published.', 'ceeducon-program'); ?></p>
+              <span><?php ceeducon_text('spk_link_1_label', 'Programme'); ?></span>
+              <h3><?php ceeducon_text('spk_link_1_title', 'The two-day structure'); ?></h3>
+              <p><?php ceeducon_text('spk_link_1_text', 'See how the conference days are planned and how the detailed programme will be published.'); ?></p>
             </a>
             <a class="link-tile" href="<?php echo esc_url(ceeducon_page_url('practical')); ?>" data-reveal="2">
-              <span><?php esc_html_e('Practical', 'ceeducon-program'); ?></span>
-              <h3><?php esc_html_e('Venue & travel', 'ceeducon-program'); ?></h3>
-              <p><?php esc_html_e('Transport from the airport and stations, accessibility and accommodation tips.', 'ceeducon-program'); ?></p>
+              <span><?php ceeducon_text('spk_link_2_label', 'Practical'); ?></span>
+              <h3><?php ceeducon_text('spk_link_2_title', 'Venue & travel'); ?></h3>
+              <p><?php ceeducon_text('spk_link_2_text', 'Transport from the airport and stations, accessibility and accommodation tips.'); ?></p>
             </a>
             <a class="link-tile" href="<?php echo esc_url(ceeducon_page_url('contact')); ?>" data-reveal="3">
-              <span><?php esc_html_e('Contact', 'ceeducon-program'); ?></span>
-              <h3><?php esc_html_e('Talk to the organisers', 'ceeducon-program'); ?></h3>
-              <p><?php esc_html_e('Reach the CEEDUCON team for anything the speaker information does not cover.', 'ceeducon-program'); ?></p>
+              <span><?php ceeducon_text('spk_link_3_label', 'Contact'); ?></span>
+              <h3><?php ceeducon_text('spk_link_3_title', 'Talk to the organisers'); ?></h3>
+              <p><?php ceeducon_text('spk_link_3_text', 'Reach the CEEDUCON team for anything the speaker information does not cover.'); ?></p>
             </a>
           </div>
         </div>

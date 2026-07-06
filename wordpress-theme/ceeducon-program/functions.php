@@ -43,8 +43,31 @@ function ceeducon_asset_url(string $path): string
     return get_template_directory_uri() . '/' . ltrim($path, '/');
 }
 
+function ceeducon_acf_value(string $key)
+{
+    if (!function_exists('get_field')) {
+        return null;
+    }
+
+    $value = get_field($key, 'option');
+    if ($value === null || $value === false || $value === '') {
+        return null;
+    }
+
+    if (is_scalar($value)) {
+        return (string) $value;
+    }
+
+    return null;
+}
+
 function ceeducon_text_value(string $key, string $default): string
 {
+    $acf_value = ceeducon_acf_value($key);
+    if ($acf_value !== null) {
+        return $acf_value;
+    }
+
     $content = get_option('ceeducon_content', []);
     if (is_array($content) && array_key_exists($key, $content) && $content[$key] !== '') {
         return (string) $content[$key];
@@ -194,6 +217,77 @@ function ceeducon_default_programme_json(): string
     return is_string($json) ? $json : '';
 }
 
+function ceeducon_programme_data(): array
+{
+    $programme_json = ceeducon_text_value('programme_json', '');
+    $programme_data = $programme_json !== '' ? json_decode($programme_json, true) : null;
+    if (is_array($programme_data)) {
+        return $programme_data;
+    }
+
+    $default_json = ceeducon_default_programme_json();
+    $default_data = $default_json !== '' ? json_decode($default_json, true) : null;
+    return is_array($default_data) ? $default_data : [];
+}
+
+function ceeducon_render_programme_seo_fallback(): void
+{
+    $data = ceeducon_programme_data();
+    if (empty($data['days']) || !is_array($data['days'])) {
+        return;
+    }
+    ?>
+    <details class="programme-fallback" data-reveal>
+      <summary><?php esc_html_e('Text version of the programme', 'ceeducon-program'); ?></summary>
+      <div class="programme-fallback-days">
+        <?php foreach ($data['days'] as $day) : ?>
+          <?php if (empty($day['slots']) || !is_array($day['slots'])) { continue; } ?>
+          <section>
+            <h3><?php echo esc_html(trim(($day['label'] ?? '') . ' · ' . ($day['title'] ?? ''))); ?></h3>
+            <ul>
+              <?php foreach ($day['slots'] as $slot) : ?>
+                <?php if (empty($slot['sessions']) || !is_array($slot['sessions'])) { continue; } ?>
+                <?php foreach ($slot['sessions'] as $session) : ?>
+                  <li>
+                    <time><?php echo esc_html(($slot['start'] ?? '') . '–' . ($slot['end'] ?? '')); ?></time>
+                    <strong><?php echo esc_html($session['title'] ?? ''); ?></strong>
+                    <?php if (!empty($session['rooms']) && is_array($session['rooms'])) : ?>
+                      <span><?php echo esc_html(implode(' + ', $session['rooms'])); ?></span>
+                    <?php endif; ?>
+                  </li>
+                <?php endforeach; ?>
+              <?php endforeach; ?>
+            </ul>
+          </section>
+        <?php endforeach; ?>
+      </div>
+    </details>
+    <?php
+}
+
+function ceeducon_render_editor_content(): void
+{
+    if (!is_singular()) {
+        return;
+    }
+
+    $post = get_post();
+    if (!$post instanceof WP_Post) {
+        return;
+    }
+
+    $content = get_the_content(null, false, $post);
+    if (trim($content) === '') {
+        return;
+    }
+
+    echo '<section class="section section--editor-content">';
+    echo '<div class="shell wp-content">';
+    echo apply_filters('the_content', $content);
+    echo '</div>';
+    echo '</section>';
+}
+
 function ceeducon_theme_scripts(): void
 {
     $theme = wp_get_theme();
@@ -218,8 +312,7 @@ function ceeducon_theme_scripts(): void
         return;
     }
 
-    $programme_json = ceeducon_text_value('programme_json', '');
-    $programme_data = $programme_json !== '' ? json_decode($programme_json, true) : null;
+    $programme_data = ceeducon_programme_data();
 
     wp_enqueue_script(
         'ceeducon-program-data',
@@ -243,7 +336,7 @@ function ceeducon_theme_scripts(): void
         'before'
     );
 
-    if (is_array($programme_data)) {
+    if (!empty($programme_data)) {
         wp_add_inline_script(
             'ceeducon-program-data',
             'window.CEEDUCON_PROGRAM_DATA = ' . wp_json_encode($programme_data) . '; window.CEEDUCON_PREFER_EMBEDDED_DATA = true;',
@@ -252,6 +345,95 @@ function ceeducon_theme_scripts(): void
     }
 }
 add_action('wp_enqueue_scripts', 'ceeducon_theme_scripts');
+
+function ceeducon_acf_json_save_point(string $path): string
+{
+    return get_template_directory() . '/acf-json';
+}
+add_filter('acf/settings/save_json', 'ceeducon_acf_json_save_point');
+
+function ceeducon_acf_json_load_point(array $paths): array
+{
+    $paths[] = get_template_directory() . '/acf-json';
+    return $paths;
+}
+add_filter('acf/settings/load_json', 'ceeducon_acf_json_load_point');
+
+function ceeducon_acf_field_type(string $type): string
+{
+    if ($type === 'url') {
+        return 'url';
+    }
+
+    if ($type === 'textarea' || $type === 'code') {
+        return 'textarea';
+    }
+
+    return 'text';
+}
+
+function ceeducon_register_acf_content(): void
+{
+    if (!function_exists('acf_add_options_page') || !function_exists('acf_add_local_field_group')) {
+        return;
+    }
+
+    acf_add_options_page([
+        'page_title' => __('CEEDUCON Content', 'ceeducon-program'),
+        'menu_title' => __('CEEDUCON Content', 'ceeducon-program'),
+        'menu_slug' => 'ceeducon-content',
+        'capability' => 'edit_theme_options',
+        'redirect' => false,
+        'position' => 30,
+        'icon_url' => 'dashicons-edit-page',
+    ]);
+
+    $fields = [];
+    foreach (ceeducon_admin_content_fields() as $group => $group_fields) {
+        $fields[] = [
+            'key' => 'field_ceeducon_tab_' . sanitize_key($group),
+            'label' => $group,
+            'name' => '',
+            'type' => 'tab',
+            'placement' => 'top',
+        ];
+
+        foreach ($group_fields as [$key, $label, , $type]) {
+            $fields[] = [
+                'key' => 'field_ceeducon_' . sanitize_key($key),
+                'label' => $label,
+                'name' => $key,
+                'type' => ceeducon_acf_field_type($type),
+                'instructions' => $type === 'code' ? __('Keep valid JSON formatting.', 'ceeducon-program') : '',
+                'required' => 0,
+                'rows' => $type === 'code' ? 22 : 3,
+                'new_lines' => '',
+            ];
+        }
+    }
+
+    acf_add_local_field_group([
+        'key' => 'group_ceeducon_content',
+        'title' => __('CEEDUCON Content', 'ceeducon-program'),
+        'fields' => $fields,
+        'location' => [
+            [
+                [
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'ceeducon-content',
+                ],
+            ],
+        ],
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'active' => true,
+    ]);
+}
+add_action('acf/init', 'ceeducon_register_acf_content');
 
 /**
  * Editable content fields, grouped for the admin screen.
@@ -349,6 +531,15 @@ function ceeducon_admin_content_fields(): array
             ['home_venue_panel_text', 'Venue panel text', 'Around 55 minutes from Prague Airport by public transport, a short walk from Praha-Libeň railway station and steps from the Českomoravská metro stop.', 'textarea'],
             ['home_plan_kicker', 'Plan kicker', 'Plan ahead', 'text'],
             ['home_plan_title', 'Plan title', 'Everything you need, one page away.', 'textarea'],
+            ['home_link_1_label', 'Quick link 1 label', 'Practical', 'text'],
+            ['home_link_1_title', 'Quick link 1 title', 'Getting to the conference', 'text'],
+            ['home_link_1_text', 'Quick link 1 text', 'Venue, transport from the airport and stations, accessibility and accommodation tips.', 'textarea'],
+            ['home_link_2_label', 'Quick link 2 label', 'For speakers', 'text'],
+            ['home_link_2_title', 'Quick link 2 title', 'Speaking at CEEDUCON', 'text'],
+            ['home_link_2_text', 'Quick link 2 text', 'Session expectations, onsite delivery, timeline and speaker support in one overview.', 'textarea'],
+            ['home_link_3_label', 'Quick link 3 label', 'Contact', 'text'],
+            ['home_link_3_title', 'Quick link 3 title', 'Talk to the team', 'text'],
+            ['home_link_3_text', 'Quick link 3 text', 'Questions about registration, the programme or partnerships — the organisers are ready to help.', 'textarea'],
             ['home_org_kicker', 'Organisers kicker', 'Organisers', 'text'],
             ['home_org_title', 'Organisers title', "Backed by Central Europe's national agencies.", 'textarea'],
             ['home_org_lead', 'Organisers lead (HTML allowed)', 'CEEDUCON is organised by DZS — the Czech National Agency for International Education and Research — in co-operation with partner organisations across the region. Reach the team at <a href="mailto:ceeducon@dzs.cz">ceeducon@dzs.cz</a>.', 'textarea'],
@@ -496,6 +687,17 @@ function ceeducon_admin_content_fields(): array
             ['milestone_3_text', 'Milestone 3 text', 'Contracts & presentation template', 'text'],
             ['milestone_4_label', 'Milestone 4 label', 'By September 1', 'text'],
             ['milestone_4_text', 'Milestone 4 text', 'Programme publication', 'text'],
+            ['spk_links_kicker', 'Quick links kicker', 'Also useful', 'text'],
+            ['spk_links_title', 'Quick links title', 'Before you travel.', 'textarea'],
+            ['spk_link_1_label', 'Quick link 1 label', 'Programme', 'text'],
+            ['spk_link_1_title', 'Quick link 1 title', 'The two-day structure', 'text'],
+            ['spk_link_1_text', 'Quick link 1 text', 'See how the conference days are planned and how the detailed programme will be published.', 'textarea'],
+            ['spk_link_2_label', 'Quick link 2 label', 'Practical', 'text'],
+            ['spk_link_2_title', 'Quick link 2 title', 'Venue & travel', 'text'],
+            ['spk_link_2_text', 'Quick link 2 text', 'Transport from the airport and stations, accessibility and accommodation tips.', 'textarea'],
+            ['spk_link_3_label', 'Quick link 3 label', 'Contact', 'text'],
+            ['spk_link_3_title', 'Quick link 3 title', 'Talk to the organisers', 'text'],
+            ['spk_link_3_text', 'Quick link 3 text', 'Reach the CEEDUCON team for anything the speaker information does not cover.', 'textarea'],
         ],
         'Contact page' => [
             ['con_hero_title', 'Hero title', 'Talk to the CEEDUCON team.', 'textarea'],
@@ -508,6 +710,17 @@ function ceeducon_admin_content_fields(): array
             ['con_lead', 'Section lead (HTML allowed)', 'CEEDUCON is organised by DZS in co-operation with Central European partner organisations. Write to <a href="mailto:ceeducon@dzs.cz">ceeducon@dzs.cz</a> or call +420 221 850 100.', 'textarea'],
             ['con_button_email', 'Email button', 'Email CEEDUCON', 'text'],
             ['con_button_dzs', 'DZS button', 'DZS website', 'text'],
+            ['con_links_kicker', 'Quick links kicker', 'Looking for something?', 'text'],
+            ['con_links_title', 'Quick links title', 'Quick answers, one page away.', 'textarea'],
+            ['con_link_1_label', 'Quick link 1 label', 'Programme', 'text'],
+            ['con_link_1_title', 'Quick link 1 title', 'The two conference days', 'text'],
+            ['con_link_1_text', 'Quick link 1 text', 'Day structure, thematic areas and the interactive programme grid.', 'textarea'],
+            ['con_link_2_label', 'Quick link 2 label', 'Practical', 'text'],
+            ['con_link_2_title', 'Quick link 2 title', 'Getting to the venue', 'text'],
+            ['con_link_2_text', 'Quick link 2 text', 'Transport, accessibility, accommodation and travel tips for Prague.', 'textarea'],
+            ['con_link_3_label', 'Quick link 3 label', 'For speakers', 'text'],
+            ['con_link_3_title', 'Quick link 3 title', 'Session guidance', 'text'],
+            ['con_link_3_text', 'Quick link 3 text', 'Expectations, delivery format and the speaker timeline for 2026.', 'textarea'],
         ],
         'Programme data' => [
             ['programme_json', 'Programme JSON', ceeducon_default_programme_json(), 'code'],
@@ -517,6 +730,10 @@ function ceeducon_admin_content_fields(): array
 
 function ceeducon_admin_menu(): void
 {
+    if (function_exists('acf_add_options_page')) {
+        return;
+    }
+
     add_menu_page(
         __('CEEDUCON Content', 'ceeducon-program'),
         __('CEEDUCON Content', 'ceeducon-program'),

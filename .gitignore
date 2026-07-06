@@ -1,1 +1,11 @@
 .DS_Store
+**/.DS_Store
+.env
+.env.*
+*.sql
+*.sql.gz
+wp-config.php
+node_modules/
+wp-content/uploads/
+wp-content/cache/
+dist/zi*
