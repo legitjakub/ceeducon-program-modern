@@ -17,6 +17,21 @@ function ceeducon_theme_setup(): void
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('custom-logo');
+    add_theme_support('responsive-embeds');
+    add_theme_support('align-wide');
+    add_theme_support('editor-styles');
+    add_theme_support('html5', [
+        'search-form',
+        'comment-form',
+        'comment-list',
+        'gallery',
+        'caption',
+        'style',
+        'script',
+        'navigation-widgets',
+    ]);
+    add_editor_style('css/editor-style.css');
+
     register_nav_menus([
         'primary' => __('Primary navigation', 'ceeducon-program'),
     ]);
@@ -85,6 +100,82 @@ function ceeducon_nav_items(): array
         'speakers' => __('Speakers', 'ceeducon-program'),
         'contact' => __('Contact', 'ceeducon-program'),
     ];
+}
+
+class CEEDUCON_Anchor_Walker extends Walker_Nav_Menu
+{
+    public function start_lvl(&$output, $depth = 0, $args = null)
+    {
+    }
+
+    public function end_lvl(&$output, $depth = 0, $args = null)
+    {
+    }
+
+    public function start_el(&$output, $data_object, $depth = 0, $args = null, $current_object_id = 0)
+    {
+        $item = $data_object;
+        $classes = empty($item->classes) ? [] : (array) $item->classes;
+        $active_classes = ['current-menu-item', 'current_page_item', 'current-menu-ancestor', 'current_page_ancestor'];
+        $is_active = (bool) array_intersect($active_classes, $classes);
+        $link_classes = $is_active ? ' class="is-active"' : '';
+        $target = !empty($item->target) ? ' target="' . esc_attr($item->target) . '"' : '';
+        $rel_value = !empty($item->xfn) ? (string) $item->xfn : '';
+        if ($item->target === '_blank' && stripos($rel_value, 'noopener') === false) {
+            $rel_value = trim($rel_value . ' noopener noreferrer');
+        }
+        $rel = $rel_value !== '' ? ' rel="' . esc_attr($rel_value) . '"' : '';
+        $title = apply_filters('the_title', $item->title, $item->ID);
+        $title = apply_filters('nav_menu_item_title', $title, $item, $args, $depth);
+
+        $output .= '<a' . $link_classes . ' href="' . esc_url($item->url) . '"' . $target . $rel . '>' . esc_html($title) . '</a>';
+    }
+
+    public function end_el(&$output, $data_object, $depth = 0, $args = null)
+    {
+    }
+}
+
+function ceeducon_nav_attributes(array $attributes): string
+{
+    $output = '';
+
+    foreach ($attributes as $name => $value) {
+        if ($value === false || $value === null) {
+            continue;
+        }
+
+        if ($value === true || $value === '') {
+            $output .= ' ' . esc_attr($name);
+            continue;
+        }
+
+        $output .= ' ' . esc_attr($name) . '="' . esc_attr((string) $value) . '"';
+    }
+
+    return $output;
+}
+
+function ceeducon_render_navigation(string $class, string $label, array $attributes = []): void
+{
+    echo '<nav class="' . esc_attr($class) . '" aria-label="' . esc_attr($label) . '"' . ceeducon_nav_attributes($attributes) . '>';
+
+    if (has_nav_menu('primary')) {
+        wp_nav_menu([
+            'theme_location' => 'primary',
+            'container' => false,
+            'items_wrap' => '%3$s',
+            'depth' => 1,
+            'fallback_cb' => '__return_empty_string',
+            'walker' => new CEEDUCON_Anchor_Walker(),
+        ]);
+    } else {
+        foreach (ceeducon_nav_items() as $slug => $item_label) {
+            echo '<a' . (ceeducon_is_current($slug) ? ' class="is-active"' : '') . ' href="' . esc_url(ceeducon_page_url($slug)) . '">' . esc_html($item_label) . '</a>';
+        }
+    }
+
+    echo '</nav>';
 }
 
 function ceeducon_is_programme_page(): bool
@@ -450,7 +541,12 @@ function ceeducon_render_content_admin_page(): void
         $submitted = isset($_POST['ceeducon_content']) && is_array($_POST['ceeducon_content'])
             ? wp_unslash($_POST['ceeducon_content'])
             : [];
+        $existing = get_option('ceeducon_content', []);
+        if (!is_array($existing)) {
+            $existing = [];
+        }
         $clean = [];
+        $programme_json_error = '';
 
         foreach ($fields as $group_fields) {
             foreach ($group_fields as [$key, , , $type]) {
@@ -458,7 +554,13 @@ function ceeducon_render_content_admin_page(): void
                 if ($type === 'url') {
                     $clean[$key] = esc_url_raw($value);
                 } elseif ($type === 'code') {
-                    $clean[$key] = wp_check_invalid_utf8($value);
+                    $value = wp_check_invalid_utf8($value);
+                    if ($key === 'programme_json' && trim($value) !== '' && json_decode($value, true) === null) {
+                        $programme_json_error = json_last_error_msg();
+                        $clean[$key] = isset($existing[$key]) ? (string) $existing[$key] : ceeducon_default_programme_json();
+                    } else {
+                        $clean[$key] = $value;
+                    }
                 } else {
                     $clean[$key] = wp_kses_post($value);
                 }
@@ -466,9 +568,10 @@ function ceeducon_render_content_admin_page(): void
         }
 
         update_option('ceeducon_content', $clean);
-        echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('CEEDUCON content saved.', 'ceeducon-program') . '</p></div>';
-        if (!empty($clean['programme_json']) && json_decode($clean['programme_json'], true) === null) {
-            echo '<div class="notice notice-warning"><p>' . esc_html__('Programme JSON is not valid. The front end will keep using the bundled programme data until the JSON is fixed.', 'ceeducon-program') . '</p></div>';
+        if ($programme_json_error !== '') {
+            echo '<div class="notice notice-error"><p>' . esc_html(sprintf(__('Programme JSON was not saved because it is not valid JSON: %s', 'ceeducon-program'), $programme_json_error)) . '</p></div>';
+        } else {
+            echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('CEEDUCON content saved.', 'ceeducon-program') . '</p></div>';
         }
     }
 

@@ -23,6 +23,8 @@ Same design and front-end code as the static preview site — plain PHP template
 All visible texts live in **wp-admin → CEEDUCON Content**, grouped per page/section:
 
 - Global header & footer (footer texts, contact links)
+- Navigation uses **Appearance → Menus → Primary navigation** when assigned, with a built-in fallback menu.
+- Brand colours, wide alignment and the Tabac Sans editor preview are registered through `theme.json` and `css/editor-style.css`, so normal WordPress blocks stay visually close to the CEEDUCON identity.
 - Home hero, stats, media gallery and sections
 - Thematic areas (shared between Home and About)
 - Programme day cards and notices (shared between Home and Programme)
@@ -30,6 +32,11 @@ All visible texts live in **wp-admin → CEEDUCON Content**, grouped per page/se
 - **Programme data** — the `Programme JSON` field
 
 Fields left empty fall back to the built-in defaults.
+
+The theme is intentionally a classic PHP theme, not a full Site Editor block theme. This keeps the
+conference layouts stable, while day-to-day copy, menu labels, contact links and programme data remain
+editable from the WordPress admin. If full layout editing is needed later, the next step would be a
+block theme or custom CEEDUCON blocks/patterns.
 
 ## Programme data
 
@@ -39,6 +46,8 @@ The interactive grid on the Programme page reads, in order of priority:
 2. the bundled `data/program.json`.
 
 The JSON structure (`event`, `rooms`, `themes`, `slots`) matches the static site.
+Invalid JSON is not saved over the last valid value, so a formatting mistake in the admin cannot break
+the public programme.
 The current data is the archived CEEDUCON 2025 programme, clearly labelled as an
 archive sample on the page; replace it with the official 2026 sessions when published.
 Theme track colours use the CEEDUCON brand palette (`#0d5e9d`, `#ec722f`, `#45c0ea`, `#06304f`).
@@ -53,6 +62,7 @@ the front-end: `program.js` only needs `window.CEEDUCON_PROGRAM_DATA` in the sam
 - `page-about|programme|practical|speakers|contact.php` — page templates
 - `index.php` — fallback for any other content
 - `css/styles.css` — full design system (identical to the static site)
+- `css/editor-style.css` + `theme.json` — WordPress editor palette, fonts and block defaults
 - `js/site.js` — menu, header state, countdown, scroll reveals
 - `js/program.js` + `js/program-data.js` + `data/program.json` — interactive programme
 - `assets/` — logos, favicon, Tabac Sans web fonts

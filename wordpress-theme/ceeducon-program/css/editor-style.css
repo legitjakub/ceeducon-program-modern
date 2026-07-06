@@ -1,0 +1,63 @@
+@font-face {
+  font-family: "Tabac Sans";
+  src: url("../assets/fonts/Tabac-Sans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Tabac Sans";
+  src: url("../assets/fonts/Tabac-Sans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+.editor-styles-wrapper {
+  --ceeducon-blue: #0d5e9d;
+  --ceeducon-deep-blue: #06304f;
+  --ceeducon-ink: #041f35;
+  --ceeducon-orange: #ec722f;
+  --ceeducon-sky: #45c0ea;
+
+  color: var(--ceeducon-ink);
+  font-family: "Tabac Sans", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4 {
+  color: var(--ceeducon-ink);
+  font-family: "Tabac Sans", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.editor-styles-wrapper h1 {
+  font-size: clamp(2.5rem, 7vw, 5.75rem);
+}
+
+.editor-styles-wrapper h2 {
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+.editor-styles-wrapper a {
+  color: var(--ceeducon-blue);
+}
+
+.editor-styles-wrapper .wp-block-button__link {
+  background: var(--ceeducon-orange);
+  border-radius: 999px;
+  color: var(--ceeducon-ink);
+  font-weight: 700;
+}
+
+.editor-styles-wrapper .wp-block-quote {
+  border-left: 4px solid var(--ceeducon-orange);
+  color: var(--ceeducon-deep-blue);
+}

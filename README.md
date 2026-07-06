@@ -44,6 +44,8 @@ Struktura webu je navržená pro snadný převod do WordPressu:
 
 - programová data jsou oddělená v [`data/program.json`](data/program.json) (`rooms`, `themes`, `slots`),
 - ve WordPress verzi se všechny texty upravují v administraci přes **CEEDUCON Content** (hero, about, tematické oblasti, programme overview, practical, speakers, contact/footer i Programme JSON),
+- hlavní navigace používá nativní WordPress menu **Appearance → Menus → Primary navigation**,
+- brand paleta, šířky layoutu a editorový náhled fontu Tabac Sans jsou registrované přes `theme.json` a `css/editor-style.css`,
 - HTML ani JavaScript se při běžné změně obsahu neupravuje; frontend je bez frameworku a build kroku.
 
 ## WordPress šablona

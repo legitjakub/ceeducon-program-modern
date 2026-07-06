@@ -1,0 +1,101 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 2,
+  "settings": {
+    "appearanceTools": true,
+    "color": {
+      "custom": false,
+      "palette": [
+        {
+          "slug": "ceeducon-blue",
+          "color": "#0d5e9d",
+          "name": "CEEDUCON Blue"
+        },
+        {
+          "slug": "ceeducon-deep-blue",
+          "color": "#06304f",
+          "name": "Deep Blue"
+        },
+        {
+          "slug": "ceeducon-ink",
+          "color": "#041f35",
+          "name": "Ink"
+        },
+        {
+          "slug": "ceeducon-orange",
+          "color": "#ec722f",
+          "name": "CEEDUCON Orange"
+        },
+        {
+          "slug": "ceeducon-sky",
+          "color": "#45c0ea",
+          "name": "CEEDUCON Sky"
+        },
+        {
+          "slug": "white",
+          "color": "#ffffff",
+          "name": "White"
+        }
+      ]
+    },
+    "layout": {
+      "contentSize": "1120px",
+      "wideSize": "1320px"
+    },
+    "spacing": {
+      "blockGap": true,
+      "margin": true,
+      "padding": true,
+      "units": [
+        "px",
+        "rem",
+        "em",
+        "%",
+        "vw",
+        "vh"
+      ]
+    },
+    "typography": {
+      "customFontSize": true,
+      "fontFamilies": [
+        {
+          "fontFamily": "\"Tabac Sans\", Arial, sans-serif",
+          "slug": "tabac-sans",
+          "name": "Tabac Sans"
+        }
+      ],
+      "fontSizes": [
+        {
+          "slug": "small",
+          "size": "0.875rem",
+          "name": "Small"
+        },
+        {
+          "slug": "base",
+          "size": "1rem",
+          "name": "Base"
+        },
+        {
+          "slug": "large",
+          "size": "1.25rem",
+          "name": "Large"
+        },
+        {
+          "slug": "display",
+          "size": "clamp(2.5rem, 7vw, 6.25rem)",
+          "name": "Display"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#ffffff",
+      "text": "#041f35"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--tabac-sans)",
+      "lineHeight": "1.5"
+    }
+  }
+}
