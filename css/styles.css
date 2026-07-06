@@ -1105,9 +1105,18 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   .info-grid h3 { padding-top: 32px; }
   .day-cards h3 { padding-top: 32px; }
   .day-cards article { min-height: 0; }
-  .step-list article { grid-template-columns: 48px 1fr; gap: 14px; padding: 22px 18px; }
-  .step-list article > span { font-size: 32px; }
-  .speaker-cta { flex-direction: column; align-items: flex-start; }
+  .speakers-grid { gap: 22px; }
+  .speakers-lead { font-size: 14px; line-height: 1.68; }
+  .speakers-grid .fact-chips { gap: 8px; margin-top: 24px; }
+  .speakers-grid .fact-chips span { flex: 1 1 150px; justify-content: center; min-height: 40px; padding: 0 12px; font-size: 12px; text-align: center; }
+  .step-list article { grid-template-columns: 1fr; gap: 14px; padding: 24px 22px; }
+  .step-list article > span { font-size: 30px; }
+  .step-list h3 { max-width: 300px; font-size: 20px; line-height: 1.08; }
+  .step-list p { font-size: 14px; line-height: 1.68; }
+  .speaker-cta { flex-direction: column; align-items: flex-start; padding: 24px 22px; }
+  .speaker-cta .btn { width: 100%; justify-content: space-between; }
+  .timeline article { padding: 22px 20px 20px; }
+  .timeline span { margin-bottom: 14px; letter-spacing: 0.12em; }
   .contact-actions .btn, .venue-actions .btn { width: 100%; justify-content: space-between; }
 
   .day-bar { min-height: 64px; }
