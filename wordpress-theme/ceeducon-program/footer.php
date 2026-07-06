@@ -1,9 +1,5 @@
     <footer class="site-footer">
       <div class="shell">
-        <div class="footer-cta">
-          <h2><?php ceeducon_html('footer_cta_title', 'See you in <em>Prague</em>.'); ?></h2>
-          <a class="btn btn--primary" href="<?php echo esc_url(ceeducon_text_value('footer_cta_url', 'mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20updates')); ?>"><?php ceeducon_text('footer_cta_button', 'Get updates'); ?></a>
-        </div>
         <div class="footer-grid">
           <div>
             <img src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-horizontal-white.png')); ?>" alt="CEEDUCON" />

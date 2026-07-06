@@ -1,5 +1,6 @@
 const DATA_URL = window.CEEDUCON_DATA_URL || "data/program.json";
 const FAVORITES_KEY = "ceeducon-2026-favorites";
+const VIEW_KEY = "ceeducon-2026-program-view-v2";
 const PERIODS = [
   { id: "", label: "All day" },
   { id: "morning", label: "Morning" },
@@ -13,6 +14,7 @@ const state = {
   room: "",
   period: "",
   query: "",
+  view: localStorage.getItem(VIEW_KEY) || "list",
   favoritesOnly: false,
   favorites: new Set(JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]")),
   sessionMap: new Map(),
@@ -32,6 +34,8 @@ const elements = {
   empty: document.querySelector("[data-empty]"),
   filterToggle: document.querySelector("[data-filter-toggle]"),
   filterDrawer: document.querySelector("[data-filter-drawer]"),
+  viewToggle: document.querySelector("[data-view-toggle]"),
+  viewLabel: document.querySelector("[data-view-label]"),
   favoritesToggle: document.querySelector("[data-favorites-toggle]"),
   favoriteCount: document.querySelector("[data-favorite-count]"),
   modalBackdrop: document.querySelector("[data-modal-backdrop]"),
@@ -92,6 +96,17 @@ function speakersText(speakers) {
   if (!speakers || !speakers.length) return "";
   if (speakers.length === 1 && speakers[0] === "tbc") return "Speakers: to be confirmed.";
   return `Speakers: ${speakers.map((s) => (s === "tbc" ? "tbc" : s)).join("; ")}.`;
+}
+
+function speakersPreview(speakers) {
+  if (!speakers || !speakers.length) return "";
+  if (speakers.length === 1 && speakers[0] === "tbc") return "Speakers to be confirmed";
+  const names = speakers
+    .filter((speaker) => speaker && speaker !== "tbc")
+    .slice(0, 2)
+    .map((speaker) => speaker.replace(/\s*\(.+\)\s*$/, ""));
+  if (!names.length) return "Speakers to be confirmed";
+  return speakers.length > 2 ? `${names.join("; ")} + ${speakers.length - 2} more` : names.join("; ");
 }
 
 function activeFilters() {
@@ -177,6 +192,7 @@ function buildSessionCard(day, slot, session) {
   const themeLabel = getThemeLabel(session.theme);
   const placement = roomPlacement(session);
   const wide = session.rooms.length > 1;
+  const preview = speakersPreview(session.speakers || []);
 
   state.sessionMap.set(id, {
     id,
@@ -199,6 +215,7 @@ function buildSessionCard(day, slot, session) {
       </div>
       <button class="session-card-open" type="button" data-session-open="${escapeHtml(id)}" title="${escapeHtml(session.title)}">
         <h3>${escapeHtml(session.title)}</h3>
+        ${preview ? `<p class="session-speakers">${escapeHtml(preview)}</p>` : ""}
         <p class="session-theme">${escapeHtml(themeLabel)}</p>
         <span class="session-arrow" aria-hidden="true">↗</span>
       </button>
@@ -226,6 +243,14 @@ function buildProgramBand(slot) {
 
 function renderSchedule() {
   state.sessionMap.clear();
+  elements.schedule.classList.toggle("schedule--list", state.view === "list");
+  if (elements.viewToggle) {
+    elements.viewToggle.setAttribute("aria-pressed", String(state.view === "list"));
+  }
+  if (elements.viewLabel) {
+    elements.viewLabel.textContent = state.view === "list" ? "Grid view" : "List view";
+  }
+
   const day = currentDay();
   let visibleSessions = 0;
   const slots = [];
@@ -425,6 +450,12 @@ function bindEvents() {
   elements.favoritesToggle.addEventListener("click", () => {
     state.favoritesOnly = !state.favoritesOnly;
     render();
+  });
+
+  elements.viewToggle?.addEventListener("click", () => {
+    state.view = state.view === "list" ? "grid" : "list";
+    localStorage.setItem(VIEW_KEY, state.view);
+    renderSchedule();
   });
 
   elements.filterToggle.addEventListener("click", () => {

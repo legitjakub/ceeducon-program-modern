@@ -84,8 +84,57 @@ function bindSiteCookie() {
   });
 }
 
+function bindMediaLightbox() {
+  const triggers = document.querySelectorAll("[data-lightbox]");
+  if (!triggers.length) return;
+
+  const lightbox = document.createElement("div");
+  lightbox.className = "media-lightbox";
+  lightbox.hidden = true;
+  lightbox.innerHTML = `
+    <div class="media-lightbox-inner" role="dialog" aria-modal="true" aria-label="Media preview">
+      <button class="media-lightbox-close" type="button" aria-label="Close media preview">×</button>
+      <img alt="" />
+      <div class="media-lightbox-caption"></div>
+    </div>
+  `;
+  document.body.append(lightbox);
+
+  const image = lightbox.querySelector("img");
+  const caption = lightbox.querySelector(".media-lightbox-caption");
+  const close = lightbox.querySelector(".media-lightbox-close");
+
+  const closeLightbox = () => {
+    lightbox.hidden = true;
+    document.body.classList.remove("modal-open");
+    image.removeAttribute("src");
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const src = trigger.dataset.lightbox;
+      if (!src) return;
+      image.src = src;
+      image.alt = trigger.querySelector("img")?.alt || trigger.dataset.lightboxCaption || "CEEDUCON media";
+      caption.textContent = trigger.dataset.lightboxCaption || "";
+      lightbox.hidden = false;
+      document.body.classList.add("modal-open");
+      close.focus();
+    });
+  });
+
+  close.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+  window.addEventListener("keydown", (event) => {
+    if (!lightbox.hidden && event.key === "Escape") closeLightbox();
+  });
+}
+
 bindSiteNavigation();
 bindHeaderScroll();
 bindReveals();
 bindSiteCookie();
+bindMediaLightbox();
 updateSiteCountdown();

@@ -22,7 +22,6 @@
           <?php endforeach; ?>
         </nav>
         <div class="header-actions">
-          <a class="header-cta" href="<?php echo esc_url(ceeducon_text_value('header_cta_url', 'mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20updates')); ?>"><?php ceeducon_text('header_cta_label', 'Get updates'); ?></a>
           <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
             <span><?php esc_html_e('Menu', 'ceeducon-program'); ?></span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>

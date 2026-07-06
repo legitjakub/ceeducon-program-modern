@@ -75,7 +75,7 @@ get_header();
             </details>
             <details>
               <summary><?php ceeducon_text('faq_3_title', 'How do I register?'); ?></summary>
-              <p><?php ceeducon_html('faq_3_text', 'Registration opens in September. Write to <a href="mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20registration%20updates">ceeducon@dzs.cz</a> to be notified as soon as the registration form is available.'); ?></p>
+              <p><?php ceeducon_html('faq_3_text', 'Registration opens in September. The registration form and practical details will be published on the official CEEDUCON website once confirmed.'); ?></p>
             </details>
             <details>
               <summary><?php ceeducon_text('faq_4_title', 'Anything to check before travelling?'); ?></summary>

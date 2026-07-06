@@ -22,8 +22,8 @@ Same design and front-end code as the static preview site — plain PHP template
 
 All visible texts live in **wp-admin → CEEDUCON Content**, grouped per page/section:
 
-- Global header & footer (CTA button, footer texts, contact links)
-- Home hero, marquee, stats and sections
+- Global header & footer (footer texts, contact links)
+- Home hero, stats, media gallery and sections
 - Thematic areas (shared between Home and About)
 - Programme day cards and notices (shared between Home and Programme)
 - About / Programme / Practical / Speakers / Contact page texts

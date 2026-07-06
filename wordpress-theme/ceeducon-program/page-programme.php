@@ -49,13 +49,7 @@ get_header();
             </article>
           </div>
           <div class="notice-cards">
-            <article class="notice-card notice-card--orange" data-reveal>
-              <span><?php ceeducon_text('notice_reg_label', 'Registration'); ?></span>
-              <h3><?php ceeducon_text('notice_reg_title', 'Opens in September.'); ?></h3>
-              <p><?php ceeducon_text('notice_reg_text', 'Participation is free of charge. Contact the CEEDUCON team to be notified as soon as registration opens.'); ?></p>
-              <a class="btn btn--primary" href="<?php echo esc_url(ceeducon_text_value('notice_reg_url', 'mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20registration%20updates')); ?>"><?php ceeducon_text('notice_reg_button', 'Get notified'); ?></a>
-            </article>
-            <article class="notice-card notice-card--sky" data-reveal="2">
+            <article class="notice-card notice-card--sky notice-card--wide" data-reveal>
               <span><?php ceeducon_text('prog_grid_label', 'Interactive programme'); ?></span>
               <h3><?php ceeducon_text('prog_grid_title', 'Build your own schedule.'); ?></h3>
               <p><?php ceeducon_text('prog_grid_text', 'Filter the programme by format, time and room, save sessions to “My programme” and add them straight to your calendar.'); ?></p>
@@ -75,11 +69,6 @@ get_header();
             <p data-reveal="2"><?php ceeducon_text('sched_intro', 'Filter by format, time and room, search sessions, save your personal selection and add sessions to your calendar.'); ?></p>
           </div>
 
-          <div class="archive-notice" role="note">
-            <span><?php ceeducon_text('archive_label', 'Preliminary'); ?></span>
-            <p><?php ceeducon_text('archive_text', 'This is the preliminary CEEDUCON 2026 programme and it remains subject to change. Some speakers are still being confirmed and are marked “tbc”.'); ?></p>
-          </div>
-
           <div class="day-bar" data-day-bar aria-label="Day selection"></div>
 
           <div class="control-panel" aria-label="Programme tools">
@@ -90,6 +79,10 @@ get_header();
               <kbd>⌘ K</kbd>
             </label>
             <div class="control-actions">
+              <button class="control-button view-toggle-button" type="button" data-view-toggle aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+                <span data-view-label><?php esc_html_e('List view', 'ceeducon-program'); ?></span>
+              </button>
               <button class="control-button favorites-button" type="button" data-favorites-toggle aria-pressed="false">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z" /></svg>
                 <span><?php esc_html_e('My programme', 'ceeducon-program'); ?></span><b data-favorite-count>0</b>

@@ -17,10 +17,10 @@
     <meta name="twitter:image" content="https://legitjakub.github.io/ceeducon-program-modern/assets/reference-program.png" />
     <title>Programme | CEEDUCON 2026</title>
     <link rel="icon" href="assets/favicon.png" />
-    <link rel="stylesheet" href="css/styles.css?v=20260706-2" />
-    <script src="js/site.js?v=20260706-2" defer></script>
-    <script src="js/program-data.js?v=20260706-2" defer></script>
-    <script src="js/program.js?v=20260706-2" defer></script>
+    <link rel="stylesheet" href="css/styles.css?v=20260706-6" />
+    <script src="js/site.js?v=20260706-6" defer></script>
+    <script src="js/program-data.js?v=20260706-6" defer></script>
+    <script src="js/program.js?v=20260706-6" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -67,7 +67,6 @@
           <a href="contact.html">Contact</a>
         </nav>
         <div class="header-actions">
-          <a class="header-cta" href="mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20updates">Get updates</a>
           <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
             <span>Menu</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
@@ -127,13 +126,7 @@
             </article>
           </div>
           <div class="notice-cards">
-            <article class="notice-card notice-card--orange" data-reveal>
-              <span>Registration</span>
-              <h3>Opens in September.</h3>
-              <p>Participation is free of charge. Contact the CEEDUCON team to be notified as soon as registration opens.</p>
-              <a class="btn btn--primary" href="mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20registration%20updates">Get notified</a>
-            </article>
-            <article class="notice-card notice-card--sky" data-reveal="2">
+            <article class="notice-card notice-card--sky notice-card--wide" data-reveal>
               <span>Interactive programme</span>
               <h3>Build your own schedule.</h3>
               <p>Filter the programme by format, time and room, save sessions to “My programme” and add them straight to your calendar.</p>
@@ -153,11 +146,6 @@
             <p data-reveal="2">Filter by format, time and room, search sessions, save your personal selection and add sessions to your calendar.</p>
           </div>
 
-          <div class="archive-notice" role="note">
-            <span>Preliminary</span>
-            <p>This is the preliminary CEEDUCON 2026 programme and it remains subject to change. Some speakers are still being confirmed and are marked “tbc”.</p>
-          </div>
-
           <div class="day-bar" data-day-bar aria-label="Day selection"></div>
 
           <div class="control-panel" aria-label="Programme tools">
@@ -168,6 +156,10 @@
               <kbd>⌘ K</kbd>
             </label>
             <div class="control-actions">
+              <button class="control-button view-toggle-button" type="button" data-view-toggle aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+                <span data-view-label>List view</span>
+              </button>
               <button class="control-button favorites-button" type="button" data-favorites-toggle aria-pressed="false">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z" /></svg>
                 <span>My programme</span><b data-favorite-count>0</b>
@@ -209,10 +201,6 @@
 
     <footer class="site-footer">
       <div class="shell">
-        <div class="footer-cta">
-          <h2>See you in <em>Prague</em>.</h2>
-          <a class="btn btn--primary" href="mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20updates">Get updates</a>
-        </div>
         <div class="footer-grid">
           <div>
             <img src="assets/ceeducon-logo-horizontal-white.png" alt="CEEDUCON" />

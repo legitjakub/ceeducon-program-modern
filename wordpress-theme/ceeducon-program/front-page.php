@@ -50,17 +50,6 @@ get_header();
         </div>
       </section>
 
-      <div class="marquee" aria-hidden="true">
-        <div class="marquee-track">
-          <?php for ($i = 0; $i < 2; $i++) : ?>
-            <span><?php ceeducon_text('marquee_1', 'CEEDUCON 2026'); ?></span>
-            <span><?php ceeducon_text('marquee_2', '1–2 December'); ?></span>
-            <span><?php ceeducon_text('marquee_3', 'O2 universum Prague'); ?></span>
-            <span><?php ceeducon_text('marquee_4', 'Registration opens in September'); ?></span>
-          <?php endfor; ?>
-        </div>
-      </div>
-
       <section class="section">
         <div class="shell statement-grid">
           <div data-reveal>
@@ -77,6 +66,41 @@ get_header();
               <span><?php ceeducon_text('home_chip_4', 'National agencies'); ?></span>
             </div>
             <a class="btn btn--outline mt-lg" href="<?php echo esc_url(ceeducon_page_url('about')); ?>"><?php ceeducon_text('home_about_button', 'More about CEEDUCON'); ?></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--media">
+        <div class="shell media-showcase">
+          <div class="media-copy" data-reveal>
+            <p class="kicker"><?php ceeducon_text('media_kicker', 'Atmosphere'); ?></p>
+            <h2 class="display-2"><?php ceeducon_text('media_title', 'See the conference before you arrive.'); ?></h2>
+            <p><?php ceeducon_text('media_text', 'CEEDUCON is more than a programme grid: it is plenaries, hallway conversations, workshops and new partnerships forming across the venue. The media layer brings that energy into the page while staying fully editable for WordPress.'); ?></p>
+            <div class="media-actions">
+              <a class="btn btn--primary" href="<?php echo esc_url(ceeducon_page_url('programme')); ?>"><?php ceeducon_text('media_button_primary', 'Browse programme'); ?></a>
+              <button class="btn btn--outline" type="button" data-lightbox="<?php echo esc_url(ceeducon_text_value('media_hero_url', ceeducon_asset_url('assets/media/ceeducon-2026-banner.png'))); ?>" data-lightbox-caption="<?php echo esc_attr(ceeducon_text_value('media_hero_caption', 'CEEDUCON 2026 visual identity')); ?>"><?php ceeducon_text('media_button_secondary', 'Open visual'); ?></button>
+            </div>
+          </div>
+          <div class="media-mosaic" aria-label="<?php esc_attr_e('CEEDUCON photo gallery', 'ceeducon-program'); ?>" data-reveal="2">
+            <?php
+            $media_items = [
+                ['media_hero_url', 'assets/media/ceeducon-2026-banner.png', 'media_hero_alt', 'CEEDUCON 2026 banner visual', 'media_hero_label', '2026 identity', 'media_hero_caption', 'CEEDUCON 2026 visual identity', 'media-tile--large'],
+                ['media_image_1_url', 'assets/media/ceeducon-gallery-1.jpeg', 'media_image_1_alt', 'CEEDUCON participants at the conference', 'media_image_1_label', 'People', 'media_image_1_caption', 'CEEDUCON conference atmosphere', ''],
+                ['media_image_2_url', 'assets/media/ceeducon-gallery-2.jpeg', 'media_image_2_alt', 'CEEDUCON session and networking moment', 'media_image_2_label', 'Sessions', 'media_image_2_caption', 'CEEDUCON sessions and networking', ''],
+                ['media_image_3_url', 'assets/media/ceeducon-gallery-3.jpeg', 'media_image_3_alt', 'CEEDUCON venue and audience moment', 'media_image_3_label', 'Venue', 'media_image_3_caption', 'CEEDUCON venue moment', ''],
+                ['media_image_4_url', 'assets/media/ceeducon-gallery-4.jpeg', 'media_image_4_alt', 'CEEDUCON discussion and exchange', 'media_image_4_label', 'Exchange', 'media_image_4_caption', 'CEEDUCON discussion and exchange', ''],
+            ];
+            foreach ($media_items as [$url_key, $default_url, $alt_key, $default_alt, $label_key, $default_label, $caption_key, $default_caption, $class]) :
+                $url = ceeducon_text_value($url_key, ceeducon_asset_url($default_url));
+                $alt = ceeducon_text_value($alt_key, $default_alt);
+                $label = ceeducon_text_value($label_key, $default_label);
+                $caption = ceeducon_text_value($caption_key, $default_caption);
+                ?>
+                <button class="media-tile <?php echo esc_attr($class); ?>" type="button" data-lightbox="<?php echo esc_url($url); ?>" data-lightbox-caption="<?php echo esc_attr($caption); ?>">
+                  <img src="<?php echo esc_url($url); ?>" alt="<?php echo esc_attr($alt); ?>" />
+                  <span><?php echo esc_html($label); ?></span>
+                </button>
+            <?php endforeach; ?>
           </div>
         </div>
       </section>
@@ -142,17 +166,11 @@ get_header();
             </article>
           </div>
           <div class="notice-cards">
-            <article class="notice-card notice-card--sky" data-reveal>
+            <article class="notice-card notice-card--sky notice-card--wide" data-reveal>
               <span><?php ceeducon_text('notice_prog_label', 'Preliminary programme'); ?></span>
               <h3><?php ceeducon_text('notice_prog_title', 'Online now.'); ?></h3>
               <p><?php ceeducon_text('notice_prog_text', 'Browse the two-day programme — 70+ sessions and workshops across nine rooms. Details remain subject to change.'); ?></p>
               <a class="btn btn--dark" href="<?php echo esc_url(ceeducon_page_url('programme')); ?>"><?php ceeducon_text('notice_prog_button', 'Open the programme'); ?></a>
-            </article>
-            <article class="notice-card notice-card--orange" data-reveal="2">
-              <span><?php ceeducon_text('notice_reg_label', 'Registration'); ?></span>
-              <h3><?php ceeducon_text('notice_reg_title', 'Opens in September.'); ?></h3>
-              <p><?php ceeducon_text('notice_reg_text', 'Participation is free of charge. Contact the CEEDUCON team to be notified as soon as registration opens.'); ?></p>
-              <a class="btn btn--primary" href="<?php echo esc_url(ceeducon_text_value('notice_reg_url', 'mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20registration%20updates')); ?>"><?php ceeducon_text('notice_reg_button', 'Get notified'); ?></a>
             </article>
           </div>
         </div>

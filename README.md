@@ -24,12 +24,13 @@ Design systém staví výhradně na brand identitě CEEDUCON:
 - bílá `#ffffff`,
 - font **Tabac Sans** (woff2/woff v `assets/fonts`).
 
-Prvky: tmavý hero s jemným tečkovým rastrem a obrysovým „2026", oranžový marquee pruh, glass panel s klíčovými údaji, číslované tematické karty, scroll-reveal animace (respektují `prefers-reduced-motion`), sticky hlavička měnící stav při scrollu a footer s obrysovým wordmarkem.
+Prvky: tmavý hero s jemným tečkovým rastrem a obrysovým „2026", glass panel s klíčovými údaji, editovatelná media galerie, číslované tematické karty, scroll-reveal animace (respektují `prefers-reduced-motion`), sticky hlavička měnící stav při scrollu a footer s obrysovým wordmarkem.
 
 ## Funkce programového modulu
 
 - filtrování podle tematické linky, místnosti a části dne,
 - fulltextové vyhledávání (⌘K),
+- přepínání mezi čitelným seznamem a gridem místností,
 - vlastní výběr „My programme" uložený v prohlížeči,
 - detail příspěvku a export do kalendáře (`.ics`),
 - ukázkový live režim se zvýrazněním probíhajícího bloku,
