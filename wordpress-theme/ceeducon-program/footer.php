@@ -53,7 +53,7 @@
         <p class="modal-note" data-modal-note></p>
         <div class="modal-actions">
           <button type="button" data-modal-favorite><span>☆</span> <?php esc_html_e('Add to my programme', 'ceeducon-program'); ?></button>
-          <button class="modal-calendar" type="button" data-download-ics><?php esc_html_e('Download to calendar', 'ceeducon-program'); ?> <span>↓</span></button>
+          <button class="modal-calendar" type="button" data-add-calendar><?php esc_html_e('Add to Google Calendar', 'ceeducon-program'); ?> <span>↗</span></button>
         </div>
       </section>
     </div>

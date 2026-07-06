@@ -46,7 +46,7 @@ get_header();
           <div><strong><?php ceeducon_text('stat_1_value', '2'); ?></strong><span><?php ceeducon_text('stat_1_label', 'conference days'); ?></span></div>
           <div><strong><?php ceeducon_text('stat_2_value', '900+'); ?></strong><span><?php ceeducon_text('stat_2_label', 'participants in 2025'); ?></span></div>
           <div><strong><?php ceeducon_text('stat_3_value', '130+'); ?></strong><span><?php ceeducon_text('stat_3_label', 'speakers in 2025'); ?></span></div>
-          <div><strong><?php ceeducon_text('stat_4_value', '50+'); ?></strong><span><?php ceeducon_text('stat_4_label', 'sessions & workshops'); ?></span></div>
+          <div><strong><?php ceeducon_text('stat_4_value', '70+'); ?></strong><span><?php ceeducon_text('stat_4_label', 'sessions in 2026'); ?></span></div>
         </div>
       </section>
 
@@ -122,7 +122,7 @@ get_header();
               <p class="kicker"><?php ceeducon_text('home_prog_kicker', 'Programme 2026'); ?></p>
               <h2 class="display-2"><?php ceeducon_text('home_prog_title', 'Two full conference days in Prague.'); ?></h2>
             </div>
-            <p data-reveal="2"><?php ceeducon_text('home_prog_intro', 'The detailed room-by-room programme will be published by September 1. Until then, here is how the two days are planned.'); ?></p>
+            <p data-reveal="2"><?php ceeducon_text('home_prog_intro', 'The preliminary room-by-room programme is online — sessions, workshops and speakers for both conference days.'); ?></p>
           </div>
           <div class="day-cards" aria-label="CEEDUCON 2026 outline">
             <article data-reveal>
@@ -143,9 +143,9 @@ get_header();
           </div>
           <div class="notice-cards">
             <article class="notice-card notice-card--sky" data-reveal>
-              <span><?php ceeducon_text('notice_prog_label', 'Detailed programme'); ?></span>
-              <h3><?php ceeducon_text('notice_prog_title', 'Published by September 1.'); ?></h3>
-              <p><?php ceeducon_text('notice_prog_text', 'Browse the interactive programme page to see the two-day structure and how the final session grid will work.'); ?></p>
+              <span><?php ceeducon_text('notice_prog_label', 'Preliminary programme'); ?></span>
+              <h3><?php ceeducon_text('notice_prog_title', 'Online now.'); ?></h3>
+              <p><?php ceeducon_text('notice_prog_text', 'Browse the two-day programme — 70+ sessions and workshops across nine rooms. Details remain subject to change.'); ?></p>
               <a class="btn btn--dark" href="<?php echo esc_url(ceeducon_page_url('programme')); ?>"><?php ceeducon_text('notice_prog_button', 'Open the programme'); ?></a>
             </article>
             <article class="notice-card notice-card--orange" data-reveal="2">

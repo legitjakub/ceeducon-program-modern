@@ -22,14 +22,7 @@
           <?php endforeach; ?>
         </nav>
         <div class="header-actions">
-          <?php if (ceeducon_is_programme_page()) : ?>
-            <button class="header-print" type="button" data-print>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-5h18v5a2 2 0 0 1-2 2h-2M7 14h10v7H7z" /></svg>
-              <span><?php esc_html_e('Print / PDF', 'ceeducon-program'); ?></span>
-            </button>
-          <?php else : ?>
-            <a class="header-cta" href="<?php echo esc_url(ceeducon_text_value('header_cta_url', 'mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20updates')); ?>"><?php ceeducon_text('header_cta_label', 'Get updates'); ?></a>
-          <?php endif; ?>
+          <a class="header-cta" href="<?php echo esc_url(ceeducon_text_value('header_cta_url', 'mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20updates')); ?>"><?php ceeducon_text('header_cta_label', 'Get updates'); ?></a>
           <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
             <span><?php esc_html_e('Menu', 'ceeducon-program'); ?></span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>

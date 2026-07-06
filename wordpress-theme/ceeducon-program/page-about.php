@@ -113,7 +113,7 @@ get_header();
           <div class="feature-panel">
             <span><?php ceeducon_text('about_panel_label', 'Conference days'); ?></span>
             <strong><?php ceeducon_text('about_panel_title', '1–2 December 2026'); ?></strong>
-            <p><?php ceeducon_text('about_panel_text', 'Registration opens in September. The detailed programme will be published by September 1.'); ?></p>
+            <p><?php ceeducon_text('about_panel_text', 'Registration opens in September. The preliminary programme is online and remains subject to change.'); ?></p>
           </div>
         </div>
       </section>

@@ -1,10 +1,5 @@
 const DATA_URL = window.CEEDUCON_DATA_URL || "data/program.json";
-const LANGUAGE = "en";
-const FAVORITES_KEY = "ceeducon-2025-favorites";
-const COOKIE_KEY = "ceeducon-cookie-note-accepted";
-const DEMO_TIME = "14:26";
-const TIMEZONE = "Europe/Prague";
-const CONFERENCE_START = "2026-12-01T09:00:00+01:00";
+const FAVORITES_KEY = "ceeducon-2026-favorites";
 const PERIODS = [
   { id: "", label: "All day" },
   { id: "morning", label: "Morning" },
@@ -13,13 +8,13 @@ const PERIODS = [
 
 const state = {
   data: null,
+  dayIndex: 0,
   theme: "",
   room: "",
   period: "",
   query: "",
   favoritesOnly: false,
   favorites: new Set(JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]")),
-  liveMode: false,
   sessionMap: new Map(),
   modalSessionId: "",
   modalSession: null,
@@ -27,6 +22,7 @@ const state = {
 
 const elements = {
   schedule: document.querySelector("[data-schedule]"),
+  dayBar: document.querySelector("[data-day-bar]"),
   themeFilters: document.querySelector("[data-theme-filters]"),
   roomFilters: document.querySelector("[data-room-filters]"),
   periodFilters: document.querySelector("[data-period-filters]"),
@@ -38,9 +34,6 @@ const elements = {
   filterDrawer: document.querySelector("[data-filter-drawer]"),
   favoritesToggle: document.querySelector("[data-favorites-toggle]"),
   favoriteCount: document.querySelector("[data-favorite-count]"),
-  liveToggle: document.querySelector("[data-live-toggle]"),
-  liveLabel: document.querySelector("[data-live-label]"),
-  liveBanner: document.querySelector("[data-live-banner]"),
   modalBackdrop: document.querySelector("[data-modal-backdrop]"),
   modalTitle: document.querySelector("[data-modal-title]"),
   modalTheme: document.querySelector("[data-modal-theme]"),
@@ -49,26 +42,8 @@ const elements = {
   modalRoom: document.querySelector("[data-modal-room]"),
   modalFavorite: document.querySelector("[data-modal-favorite]"),
   modalNote: document.querySelector("[data-modal-note]"),
-  menuToggle: document.querySelector("[data-menu-toggle]"),
-  mobileMenu: document.querySelector("[data-mobile-menu]"),
-  navLinks: document.querySelectorAll(".header-nav a, .mobile-menu a"),
   toast: document.querySelector("[data-toast]"),
-  cookieBanner: document.querySelector("[data-cookie-banner]"),
-  cookieAccept: document.querySelector("[data-cookie-accept]"),
-  countdownDays: document.querySelector("[data-countdown-days]"),
 };
-
-function getSessionTitle(session) {
-  return session.title;
-}
-
-function getSlotTitle(slot) {
-  return slot.title || slot.id;
-}
-
-function getThemeLabel(themeId) {
-  return state.data?.themes?.find((theme) => theme.id === themeId)?.label || themeId;
-}
 
 function escapeHtml(value) {
   return String(value)
@@ -84,40 +59,20 @@ function toMinutes(time) {
   return hours * 60 + minutes;
 }
 
-function pragueDateTime() {
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    timeZone: TIMEZONE,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    hourCycle: "h23",
-  }).formatToParts(new Date());
-  const byType = Object.fromEntries(parts.map((part) => [part.type, part.value]));
-
-  return {
-    date: `${byType.year}-${byType.month}-${byType.day}`,
-    time: `${byType.hour}:${byType.minute}`,
-  };
-}
-
-function liveContext() {
-  const now = pragueDateTime();
-  const isEventDay = now.date === state.data?.event?.date;
-
-  return {
-    isEventDay,
-    time: isEventDay ? now.time : DEMO_TIME,
-  };
-}
-
-function sessionId(slot, session) {
-  return `${slot.id}-${session.rooms.join("-")}`.replaceAll("+", "plus");
+function currentDay() {
+  return state.data.days[state.dayIndex];
 }
 
 function themeById(id) {
   return state.data.themes.find((theme) => theme.id === id);
+}
+
+function getThemeLabel(themeId) {
+  return themeById(themeId)?.label || themeId;
+}
+
+function sessionId(day, slot, session) {
+  return `${slot.id}-${session.rooms.join("-")}`.replaceAll("+", "plus");
 }
 
 function roomPlacement(session) {
@@ -133,12 +88,10 @@ function roomPlacement(session) {
   };
 }
 
-function titleForSession(session) {
-  return getSessionTitle(session, LANGUAGE);
-}
-
-function titleForSlot(slot) {
-  return getSlotTitle(slot, LANGUAGE);
+function speakersText(speakers) {
+  if (!speakers || !speakers.length) return "";
+  if (speakers.length === 1 && speakers[0] === "tbc") return "Speakers: to be confirmed.";
+  return `Speakers: ${speakers.map((s) => (s === "tbc" ? "tbc" : s)).join("; ")}.`;
 }
 
 function activeFilters() {
@@ -159,20 +112,32 @@ function matchesSession(session, id) {
   if (state.room && !session.rooms.includes(state.room)) return false;
   if (state.favoritesOnly && !state.favorites.has(id)) return false;
   if (state.query) {
-    const themeLabel = getThemeLabel(session.theme, LANGUAGE);
-    const haystack = `${titleForSession(session)} ${session.title} ${session.rooms.join(" ")} ${themeLabel}`.toLocaleLowerCase("en");
+    const haystack = `${session.title} ${session.rooms.join(" ")} ${getThemeLabel(session.theme)} ${(session.speakers || []).join(" ")}`.toLocaleLowerCase("en");
     if (!haystack.includes(state.query)) return false;
   }
   return true;
 }
 
-function matchesStandaloneSlot(slot) {
+function matchesBreakSlot(slot) {
   if (state.theme || state.favoritesOnly) return false;
-  if (state.room && slot.rooms && !slot.rooms.includes(state.room)) return false;
+  if (state.room) return false;
   if (state.query) {
-    return `${titleForSlot(slot)} ${slot.title || ""}`.toLocaleLowerCase("en").includes(state.query);
+    return `${slot.title || ""}`.toLocaleLowerCase("en").includes(state.query);
   }
   return true;
+}
+
+function renderDayBar() {
+  if (!elements.dayBar) return;
+  elements.dayBar.innerHTML = state.data.days
+    .map(
+      (day, index) => `
+    <button class="day-tab${index === state.dayIndex ? " is-active" : ""}" type="button" data-day-index="${index}" aria-pressed="${index === state.dayIndex}">
+      <span>${escapeHtml(day.label)}</span><strong>${escapeHtml(day.title)}</strong>
+    </button>`
+    )
+    .join("") + `
+    <div class="day-context"><span class="day-context-dot"></span><span>${escapeHtml(state.data.event?.status || "")}</span></div>`;
 }
 
 function renderFilters() {
@@ -183,7 +148,7 @@ function renderFilters() {
       data-theme-filter="${escapeHtml(theme.id)}"
       style="--chip-color:${theme.color}"
       aria-pressed="${state.theme === theme.id}"
-    ><i></i><span>${escapeHtml(getThemeLabel(theme.id, LANGUAGE))}</span></button>
+    ><i></i><span>${escapeHtml(theme.label)}</span></button>
   `).join("");
 
   elements.roomFilters.innerHTML = state.data.rooms.map((room) => `
@@ -205,27 +170,25 @@ function renderFilters() {
   `).join("");
 }
 
-function buildSessionCard(slot, session, wide = false) {
-  const id = sessionId(slot, session);
+function buildSessionCard(day, slot, session) {
+  const id = sessionId(day, slot, session);
   const theme = themeById(session.theme) || { color: "#0d5e9d", id: "" };
   const favorite = state.favorites.has(id);
-  const title = titleForSession(session);
-  const themeLabel = getThemeLabel(session.theme, LANGUAGE);
+  const themeLabel = getThemeLabel(session.theme);
   const placement = roomPlacement(session);
+  const wide = session.rooms.length > 1;
 
   state.sessionMap.set(id, {
     id,
-    title,
-    originalTitle: session.title,
+    title: session.title,
     rooms: session.rooms,
     start: slot.start,
     end: slot.end,
     theme: themeLabel,
     color: theme.color,
-    date: state.data.event.date,
-    format: session.format || (wide ? "Plenary session" : "Thematic session"),
+    date: day.date,
     speakers: session.speakers || [],
-    description: session.description || `Archived session from the CEEDUCON 2025 programme in the ${themeLabel} thematic track.`,
+    description: session.description || "",
   });
 
   return `
@@ -234,8 +197,8 @@ function buildSessionCard(slot, session, wide = false) {
         <span class="room-tag">${escapeHtml(session.rooms.join(" + "))}</span>
         <button class="favorite-star${favorite ? " is-active" : ""}" type="button" data-favorite="${escapeHtml(id)}" aria-label="${favorite ? "Remove from my programme" : "Add to my programme"}" aria-pressed="${favorite}">${favorite ? "★" : "☆"}</button>
       </div>
-      <button class="session-card-open" type="button" data-session-open="${escapeHtml(id)}" title="${escapeHtml(title)}">
-        <h3>${escapeHtml(title)}</h3>
+      <button class="session-card-open" type="button" data-session-open="${escapeHtml(id)}" title="${escapeHtml(session.title)}">
+        <h3>${escapeHtml(session.title)}</h3>
         <p class="session-theme">${escapeHtml(themeLabel)}</p>
         <span class="session-arrow" aria-hidden="true">↗</span>
       </button>
@@ -243,11 +206,10 @@ function buildSessionCard(slot, session, wide = false) {
 }
 
 function buildProgramBand(slot) {
-  const title = titleForSlot(slot);
-  const variant = slot.id === "registration" ? "registration" : slot.id === "lunch" ? "lunch" : "coffee";
+  const variant = slot.break === "lunch" ? "lunch" : slot.break === "registration" ? "registration" : "coffee";
   const notes = {
     registration: "Participant registration and arrival",
-    coffee: "Coffee break and networking space",
+    coffee: "Coffee, networking and room changes",
     lunch: "Lunch break and networking",
   };
   const icons = {
@@ -258,18 +220,13 @@ function buildProgramBand(slot) {
   return `
     <div class="program-band program-band--${variant}">
       <span class="program-band-icon" aria-hidden="true">${icons[variant]}</span>
-      <p><strong>${escapeHtml(title)}</strong><span>${escapeHtml(notes[variant])}</span></p>
+      <p><strong>${escapeHtml(slot.title)}</strong><span>${escapeHtml(notes[variant])}</span></p>
     </div>`;
-}
-
-function isLiveSlot(slot) {
-  if (!state.liveMode) return false;
-  const current = toMinutes(liveContext().time);
-  return current >= toMinutes(slot.start) && current < toMinutes(slot.end);
 }
 
 function renderSchedule() {
   state.sessionMap.clear();
+  const day = currentDay();
   let visibleSessions = 0;
   const slots = [];
   const roomHeader = `
@@ -280,31 +237,26 @@ function renderSchedule() {
       </div>
     </div>`;
 
-  for (const slot of state.data.slots) {
+  for (const slot of day.slots) {
     if (!matchesSlotPeriod(slot)) continue;
 
     let content = "";
 
     if (slot.sessions) {
-      const sessions = slot.sessions.filter((session) => matchesSession(session, sessionId(slot, session)));
+      const sessions = slot.sessions
+        .filter((session) => matchesSession(session, sessionId(day, slot, session)))
+        .sort((a, b) => roomPlacement(a).start - roomPlacement(b).start);
       visibleSessions += sessions.length;
       if (sessions.length) {
-        content = `<div class="slot-heading"><span>${sessions.length === 1 ? "1 session" : `${sessions.length} sessions`}</span></div><div class="sessions-grid" style="--room-count:${state.data.rooms.length}">${sessions.map((session) => buildSessionCard(slot, session)).join("")}</div>`;
+        content = `<div class="slot-heading"><span>${sessions.length === 1 ? "1 session" : `${sessions.length} sessions`}</span></div><div class="sessions-grid" style="--room-count:${state.data.rooms.length}">${sessions.map((session) => buildSessionCard(day, slot, session)).join("")}</div>`;
       }
-    } else if (matchesStandaloneSlot(slot)) {
-      if (slot.type === "plenary") {
-        const session = { title: titleForSlot(slot), rooms: slot.rooms, theme: "smart" };
-        visibleSessions += 1;
-        content = `<div class="sessions-grid" style="--room-count:${state.data.rooms.length}">${buildSessionCard(slot, session, true)}</div>`;
-      } else {
-        content = buildProgramBand(slot);
-      }
+    } else if (slot.type === "break" && matchesBreakSlot(slot)) {
+      content = buildProgramBand(slot);
     }
 
     if (!content) continue;
-    const live = isLiveSlot(slot);
     slots.push(`
-      <section class="time-slot${live ? " is-live" : ""}" id="slot-${escapeHtml(slot.id)}" data-slot-id="${escapeHtml(slot.id)}">
+      <section class="time-slot" id="slot-${escapeHtml(slot.id)}" data-slot-id="${escapeHtml(slot.id)}">
         <div class="slot-time"><strong>${escapeHtml(slot.start)}</strong><span>${escapeHtml(slot.end)}</span></div>
         <div class="slot-content">${content}</div>
       </section>`);
@@ -315,40 +267,20 @@ function renderSchedule() {
   elements.schedule.hidden = slots.length === 0;
   elements.resultCount.textContent = activeFilters()
     ? `${visibleSessions} matching sessions shown`
-    : `Full programme · ${visibleSessions} sessions`;
+    : `${day.label}: full programme · ${visibleSessions} sessions`;
 }
 
 function render() {
+  renderDayBar();
   renderFilters();
   renderSchedule();
   updateFavoritesUI();
-  updateLiveUI();
 }
 
 function updateFavoritesUI() {
   elements.favoriteCount.textContent = state.favorites.size;
   elements.favoritesToggle.setAttribute("aria-pressed", String(state.favoritesOnly));
   elements.favoritesToggle.classList.toggle("is-active", state.favoritesOnly);
-}
-
-function updateLiveUI() {
-  elements.liveToggle.setAttribute("aria-pressed", String(state.liveMode));
-  elements.liveBanner.hidden = !state.liveMode;
-
-  const context = liveContext();
-  elements.liveLabel.textContent = state.liveMode
-    ? (context.isEventDay ? "Live mode on" : "Demo preview on")
-    : "Live preview";
-
-  if (!state.liveMode) return;
-
-  const heading = context.isEventDay ? `Happening now · ${context.time}` : `Demo live preview · ${context.time}`;
-  const copy = context.isEventDay
-    ? "The current programme block is highlighted."
-    : "The archive date is not today, so the highlighted block uses a sample time and does not claim a live 2026 schedule.";
-
-  elements.liveBanner.querySelector("strong").textContent = heading;
-  elements.liveBanner.querySelector("span:last-child").textContent = copy;
 }
 
 function resetFilters() {
@@ -359,18 +291,6 @@ function resetFilters() {
   state.favoritesOnly = false;
   elements.search.value = "";
   render();
-}
-
-function applyThemeFromStory(themeId) {
-  state.theme = themeId;
-  state.room = "";
-  state.period = "";
-  state.query = "";
-  state.favoritesOnly = false;
-  elements.search.value = "";
-  render();
-  document.querySelector("#schedule")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  showToast("Programme filtered by the selected thematic track.");
 }
 
 function saveFavorites() {
@@ -400,10 +320,12 @@ function openModal(id) {
   elements.modalTrack.style.background = session.color;
   elements.modalTime.textContent = `${session.start} – ${session.end}`;
   elements.modalRoom.textContent = session.rooms.join(" + ");
-  const speakers = session.speakers.length
-    ? `Speakers: ${session.speakers.join(", ")}.`
-    : "Speaker details will be published with the official programme.";
-  elements.modalNote.textContent = `${session.description} Format: ${session.format}. ${speakers}`;
+  const parts = [];
+  if (session.description) parts.push(session.description);
+  parts.push(`Format: ${session.theme}.`);
+  const speakers = speakersText(session.speakers);
+  if (speakers) parts.push(speakers);
+  elements.modalNote.textContent = parts.join(" ");
   updateModalFavorite();
   elements.modalBackdrop.hidden = false;
   document.body.classList.add("modal-open");
@@ -431,31 +353,19 @@ function compactTime(time) {
   return time.replace(":", "") + "00";
 }
 
-function downloadIcs() {
+function addToCalendar() {
   const session = state.modalSession;
   if (!session) return;
-  const description = `${session.description} CEEDUCON 2025 archive programme – ${session.theme}.`;
-  const content = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//DZS//CEEDUCON 2025//EN",
-    "BEGIN:VEVENT",
-    `UID:${session.id}@ceeducon.cz`,
-    `DTSTART;TZID=Europe/Prague:${compactDate(session.date)}T${compactTime(session.start)}`,
-    `DTEND;TZID=Europe/Prague:${compactDate(session.date)}T${compactTime(session.end)}`,
-    `SUMMARY:${session.title.replaceAll(",", "\\,")}`,
-    `LOCATION:${state.data.event.location} – ${session.rooms.join(" + ")}`,
-    `DESCRIPTION:${description}`,
-    "END:VEVENT",
-    "END:VCALENDAR",
-  ].join("\r\n");
-  const url = URL.createObjectURL(new Blob([content], { type: "text/calendar;charset=utf-8" }));
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `${session.id}.ics`;
-  link.click();
-  URL.revokeObjectURL(url);
-  showToast("Calendar file is ready to download.");
+  const details = [`CEEDUCON 2026 · ${session.theme}`, speakersText(session.speakers)].filter(Boolean).join("\n");
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: session.title,
+    dates: `${compactDate(session.date)}T${compactTime(session.start)}/${compactDate(session.date)}T${compactTime(session.end)}`,
+    ctz: "Europe/Prague",
+    location: `O2 universum Prague — ${session.rooms.join(" + ")}`,
+    details,
+  });
+  window.open(`https://calendar.google.com/calendar/render?${params.toString()}`, "_blank", "noopener");
 }
 
 let toastTimer;
@@ -466,59 +376,17 @@ function showToast(message) {
   toastTimer = setTimeout(() => elements.toast.classList.remove("is-visible"), 2800);
 }
 
-function closeMobileMenu() {
-  if (!elements.mobileMenu || !elements.menuToggle) return;
-  elements.mobileMenu.hidden = true;
-  elements.menuToggle.setAttribute("aria-expanded", "false");
-}
-
-function setActiveNav(id) {
-  elements.navLinks.forEach((link) => {
-    const active = link.getAttribute("href") === `#${id}`;
-    link.classList.toggle("is-active", active);
-  });
-}
-
-function setActiveNavFromHash() {
-  const id = window.location.hash.replace("#", "");
-  if (id) setActiveNav(id);
-}
-
-function syncHashTarget() {
-  const id = window.location.hash.replace("#", "");
-  const target = id ? document.getElementById(id) : null;
-  if (!target) return;
-
-  target.scrollIntoView({ block: "start" });
-  setActiveNav(id);
-}
-
-function initNavObserver() {
-  const sections = ["about", "themes", "programme-2026", "schedule", "practical", "speakers", "venue", "contact"]
-    .map((id) => document.getElementById(id))
-    .filter(Boolean);
-
-  if (!sections.length) return;
-
-  const updateActiveNav = () => {
-    const marker = 118;
-    const current = sections.find((section) => {
-      const rect = section.getBoundingClientRect();
-      return rect.top <= marker && rect.bottom > marker;
-    });
-
-    if (current?.id) setActiveNav(current.id);
-  };
-
-  window.addEventListener("scroll", updateActiveNav, { passive: true });
-  window.addEventListener("resize", updateActiveNav);
-  requestAnimationFrame(updateActiveNav);
-}
-
 function bindEvents() {
   elements.search.addEventListener("input", () => {
     state.query = elements.search.value.trim().toLocaleLowerCase("en");
     renderSchedule();
+  });
+
+  elements.dayBar?.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-day-index]");
+    if (!button) return;
+    state.dayIndex = Number(button.dataset.dayIndex);
+    render();
   });
 
   elements.themeFilters.addEventListener("click", (event) => {
@@ -554,31 +422,9 @@ function bindEvents() {
 
   elements.resetButtons.forEach((button) => button.addEventListener("click", resetFilters));
 
-  document.querySelectorAll("[data-theme-jump]").forEach((button) => {
-    button.addEventListener("click", () => applyThemeFromStory(button.dataset.themeJump));
-  });
-
-  elements.navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      const id = link.getAttribute("href")?.replace("#", "");
-      if (id) setActiveNav(id);
-      closeMobileMenu();
-    });
-  });
-
   elements.favoritesToggle.addEventListener("click", () => {
     state.favoritesOnly = !state.favoritesOnly;
     render();
-  });
-
-  elements.liveToggle.addEventListener("click", () => {
-    state.liveMode = !state.liveMode;
-    if (state.liveMode) state.period = "";
-    render();
-  });
-
-  document.querySelector("[data-jump-live]").addEventListener("click", () => {
-    document.querySelector(".time-slot.is-live")?.scrollIntoView({ behavior: "smooth", block: "center" });
   });
 
   elements.filterToggle.addEventListener("click", () => {
@@ -586,13 +432,12 @@ function bindEvents() {
     elements.filterToggle.setAttribute("aria-expanded", String(open));
   });
 
-  document.querySelectorAll("[data-print]").forEach((button) => button.addEventListener("click", () => window.print()));
   document.querySelectorAll("[data-modal-close]").forEach((button) => button.addEventListener("click", closeModal));
   elements.modalBackdrop.addEventListener("click", (event) => {
     if (event.target === elements.modalBackdrop) closeModal();
   });
   elements.modalFavorite.addEventListener("click", () => toggleFavorite(state.modalSessionId));
-  document.querySelector("[data-download-ics]").addEventListener("click", downloadIcs);
+  document.querySelector("[data-add-calendar]")?.addEventListener("click", addToCalendar);
 
   document.addEventListener("keydown", (event) => {
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
@@ -600,24 +445,14 @@ function bindEvents() {
       elements.search.focus();
     }
     if (event.key === "Escape" && !elements.modalBackdrop.hidden) closeModal();
-    if (event.key === "Escape") closeMobileMenu();
   });
-
-  window.addEventListener("hashchange", syncHashTarget);
-  setActiveNavFromHash();
-  initNavObserver();
-}
-
-function updateCountdown() {
-  if (!elements.countdownDays) return;
-  const now = new Date();
-  const start = new Date(CONFERENCE_START);
-  const days = Math.max(0, Math.ceil((start - now) / 86400000));
-  elements.countdownDays.textContent = days;
 }
 
 function updateStats() {
-  const count = state.data.slots.reduce((total, slot) => total + (slot.sessions?.length || (slot.type === "plenary" ? 1 : 0)), 0);
+  const count = state.data.days.reduce(
+    (total, day) => total + day.slots.reduce((sum, slot) => sum + (slot.sessions?.length || 0), 0),
+    0
+  );
   const sessionCount = document.querySelector("[data-session-count]");
   const roomCount = document.querySelector("[data-room-count]");
   const themeCount = document.querySelector("[data-theme-count]");
@@ -647,14 +482,9 @@ async function init() {
     }
   }
 
-  updateCountdown();
   updateStats();
   render();
   bindEvents();
-  requestAnimationFrame(() => {
-    syncHashTarget();
-    setTimeout(syncHashTarget, 120);
-  });
 }
 
 init();
