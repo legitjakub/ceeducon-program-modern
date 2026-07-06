@@ -62,7 +62,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               ],
               "theme": "plenary",
               "speakers": [
-                "tbc"
+                "MŠMT, EK?, KPR?, UK?, DZS"
               ]
             }
           ]
@@ -90,7 +90,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               ],
               "theme": "plenary",
               "speakers": [
-                "tbc"
+                "ACA, Erasmus+ directors"
               ]
             },
             {

@@ -132,9 +132,81 @@ function bindMediaLightbox() {
   });
 }
 
+function bindMobileCarousels() {
+  const tracks = document.querySelectorAll(
+    ".media-mosaic, .theme-grid, .day-cards, .tile-grid, .info-grid, .timeline, .step-list"
+  );
+  if (!tracks.length) return;
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  tracks.forEach((track, index) => {
+    const slides = Array.from(track.children).filter((child) => child.nodeType === 1);
+    if (slides.length < 2 || track.dataset.carouselReady === "true") return;
+
+    track.dataset.carouselReady = "true";
+    track.classList.add("mobile-carousel");
+    track.tabIndex = 0;
+    if (!track.id) track.id = `mobile-carousel-${index + 1}`;
+
+    const nav = document.createElement("div");
+    nav.className = "carousel-nav";
+    nav.setAttribute("aria-label", `${track.getAttribute("aria-label") || "Section"} controls`);
+    nav.innerHTML = `
+      <div class="carousel-counter" aria-live="polite">1 / ${slides.length}</div>
+      <div class="carousel-buttons">
+        <button class="carousel-button carousel-button--prev" type="button" data-carousel-prev aria-label="Previous slide" aria-controls="${track.id}">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+        </button>
+        <button class="carousel-button carousel-button--next" type="button" data-carousel-next aria-label="Next slide" aria-controls="${track.id}">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+        </button>
+      </div>
+    `;
+    track.after(nav);
+
+    const counter = nav.querySelector(".carousel-counter");
+    const prev = nav.querySelector("[data-carousel-prev]");
+    const next = nav.querySelector("[data-carousel-next]");
+
+    const getCurrentIndex = () => {
+      const trackLeft = track.getBoundingClientRect().left;
+      return slides.reduce((best, slide, slideIndex) => {
+        const distance = Math.abs(slide.getBoundingClientRect().left - trackLeft);
+        return distance < best.distance ? { index: slideIndex, distance } : best;
+      }, { index: 0, distance: Number.POSITIVE_INFINITY }).index;
+    };
+
+    const updateCounter = () => {
+      const current = getCurrentIndex();
+      counter.textContent = `${current + 1} / ${slides.length}`;
+      prev.disabled = current === 0;
+      next.disabled = current === slides.length - 1;
+    };
+
+    const scrollToSlide = (direction) => {
+      const current = getCurrentIndex();
+      const target = slides[Math.max(0, Math.min(slides.length - 1, current + direction))];
+      if (!target) return;
+      target.scrollIntoView({
+        behavior: prefersReducedMotion.matches ? "auto" : "smooth",
+        block: "nearest",
+        inline: "start",
+      });
+    };
+
+    prev.addEventListener("click", () => scrollToSlide(-1));
+    next.addEventListener("click", () => scrollToSlide(1));
+    track.addEventListener("scroll", () => window.requestAnimationFrame(updateCounter), { passive: true });
+    window.addEventListener("resize", updateCounter);
+    updateCounter();
+  });
+}
+
 bindSiteNavigation();
 bindHeaderScroll();
 bindReveals();
 bindSiteCookie();
 bindMediaLightbox();
+bindMobileCarousels();
 updateSiteCountdown();

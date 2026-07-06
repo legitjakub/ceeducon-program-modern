@@ -493,6 +493,25 @@ function updateStats() {
   if (themeCount) themeCount.textContent = state.data.themes.length;
 }
 
+function restoreHashScroll() {
+  if (!window.location.hash) return;
+
+  let targetId = "";
+  try {
+    targetId = decodeURIComponent(window.location.hash.slice(1));
+  } catch {
+    return;
+  }
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ block: "start" });
+    });
+  });
+}
+
 async function init() {
   try {
     if (window.CEEDUCON_PREFER_EMBEDDED_DATA && window.CEEDUCON_PROGRAM_DATA) {
@@ -516,6 +535,7 @@ async function init() {
   updateStats();
   render();
   bindEvents();
+  restoreHashScroll();
 }
 
 init();
