@@ -19,22 +19,22 @@ window.CEEDUCON_PROGRAM_DATA = {
     {
       "id": "smart",
       "label": "Smart & Sustainable International Cooperation",
-      "color": "#4c84bc"
+      "color": "#0d5e9d"
     },
     {
       "id": "internationalisation",
       "label": "Internationalisation for All",
-      "color": "#da445a"
+      "color": "#ec722f"
     },
     {
       "id": "partnerships",
       "label": "Global & Regional Partnerships",
-      "color": "#fabd00"
+      "color": "#45c0ea"
     },
     {
       "id": "alumni",
       "label": "Alumni — Employability — Future Skills",
-      "color": "#74be45"
+      "color": "#06304f"
     }
   ],
   "slots": [

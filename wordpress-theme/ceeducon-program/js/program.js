@@ -207,7 +207,7 @@ function renderFilters() {
 
 function buildSessionCard(slot, session, wide = false) {
   const id = sessionId(slot, session);
-  const theme = themeById(session.theme) || { color: "#4c84bc", id: "" };
+  const theme = themeById(session.theme) || { color: "#0d5e9d", id: "" };
   const favorite = state.favorites.has(id);
   const title = titleForSession(session);
   const themeLabel = getThemeLabel(session.theme, LANGUAGE);
@@ -225,7 +225,7 @@ function buildSessionCard(slot, session, wide = false) {
     date: state.data.event.date,
     format: session.format || (wide ? "Plenary session" : "Thematic session"),
     speakers: session.speakers || [],
-    description: session.description || `Archived CEEDUCON programme item in the ${themeLabel} thematic track. The final 2026 abstract and speaker details can be added when the official programme is confirmed.`,
+    description: session.description || `Archived session from the CEEDUCON 2025 programme in the ${themeLabel} thematic track.`,
   });
 
   return `
@@ -558,12 +558,6 @@ function bindEvents() {
     button.addEventListener("click", () => applyThemeFromStory(button.dataset.themeJump));
   });
 
-  elements.menuToggle?.addEventListener("click", () => {
-    const open = elements.mobileMenu.hidden;
-    elements.mobileMenu.hidden = !open;
-    elements.menuToggle.setAttribute("aria-expanded", String(open));
-  });
-
   elements.navLinks.forEach((link) => {
     link.addEventListener("click", () => {
       const id = link.getAttribute("href")?.replace("#", "");
@@ -599,15 +593,6 @@ function bindEvents() {
   });
   elements.modalFavorite.addEventListener("click", () => toggleFavorite(state.modalSessionId));
   document.querySelector("[data-download-ics]").addEventListener("click", downloadIcs);
-
-  if (localStorage.getItem(COOKIE_KEY) === "1") {
-    elements.cookieBanner?.classList.add("is-hidden");
-  }
-
-  elements.cookieAccept?.addEventListener("click", () => {
-    localStorage.setItem(COOKIE_KEY, "1");
-    elements.cookieBanner?.classList.add("is-hidden");
-  });
 
   document.addEventListener("keydown", (event) => {
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
@@ -657,7 +642,7 @@ async function init() {
       state.data = window.CEEDUCON_PROGRAM_DATA;
     } else {
       console.error("Programme could not be loaded:", error);
-      elements.schedule.innerHTML = `<div class="empty-state"><span>!</span><h3>Programme could not be loaded</h3><p>Please reload the preview or open the GitHub Pages link.</p></div>`;
+      elements.schedule.innerHTML = `<div class="empty-state"><span>!</span><h3>Programme could not be loaded</h3><p>Please reload the page and try again.</p></div>`;
       return;
     }
   }

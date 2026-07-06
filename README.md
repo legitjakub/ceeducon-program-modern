@@ -1,82 +1,74 @@
 # CEEDUCON 2026 – vícestránkový konferenční web a programový modul
 
-Samostatné řešení úkolu pro pozici Webmaster/ka v Domě zahraniční spolupráce. Web je nově rozdělený do samostatných stránek podobně jako oficiální CEEDUCON web: Home, About, Programme, Practical, Speakers a Contact. Je sladěný s aktuálním ročníkem CEEDUCON 2026 a zároveň obsahuje interaktivní archivní programový modul z roku 2025, který ukazuje, jak lze publikovat rozsáhlý program ve formátu čas × místnost.
+Moderní vícestránkový web pro CEEDUCON 2026 (1.–2. prosince 2026, O2 universum Praha) se strukturou podle oficiálního webu: Home, About, Programme, Practical, Speakers a Contact. Součástí je interaktivní programový modul, který zatím ukazuje archivní data z CEEDUCON 2025 (jasně označená jako archive sample) a je připravený na oficiální program 2026.
+
+Live verze: <https://legitjakub.github.io/ceeducon-program-modern/>
 
 ## Spuštění
 
-Data se načítají přes `fetch`, proto je potřeba lokální server:
+Data programu se načítají přes `fetch`, proto je potřeba lokální server:
 
 ```bash
 python3 -m http.server 8080
 ```
 
-Poté otevřete `http://localhost:8080`. Hlavní programová stránka je `programme.html`.
+Poté otevřete `http://localhost:8080`. Interaktivní program je na `programme.html`.
 
-## Jak jsem nad řešením přemýšlel
+## Design
 
-Nejdůležitější otázky návštěvníka jsou: **co je CEEDUCON**, **kdy a kde se koná**, **jak vypadá program** a **co potřebuji vědět před příjezdem**. Proto je web rozdělený do kratších podstránek. Čas je hlavní navigační osa programu, ale homepage už neslouží jako dlouhý scroll se všemi informacemi najednou.
+Design systém staví výhradně na brand identitě CEEDUCON:
 
-Původní široká tabulka je na mobilu obtížně použitelná. Nové řešení používá na všech zařízeních stejný mentální model, ale na úzkém displeji skládá příspěvky do jednoho sloupce. Uživatel nemusí horizontálně posouvat osm místností a neztrácí kontext času.
+- tmavě modrá `#0d5e9d` (+ odvozené tmavší odstíny `#06304f`, `#041f35`),
+- oranžová `#ec722f`,
+- světle modrá `#45c0ea`,
+- bílá `#ffffff`,
+- font **Tabac Sans** (woff2/woff v `assets/fonts`).
 
-## Funkce
+Prvky: tmavý hero s jemným tečkovým rastrem a obrysovým „2026", oranžový marquee pruh, glass panel s klíčovými údaji, číslované tematické karty, scroll-reveal animace (respektují `prefers-reduced-motion`), sticky hlavička měnící stav při scrollu a footer s obrysovým wordmarkem.
+
+## Funkce programového modulu
 
 - filtrování podle tematické linky, místnosti a části dne,
-- fulltextové vyhledávání v názvech, místnostech a tématech,
-- odpočet do začátku CEEDUCON 2026,
-- ukázkový live režim se zvýrazněním právě probíhajícího bloku,
-- vlastní výběr oblíbených příspěvků uložený v prohlížeči,
-- detail příspěvku, jasný archive notice a export do kalendáře ve formátu `.ics`,
-- FAQ akordeon pro praktické informace,
-- tisková verze optimalizovaná pro export do PDF,
-- přístupné ovládání klávesnicí a respektování `prefers-reduced-motion`,
-- responzivní rozvržení bez horizontálního posouvání programu.
-- vícestránková informační architektura pro čistší orientaci návštěvníka.
+- fulltextové vyhledávání (⌘K),
+- vlastní výběr „My programme" uložený v prohlížeči,
+- detail příspěvku a export do kalendáře (`.ics`),
+- ukázkový live režim se zvýrazněním probíhajícího bloku,
+- odpočet do začátku konference,
+- tisková verze (A4 landscape) pro export do PDF,
+- plně responzivní: na mobilu se grid místností skládá do časové osy.
 
-## Udržitelnost a editace
+## Editace obsahu
 
-Běžné texty WordPress verze se upravují v administraci přes **CEEDUCON Content**. Delší texty používají standardní WordPress editor, krátké položky jednoduchá textová pole.
+Struktura webu je navržená pro snadný převod do WordPressu:
 
-Archivní programový modul je oddělený od šablony v [`data/program.json`](data/program.json). Ve WordPress verzi lze stejnou strukturu upravit přímo v administraci přes **CEEDUCON Content → Programme data**. Editor programu upravuje:
+- programová data jsou oddělená v [`data/program.json`](data/program.json) (`rooms`, `themes`, `slots`),
+- ve WordPress verzi se všechny texty upravují v administraci přes **CEEDUCON Content** (hero, about, tematické oblasti, programme overview, practical, speakers, contact/footer i Programme JSON),
+- HTML ani JavaScript se při běžné změně obsahu neupravuje; frontend je bez frameworku a build kroku.
 
-- `rooms` – seznam místností,
-- `themes` – tematické linky a jejich barvy,
-- `slots` – časové bloky, společné části a jednotlivé příspěvky.
-
-HTML ani JavaScript se při běžné změně programu neupravuje. Frontend je bez frameworku a build kroku, takže má minimum závislostí a lze jej jednoduše vložit do existujícího webu.
-
-## WordPress
-
-Součástí repozitáře je připravená WordPress šablona:
+## WordPress šablona
 
 - zdrojová složka: [`wordpress-theme/ceeducon-program`](wordpress-theme/ceeducon-program)
-- ZIP pro nahrání do WordPressu: [`dist/ceeducon-program-wordpress-theme.zip`](dist/ceeducon-program-wordpress-theme.zip)
+- ZIP pro nahrání: [`dist/ceeducon-program-wordpress-theme.zip`](dist/ceeducon-program-wordpress-theme.zip)
 
-Po nahrání a aktivaci šablony lze běžné texty upravovat v administraci přes novou položku **CEEDUCON Content** v levém WordPress menu. Delší texty se upravují přes standardní WordPress editor. Starší cesta **Vzhled → Přizpůsobit → CEEDUCON content** zůstává jako fallback. Editovatelné jsou hero texty, úvodní blok, tematické oblasti, popisy nástrojů, 2026 programme overview, archivní programový modul, practical information, for speakers, venue, contact a footer.
+Šablona je vícestránková (front-page + page šablony `about`, `programme`, `practical`, `speakers`, `contact` mapované podle slugů), sdílí CSS/JS se statickou verzí a všechny texty čte přes editovatelná pole s defaulty. Postup instalace je v [README šablony](wordpress-theme/ceeducon-program/README.md).
 
-Program jako takový běží nad strukturovanými daty `data/program.json` / `js/program-data.js`, ale uploadovatelná WordPress šablona umí tato data přepsat uloženým JSONem z administrace. Pro plnou produkční verzi bych další krok řešil přes vlastní typ obsahu `session` a ACF pole pro den, čas, místnost, tematickou linku, řečníky a anotaci. Frontend by potom získával data přes WordPress REST API ve stejné struktuře jako současný JSON.
-
-## Další rozvoj
-
-- **Více dnů:** stránka už má textový overview pro 1.–2. prosince 2026; po zveřejnění detailního programu lze datový model rozšířit o `days`.
-- **Skutečný live režim:** demo čas se nahradí aktuálním časem v zóně `Europe/Prague` a aktivuje pouze v den konference.
-- **Řečníci a anotace:** detail karty je připravený na fotografie, medailonky a odkazy na prezentace nebo stream.
-- **Synchronizace programu:** REST API může načítat změny z WordPressu bez nového nasazení webu.
-- **Osobní program:** oblíbené položky lze synchronizovat s uživatelským účtem nebo poslat e-mailem.
+Pro plnou produkční verzi je dalším krokem vlastní typ obsahu `session` (den, čas, místnost, linka, řečníci, anotace) a REST API ve stejné JSON struktuře — frontend zůstane beze změny.
 
 ## Struktura
 
 ```text
-assets/             logo, font Tabac Sans, reference
+assets/             loga CEEDUCON, DZS, favicon, font Tabac Sans
 css/styles.css      jediný design systém včetně print stylů
-data/program.json   editovatelný obsah programu
+data/program.json   editovatelná data programu (archiv 2025)
 dist/               ZIP balíček WordPress šablony
-js/i18n.js          české překlady názvů příspěvků
-js/program.js       vykreslení, filtry, live režim, modal a export
-index.html          homepage a rozcestník
-about.html          představení konference a témat
-programme.html      2026 overview a interaktivní programový modul
-practical.html      venue, doprava, fee, ubytování a FAQ
-speakers.html       instrukce a timeline pro řečníky
+js/site.js          menu, hlavička, countdown, scroll-reveal
+js/program.js       vykreslení programu, filtry, modal, export
+js/program-data.js  vestavěná záložní data programu
+index.html          homepage
+about.html          o konferenci, témata, organizátoři
+programme.html      2026 overview + interaktivní programový modul
+practical.html      venue, doprava, FAQ
+speakers.html       informace a timeline pro řečníky
 contact.html        kontakt, organizátor a partneři
 wordpress-theme/    uploadovatelná WordPress šablona
 ```
