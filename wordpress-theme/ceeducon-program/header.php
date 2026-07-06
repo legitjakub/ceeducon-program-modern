@@ -16,11 +16,7 @@
         <a class="brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="CEEDUCON 2026 home">
           <img src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-horizontal-white.png')); ?>" alt="CEEDUCON" />
         </a>
-        <nav class="header-nav" aria-label="Main navigation">
-          <?php foreach (ceeducon_nav_items() as $slug => $label) : ?>
-            <a<?php echo ceeducon_is_current($slug) ? ' class="is-active"' : ''; ?> href="<?php echo esc_url(ceeducon_page_url($slug)); ?>"><?php echo esc_html($label); ?></a>
-          <?php endforeach; ?>
-        </nav>
+        <?php ceeducon_render_navigation('header-nav', __('Main navigation', 'ceeducon-program')); ?>
         <div class="header-actions">
           <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
             <span><?php esc_html_e('Menu', 'ceeducon-program'); ?></span>
@@ -28,9 +24,5 @@
           </button>
         </div>
       </div>
-      <nav class="mobile-menu shell" id="mobile-menu" data-mobile-menu aria-label="Mobile navigation" hidden>
-        <?php foreach (ceeducon_nav_items() as $slug => $label) : ?>
-          <a<?php echo ceeducon_is_current($slug) ? ' class="is-active"' : ''; ?> href="<?php echo esc_url(ceeducon_page_url($slug)); ?>"><?php echo esc_html($label); ?></a>
-        <?php endforeach; ?>
-      </nav>
+      <?php ceeducon_render_navigation('mobile-menu shell', __('Mobile navigation', 'ceeducon-program'), ['id' => 'mobile-menu', 'data-mobile-menu' => '', 'hidden' => true]); ?>
     </header>

@@ -87,6 +87,78 @@ function ceeducon_nav_items(): array
     ];
 }
 
+class CEEDUCON_Anchor_Walker extends Walker_Nav_Menu
+{
+    public function start_lvl(&$output, $depth = 0, $args = null)
+    {
+    }
+
+    public function end_lvl(&$output, $depth = 0, $args = null)
+    {
+    }
+
+    public function start_el(&$output, $data_object, $depth = 0, $args = null, $current_object_id = 0)
+    {
+        $item = $data_object;
+        $classes = empty($item->classes) ? [] : (array) $item->classes;
+        $active_classes = ['current-menu-item', 'current_page_item', 'current-menu-ancestor', 'current_page_ancestor'];
+        $is_active = (bool) array_intersect($active_classes, $classes);
+        $link_classes = $is_active ? ' class="is-active"' : '';
+        $target = !empty($item->target) ? ' target="' . esc_attr($item->target) . '"' : '';
+        $rel = !empty($item->xfn) ? ' rel="' . esc_attr($item->xfn) . '"' : '';
+        $title = apply_filters('the_title', $item->title, $item->ID);
+        $title = apply_filters('nav_menu_item_title', $title, $item, $args, $depth);
+
+        $output .= '<a' . $link_classes . ' href="' . esc_url($item->url) . '"' . $target . $rel . '>' . esc_html($title) . '</a>';
+    }
+
+    public function end_el(&$output, $data_object, $depth = 0, $args = null)
+    {
+    }
+}
+
+function ceeducon_nav_attributes(array $attributes): string
+{
+    $output = '';
+
+    foreach ($attributes as $name => $value) {
+        if ($value === false || $value === null) {
+            continue;
+        }
+
+        if ($value === true || $value === '') {
+            $output .= ' ' . esc_attr($name);
+            continue;
+        }
+
+        $output .= ' ' . esc_attr($name) . '="' . esc_attr((string) $value) . '"';
+    }
+
+    return $output;
+}
+
+function ceeducon_render_navigation(string $class, string $label, array $attributes = []): void
+{
+    echo '<nav class="' . esc_attr($class) . '" aria-label="' . esc_attr($label) . '"' . ceeducon_nav_attributes($attributes) . '>';
+
+    if (has_nav_menu('primary')) {
+        wp_nav_menu([
+            'theme_location' => 'primary',
+            'container' => false,
+            'items_wrap' => '%3$s',
+            'depth' => 1,
+            'fallback_cb' => '__return_empty_string',
+            'walker' => new CEEDUCON_Anchor_Walker(),
+        ]);
+    } else {
+        foreach (ceeducon_nav_items() as $slug => $item_label) {
+            echo '<a' . (ceeducon_is_current($slug) ? ' class="is-active"' : '') . ' href="' . esc_url(ceeducon_page_url($slug)) . '">' . esc_html($item_label) . '</a>';
+        }
+    }
+
+    echo '</nav>';
+}
+
 function ceeducon_is_programme_page(): bool
 {
     return is_page('programme') || is_page_template('page-programme.php');
