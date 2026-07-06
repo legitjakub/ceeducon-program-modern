@@ -23,7 +23,6 @@ Same design and front-end code as the static preview site — plain PHP template
 All visible texts live in **wp-admin → CEEDUCON Content**, grouped per page/section:
 
 - Global header & footer (footer texts, contact links)
-- Navigation uses **Appearance → Menus → Primary navigation** when assigned, with a built-in fallback menu.
 - Home hero, stats, media gallery and sections
 - Thematic areas (shared between Home and About)
 - Programme day cards and notices (shared between Home and Programme)

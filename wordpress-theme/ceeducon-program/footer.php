@@ -7,7 +7,13 @@
           </div>
           <div>
             <h4><?php esc_html_e('Conference', 'ceeducon-program'); ?></h4>
-            <?php ceeducon_render_navigation('footer-menu', __('Footer conference links', 'ceeducon-program')); ?>
+            <nav aria-label="Footer conference links">
+              <a href="<?php echo esc_url(ceeducon_page_url('about')); ?>"><?php esc_html_e('About', 'ceeducon-program'); ?></a>
+              <a href="<?php echo esc_url(ceeducon_page_url('programme')); ?>"><?php esc_html_e('Programme', 'ceeducon-program'); ?></a>
+              <a href="<?php echo esc_url(ceeducon_page_url('practical')); ?>"><?php esc_html_e('Practical information', 'ceeducon-program'); ?></a>
+              <a href="<?php echo esc_url(ceeducon_page_url('speakers')); ?>"><?php esc_html_e('For speakers', 'ceeducon-program'); ?></a>
+              <a href="<?php echo esc_url(ceeducon_page_url('contact')); ?>"><?php esc_html_e('Contact', 'ceeducon-program'); ?></a>
+            </nav>
           </div>
           <div>
             <h4><?php esc_html_e('Connect', 'ceeducon-program'); ?></h4>
