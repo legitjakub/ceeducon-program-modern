@@ -483,17 +483,17 @@ function ceeducon_admin_content_fields(): array
         ],
         'Home — sections' => [
             ['home_about_kicker', 'About kicker', 'The conference', 'text'],
-            ['home_about_title', 'About title', 'A meeting point for everyone shaping international higher education.', 'textarea'],
-            ['home_about_text_1', 'About paragraph 1', 'CEEDUCON focuses on advancing global cooperation, strategy and innovation in higher education. It creates space for knowledge exchange, best practice and open discussion on internationalisation strategy, digitalisation, inclusion, partnerships, mobility, alumni engagement and employability.', 'textarea'],
-            ['home_about_text_2', 'About paragraph 2', 'The conference is organised by the Czech National Agency for International Education and Research (DZS) together with partner agencies from across Central Europe.', 'textarea'],
+            ['home_about_title', 'About title', 'A focused forum for international higher education.', 'textarea'],
+            ['home_about_text_1', 'About paragraph 1', 'CEEDUCON connects people who work on internationalisation every day: university leadership, international offices, policymakers, national agencies and practitioners from across Europe.', 'textarea'],
+            ['home_about_text_2', 'About paragraph 2', 'The programme is built around practical exchange: what is changing, what works in institutions, and where Central European cooperation can move higher education forward.', 'textarea'],
             ['home_chip_1', 'Audience chip 1', 'University leadership', 'text'],
             ['home_chip_2', 'Audience chip 2', 'International offices', 'text'],
             ['home_chip_3', 'Audience chip 3', 'Policymakers', 'text'],
             ['home_chip_4', 'Audience chip 4', 'National agencies', 'text'],
             ['home_about_button', 'About button', 'More about CEEDUCON', 'text'],
-            ['media_kicker', 'Media kicker', 'Atmosphere', 'text'],
-            ['media_title', 'Media title', 'See the conference before you arrive.', 'textarea'],
-            ['media_text', 'Media text', 'CEEDUCON is more than a programme grid: it is plenaries, hallway conversations, workshops and new partnerships forming across the venue. The media layer brings that energy into the page while staying fully editable for WordPress.', 'textarea'],
+            ['media_kicker', 'Media kicker', 'Conference atmosphere', 'text'],
+            ['media_title', 'Media title', 'A professional setting for exchange.', 'textarea'],
+            ['media_text', 'Media text', 'Use the photos as a quick sense of the venue, audience and working atmosphere. The core of the website stays simple: programme first, then practical information for participants and speakers.', 'textarea'],
             ['media_button_primary', 'Media primary button', 'Browse programme', 'text'],
             ['media_button_secondary', 'Media secondary button', 'Open visual', 'text'],
             ['media_hero_url', 'Media hero image URL', ceeducon_asset_url('assets/media/ceeducon-2026-banner.png'), 'url'],
@@ -530,7 +530,7 @@ function ceeducon_admin_content_fields(): array
             ['home_venue_panel_title', 'Venue panel title', 'Metro B · Českomoravská', 'text'],
             ['home_venue_panel_text', 'Venue panel text', 'Around 55 minutes from Prague Airport by public transport, a short walk from Praha-Libeň railway station and steps from the Českomoravská metro stop.', 'textarea'],
             ['home_plan_kicker', 'Plan kicker', 'Plan ahead', 'text'],
-            ['home_plan_title', 'Plan title', 'Everything you need, one page away.', 'textarea'],
+            ['home_plan_title', 'Plan title', 'Find the essentials quickly.', 'textarea'],
             ['home_link_1_label', 'Quick link 1 label', 'Practical', 'text'],
             ['home_link_1_title', 'Quick link 1 title', 'Getting to the conference', 'text'],
             ['home_link_1_text', 'Quick link 1 text', 'Venue, transport from the airport and stations, accessibility and accommodation tips.', 'textarea'],
@@ -539,7 +539,7 @@ function ceeducon_admin_content_fields(): array
             ['home_link_2_text', 'Quick link 2 text', 'Session expectations, onsite delivery, timeline and speaker support in one overview.', 'textarea'],
             ['home_link_3_label', 'Quick link 3 label', 'Contact', 'text'],
             ['home_link_3_title', 'Quick link 3 title', 'Talk to the team', 'text'],
-            ['home_link_3_text', 'Quick link 3 text', 'Questions about registration, the programme or partnerships — the organisers are ready to help.', 'textarea'],
+            ['home_link_3_text', 'Quick link 3 text', 'Use the contact page for registration, programme, speaker or partnership questions.', 'textarea'],
             ['home_org_kicker', 'Organisers kicker', 'Organisers', 'text'],
             ['home_org_title', 'Organisers title', "Backed by Central Europe's national agencies.", 'textarea'],
             ['home_org_lead', 'Organisers lead (HTML allowed)', 'CEEDUCON is organised by DZS — the Czech National Agency for International Education and Research — in co-operation with partner organisations across the region. Reach the team at <a href="mailto:ceeducon@dzs.cz">ceeducon@dzs.cz</a>.', 'textarea'],
@@ -608,12 +608,12 @@ function ceeducon_admin_content_fields(): array
             ['prog_overview_title', 'Overview title', 'How the two days are planned.', 'textarea'],
             ['prog_overview_intro', 'Overview intro', 'Both days run as full conference days with plenaries, thematic sessions and workshops — connected by a networking dinner on the first evening.', 'textarea'],
             ['prog_grid_label', 'Grid notice label', 'Interactive programme', 'text'],
-            ['prog_grid_title', 'Grid notice title', 'Build your own schedule.', 'text'],
-            ['prog_grid_text', 'Grid notice text', 'Filter the programme by format, time and room, save sessions to “My programme” and add them straight to your calendar.', 'textarea'],
+            ['prog_grid_title', 'Grid notice title', 'Work with the programme.', 'text'],
+            ['prog_grid_text', 'Grid notice text', 'Filter by theme, room and time, save sessions to “My programme” and add selected sessions to your calendar.', 'textarea'],
             ['prog_grid_button', 'Grid notice button', 'Open the programme', 'text'],
             ['sched_kicker', 'Schedule kicker', 'Interactive programme', 'text'],
-            ['sched_title', 'Schedule title', 'Explore the conference, room by room.', 'textarea'],
-            ['sched_intro', 'Schedule intro', 'Filter by format, time and room, search sessions, save your personal selection and add sessions to your calendar.', 'textarea'],
+            ['sched_title', 'Schedule title', 'Find the right session faster.', 'textarea'],
+            ['sched_intro', 'Schedule intro', 'Search the programme, compare rooms and times, filter by theme and keep your personal selection in one place.', 'textarea'],
             ['cookie_note', 'Cookie / storage note', '“My programme” selections are stored only in your browser\'s local storage. This site sets no analytics cookies.', 'textarea'],
         ],
         'Practical page' => [
@@ -657,28 +657,28 @@ function ceeducon_admin_content_fields(): array
         ],
         'Speakers page' => [
             ['spk_hero_title', 'Hero title', 'Speaking at CEEDUCON.', 'textarea'],
-            ['spk_hero_note', 'Hero note', 'CEEDUCON sessions are built on practical experience, international cooperation and diverse institutional perspectives. Here is what session contributors need to know.', 'textarea'],
+            ['spk_hero_note', 'Hero note', 'Guidance for accepted session contributors: format, onsite delivery, timeline and practical support before the conference.', 'textarea'],
             ['spk_card_label', 'Hero card label', 'Programme publication', 'text'],
             ['spk_card_title', 'Hero card title', 'By September 1', 'text'],
             ['spk_card_text', 'Hero card text', 'Accepted speakers receive detailed follow-up information about registration, contracts and presentation materials.', 'textarea'],
             ['spk_kicker', 'Section kicker', 'Speaker information', 'text'],
-            ['spk_title', 'Section title', 'Practical, onsite-first and in English.', 'textarea'],
-            ['spk_lead', 'Section lead', 'Sessions are delivered primarily in person at O2 universum Prague, in English, with up to three contributors per session. There is no speaker fee.', 'textarea'],
+            ['spk_title', 'Section title', 'Clear expectations before conference day.', 'textarea'],
+            ['spk_lead', 'Section lead', 'Sessions are planned primarily onsite at O2 universum Prague and delivered in English. This page keeps the essential speaker information in one place.', 'textarea'],
             ['spk_fact_1', 'Fact 1', 'No speaker fee', 'text'],
             ['spk_fact_2', 'Fact 2', 'Primarily onsite', 'text'],
             ['spk_fact_3', 'Fact 3', 'Up to 3 contributors', 'text'],
             ['spk_fact_4', 'Fact 4', 'English delivery', 'text'],
-            ['step_1_title', 'Step 1 title', 'Include all speakers in your proposal', 'text'],
-            ['step_1_text', 'Step 1 text', 'All speakers should be listed during proposal submission. If final names are not confirmed yet, co-speakers can still be indicated in the registration.', 'textarea'],
+            ['step_1_title', 'Step 1 title', 'Confirm contributors early', 'text'],
+            ['step_1_text', 'Step 1 text', 'List all speakers as early as possible so the programme, contracts and communication can stay accurate.', 'textarea'],
             ['step_2_title', 'Step 2 title', 'Prepare for onsite delivery', 'text'],
-            ['step_2_text', 'Step 2 text', 'The conference is planned primarily in person. Limited online participation may be considered only when requested and approved in advance.', 'textarea'],
-            ['step_3_title', 'Step 3 title', 'Share materials and preferences on time', 'text'],
-            ['step_3_text', 'Step 3 text', 'Accepted speakers receive follow-up information about registration, contracts, presentation templates, recording preferences and technical support.', 'textarea'],
-            ['spk_cta_text', 'CTA text (HTML allowed)', '<strong>Questions about your session?</strong> The CEEDUCON team supports speakers from acceptance through to conference day.', 'textarea'],
-            ['spk_cta_button', 'CTA button', 'Contact the team', 'text'],
-            ['spk_cta_url', 'CTA URL', 'mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20speaker%20question', 'url'],
+            ['step_2_text', 'Step 2 text', 'Plan for an in-person session unless the organisers confirm a different arrangement in advance.', 'textarea'],
+            ['step_3_title', 'Step 3 title', 'Share materials on time', 'text'],
+            ['step_3_text', 'Step 3 text', 'Follow the speaker timeline for registration, presentation materials, recording preferences and technical checks.', 'textarea'],
+            ['spk_cta_text', 'CTA text (HTML allowed)', '<strong>Questions about your session?</strong> Use the contact page for anything not covered here.', 'textarea'],
+            ['spk_cta_button', 'CTA button', 'Contact page', 'text'],
+            ['spk_cta_url', 'CTA URL', home_url('/contact/'), 'url'],
             ['timeline_kicker', 'Timeline kicker', 'Timeline', 'text'],
-            ['timeline_title', 'Timeline title', 'Key dates for speakers.', 'textarea'],
+            ['timeline_title', 'Timeline title', 'Speaker timeline.', 'textarea'],
             ['milestone_1_label', 'Milestone 1 label', 'By June 30', 'text'],
             ['milestone_1_text', 'Milestone 1 text', 'Acceptance notifications', 'text'],
             ['milestone_2_label', 'Milestone 2 label', 'By July 31', 'text'],
@@ -688,7 +688,7 @@ function ceeducon_admin_content_fields(): array
             ['milestone_4_label', 'Milestone 4 label', 'By September 1', 'text'],
             ['milestone_4_text', 'Milestone 4 text', 'Programme publication', 'text'],
             ['spk_links_kicker', 'Quick links kicker', 'Also useful', 'text'],
-            ['spk_links_title', 'Quick links title', 'Before you travel.', 'textarea'],
+            ['spk_links_title', 'Quick links title', 'Useful next steps.', 'textarea'],
             ['spk_link_1_label', 'Quick link 1 label', 'Programme', 'text'],
             ['spk_link_1_title', 'Quick link 1 title', 'The two-day structure', 'text'],
             ['spk_link_1_text', 'Quick link 1 text', 'See how the conference days are planned and how the detailed programme will be published.', 'textarea'],
@@ -745,6 +745,107 @@ function ceeducon_admin_menu(): void
     );
 }
 add_action('admin_menu', 'ceeducon_admin_menu');
+
+function ceeducon_migrate_default_content(): void
+{
+    $target_version = '2.2.4';
+    if (get_option('ceeducon_content_defaults_version') === $target_version) {
+        return;
+    }
+
+    $content = get_option('ceeducon_content', []);
+    if (!is_array($content)) {
+        $content = [];
+    }
+
+    $replacements = [
+        'home_about_title' => [
+            'A meeting point for everyone shaping international higher education.',
+            'A focused forum for international higher education.',
+        ],
+        'home_about_text_1' => [
+            'CEEDUCON focuses on advancing global cooperation, strategy and innovation in higher education. It creates space for knowledge exchange, best practice and open discussion on internationalisation strategy, digitalisation, inclusion, partnerships, mobility, alumni engagement and employability.',
+            'CEEDUCON connects people who work on internationalisation every day: university leadership, international offices, policymakers, national agencies and practitioners from across Europe.',
+        ],
+        'home_about_text_2' => [
+            'The conference is organised by the Czech National Agency for International Education and Research (DZS) together with partner agencies from across Central Europe.',
+            'The programme is built around practical exchange: what is changing, what works in institutions, and where Central European cooperation can move higher education forward.',
+        ],
+        'media_kicker' => ['Atmosphere', 'Conference atmosphere'],
+        'media_title' => ['See the conference before you arrive.', 'A professional setting for exchange.'],
+        'media_text' => [
+            'CEEDUCON is more than a programme grid: it is plenaries, hallway conversations, workshops and new partnerships forming across the venue. The media layer brings that energy into the page while staying fully editable for WordPress.',
+            'Use the photos as a quick sense of the venue, audience and working atmosphere. The core of the website stays simple: programme first, then practical information for participants and speakers.',
+        ],
+        'home_plan_title' => ['Everything you need, one page away.', 'Find the essentials quickly.'],
+        'home_link_3_text' => [
+            'Questions about registration, the programme or partnerships — the organisers are ready to help.',
+            'Use the contact page for registration, programme, speaker or partnership questions.',
+        ],
+        'prog_grid_title' => ['Build your own schedule.', 'Work with the programme.'],
+        'prog_grid_text' => [
+            'Filter the programme by format, time and room, save sessions to “My programme” and add them straight to your calendar.',
+            'Filter by theme, room and time, save sessions to “My programme” and add selected sessions to your calendar.',
+        ],
+        'sched_title' => ['Explore the conference, room by room.', 'Find the right session faster.'],
+        'sched_intro' => [
+            'Filter by format, time and room, search sessions, save your personal selection and add sessions to your calendar.',
+            'Search the programme, compare rooms and times, filter by theme and keep your personal selection in one place.',
+        ],
+        'spk_hero_note' => [
+            'CEEDUCON sessions are built on practical experience, international cooperation and diverse institutional perspectives. Here is what session contributors need to know.',
+            'Guidance for accepted session contributors: format, onsite delivery, timeline and practical support before the conference.',
+        ],
+        'spk_title' => ['Practical, onsite-first and in English.', 'Clear expectations before conference day.'],
+        'spk_lead' => [
+            'Sessions are delivered primarily in person at O2 universum Prague, in English, with up to three contributors per session. There is no speaker fee.',
+            'Sessions are planned primarily onsite at O2 universum Prague and delivered in English. This page keeps the essential speaker information in one place.',
+        ],
+        'step_1_title' => ['Include all speakers in your proposal', 'Confirm contributors early'],
+        'step_1_text' => [
+            'All speakers should be listed during proposal submission. If final names are not confirmed yet, co-speakers can still be indicated in the registration.',
+            'List all speakers as early as possible so the programme, contracts and communication can stay accurate.',
+        ],
+        'step_2_text' => [
+            'The conference is planned primarily in person. Limited online participation may be considered only when requested and approved in advance.',
+            'Plan for an in-person session unless the organisers confirm a different arrangement in advance.',
+        ],
+        'step_3_title' => ['Share materials and preferences on time', 'Share materials on time'],
+        'step_3_text' => [
+            'Accepted speakers receive follow-up information about registration, contracts, presentation templates, recording preferences and technical support.',
+            'Follow the speaker timeline for registration, presentation materials, recording preferences and technical checks.',
+        ],
+        'spk_cta_text' => [
+            '<strong>Questions about your session?</strong> The CEEDUCON team supports speakers from acceptance through to conference day.',
+            '<strong>Questions about your session?</strong> Use the contact page for anything not covered here.',
+        ],
+        'spk_cta_button' => ['Contact the team', 'Contact page'],
+        'spk_cta_url' => ['mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20speaker%20question', home_url('/contact/')],
+        'timeline_title' => ['Key dates for speakers.', 'Speaker timeline.'],
+        'spk_links_title' => ['Before you travel.', 'Useful next steps.'],
+    ];
+
+    $changed = false;
+    foreach ($replacements as $key => [$old, $new]) {
+        if (array_key_exists($key, $content) && (string) $content[$key] === $old) {
+            $content[$key] = $new;
+            $changed = true;
+        }
+
+        if (function_exists('get_field') && function_exists('update_field')) {
+            $acf_value = get_field($key, 'option');
+            if (is_scalar($acf_value) && (string) $acf_value === $old) {
+                update_field($key, $new, 'option');
+            }
+        }
+    }
+
+    if ($changed) {
+        update_option('ceeducon_content', $content);
+    }
+    update_option('ceeducon_content_defaults_version', $target_version);
+}
+add_action('admin_init', 'ceeducon_migrate_default_content');
 
 function ceeducon_render_content_admin_page(): void
 {

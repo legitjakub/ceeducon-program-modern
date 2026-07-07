@@ -53,8 +53,8 @@ get_header();
           <div class="notice-cards">
             <article class="notice-card notice-card--sky notice-card--wide" data-reveal>
               <span><?php ceeducon_text('prog_grid_label', 'Interactive programme'); ?></span>
-              <h3><?php ceeducon_text('prog_grid_title', 'Build your own schedule.'); ?></h3>
-              <p><?php ceeducon_text('prog_grid_text', 'Filter the programme by format, time and room, save sessions to “My programme” and add them straight to your calendar.'); ?></p>
+              <h3><?php ceeducon_text('prog_grid_title', 'Work with the programme.'); ?></h3>
+              <p><?php ceeducon_text('prog_grid_text', 'Filter by theme, room and time, save sessions to “My programme” and add selected sessions to your calendar.'); ?></p>
               <a class="btn btn--dark" href="#schedule"><?php ceeducon_text('prog_grid_button', 'Open the programme'); ?></a>
             </article>
           </div>
@@ -66,9 +66,9 @@ get_header();
           <div class="section-head">
             <div data-reveal>
               <p class="kicker"><?php ceeducon_text('sched_kicker', 'Interactive programme'); ?></p>
-              <h2 class="display-2"><?php ceeducon_text('sched_title', 'Explore the conference, room by room.'); ?></h2>
+              <h2 class="display-2"><?php ceeducon_text('sched_title', 'Find the right session faster.'); ?></h2>
             </div>
-            <p data-reveal="2"><?php ceeducon_text('sched_intro', 'Filter by format, time and room, search sessions, save your personal selection and add sessions to your calendar.'); ?></p>
+            <p data-reveal="2"><?php ceeducon_text('sched_intro', 'Search the programme, compare rooms and times, filter by theme and keep your personal selection in one place.'); ?></p>
           </div>
 
           <div class="day-bar" data-day-bar aria-label="Day selection"></div>

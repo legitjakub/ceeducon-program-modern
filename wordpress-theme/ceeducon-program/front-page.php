@@ -56,11 +56,11 @@ get_header();
         <div class="shell statement-grid">
           <div data-reveal>
             <p class="kicker"><?php ceeducon_text('home_about_kicker', 'The conference'); ?></p>
-            <h2 class="display-2"><?php ceeducon_text('home_about_title', 'A meeting point for everyone shaping international higher education.'); ?></h2>
+            <h2 class="display-2"><?php ceeducon_text('home_about_title', 'A focused forum for international higher education.'); ?></h2>
           </div>
           <div class="statement-copy" data-reveal="2">
-            <p><?php ceeducon_text('home_about_text_1', 'CEEDUCON focuses on advancing global cooperation, strategy and innovation in higher education. It creates space for knowledge exchange, best practice and open discussion on internationalisation strategy, digitalisation, inclusion, partnerships, mobility, alumni engagement and employability.'); ?></p>
-            <p><?php ceeducon_text('home_about_text_2', 'The conference is organised by the Czech National Agency for International Education and Research (DZS) together with partner agencies from across Central Europe.'); ?></p>
+            <p><?php ceeducon_text('home_about_text_1', 'CEEDUCON connects people who work on internationalisation every day: university leadership, international offices, policymakers, national agencies and practitioners from across Europe.'); ?></p>
+            <p><?php ceeducon_text('home_about_text_2', 'The programme is built around practical exchange: what is changing, what works in institutions, and where Central European cooperation can move higher education forward.'); ?></p>
             <div class="fact-chips" aria-label="Who attends">
               <span><?php ceeducon_text('home_chip_1', 'University leadership'); ?></span>
               <span><?php ceeducon_text('home_chip_2', 'International offices'); ?></span>
@@ -75,9 +75,9 @@ get_header();
       <section class="section section--media">
         <div class="shell media-showcase">
           <div class="media-copy" data-reveal>
-            <p class="kicker"><?php ceeducon_text('media_kicker', 'Atmosphere'); ?></p>
-            <h2 class="display-2"><?php ceeducon_text('media_title', 'See the conference before you arrive.'); ?></h2>
-            <p><?php ceeducon_text('media_text', 'CEEDUCON is more than a programme grid: it is plenaries, hallway conversations, workshops and new partnerships forming across the venue. The media layer brings that energy into the page while staying fully editable for WordPress.'); ?></p>
+            <p class="kicker"><?php ceeducon_text('media_kicker', 'Conference atmosphere'); ?></p>
+            <h2 class="display-2"><?php ceeducon_text('media_title', 'A professional setting for exchange.'); ?></h2>
+            <p><?php ceeducon_text('media_text', 'Use the photos as a quick sense of the venue, audience and working atmosphere. The core of the website stays simple: programme first, then practical information for participants and speakers.'); ?></p>
             <div class="media-actions">
               <a class="btn btn--primary" href="<?php echo esc_url(ceeducon_page_url('programme')); ?>"><?php ceeducon_text('media_button_primary', 'Browse programme'); ?></a>
               <button class="btn btn--outline" type="button" data-lightbox="<?php echo esc_url(ceeducon_text_value('media_hero_url', ceeducon_asset_url('assets/media/ceeducon-2026-banner.png'))); ?>" data-lightbox-caption="<?php echo esc_attr(ceeducon_text_value('media_hero_caption', 'CEEDUCON 2026 visual identity')); ?>"><?php ceeducon_text('media_button_secondary', 'Open visual'); ?></button>
@@ -199,7 +199,7 @@ get_header();
           <div class="section-head">
             <div data-reveal>
               <p class="kicker"><?php ceeducon_text('home_plan_kicker', 'Plan ahead'); ?></p>
-              <h2 class="display-2"><?php ceeducon_text('home_plan_title', 'Everything you need, one page away.'); ?></h2>
+              <h2 class="display-2"><?php ceeducon_text('home_plan_title', 'Find the essentials quickly.'); ?></h2>
             </div>
           </div>
           <div class="tile-grid">
@@ -216,7 +216,7 @@ get_header();
             <a class="link-tile" href="<?php echo esc_url(ceeducon_page_url('contact')); ?>" data-reveal="3">
               <span><?php ceeducon_text('home_link_3_label', 'Contact'); ?></span>
               <h3><?php ceeducon_text('home_link_3_title', 'Talk to the team'); ?></h3>
-              <p><?php ceeducon_text('home_link_3_text', 'Questions about registration, the programme or partnerships — the organisers are ready to help.'); ?></p>
+              <p><?php ceeducon_text('home_link_3_text', 'Use the contact page for registration, programme, speaker or partnership questions.'); ?></p>
             </a>
           </div>
         </div>
