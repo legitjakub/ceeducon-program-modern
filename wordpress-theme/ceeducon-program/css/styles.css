@@ -263,7 +263,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 }
 .menu-toggle svg { width: 18px; height: 18px; }
 .menu-toggle[aria-expanded="true"] { border-color: var(--orange); background: var(--orange); color: var(--deep-2); }
-.mobile-menu { display: none; padding: 8px 0 20px; }
+.mobile-menu { display: none; padding-block: 8px 20px; }
 .mobile-menu a {
   display: flex;
   align-items: center;
