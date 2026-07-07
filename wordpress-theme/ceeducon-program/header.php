@@ -7,7 +7,7 @@
     <link rel="preload" href="<?php echo esc_url(ceeducon_asset_url('assets/fonts/Tabac-Sans-Regular.woff2')); ?>" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="<?php echo esc_url(ceeducon_asset_url('assets/fonts/Tabac-Sans-Medium.woff2')); ?>" as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="<?php echo esc_url(ceeducon_asset_url('assets/favicon.png')); ?>" />
-    <link rel="apple-touch-icon" href="<?php echo esc_url(ceeducon_asset_url('assets/favicon.png')); ?>" />
+    <link rel="apple-touch-icon" href="<?php echo esc_url(ceeducon_asset_url('assets/apple-touch-icon.png')); ?>" />
     <?php wp_head(); ?>
   </head>
   <body <?php body_class(); ?> id="top">

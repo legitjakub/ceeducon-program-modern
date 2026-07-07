@@ -81,17 +81,17 @@ get_header();
             <p><?php ceeducon_text('media_text', 'Use the photos as a quick sense of the venue, audience and working atmosphere. The core of the website stays simple: programme first, then practical information for participants and speakers.'); ?></p>
             <div class="media-actions">
               <a class="btn btn--primary" href="<?php echo esc_url(ceeducon_page_url('programme')); ?>"><?php ceeducon_text('media_button_primary', 'Browse programme'); ?></a>
-              <button class="btn btn--outline" type="button" data-lightbox="<?php echo esc_url(ceeducon_text_value('media_hero_url', ceeducon_asset_url('assets/media/ceeducon-2026-banner.png'))); ?>" data-lightbox-caption="<?php echo esc_attr(ceeducon_text_value('media_hero_caption', 'CEEDUCON 2026 visual identity')); ?>"><?php ceeducon_text('media_button_secondary', 'Open visual'); ?></button>
+              <button class="btn btn--outline" type="button" data-lightbox="<?php echo esc_url(ceeducon_text_value('media_hero_url', ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg'))); ?>" data-lightbox-caption="<?php echo esc_attr(ceeducon_text_value('media_hero_caption', 'CEEDUCON plenary session')); ?>"><?php ceeducon_text('media_button_secondary', 'Open photo'); ?></button>
             </div>
           </div>
           <div class="media-mosaic" aria-label="<?php esc_attr_e('CEEDUCON photo gallery', 'ceeducon-program'); ?>" data-reveal="2">
             <?php
             $media_items = [
-                ['media_hero_url', 'assets/media/ceeducon-2026-banner.png', 'media_hero_alt', 'CEEDUCON 2026 banner visual', 'media_hero_label', '2026 identity', 'media_hero_caption', 'CEEDUCON 2026 visual identity', 'media-tile--large'],
-                ['media_image_1_url', 'assets/media/ceeducon-gallery-1.jpeg', 'media_image_1_alt', 'CEEDUCON participants at the conference', 'media_image_1_label', 'People', 'media_image_1_caption', 'CEEDUCON conference atmosphere', ''],
-                ['media_image_2_url', 'assets/media/ceeducon-gallery-2.jpeg', 'media_image_2_alt', 'CEEDUCON session and networking moment', 'media_image_2_label', 'Sessions', 'media_image_2_caption', 'CEEDUCON sessions and networking', ''],
-                ['media_image_3_url', 'assets/media/ceeducon-gallery-3.jpeg', 'media_image_3_alt', 'CEEDUCON venue and audience moment', 'media_image_3_label', 'Venue', 'media_image_3_caption', 'CEEDUCON venue moment', ''],
-                ['media_image_4_url', 'assets/media/ceeducon-gallery-4.jpeg', 'media_image_4_alt', 'CEEDUCON discussion and exchange', 'media_image_4_label', 'Exchange', 'media_image_4_caption', 'CEEDUCON discussion and exchange', ''],
+                ['media_hero_url', 'assets/media/ceeducon-photo-plenary.jpg', 'media_hero_alt', 'CEEDUCON plenary session with a full audience', 'media_hero_label', 'Plenary', 'media_hero_caption', 'CEEDUCON plenary session', 'media-tile--large'],
+                ['media_image_1_url', 'assets/media/ceeducon-photo-networking.jpg', 'media_image_1_alt', 'CEEDUCON participants talking during a networking break', 'media_image_1_label', 'Networking', 'media_image_1_caption', 'CEEDUCON networking moment', ''],
+                ['media_image_2_url', 'assets/media/ceeducon-photo-workshop.jpg', 'media_image_2_alt', 'CEEDUCON workshop with participants seated around tables', 'media_image_2_label', 'Workshops', 'media_image_2_caption', 'CEEDUCON workshop room', ''],
+                ['media_image_3_url', 'assets/media/ceeducon-photo-registration.jpg', 'media_image_3_alt', 'Participants arriving and registering at CEEDUCON', 'media_image_3_label', 'Arrival', 'media_image_3_caption', 'CEEDUCON registration and arrival', ''],
+                ['media_image_4_url', 'assets/media/ceeducon-photo-accessibility.jpg', 'media_image_4_alt', 'CEEDUCON participants speaking in an accessible lounge area', 'media_image_4_label', 'Access', 'media_image_4_caption', 'CEEDUCON inclusive conference atmosphere', ''],
             ];
             foreach ($media_items as [$url_key, $default_url, $alt_key, $default_alt, $label_key, $default_label, $caption_key, $default_caption, $class]) :
                 $url = ceeducon_text_value($url_key, ceeducon_asset_url($default_url));

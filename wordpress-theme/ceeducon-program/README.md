@@ -57,6 +57,13 @@ conference layouts stable, while day-to-day copy, menu labels, contact links and
 editable from the WordPress admin. If full layout editing is needed later, the next step would be a
 block theme or custom CEEDUCON blocks/patterns.
 
+## SEO and social previews
+
+The theme leaves document titles, meta descriptions, canonical URLs and Open Graph/Twitter card tags to
+a WordPress SEO plugin such as Yoast SEO or Rank Math. Configure the CEEDUCON 2026 banner as the default
+social image there. The static preview includes hardcoded social metadata only because it does not run
+inside WordPress.
+
 ## Programme data
 
 The interactive grid on the Programme page reads, in order of priority:
