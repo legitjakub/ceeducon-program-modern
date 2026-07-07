@@ -1,0 +1,10 @@
+.editor-styles-wrapper .wp-block-ceeducon-image-text {
+  max-width: none;
+}
+
+.editor-styles-wrapper .media-tile.components-button {
+  display: block;
+  height: auto;
+  padding: 0;
+  text-align: left;
+}

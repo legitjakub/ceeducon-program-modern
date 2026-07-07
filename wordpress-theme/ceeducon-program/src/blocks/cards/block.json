@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ceeducon/cards",
+  "version": "1.0.0",
+  "title": "Karty / výhody",
+  "category": "ceeducon-sections",
+  "icon": "grid-view",
+  "description": "Sekce s nadpisem a sadou karet pro výhody, služby, odkazy nebo programové body.",
+  "textdomain": "ceeducon-program",
+  "attributes": {
+    "kicker": { "type": "string", "default": "Plan ahead" },
+    "title": { "type": "string", "default": "Find the essentials quickly." },
+    "intro": { "type": "string", "default": "" },
+    "items": {
+      "type": "array",
+      "default": [
+        { "label": "Practical", "title": "Getting to the conference", "text": "Venue, transport from the airport and stations, accessibility and accommodation tips.", "url": "/practical/" },
+        { "label": "For speakers", "title": "Speaking at CEEDUCON", "text": "Session expectations, onsite delivery, timeline and speaker support in one overview.", "url": "/speakers/" },
+        { "label": "Contact", "title": "Talk to the team", "text": "Use the contact page for registration, programme, speaker or partnership questions.", "url": "/contact/" }
+      ]
+    },
+    "paper": { "type": "boolean", "default": true }
+  },
+  "supports": { "html": false, "align": false, "color": false, "spacing": false, "typography": false },
+  "editorScript": "file:./edit.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "render": "file:./render.php"
+}

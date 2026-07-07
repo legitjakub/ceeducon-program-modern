@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ceeducon/text-section",
+  "version": "1.0.0",
+  "title": "Textová sekce",
+  "category": "ceeducon-sections",
+  "icon": "editor-alignleft",
+  "description": "Dvousloupcová textová sekce s kickerem, nadpisem, texty a volitelnými štítky.",
+  "textdomain": "ceeducon-program",
+  "attributes": {
+    "kicker": { "type": "string", "default": "The conference" },
+    "title": { "type": "string", "default": "A focused forum for international higher education." },
+    "text": { "type": "string", "default": "CEEDUCON connects people who work on internationalisation every day: university leadership, international offices, policymakers, national agencies and practitioners from across Europe." },
+    "secondText": { "type": "string", "default": "The programme is built around practical exchange: what is changing, what works in institutions, and where Central European cooperation can move higher education forward." },
+    "chips": { "type": "array", "default": ["University leadership", "International offices", "Policymakers", "National agencies"] },
+    "buttonText": { "type": "string", "default": "" },
+    "buttonUrl": { "type": "string", "default": "" },
+    "paper": { "type": "boolean", "default": false }
+  },
+  "supports": { "html": false, "align": false, "color": false, "spacing": false, "typography": false },
+  "editorScript": "file:./edit.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "render": "file:./render.php"
+}

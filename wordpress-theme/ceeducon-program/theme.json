@@ -2,7 +2,7 @@
   "$schema": "https://schemas.wp.org/trunk/theme.json",
   "version": 2,
   "settings": {
-    "appearanceTools": true,
+    "appearanceTools": false,
     "color": {
       "custom": false,
       "palette": [
@@ -43,9 +43,9 @@
       "wideSize": "1320px"
     },
     "spacing": {
-      "blockGap": true,
-      "margin": true,
-      "padding": true,
+      "blockGap": false,
+      "margin": false,
+      "padding": false,
       "units": [
         "px",
         "rem",
@@ -56,7 +56,7 @@
       ]
     },
     "typography": {
-      "customFontSize": true,
+      "customFontSize": false,
       "fontFamilies": [
         {
           "fontFamily": "\"Tabac Sans\", Arial, sans-serif",

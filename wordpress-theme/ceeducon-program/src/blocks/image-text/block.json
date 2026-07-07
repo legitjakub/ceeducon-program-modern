@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ceeducon/image-text",
+  "version": "1.0.0",
+  "title": "Obrázek s textem",
+  "category": "ceeducon-sections",
+  "icon": "format-image",
+  "description": "Sekce s textem, tlačítky a editovatelnou fotkou nebo vizuálem.",
+  "textdomain": "ceeducon-program",
+  "attributes": {
+    "kicker": { "type": "string", "default": "Conference atmosphere" },
+    "title": { "type": "string", "default": "A professional setting for exchange." },
+    "text": { "type": "string", "default": "Use the photos as a quick sense of the venue, audience and working atmosphere." },
+    "primaryText": { "type": "string", "default": "Browse programme" },
+    "primaryUrl": { "type": "string", "default": "/programme/" },
+    "secondaryText": { "type": "string", "default": "Open photo" },
+    "secondaryUrl": { "type": "string", "default": "" },
+    "imageUrl": { "type": "string", "default": "/wp-content/themes/ceeducon-program/assets/media/ceeducon-photo-plenary.jpg" },
+    "imageId": { "type": "number" },
+    "imageAlt": { "type": "string", "default": "CEEDUCON conference atmosphere" },
+    "imageLabel": { "type": "string", "default": "Plenary" },
+    "reverse": { "type": "boolean", "default": false },
+    "paper": { "type": "boolean", "default": false }
+  },
+  "supports": { "html": false, "align": false, "color": false, "spacing": false, "typography": false },
+  "editorScript": "file:./edit.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "render": "file:./render.php"
+}

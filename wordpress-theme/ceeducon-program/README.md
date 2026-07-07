@@ -1,7 +1,8 @@
 # CEEDUCON Programme — WordPress theme
 
 Multi-page conference theme for CEEDUCON 2026 (1–2 December 2026, O2 universum Prague).
-Same design and front-end code as the static preview site — plain PHP templates, one CSS file and vanilla JS.
+The theme now uses native Gutenberg section blocks for page content. There is no ACF Blocks,
+Elementor, Divi or page builder dependency.
 
 ## Installation
 
@@ -20,42 +21,66 @@ Same design and front-end code as the static preview site — plain PHP template
 
 ## Editing content
 
-All visible texts live in **wp-admin → CEEDUCON Content**, grouped per page/section.
-When ACF Pro is active, this screen is registered as an ACF Options Page and the theme reads
-fields with matching names from ACF first. When ACF is not active, the theme falls back to its
-built-in lightweight content editor, so the theme remains uploadable on a clean WordPress install.
+Client-editable page sections are edited directly in the WordPress block editor.
+Use the custom block category **Sekce webu**.
 
-- Global header & footer (footer texts, contact links)
-- Navigation uses **Appearance → Menus → Primary navigation** when assigned, with a built-in fallback menu.
-- Brand colours, wide alignment and the Tabac Sans editor preview are registered through `theme.json` and `css/editor-style.css`, so normal WordPress blocks stay visually close to the CEEDUCON identity.
-- The normal WordPress page editor is also supported. If a page contains Gutenberg content, it is rendered below the hero section in a styled CEEDUCON content band; empty editor content outputs nothing.
-- Home hero, stats, media gallery and sections
-- Thematic areas (shared between Home and About)
-- Programme day cards and notices (shared between Home and Programme)
-- About / Programme / Practical / Speakers / Contact page texts
-- **Programme data** — the `Programme JSON` field
+Available CEEDUCON blocks:
 
-Fields left empty fall back to the built-in defaults.
+- Hero sekce
+- Textová sekce
+- Obrázek s textem
+- Karty / výhody
+- Reference
+- FAQ
+- CTA sekce
+- Kontakt
+- Výpis článků
 
-## ACF workflow
+The blocks store content in normal Gutenberg block attributes in the database. The frontend HTML,
+CSS classes, responsive behaviour and escaping stay controlled by the theme code.
 
-The theme is ACF-compatible:
+Navigation uses **Appearance → Menus → Primary navigation** when assigned, with a built-in fallback menu.
+Footer defaults and the interactive programme JSON still use the lightweight **CEEDUCON Content** admin
+screen as a compatibility fallback for global values and programme data.
 
-- `get_field($key, 'option')` is used first when ACF is active.
-- ACF Options Page slug: `ceeducon-content`.
-- ACF JSON save/load path: `acf-json/`.
-- Field names intentionally match the fallback field keys, for example `home_hero_title`,
-  `media_hero_alt`, `spk_cta_url`, `programme_json`.
+## Gutenberg block workflow
 
-The current fallback editor exists only so the theme can still run without ACF. In a production
-WordPress setup, install ACF Pro, open **CEEDUCON Content**, adjust/sync fields if needed, and let
-ACF write field-group JSON into `acf-json/` for version control. Concrete content values remain in
-the database, not in Git.
+The theme is a classic PHP theme with native custom Gutenberg blocks:
 
-The theme is intentionally a classic PHP theme, not a full Site Editor block theme. This keeps the
-conference layouts stable, while day-to-day copy, menu labels, contact links and programme data remain
-editable from the WordPress admin. If full layout editing is needed later, the next step would be a
-block theme or custom CEEDUCON blocks/patterns.
+- `src/blocks/{block}/block.json` registers the block.
+- `src/blocks/{block}/edit.js` defines the React editor UI.
+- `src/blocks/{block}/render.php` renders dynamic frontend HTML.
+- `src/blocks/{block}/style.css` and `editor.css` keep frontend/editor visuals aligned.
+- `functions.php` registers all blocks and restricts page editors to the approved CEEDUCON blocks plus a small set of safe core blocks.
+
+Important design choices:
+
+- No ACF Blocks and no page builder.
+- No client-editable content hardcoded in PHP when using the Gutenberg block version of a page.
+- Blocks reuse existing CEEDUCON classes such as `section`, `shell`, `section-head`, `hero`, `tile-grid`, `contact-band`, `btn`.
+- `theme.json` disables broad design controls so users can edit content without changing global colours, typography or spacing.
+
+To create a homepage quickly, insert the pattern **CEEDUCON homepage** from the block inserter.
+
+## Client editing guide
+
+1. Open the page in WordPress admin.
+2. Add or select a block from **Sekce webu**.
+3. Click directly into headings and text to edit copy.
+4. Use the right sidebar for links, repeated cards, contact details and images.
+5. Drag blocks up/down or use the block toolbar arrows to change the section order.
+6. Update the page. The frontend keeps the CEEDUCON design automatically.
+
+Do not edit CSS, global colours or spacing in the editor. Those are intentionally controlled by the theme.
+
+## Adding a new block
+
+1. Copy an existing folder in `src/blocks/`.
+2. Rename the block in `block.json` and define attributes.
+3. Build the editor experience in `edit.js` with `RichText`, `InspectorControls`, `URLInput` and `MediaUpload` as needed.
+4. Render frontend markup in `render.php` and escape output with `esc_html()`, `esc_url()`, `esc_attr()` or `wp_kses_post()`.
+5. Add the new block name to `ceeducon_allowed_block_types()` in `functions.php`.
+6. Reuse existing CSS classes wherever possible.
 
 ## SEO and social previews
 
@@ -89,6 +114,7 @@ the front-end: `program.js` only needs `window.CEEDUCON_PROGRAM_DATA` in the sam
 - `front-page.php` — home
 - `page-about|programme|practical|speakers|contact.php` — page templates
 - `index.php` — fallback for any other content
+- `src/blocks/` — native CEEDUCON Gutenberg blocks
 - `css/styles.css` — full design system (identical to the static site)
 - `css/editor-style.css` + `theme.json` — WordPress editor palette, fonts and block defaults
 - `js/site.js` — menu, header state, countdown, scroll reveals

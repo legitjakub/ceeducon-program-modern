@@ -1,0 +1,13 @@
+.editor-styles-wrapper .wp-block-ceeducon-hero {
+  max-width: none;
+}
+
+.editor-styles-wrapper .ceeducon-editor-block {
+  margin-inline: calc(var(--wp--style--root--padding-left, 0px) * -1);
+}
+
+.ceeducon-editor-row {
+  border-top: 1px solid #d7e4ec;
+  margin-top: 12px;
+  padding-top: 12px;
+}

@@ -4,6 +4,11 @@
  */
 
 get_header();
+
+if (ceeducon_render_block_page_content()) {
+    get_footer();
+    return;
+}
 ?>
 
     <main id="main">

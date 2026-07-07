@@ -2,10 +2,9 @@
 /**
  * CEEDUCON 2026 theme setup.
  *
- * Multi-page conference theme. All visible texts are editable in
- * wp-admin under "CEEDUCON Content"; the interactive programme data
- * lives in the "Programme JSON" field (or falls back to the bundled
- * data/program.json).
+ * Multi-page conference theme with native Gutenberg section blocks.
+ * Legacy template defaults remain as fallbacks, while client-editable
+ * page content is stored in block attributes in the WordPress editor.
  */
 
 if (!defined('ABSPATH')) {
@@ -38,36 +37,99 @@ function ceeducon_theme_setup(): void
 }
 add_action('after_setup_theme', 'ceeducon_theme_setup');
 
+function ceeducon_allowed_inline_html(): array
+{
+    return [
+        'br' => [],
+        'strong' => [],
+        'em' => [],
+        'span' => [
+            'class' => true,
+        ],
+        'a' => [
+            'href' => true,
+            'target' => true,
+            'rel' => true,
+        ],
+    ];
+}
+
+function ceeducon_block_value(array $attributes, string $key, $default = '')
+{
+    if (!array_key_exists($key, $attributes) || $attributes[$key] === null || $attributes[$key] === '') {
+        return $default;
+    }
+
+    return $attributes[$key];
+}
+
+function ceeducon_block_html(array $attributes, string $key, string $default = ''): string
+{
+    return wp_kses((string) ceeducon_block_value($attributes, $key, $default), ceeducon_allowed_inline_html());
+}
+
+function ceeducon_block_text(array $attributes, string $key, string $default = ''): string
+{
+    return esc_html((string) ceeducon_block_value($attributes, $key, $default));
+}
+
+function ceeducon_block_url(array $attributes, string $key, string $default = ''): string
+{
+    return esc_url((string) ceeducon_block_value($attributes, $key, $default));
+}
+
+function ceeducon_block_array(array $attributes, string $key, array $default = []): array
+{
+    $value = ceeducon_block_value($attributes, $key, $default);
+    return is_array($value) ? $value : $default;
+}
+
+function ceeducon_render_block_button(string $text, string $url, string $class = 'btn btn--primary'): string
+{
+    if ($text === '' || $url === '') {
+        return '';
+    }
+
+    $class_attr = $class !== '' ? ' class="' . esc_attr($class) . '"' : '';
+
+    return '<a' . $class_attr . ' href="' . esc_url($url) . '">' . esc_html($text) . '</a>';
+}
+
+function ceeducon_page_has_section_blocks(?WP_Post $post = null): bool
+{
+    $post = $post ?: get_post();
+    if (!$post instanceof WP_Post || trim((string) $post->post_content) === '') {
+        return false;
+    }
+
+    return str_contains((string) $post->post_content, '<!-- wp:ceeducon/');
+}
+
+function ceeducon_render_block_page_content(): bool
+{
+    if (!is_singular()) {
+        return false;
+    }
+
+    $post = get_post();
+    if (!$post instanceof WP_Post || !ceeducon_page_has_section_blocks($post)) {
+        return false;
+    }
+
+    echo '<main id="main">';
+    echo apply_filters('the_content', $post->post_content);
+    echo '</main>';
+
+    return true;
+}
+
 function ceeducon_asset_url(string $path): string
 {
     return get_template_directory_uri() . '/' . ltrim($path, '/');
 }
 
-function ceeducon_acf_value(string $key)
-{
-    if (!function_exists('get_field')) {
-        return null;
-    }
-
-    $value = get_field($key, 'option');
-    if ($value === null || $value === false || $value === '') {
-        return null;
-    }
-
-    if (is_scalar($value)) {
-        return (string) $value;
-    }
-
-    return null;
-}
-
 function ceeducon_text_value(string $key, string $default): string
 {
-    $acf_value = ceeducon_acf_value($key);
-    if ($acf_value !== null) {
-        return $acf_value;
-    }
-
     $content = get_option('ceeducon_content', []);
     if (is_array($content) && array_key_exists($key, $content) && $content[$key] !== '') {
         return (string) $content[$key];
@@ -346,94 +408,76 @@ function ceeducon_theme_scripts(): void
 }
 add_action('wp_enqueue_scripts', 'ceeducon_theme_scripts');
 
-function ceeducon_acf_json_save_point(string $path): string
+function ceeducon_register_blocks(): void
 {
-    return get_template_directory() . '/acf-json';
-}
-add_filter('acf/settings/save_json', 'ceeducon_acf_json_save_point');
-
-function ceeducon_acf_json_load_point(array $paths): array
-{
-    $paths[] = get_template_directory() . '/acf-json';
-    return $paths;
-}
-add_filter('acf/settings/load_json', 'ceeducon_acf_json_load_point');
-
-function ceeducon_acf_field_type(string $type): string
-{
-    if ($type === 'url') {
-        return 'url';
-    }
-
-    if ($type === 'textarea' || $type === 'code') {
-        return 'textarea';
-    }
-
-    return 'text';
-}
-
-function ceeducon_register_acf_content(): void
-{
-    if (!function_exists('acf_add_options_page') || !function_exists('acf_add_local_field_group')) {
+    $blocks_dir = get_template_directory() . '/src/blocks';
+    if (!is_dir($blocks_dir)) {
         return;
     }
 
-    acf_add_options_page([
-        'page_title' => __('CEEDUCON Content', 'ceeducon-program'),
-        'menu_title' => __('CEEDUCON Content', 'ceeducon-program'),
-        'menu_slug' => 'ceeducon-content',
-        'capability' => 'edit_theme_options',
-        'redirect' => false,
-        'position' => 30,
-        'icon_url' => 'dashicons-edit-page',
+    foreach (glob($blocks_dir . '/*/block.json') ?: [] as $metadata) {
+        register_block_type(dirname($metadata));
+    }
+}
+add_action('init', 'ceeducon_register_blocks');
+
+function ceeducon_block_categories(array $categories): array
+{
+    array_unshift($categories, [
+        'slug' => 'ceeducon-sections',
+        'title' => __('Sekce webu', 'ceeducon-program'),
+        'icon' => 'layout',
     ]);
 
-    $fields = [];
-    foreach (ceeducon_admin_content_fields() as $group => $group_fields) {
-        $fields[] = [
-            'key' => 'field_ceeducon_tab_' . sanitize_key($group),
-            'label' => $group,
-            'name' => '',
-            'type' => 'tab',
-            'placement' => 'top',
-        ];
+    return $categories;
+}
+add_filter('block_categories_all', 'ceeducon_block_categories');
 
-        foreach ($group_fields as [$key, $label, , $type]) {
-            $fields[] = [
-                'key' => 'field_ceeducon_' . sanitize_key($key),
-                'label' => $label,
-                'name' => $key,
-                'type' => ceeducon_acf_field_type($type),
-                'instructions' => $type === 'code' ? __('Keep valid JSON formatting.', 'ceeducon-program') : '',
-                'required' => 0,
-                'rows' => $type === 'code' ? 22 : 3,
-                'new_lines' => '',
-            ];
-        }
+function ceeducon_allowed_block_types($allowed_block_types, WP_Block_Editor_Context $editor_context)
+{
+    if (empty($editor_context->post) || $editor_context->post->post_type !== 'page') {
+        return $allowed_block_types;
     }
 
-    acf_add_local_field_group([
-        'key' => 'group_ceeducon_content',
-        'title' => __('CEEDUCON Content', 'ceeducon-program'),
-        'fields' => $fields,
-        'location' => [
-            [
-                [
-                    'param' => 'options_page',
-                    'operator' => '==',
-                    'value' => 'ceeducon-content',
-                ],
-            ],
-        ],
-        'menu_order' => 0,
-        'position' => 'normal',
-        'style' => 'default',
-        'label_placement' => 'top',
-        'instruction_placement' => 'label',
-        'active' => true,
+    return [
+        'ceeducon/hero',
+        'ceeducon/text-section',
+        'ceeducon/image-text',
+        'ceeducon/cards',
+        'ceeducon/testimonials',
+        'ceeducon/faq',
+        'ceeducon/cta',
+        'ceeducon/contact',
+        'ceeducon/posts',
+        'core/paragraph',
+        'core/heading',
+        'core/list',
+        'core/image',
+        'core/buttons',
+        'core/button',
+        'core/separator',
+        'core/spacer',
+    ];
+}
+add_filter('allowed_block_types_all', 'ceeducon_allowed_block_types', 10, 2);
+
+function ceeducon_register_block_patterns(): void
+{
+    if (!function_exists('register_block_pattern_category') || !function_exists('register_block_pattern')) {
+        return;
+    }
+
+    register_block_pattern_category('ceeducon-pages', [
+        'label' => __('CEEDUCON stránky', 'ceeducon-program'),
+    ]);
+
+    register_block_pattern('ceeducon-program/homepage', [
+        'title' => __('CEEDUCON homepage', 'ceeducon-program'),
+        'categories' => ['ceeducon-pages'],
+        'content' => '<!-- wp:ceeducon/hero /--><!-- wp:ceeducon/text-section /--><!-- wp:ceeducon/image-text /--><!-- wp:ceeducon/cards /--><!-- wp:ceeducon/testimonials /--><!-- wp:ceeducon/cta /--><!-- wp:ceeducon/contact /-->',
     ]);
 }
-add_action('acf/init', 'ceeducon_register_acf_content');
+add_action('init', 'ceeducon_register_block_patterns');
 
 /**
  * Editable content fields, grouped for the admin screen.
@@ -732,10 +776,6 @@ function ceeducon_admin_content_fields(): array
 
 function ceeducon_admin_menu(): void
 {
-    if (function_exists('acf_add_options_page')) {
-        return;
-    }
-
     add_menu_page(
         __('CEEDUCON Content', 'ceeducon-program'),
         __('CEEDUCON Content', 'ceeducon-program'),
@@ -834,12 +874,6 @@ function ceeducon_migrate_default_content(): void
             $changed = true;
         }
 
-        if (function_exists('get_field') && function_exists('update_field')) {
-            $acf_value = get_field($key, 'option');
-            if (is_scalar($acf_value) && (string) $acf_value === $old) {
-                update_field($key, $new, 'option');
-            }
-        }
     }
 
     if ($changed) {

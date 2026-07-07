@@ -1,0 +1,65 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ceeducon/hero",
+  "version": "1.0.0",
+  "title": "Hero sekce",
+  "category": "ceeducon-sections",
+  "icon": "cover-image",
+  "description": "Úvodní CEEDUCON hero sekce s nadpisem, CTA, event kartou a statistikami.",
+  "textdomain": "ceeducon-program",
+  "attributes": {
+    "kicker": { "type": "string", "default": "Central European Conference on Internationalisation of Higher Education" },
+    "title": { "type": "string", "default": "Where Central Europe <em>meets the world</em> of higher education." },
+    "lead": { "type": "string", "default": "CEEDUCON brings together university leaders, international office professionals, policymakers and national agencies to advance cooperation, strategy and innovation in international higher education." },
+    "meta": {
+      "type": "array",
+      "default": [
+        "<strong>1–2 December</strong> 2026",
+        "<strong>O2 universum</strong> Prague",
+        "<strong>Free</strong> of charge",
+        "<strong>English</strong>"
+      ]
+    },
+    "primaryText": { "type": "string", "default": "Explore the programme" },
+    "primaryUrl": { "type": "string", "default": "/programme/" },
+    "secondaryText": { "type": "string", "default": "About the conference" },
+    "secondaryUrl": { "type": "string", "default": "/about/" },
+    "countdownText": { "type": "string", "default": "days to the conference" },
+    "eventDay": { "type": "string", "default": "1–2" },
+    "eventMonth": { "type": "string", "default": "DEC<br>2026" },
+    "eventRows": {
+      "type": "array",
+      "default": [
+        { "label": "Venue", "value": "O2 universum Prague" },
+        { "label": "Format", "value": "Two conference days onsite" },
+        { "label": "Fee", "value": "Free of charge" },
+        { "label": "Registration", "value": "Opens in September" }
+      ]
+    },
+    "eventCtaText": { "type": "string", "default": "Plan your visit" },
+    "eventCtaUrl": { "type": "string", "default": "/practical/" },
+    "calendarText": { "type": "string", "default": "Add to calendar" },
+    "calendarUrl": { "type": "string", "default": "/wp-content/themes/ceeducon-program/assets/ceeducon-2026.ics" },
+    "stats": {
+      "type": "array",
+      "default": [
+        { "value": "2", "label": "conference days" },
+        { "value": "900+", "label": "participants in 2025" },
+        { "value": "130+", "label": "speakers in 2025" },
+        { "value": "70+", "label": "sessions in 2026" }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": false,
+    "color": false,
+    "spacing": false,
+    "typography": false
+  },
+  "editorScript": "file:./edit.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "render": "file:./render.php"
+}
