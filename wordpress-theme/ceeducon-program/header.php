@@ -4,7 +4,10 @@
     <meta charset="<?php bloginfo('charset'); ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0d5e9d" />
+    <link rel="preload" href="<?php echo esc_url(ceeducon_asset_url('assets/fonts/Tabac-Sans-Regular.woff2')); ?>" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="<?php echo esc_url(ceeducon_asset_url('assets/fonts/Tabac-Sans-Medium.woff2')); ?>" as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="<?php echo esc_url(ceeducon_asset_url('assets/favicon.png')); ?>" />
+    <link rel="apple-touch-icon" href="<?php echo esc_url(ceeducon_asset_url('assets/favicon.png')); ?>" />
     <?php wp_head(); ?>
   </head>
   <body <?php body_class(); ?> id="top">
@@ -14,7 +17,7 @@
     <header class="site-header">
       <div class="header-inner shell">
         <a class="brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="CEEDUCON 2026 home">
-          <img src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-horizontal-white.png')); ?>" alt="CEEDUCON" />
+          <img src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-horizontal-white.png')); ?>" alt="CEEDUCON" width="1182" height="604" decoding="async" />
         </a>
         <?php ceeducon_render_navigation('header-nav', __('Main navigation', 'ceeducon-program')); ?>
         <div class="header-actions">

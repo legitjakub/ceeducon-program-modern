@@ -39,7 +39,7 @@ $con_phone = ceeducon_text_value('con_phone', '+420 221 850 100');
             </div>
           </div>
           <div class="partners-card" data-reveal="2">
-            <img src="<?php echo esc_url(ceeducon_asset_url('assets/dzs-logo.png')); ?>" alt="DZS" />
+            <img src="<?php echo esc_url(ceeducon_asset_url('assets/dzs-logo.png')); ?>" alt="DZS" width="1024" height="522" loading="lazy" decoding="async" />
             <span><?php ceeducon_text('organiser_label', 'Organised by'); ?></span>
             <strong><?php ceeducon_text('organiser_name', 'Czech National Agency for International Education and Research (DZS)'); ?></strong>
             <span><?php ceeducon_text('partners_label', 'In co-operation with'); ?></span>

@@ -67,9 +67,10 @@
 }
 
 .editor-styles-wrapper .wp-block-button__link {
-  background: var(--ceeducon-orange);
+  background: var(--ceeducon-blue);
   border-radius: 999px;
-  color: var(--ceeducon-deep-blue);
+  box-shadow: inset 0 -4px 0 var(--ceeducon-orange);
+  color: #ffffff;
   font-family: "Axiforma", "Tabac Sans", Arial, sans-serif;
   font-weight: 700;
 }

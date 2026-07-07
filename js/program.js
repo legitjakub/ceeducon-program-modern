@@ -20,6 +20,7 @@ const state = {
   sessionMap: new Map(),
   modalSessionId: "",
   modalSession: null,
+  modalReturnFocus: null,
 };
 
 const elements = {
@@ -338,6 +339,7 @@ function toggleFavorite(id) {
 function openModal(id) {
   const session = state.sessionMap.get(id);
   if (!session) return;
+  state.modalReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   state.modalSessionId = id;
   state.modalSession = session;
   elements.modalTitle.textContent = session.title;
@@ -368,6 +370,32 @@ function closeModal() {
   document.body.classList.remove("modal-open");
   state.modalSessionId = "";
   state.modalSession = null;
+  state.modalReturnFocus?.focus?.();
+  state.modalReturnFocus = null;
+}
+
+function modalFocusableElements() {
+  return Array.from(
+    elements.modalBackdrop.querySelectorAll(
+      'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+    )
+  ).filter((element) => element.offsetParent !== null);
+}
+
+function trapModalFocus(event) {
+  if (elements.modalBackdrop.hidden || event.key !== "Tab") return;
+  const focusable = modalFocusableElements();
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
 }
 
 function compactDate(date) {
@@ -475,6 +503,7 @@ function bindEvents() {
       event.preventDefault();
       elements.search.focus();
     }
+    trapModalFocus(event);
     if (event.key === "Escape" && !elements.modalBackdrop.hidden) closeModal();
   });
 }

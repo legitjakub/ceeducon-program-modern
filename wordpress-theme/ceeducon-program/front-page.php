@@ -40,6 +40,7 @@ get_header();
             <div class="event-card-row"><span><?php ceeducon_text('event_row_3_label', 'Fee'); ?></span><strong><?php ceeducon_text('event_row_3_value', 'Free of charge'); ?></strong></div>
             <div class="event-card-row"><span><?php ceeducon_text('event_row_4_label', 'Registration'); ?></span><strong><?php ceeducon_text('event_row_4_value', 'Opens in September'); ?></strong></div>
             <a href="<?php echo esc_url(ceeducon_page_url('practical')); ?>"><?php ceeducon_text('event_cta', 'Plan your visit'); ?> <span>→</span></a>
+            <a href="<?php echo esc_url(ceeducon_text_value('event_calendar_url', ceeducon_asset_url('assets/ceeducon-2026.ics'))); ?>" download><?php ceeducon_text('event_calendar_label', 'Add to calendar'); ?> <span>↗</span></a>
           </aside>
         </div>
         <div class="hero-stats shell" aria-label="Conference in numbers">
@@ -99,7 +100,7 @@ get_header();
                 $caption = ceeducon_text_value($caption_key, $default_caption);
                 ?>
                 <button class="media-tile <?php echo esc_attr($class); ?>" type="button" data-lightbox="<?php echo esc_url($url); ?>" data-lightbox-caption="<?php echo esc_attr($caption); ?>">
-                  <img src="<?php echo esc_url($url); ?>" alt="<?php echo esc_attr($alt); ?>" />
+                  <img src="<?php echo esc_url($url); ?>" alt="<?php echo esc_attr($alt); ?>" loading="lazy" decoding="async" />
                   <span><?php echo esc_html($label); ?></span>
                 </button>
             <?php endforeach; ?>

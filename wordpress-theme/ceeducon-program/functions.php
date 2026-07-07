@@ -472,6 +472,8 @@ function ceeducon_admin_content_fields(): array
             ['event_row_4_label', 'Event row 4 label', 'Registration', 'text'],
             ['event_row_4_value', 'Event row 4 value', 'Opens in September', 'text'],
             ['event_cta', 'Event card button', 'Plan your visit', 'text'],
+            ['event_calendar_label', 'Calendar button', 'Add to calendar', 'text'],
+            ['event_calendar_url', 'Calendar file URL', ceeducon_asset_url('assets/ceeducon-2026.ics'), 'url'],
             ['stat_1_value', 'Stat 1 value', '2', 'text'],
             ['stat_1_label', 'Stat 1 label', 'conference days', 'text'],
             ['stat_2_value', 'Stat 2 value', '900+', 'text'],

@@ -2,7 +2,7 @@
       <div class="shell">
         <div class="footer-grid">
           <div>
-            <img src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-horizontal-white.png')); ?>" alt="CEEDUCON" />
+            <img src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-horizontal-white.png')); ?>" alt="CEEDUCON" width="1182" height="604" loading="lazy" decoding="async" />
             <p><?php ceeducon_html('footer_tagline', 'Central European Conference on Internationalisation of Higher Education.<br />1–2 December 2026 · O2 universum Prague'); ?></p>
           </div>
           <div>

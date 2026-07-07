@@ -15,7 +15,7 @@ get_header();
             <p class="page-hero-note"><?php ceeducon_text('about_hero_note', "One forum for strategy, practice and cooperation — connecting Central Europe's higher education community with colleagues from around the world."); ?></p>
           </div>
           <div class="page-hero-card">
-            <img src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-vertical.svg')); ?>" alt="" />
+            <img src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-vertical.svg')); ?>" alt="" width="145" height="283" loading="lazy" decoding="async" />
             <span><?php ceeducon_text('about_card_label', 'CEEDUCON 2026'); ?></span>
             <strong><?php ceeducon_text('about_card_title', '1–2 December · Prague'); ?></strong>
             <p><?php ceeducon_text('about_card_text', 'Organised by DZS with national agencies from across Central Europe.'); ?></p>
@@ -95,7 +95,7 @@ get_header();
             <p class="lead"><?php ceeducon_text('about_org_lead', 'CEEDUCON is organised by the Czech National Agency for International Education and Research (DZS) in co-operation with its partner agencies. Together they connect the national perspectives of Austria, Germany, Poland, Slovakia, Hungary and the Czech Republic into one regional conversation.'); ?></p>
           </div>
           <div class="partners-card" data-reveal="2">
-            <img src="<?php echo esc_url(ceeducon_asset_url('assets/dzs-logo.png')); ?>" alt="DZS" />
+            <img src="<?php echo esc_url(ceeducon_asset_url('assets/dzs-logo.png')); ?>" alt="DZS" width="1024" height="522" loading="lazy" decoding="async" />
             <span><?php ceeducon_text('organiser_label', 'Organised by'); ?></span>
             <strong><?php ceeducon_text('organiser_name', 'Czech National Agency for International Education and Research (DZS)'); ?></strong>
             <span><?php ceeducon_text('partners_label', 'In co-operation with'); ?></span>
