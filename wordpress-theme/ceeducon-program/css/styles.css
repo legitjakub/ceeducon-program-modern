@@ -189,10 +189,17 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .site-header {
   position: fixed;
   z-index: 60;
-  inset: 0 0 auto;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  min-height: 76px;
   color: var(--white);
   background: linear-gradient(180deg, rgba(13, 94, 157, 0.62), rgba(13, 94, 157, 0));
   transition: background 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  will-change: background, box-shadow;
 }
 .site-header.is-scrolled,
 .site-header.is-open {
@@ -1160,6 +1167,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   :root { --pad: 18px; }
   html { scroll-padding-top: 80px; }
   main > section { scroll-margin-top: 80px; }
+  .site-header { min-height: 68px; }
   .header-inner { height: 68px; }
   .brand img { width: 146px; max-height: 38px; }
   .header-print span { display: none; }
