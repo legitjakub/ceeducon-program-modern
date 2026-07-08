@@ -83,7 +83,7 @@ if (ceeducon_render_block_page_content()) {
           <div class="media-copy" data-reveal>
             <p class="kicker"><?php ceeducon_text('media_kicker', 'Conference atmosphere'); ?></p>
             <h2 class="display-2"><?php ceeducon_text('media_title', 'A professional setting for exchange.'); ?></h2>
-            <p><?php ceeducon_text('media_text', 'Use the photos as a quick sense of the venue, audience and working atmosphere. The core of the website stays simple: programme first, then practical information for participants and speakers.'); ?></p>
+            <p><?php ceeducon_text('media_text', 'CEEDUCON brings the international higher education community together through plenaries, workshops, hallway conversations and practical exchange across the whole venue.'); ?></p>
             <div class="media-actions">
               <a class="btn btn--primary" href="<?php echo esc_url(ceeducon_page_url('programme')); ?>"><?php ceeducon_text('media_button_primary', 'Browse programme'); ?></a>
               <button class="btn btn--outline" type="button" data-lightbox="<?php echo esc_url(ceeducon_text_value('media_hero_url', ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg'))); ?>" data-lightbox-caption="<?php echo esc_attr(ceeducon_text_value('media_hero_caption', 'CEEDUCON plenary session')); ?>"><?php ceeducon_text('media_button_secondary', 'Open photo'); ?></button>

@@ -98,10 +98,17 @@ if (ceeducon_render_block_page_content()) {
             <p class="kicker"><?php ceeducon_text('map_kicker', 'Map & venue'); ?></p>
             <h2 class="display-2"><?php ceeducon_text('map_title', 'Plan the route before conference day.'); ?></h2>
             <p><?php ceeducon_text('map_text', 'Check entrances, transport connections and nearby services on the venue website or open the location directly in your maps app.'); ?></p>
+            <div class="venue-actions">
+              <a class="btn btn--dark" href="<?php echo esc_url(ceeducon_text_value('venue_url', 'https://www.o2universum.cz/en')); ?>" target="_blank" rel="noreferrer"><?php ceeducon_text('venue_button', 'Venue website'); ?></a>
+              <a class="btn btn--outline" href="<?php echo esc_url(ceeducon_text_value('venue_map_url', 'https://www.google.com/maps/search/?api=1&query=O2%20universum%20Ceskomoravska%2017%20Prague')); ?>" target="_blank" rel="noreferrer"><?php ceeducon_text('venue_map_button', 'Open map'); ?></a>
+            </div>
           </div>
-          <div class="venue-actions">
-            <a class="btn btn--dark" href="<?php echo esc_url(ceeducon_text_value('venue_url', 'https://www.o2universum.cz/en')); ?>" target="_blank" rel="noreferrer"><?php ceeducon_text('venue_button', 'Venue website'); ?></a>
-            <a class="btn btn--outline" href="<?php echo esc_url(ceeducon_text_value('venue_map_url', 'https://www.google.com/maps/search/?api=1&query=O2%20universum%20Ceskomoravska%2017%20Prague')); ?>" target="_blank" rel="noreferrer"><?php ceeducon_text('venue_map_button', 'Open map'); ?></a>
+          <div class="venue-map" aria-label="<?php esc_attr_e('Map of O2 universum Prague', 'ceeducon-program'); ?>">
+            <iframe
+              title="<?php esc_attr_e('O2 universum Prague on Google Maps', 'ceeducon-program'); ?>"
+              src="<?php echo esc_url(ceeducon_text_value('venue_embed_url', 'https://www.google.com/maps?q=O2%20universum%20Ceskomoravska%2017%20Prague&output=embed')); ?>"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </section>

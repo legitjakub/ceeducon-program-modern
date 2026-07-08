@@ -11,7 +11,7 @@
   "attributes": {
     "kicker": { "type": "string", "default": "Conference atmosphere" },
     "title": { "type": "string", "default": "A professional setting for exchange." },
-    "text": { "type": "string", "default": "Use the photos as a quick sense of the venue, audience and working atmosphere." },
+    "text": { "type": "string", "default": "CEEDUCON brings the international higher education community together through plenaries, workshops and practical exchange." },
     "primaryText": { "type": "string", "default": "Browse programme" },
     "primaryUrl": { "type": "string", "default": "/programme/" },
     "secondaryText": { "type": "string", "default": "Open photo" },

@@ -182,7 +182,7 @@ function ceeducon_nav_items(): array
         'about' => __('About', 'ceeducon-program'),
         'programme' => __('Programme', 'ceeducon-program'),
         'practical' => __('Practical', 'ceeducon-program'),
-        'speakers' => __('Speakers', 'ceeducon-program'),
+        'speakers' => __('For speakers', 'ceeducon-program'),
         'contact' => __('Contact', 'ceeducon-program'),
     ];
 }
@@ -539,7 +539,7 @@ function ceeducon_admin_content_fields(): array
             ['home_about_button', 'About button', 'More about CEEDUCON', 'text'],
             ['media_kicker', 'Media kicker', 'Conference atmosphere', 'text'],
             ['media_title', 'Media title', 'A professional setting for exchange.', 'textarea'],
-            ['media_text', 'Media text', 'Use the photos as a quick sense of the venue, audience and working atmosphere. The core of the website stays simple: programme first, then practical information for participants and speakers.', 'textarea'],
+            ['media_text', 'Media text', 'CEEDUCON brings the international higher education community together through plenaries, workshops, hallway conversations and practical exchange across the whole venue.', 'textarea'],
             ['media_button_primary', 'Media primary button', 'Browse programme', 'text'],
             ['media_button_secondary', 'Media secondary button', 'Open photo', 'text'],
             ['media_hero_url', 'Media hero image URL', ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg'), 'url'],
@@ -700,13 +700,35 @@ function ceeducon_admin_content_fields(): array
             ['venue_url', 'Venue website URL', 'https://www.o2universum.cz/en', 'url'],
             ['venue_map_button', 'Map button', 'Open map', 'text'],
             ['venue_map_url', 'Map URL', 'https://www.google.com/maps/search/?api=1&query=O2%20universum%20Ceskomoravska%2017%20Prague', 'url'],
+            ['venue_embed_url', 'Embedded map URL', 'https://www.google.com/maps?q=O2%20universum%20Ceskomoravska%2017%20Prague&output=embed', 'url'],
         ],
-        'Speakers page' => [
+        'For speakers page' => [
             ['spk_hero_title', 'Hero title', 'Speaking at CEEDUCON.', 'textarea'],
             ['spk_hero_note', 'Hero note', 'Guidance for accepted session contributors: format, onsite delivery, timeline and practical support before the conference.', 'textarea'],
             ['spk_card_label', 'Hero card label', 'Programme publication', 'text'],
             ['spk_card_title', 'Hero card title', 'By September 1', 'text'],
             ['spk_card_text', 'Hero card text', 'Accepted speakers receive detailed follow-up information about registration, contracts and presentation materials.', 'textarea'],
+            ['featured_speakers_kicker', 'Featured speakers kicker', 'Programme voices', 'text'],
+            ['featured_speakers_title', 'Featured speakers title', 'Featured speakers and contributors.', 'textarea'],
+            ['featured_speakers_intro', 'Featured speakers intro', 'A first look at people already appearing in the preliminary CEEDUCON 2026 programme. The full speaker list will follow as confirmations are completed.', 'textarea'],
+            ['featured_speaker_1_label', 'Featured speaker 1 label', 'Opening & strategy', 'text'],
+            ['featured_speaker_1_name', 'Featured speaker 1 name', 'Michal Uhl', 'text'],
+            ['featured_speaker_1_text', 'Featured speaker 1 text', 'Czech National Agency for International Education and Research (DZS)', 'textarea'],
+            ['featured_speaker_2_label', 'Featured speaker 2 label', 'AI & student journey', 'text'],
+            ['featured_speaker_2_name', 'Featured speaker 2 name', 'Valentýna Škrabálková', 'text'],
+            ['featured_speaker_2_text', 'Featured speaker 2 text', 'DZS', 'textarea'],
+            ['featured_speaker_3_label', 'Featured speaker 3 label', 'Digital tools', 'text'],
+            ['featured_speaker_3_name', 'Featured speaker 3 name', 'Jeroen Van Dijk', 'text'],
+            ['featured_speaker_3_text', 'Featured speaker 3 text', 'Royal College of Art', 'textarea'],
+            ['featured_speaker_4_label', 'Featured speaker 4 label', 'Global partnerships', 'text'],
+            ['featured_speaker_4_name', 'Featured speaker 4 name', 'Louis Brau', 'text'],
+            ['featured_speaker_4_text', 'Featured speaker 4 text', "European Students' Union", 'textarea'],
+            ['featured_speaker_5_label', 'Featured speaker 5 label', 'Young professionals', 'text'],
+            ['featured_speaker_5_name', 'Featured speaker 5 name', 'Jody Hoekstra-Selten', 'text'],
+            ['featured_speaker_5_text', 'Featured speaker 5 text', 'EAIE', 'textarea'],
+            ['featured_speaker_6_label', 'Featured speaker 6 label', 'European cooperation', 'text'],
+            ['featured_speaker_6_name', 'Featured speaker 6 name', 'Jiří Nantl', 'text'],
+            ['featured_speaker_6_text', 'Featured speaker 6 text', 'University of Applied Sciences St. Pölten', 'textarea'],
             ['spk_kicker', 'Section kicker', 'Speaker information', 'text'],
             ['spk_title', 'Section title', 'Clear expectations before conference day.', 'textarea'],
             ['spk_lead', 'Section lead', 'Sessions are planned primarily onsite at O2 universum Prague and delivered in English. This page keeps the essential speaker information in one place.', 'textarea'],
@@ -790,7 +812,7 @@ add_action('admin_menu', 'ceeducon_admin_menu');
 
 function ceeducon_migrate_default_content(): void
 {
-    $target_version = '2.2.4';
+    $target_version = '2.2.5';
     if (get_option('ceeducon_content_defaults_version') === $target_version) {
         return;
     }
@@ -816,8 +838,8 @@ function ceeducon_migrate_default_content(): void
         'media_kicker' => ['Atmosphere', 'Conference atmosphere'],
         'media_title' => ['See the conference before you arrive.', 'A professional setting for exchange.'],
         'media_text' => [
-            'CEEDUCON is more than a programme grid: it is plenaries, hallway conversations, workshops and new partnerships forming across the venue. The media layer brings that energy into the page while staying fully editable for WordPress.',
             'Use the photos as a quick sense of the venue, audience and working atmosphere. The core of the website stays simple: programme first, then practical information for participants and speakers.',
+            'CEEDUCON brings the international higher education community together through plenaries, workshops, hallway conversations and practical exchange across the whole venue.',
         ],
         'home_plan_title' => ['Everything you need, one page away.', 'Find the essentials quickly.'],
         'home_link_3_text' => [
