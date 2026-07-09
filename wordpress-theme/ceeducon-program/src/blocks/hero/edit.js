@@ -1,7 +1,7 @@
 (function (blocks, element, blockEditor, components, i18n) {
   const el = element.createElement;
   const { RichText, InspectorControls, URLInput } = blockEditor;
-  const { PanelBody, TextControl, Button } = components;
+  const { PanelBody, TextControl } = components;
   const { __ } = i18n;
 
   function updateArrayItem(items, index, value) {
