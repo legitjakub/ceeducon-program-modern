@@ -44,8 +44,8 @@ if (ceeducon_render_block_page_content()) {
             <div class="event-card-row"><span><?php ceeducon_text('event_row_2_label', 'Format'); ?></span><strong><?php ceeducon_text('event_row_2_value', 'Two conference days onsite'); ?></strong></div>
             <div class="event-card-row"><span><?php ceeducon_text('event_row_3_label', 'Fee'); ?></span><strong><?php ceeducon_text('event_row_3_value', 'Free of charge'); ?></strong></div>
             <div class="event-card-row"><span><?php ceeducon_text('event_row_4_label', 'Registration'); ?></span><strong><?php ceeducon_text('event_row_4_value', 'Opens in September'); ?></strong></div>
-            <a href="<?php echo esc_url(ceeducon_page_url('practical')); ?>"><?php ceeducon_text('event_cta', 'Plan your visit'); ?> <span>→</span></a>
-            <a href="<?php echo esc_url(ceeducon_text_value('event_calendar_url', ceeducon_asset_url('assets/ceeducon-2026.ics'))); ?>" download><?php ceeducon_text('event_calendar_label', 'Add to calendar'); ?> <span>↗</span></a>
+            <a href="<?php echo esc_url(ceeducon_page_url('practical')); ?>"><?php ceeducon_text('event_cta', 'Plan your visit'); ?> <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></span></a>
+            <a href="<?php echo esc_url(ceeducon_text_value('event_calendar_url', ceeducon_asset_url('assets/ceeducon-2026.ics'))); ?>" download><?php ceeducon_text('event_calendar_label', 'Add to calendar'); ?> <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span></a>
           </aside>
         </div>
         <div class="hero-stats shell" aria-label="Conference in numbers">

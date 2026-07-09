@@ -218,7 +218,7 @@ function buildSessionCard(day, slot, session) {
         <h3>${escapeHtml(session.title)}</h3>
         ${preview ? `<p class="session-speakers">${escapeHtml(preview)}</p>` : ""}
         <p class="session-theme">${escapeHtml(themeLabel)}</p>
-        <span class="session-arrow" aria-hidden="true">↗</span>
+        <span class="session-arrow ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span>
       </button>
     </article>`;
 }

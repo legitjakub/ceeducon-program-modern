@@ -123,9 +123,17 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   letter-spacing: 0.02em;
   transition: background 0.18s var(--ease), border-color 0.18s var(--ease), color 0.18s var(--ease), transform 0.18s var(--ease), box-shadow 0.18s var(--ease);
 }
-.btn::after { content: "→"; font-size: 16px; transition: transform 0.22s var(--ease); }
+.btn::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.22s var(--ease);
+}
 .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
-.btn:hover::after { transform: translateX(5px); }
+.btn:hover::after { transform: translateX(5px) rotate(45deg); }
 .btn--primary { background: var(--deep); border-color: var(--deep); color: var(--white); box-shadow: inset 0 -4px 0 var(--orange); }
 .btn--primary:hover { background: var(--navy-600); border-color: var(--navy-600); color: var(--white); box-shadow: inset 0 -4px 0 var(--orange), var(--shadow-md); }
 .btn--ghost { border-color: rgba(255, 255, 255, 0.38); color: var(--white); }
@@ -137,6 +145,26 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .btn--plain { min-height: 0; padding: 0 0 6px; border: 0; border-bottom: 2px solid var(--orange); color: inherit; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; }
 .btn--plain:hover { color: var(--orange-600); }
 .mt-lg { margin-top: 34px; }
+
+.ui-icon {
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+  line-height: 0;
+}
+.ui-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
 
 /* ---------- Kickers & headings ---------- */
 .kicker {
@@ -282,9 +310,18 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   color: rgba(255, 255, 255, 0.8);
   font-size: 17px;
 }
-.mobile-menu a::after { content: "→"; color: var(--orange); opacity: 0; transition: 0.2s; }
+.mobile-menu a::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-top: 2px solid var(--orange);
+  border-right: 2px solid var(--orange);
+  opacity: 0;
+  transform: rotate(45deg);
+  transition: opacity 0.2s, transform 0.2s;
+}
 .mobile-menu a.is-active { color: var(--white); font-weight: 700; }
-.mobile-menu a.is-active::after, .mobile-menu a:hover::after { opacity: 1; }
+.mobile-menu a.is-active::after, .mobile-menu a:hover::after { opacity: 1; transform: translateX(3px) rotate(45deg); }
 
 /* ---------- Hero (home) ---------- */
 .hero {
@@ -760,16 +797,19 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease), border-color 0.28s var(--ease);
 }
 .link-tile::after {
-  content: "→";
+  content: "";
   position: absolute;
   right: 24px;
   bottom: 20px;
-  color: var(--orange);
-  font-size: 22px;
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid var(--orange);
+  border-right: 2px solid var(--orange);
+  transform: rotate(45deg);
   transition: transform 0.28s var(--ease);
 }
 .link-tile:hover { transform: translateY(-7px); border-color: var(--navy); box-shadow: var(--shadow-md); }
-.link-tile:hover::after { transform: translateX(6px); }
+.link-tile:hover::after { transform: translateX(6px) rotate(45deg); }
 .link-tile > span { color: var(--navy); font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
 .link-tile h3 { margin: auto 0 10px; padding-top: 42px; color: var(--deep); font-size: clamp(21px, 1.8vw, 27px); line-height: 1.06; letter-spacing: -0.02em; }
 .link-tile p { margin: 0; padding-right: 34px; color: var(--muted); font-size: 14px; line-height: 1.6; }
