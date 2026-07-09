@@ -268,6 +268,16 @@ function ceeducon_is_programme_page(): bool
     return is_page('programme') || is_page_template('page-programme.php');
 }
 
+function ceeducon_current_page_has_block(string $block_name): bool
+{
+    if (!is_singular()) {
+        return false;
+    }
+
+    $post = get_post();
+    return $post instanceof WP_Post && has_block($block_name, $post);
+}
+
 function ceeducon_default_programme_json(): string
 {
     $path = get_template_directory() . '/data/program.json';
@@ -370,7 +380,7 @@ function ceeducon_theme_scripts(): void
         true
     );
 
-    if (!ceeducon_is_programme_page()) {
+    if (!ceeducon_is_programme_page() && !ceeducon_current_page_has_block('ceeducon/programme-grid')) {
         return;
     }
 
@@ -441,6 +451,7 @@ function ceeducon_allowed_block_types($allowed_block_types, WP_Block_Editor_Cont
 
     return [
         'ceeducon/hero',
+        'ceeducon/page-hero',
         'ceeducon/text-section',
         'ceeducon/image-text',
         'ceeducon/cards',
@@ -449,6 +460,7 @@ function ceeducon_allowed_block_types($allowed_block_types, WP_Block_Editor_Cont
         'ceeducon/cta',
         'ceeducon/contact',
         'ceeducon/posts',
+        'ceeducon/programme-grid',
         'core/paragraph',
         'core/heading',
         'core/list',
@@ -461,6 +473,211 @@ function ceeducon_allowed_block_types($allowed_block_types, WP_Block_Editor_Cont
 }
 add_filter('allowed_block_types_all', 'ceeducon_allowed_block_types', 10, 2);
 
+function ceeducon_block_template_markup(string $block_name, array $attributes = []): string
+{
+    if (function_exists('serialize_block')) {
+        return serialize_block([
+            'blockName' => $block_name,
+            'attrs' => $attributes,
+            'innerBlocks' => [],
+            'innerHTML' => '',
+            'innerContent' => [],
+        ]);
+    }
+
+    $encoded_attributes = empty($attributes) ? '' : ' ' . wp_json_encode($attributes);
+    return '<!-- wp:' . esc_html($block_name) . $encoded_attributes . ' /-->';
+}
+
+function ceeducon_page_template_content(array $blocks): string
+{
+    $content = '';
+
+    foreach ($blocks as $block) {
+        $content .= ceeducon_block_template_markup($block[0], $block[1] ?? []);
+    }
+
+    return $content;
+}
+
+function ceeducon_page_block_templates(): array
+{
+    return [
+        'home' => ceeducon_page_template_content([
+            ['ceeducon/hero'],
+            ['ceeducon/text-section', [
+                'kicker' => 'The conference',
+                'title' => 'A focused forum for international higher education.',
+                'text' => 'CEEDUCON connects university leadership, international offices, policymakers, national agencies and practitioners from across Europe.',
+                'secondText' => 'The programme is built around practical exchange: what is changing, what works in institutions, and where Central European cooperation can move higher education forward.',
+                'chips' => ['University leadership', 'International offices', 'Policymakers', 'National agencies'],
+                'buttonText' => 'More about CEEDUCON',
+                'buttonUrl' => '/about/',
+            ]],
+            ['ceeducon/image-text'],
+            ['ceeducon/cards', [
+                'kicker' => 'Plan ahead',
+                'title' => 'Find the essentials quickly.',
+                'items' => [
+                    ['label' => 'Programme', 'title' => 'Explore the two conference days', 'text' => 'Browse sessions, workshops, rooms and themes in the interactive programme.', 'url' => '/programme/'],
+                    ['label' => 'Practical', 'title' => 'Prepare your visit', 'text' => 'Venue, transport, accessibility and accommodation tips for Prague.', 'url' => '/practical/'],
+                    ['label' => 'For speakers', 'title' => 'Speaking at CEEDUCON', 'text' => 'Session expectations, milestones and speaker support in one place.', 'url' => '/speakers/'],
+                ],
+            ]],
+            ['ceeducon/cta'],
+            ['ceeducon/contact'],
+        ]),
+        'about' => ceeducon_page_template_content([
+            ['ceeducon/page-hero', [
+                'crumb' => 'About',
+                'title' => 'About CEEDUCON.',
+                'note' => 'Central European Conference on Internationalisation of Higher Education brings together people shaping international higher education across Europe.',
+                'cardLabel' => '2026 edition',
+                'cardTitle' => '1–2 December 2026',
+                'cardText' => 'Two conference days at O2 universum Prague.',
+            ]],
+            ['ceeducon/text-section', [
+                'kicker' => 'The conference',
+                'title' => 'A platform for strategic internationalisation.',
+                'text' => 'CEEDUCON is designed for university leaders, international office professionals, policymakers, national agencies and practitioners who work with internationalisation every day.',
+                'secondText' => 'The conference focuses on practical exchange, institutional strategy, partnerships and student-centred international education.',
+                'chips' => ['Strategy', 'Partnerships', 'Mobility', 'Student support'],
+            ]],
+            ['ceeducon/cards', [
+                'kicker' => 'Themes',
+                'title' => 'Four themes frame the 2026 conversation.',
+                'items' => [
+                    ['label' => '01', 'title' => 'Navigating the Technological Shift', 'text' => 'Responsible use of AI, digitalisation and new tools in international education.', 'url' => '/programme/'],
+                    ['label' => '02', 'title' => 'Challenges of Internationalisation', 'text' => 'Barriers, wellbeing, funding and inclusive access to meaningful international experiences.', 'url' => '/programme/'],
+                    ['label' => '03', 'title' => 'Global & Regional Partnerships', 'text' => 'Sustainable strategic cooperation and equitable academic partnerships.', 'url' => '/programme/'],
+                    ['label' => '04', 'title' => 'From Recruitment to Retention', 'text' => 'A student-centred journey from admissions to employability and alumni relations.', 'url' => '/programme/'],
+                ],
+            ]],
+            ['ceeducon/cta', [
+                'kicker' => 'Next step',
+                'title' => 'Continue with the programme.',
+                'text' => 'See how the CEEDUCON themes translate into sessions, workshops and plenaries.',
+                'primaryText' => 'Open programme',
+                'primaryUrl' => '/programme/',
+                'secondaryText' => 'Practical information',
+                'secondaryUrl' => '/practical/',
+            ]],
+        ]),
+        'programme' => ceeducon_page_template_content([
+            ['ceeducon/page-hero', [
+                'crumb' => 'Programme',
+                'title' => 'Programme 2026.',
+                'note' => 'Browse the preliminary two-day programme by day, room, theme and time. Save sessions to your own programme and export them to your calendar.',
+                'cardLabel' => 'Interactive schedule',
+                'cardTitle' => '70+ sessions',
+                'cardText' => 'Across conference rooms, plenaries and workshops.',
+                'orange' => true,
+            ]],
+            ['ceeducon/cards', [
+                'kicker' => 'Overview',
+                'title' => 'Two full conference days.',
+                'items' => [
+                    ['label' => 'Day 1', 'title' => 'Tuesday 1 December', 'text' => 'Opening plenary and thematic sessions across the 2026 programme.', 'url' => '#schedule'],
+                    ['label' => 'Evening', 'title' => 'Networking dinner', 'text' => 'Informal exchange and partnership conversations after the first conference day.', 'url' => '#schedule'],
+                    ['label' => 'Day 2', 'title' => 'Wednesday 2 December', 'text' => 'A second day of workshops, sessions and a closing plenary.', 'url' => '#schedule'],
+                ],
+            ]],
+            ['ceeducon/programme-grid'],
+        ]),
+        'practical' => ceeducon_page_template_content([
+            ['ceeducon/page-hero', [
+                'crumb' => 'Practical',
+                'title' => 'Practical information.',
+                'note' => 'Everything participants need before travelling to Prague: venue, transport, accessibility, accommodation and registration basics.',
+                'cardLabel' => 'Venue',
+                'cardTitle' => 'O2 universum Prague',
+                'cardText' => 'Českomoravská 17, Prague 9.',
+            ]],
+            ['ceeducon/cards', [
+                'kicker' => 'Essentials',
+                'title' => 'Plan your visit without digging.',
+                'items' => [
+                    ['label' => 'Venue', 'title' => 'O2 universum Prague', 'text' => 'A modern multi-room conference venue close to metro B, station Českomoravská.', 'url' => 'https://www.o2universum.cz/en'],
+                    ['label' => 'Transport', 'title' => 'Easy public transport', 'text' => 'Reach the venue by metro, tram, bus or train. Airport transfer takes around 55 minutes.', 'url' => 'https://pid.cz/en/'],
+                    ['label' => 'Access', 'title' => 'Accessible venue', 'text' => 'The venue supports barrier-free access and clear navigation between rooms.', 'url' => 'https://www.o2universum.cz/en'],
+                ],
+            ]],
+            ['ceeducon/faq', [
+                'kicker' => 'Good to know',
+                'title' => 'Frequently asked questions.',
+                'items' => [
+                    ['question' => 'Is there a conference fee?', 'answer' => 'No. Participation at CEEDUCON 2026 is free of charge for registered attendees.'],
+                    ['question' => 'When does registration open?', 'answer' => 'Registration details will be published once confirmed by the organisers.'],
+                    ['question' => 'Where does the conference take place?', 'answer' => 'CEEDUCON 2026 takes place at O2 universum, Českomoravská 17, Prague 9.'],
+                ],
+            ]],
+            ['ceeducon/cta', [
+                'title' => 'Need help planning your visit?',
+                'text' => 'Contact the CEEDUCON team for practical questions about the venue, registration or accessibility.',
+                'primaryText' => 'Contact the team',
+                'primaryUrl' => '/contact/',
+                'secondaryText' => 'Open programme',
+                'secondaryUrl' => '/programme/',
+            ]],
+        ]),
+        'speakers' => ceeducon_page_template_content([
+            ['ceeducon/page-hero', [
+                'crumb' => 'For speakers',
+                'title' => 'Information for speakers.',
+                'note' => 'A practical overview for confirmed and prospective CEEDUCON speakers: formats, deadlines, onsite delivery and support.',
+                'cardLabel' => 'Speaker support',
+                'cardTitle' => 'Clear milestones',
+                'cardText' => 'Prepare your session, materials and onsite participation.',
+                'orange' => true,
+            ]],
+            ['ceeducon/text-section', [
+                'kicker' => 'Speaking at CEEDUCON',
+                'title' => 'Sessions should be practical, focused and useful for participants.',
+                'text' => 'CEEDUCON sessions are designed for professionals working with internationalisation of higher education. The strongest contributions combine strategic context with transferable practice.',
+                'secondText' => 'Speaker information can be updated here directly in Gutenberg blocks without changing the theme code.',
+                'chips' => ['Plenary', 'Workshop', 'Panel', 'Case study'],
+            ]],
+            ['ceeducon/cards', [
+                'kicker' => 'Timeline',
+                'title' => 'Key speaker milestones.',
+                'items' => [
+                    ['label' => '01', 'title' => 'Confirmation', 'text' => 'Confirm your participation, session title and institutional details.', 'url' => '/contact/'],
+                    ['label' => '02', 'title' => 'Materials', 'text' => 'Prepare your slides and session materials according to organiser instructions.', 'url' => '/contact/'],
+                    ['label' => '03', 'title' => 'Onsite', 'text' => 'Arrive early, check the room setup and connect with the programme team.', 'url' => '/practical/'],
+                ],
+            ]],
+            ['ceeducon/cta', [
+                'title' => 'Questions about your session?',
+                'text' => 'The CEEDUCON team can help with programme, logistics and technical preparation.',
+                'primaryText' => 'Contact CEEDUCON',
+                'primaryUrl' => '/contact/',
+                'secondaryText' => 'Practical info',
+                'secondaryUrl' => '/practical/',
+            ]],
+        ]),
+        'contact' => ceeducon_page_template_content([
+            ['ceeducon/page-hero', [
+                'crumb' => 'Contact',
+                'title' => 'Contact the CEEDUCON team.',
+                'note' => 'Use this page for questions about registration, programme, speakers, partnerships and practical arrangements.',
+                'cardLabel' => 'Email',
+                'cardTitle' => 'ceeducon@dzs.cz',
+                'cardText' => 'The organising team will direct your question to the right person.',
+            ]],
+            ['ceeducon/contact'],
+            ['ceeducon/cards', [
+                'kicker' => 'Quick routing',
+                'title' => 'Find the right topic faster.',
+                'items' => [
+                    ['label' => 'Programme', 'title' => 'Sessions and schedule', 'text' => 'Questions about programme structure, sessions or speakers.', 'url' => '/programme/'],
+                    ['label' => 'Practical', 'title' => 'Venue and travel', 'text' => 'Questions about O2 universum, transport and onsite access.', 'url' => '/practical/'],
+                    ['label' => 'Speakers', 'title' => 'Speaker information', 'text' => 'Questions about speaking, materials or session delivery.', 'url' => '/speakers/'],
+                ],
+            ]],
+        ]),
+    ];
+}
+
 function ceeducon_register_block_patterns(): void
 {
     if (!function_exists('register_block_pattern_category') || !function_exists('register_block_pattern')) {
@@ -471,13 +688,47 @@ function ceeducon_register_block_patterns(): void
         'label' => __('CEEDUCON stránky', 'ceeducon-program'),
     ]);
 
-    register_block_pattern('ceeducon-program/homepage', [
-        'title' => __('CEEDUCON homepage', 'ceeducon-program'),
-        'categories' => ['ceeducon-pages'],
-        'content' => '<!-- wp:ceeducon/hero /--><!-- wp:ceeducon/text-section /--><!-- wp:ceeducon/image-text /--><!-- wp:ceeducon/cards /--><!-- wp:ceeducon/testimonials /--><!-- wp:ceeducon/cta /--><!-- wp:ceeducon/contact /-->',
-    ]);
+    $patterns = [
+        'home' => __('CEEDUCON homepage', 'ceeducon-program'),
+        'about' => __('CEEDUCON about page', 'ceeducon-program'),
+        'programme' => __('CEEDUCON programme page', 'ceeducon-program'),
+        'practical' => __('CEEDUCON practical page', 'ceeducon-program'),
+        'speakers' => __('CEEDUCON speakers page', 'ceeducon-program'),
+        'contact' => __('CEEDUCON contact page', 'ceeducon-program'),
+    ];
+
+    foreach ($patterns as $key => $title) {
+        register_block_pattern('ceeducon-program/' . $key, [
+            'title' => $title,
+            'categories' => ['ceeducon-pages'],
+            'content' => ceeducon_page_block_templates()[$key] ?? '',
+        ]);
+    }
 }
 add_action('init', 'ceeducon_register_block_patterns');
+
+function ceeducon_enqueue_editor_page_templates(): void
+{
+    $asset_path = get_template_directory() . '/js/editor-page-templates.js';
+    if (!is_readable($asset_path)) {
+        return;
+    }
+
+    wp_enqueue_script(
+        'ceeducon-editor-page-templates',
+        ceeducon_asset_url('js/editor-page-templates.js'),
+        ['wp-blocks', 'wp-data', 'wp-dom-ready', 'wp-notices'],
+        filemtime($asset_path),
+        true
+    );
+
+    wp_add_inline_script(
+        'ceeducon-editor-page-templates',
+        'window.CEEDUCON_PAGE_BLOCK_TEMPLATES = ' . wp_json_encode(ceeducon_page_block_templates()) . ';',
+        'before'
+    );
+}
+add_action('enqueue_block_editor_assets', 'ceeducon_enqueue_editor_page_templates');
 
 /**
  * Editable content fields, grouped for the admin screen.
