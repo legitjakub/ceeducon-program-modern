@@ -2,7 +2,11 @@
 
 Multi-page conference theme for CEEDUCON 2026 (1–2 December 2026, O2 universum Prague).
 The theme now uses native Gutenberg section blocks for page content. There is no ACF Blocks,
-Elementor, Divi or page builder dependency.
+Elementor, Divi or page builder dependency for the default editing workflow.
+
+## Optional Elementor Free workflow
+
+The companion plugin in `wordpress-plugin/ceeducon-elementor-widgets/` adds CEEDUCON widgets for Elementor Free. Elementor pages use the **CEEDUCON Elementor Full Width** template and render the same PHP section templates as the native Gutenberg blocks. Existing Gutenberg content and built-in PHP fallbacks remain available, so pages can be migrated and rolled back individually.
 
 ## Installation
 

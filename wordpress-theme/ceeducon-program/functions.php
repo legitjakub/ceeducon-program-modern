@@ -11,6 +11,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+require_once get_template_directory() . '/inc/section-renderers.php';
+
 function ceeducon_theme_setup(): void
 {
     add_theme_support('title-tag');
@@ -122,6 +124,62 @@ function ceeducon_render_block_page_content(): bool
 
     return true;
 }
+
+function ceeducon_is_elementor_page(?WP_Post $post = null): bool
+{
+    $post = $post ?: get_post();
+    if (!$post instanceof WP_Post) {
+        return false;
+    }
+
+    if (class_exists('\\Elementor\\Plugin')) {
+        $document = \Elementor\Plugin::$instance->documents->get($post->ID);
+        if ($document && $document->is_built_with_elementor()) {
+            return true;
+        }
+    }
+
+    return get_post_meta($post->ID, '_elementor_edit_mode', true) === 'builder';
+}
+
+function ceeducon_elementor_page_has_widget(string $widget_name, ?WP_Post $post = null): bool
+{
+    $post = $post ?: get_post();
+    if (!$post instanceof WP_Post) {
+        return false;
+    }
+
+    $elementor_data = get_post_meta($post->ID, '_elementor_data', true);
+    if (!is_string($elementor_data) || $elementor_data === '') {
+        return false;
+    }
+
+    return str_contains($elementor_data, '"widgetType":"' . $widget_name . '"');
+}
+
+function ceeducon_render_elementor_page_content(): bool
+{
+    if (!is_singular('page')) {
+        return false;
+    }
+
+    $post = get_post();
+    if (!$post instanceof WP_Post || !ceeducon_is_elementor_page($post)) {
+        return false;
+    }
+
+    echo '<main id="main" class="ceeducon-elementor-page">';
+    echo apply_filters('the_content', $post->post_content); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    echo '</main>';
+
+    return true;
+}
+
+function ceeducon_elementor_support(): void
+{
+    add_theme_support('elementor');
+}
+add_action('after_setup_theme', 'ceeducon_elementor_support');
 
 function ceeducon_asset_url(string $path): string
 {
@@ -380,9 +438,24 @@ function ceeducon_theme_scripts(): void
         true
     );
 
-    if (!ceeducon_is_programme_page() && !ceeducon_current_page_has_block('ceeducon/programme-grid')) {
+    if (
+        !ceeducon_is_programme_page()
+        && !ceeducon_current_page_has_block('ceeducon/programme-grid')
+        && !ceeducon_elementor_page_has_widget('ceeducon_programme_grid')
+    ) {
         return;
     }
+
+    ceeducon_enqueue_programme_assets();
+}
+add_action('wp_enqueue_scripts', 'ceeducon_theme_scripts');
+
+function ceeducon_enqueue_programme_assets(): void
+{
+    static $configured = false;
+
+    $theme = wp_get_theme();
+    $version = $theme->get('Version');
 
     $programme_data = ceeducon_programme_data();
 
@@ -402,21 +475,24 @@ function ceeducon_theme_scripts(): void
         true
     );
 
-    wp_add_inline_script(
-        'ceeducon-program',
-        'window.CEEDUCON_DATA_URL = ' . wp_json_encode(ceeducon_asset_url('data/program.json')) . ';',
-        'before'
-    );
-
-    if (!empty($programme_data)) {
+    if (!$configured) {
         wp_add_inline_script(
-            'ceeducon-program-data',
-            'window.CEEDUCON_PROGRAM_DATA = ' . wp_json_encode($programme_data) . '; window.CEEDUCON_PREFER_EMBEDDED_DATA = true;',
-            'after'
+            'ceeducon-program',
+            'window.CEEDUCON_DATA_URL = ' . wp_json_encode(ceeducon_asset_url('data/program.json')) . ';',
+            'before'
         );
+
+        if (!empty($programme_data)) {
+            wp_add_inline_script(
+                'ceeducon-program-data',
+                'window.CEEDUCON_PROGRAM_DATA = ' . wp_json_encode($programme_data) . '; window.CEEDUCON_PREFER_EMBEDDED_DATA = true;',
+                'after'
+            );
+        }
+
+        $configured = true;
     }
 }
-add_action('wp_enqueue_scripts', 'ceeducon_theme_scripts');
 
 function ceeducon_register_blocks(): void
 {
