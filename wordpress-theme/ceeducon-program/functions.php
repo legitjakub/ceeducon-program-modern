@@ -336,6 +336,34 @@ function ceeducon_current_page_has_block(string $block_name): bool
     return $post instanceof WP_Post && has_block($block_name, $post);
 }
 
+function ceeducon_current_page_has_shortcode(string $shortcode): bool
+{
+    if (!is_singular()) {
+        return false;
+    }
+
+    $post = get_post();
+    return $post instanceof WP_Post && has_shortcode((string) $post->post_content, $shortcode);
+}
+
+function ceeducon_should_render_programme_ui(): bool
+{
+    return ceeducon_is_programme_page()
+        || ceeducon_current_page_has_block('ceeducon/programme-grid')
+        || ceeducon_elementor_page_has_widget('ceeducon_programme_grid')
+        || ceeducon_current_page_has_shortcode('ceeducon_programme')
+        || ceeducon_programme_ui_requested();
+}
+
+function ceeducon_programme_ui_requested(bool $request = false): bool
+{
+    static $requested = false;
+    if ($request) {
+        $requested = true;
+    }
+    return $requested;
+}
+
 function ceeducon_default_programme_json(): string
 {
     $path = get_template_directory() . '/data/program.json';
@@ -438,11 +466,7 @@ function ceeducon_theme_scripts(): void
         true
     );
 
-    if (
-        !ceeducon_is_programme_page()
-        && !ceeducon_current_page_has_block('ceeducon/programme-grid')
-        && !ceeducon_elementor_page_has_widget('ceeducon_programme_grid')
-    ) {
+    if (!ceeducon_should_render_programme_ui()) {
         return;
     }
 
@@ -453,6 +477,8 @@ add_action('wp_enqueue_scripts', 'ceeducon_theme_scripts');
 function ceeducon_enqueue_programme_assets(): void
 {
     static $configured = false;
+
+    ceeducon_programme_ui_requested(true);
 
     $theme = wp_get_theme();
     $version = $theme->get('Version');
@@ -493,6 +519,20 @@ function ceeducon_enqueue_programme_assets(): void
         $configured = true;
     }
 }
+
+function ceeducon_programme_shortcode($atts = []): string
+{
+    $atts = is_array($atts) ? $atts : [];
+    $attributes = shortcode_atts([
+        'kicker' => __('Interactive programme', 'ceeducon-program'),
+        'title'  => __('Find the right session faster.', 'ceeducon-program'),
+        'intro'  => __('Search the programme, compare rooms and times, filter by theme and keep your personal selection in one place.', 'ceeducon-program'),
+    ], $atts, 'ceeducon_programme');
+
+    ceeducon_enqueue_programme_assets();
+    return ceeducon_render_section('programme-grid', $attributes);
+}
+add_shortcode('ceeducon_programme', 'ceeducon_programme_shortcode');
 
 function ceeducon_register_blocks(): void
 {

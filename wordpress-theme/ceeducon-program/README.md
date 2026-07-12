@@ -8,6 +8,8 @@ Elementor, Divi or page builder dependency for the default editing workflow.
 
 The companion plugin in `wordpress-plugin/ceeducon-elementor-widgets/` adds CEEDUCON widgets for Elementor Free. Elementor pages use the **CEEDUCON Elementor Full Width** template and render the same PHP section templates as the native Gutenberg blocks. Existing Gutenberg content and built-in PHP fallbacks remain available, so pages can be migrated and rolled back individually.
 
+The interactive programme is available as a Gutenberg block, an Elementor widget and the `[ceeducon_programme]` shortcode. Place only one programme component on a page; its modal and supporting UI are rendered once in the theme footer.
+
 ## Installation
 
 1. Upload the ZIP in **Appearance → Themes → Add New → Upload Theme** and activate it.

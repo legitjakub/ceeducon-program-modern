@@ -29,7 +29,7 @@
       <span class="footer-ghost" aria-hidden="true">CEEDUCON</span>
     </footer>
 
-    <?php if (ceeducon_is_programme_page()) : ?>
+    <?php if (ceeducon_should_render_programme_ui()) : ?>
     <div class="modal-backdrop" data-modal-backdrop hidden>
       <section class="session-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <button class="modal-close" type="button" data-modal-close aria-label="Close detail">×</button>

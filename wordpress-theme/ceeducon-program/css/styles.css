@@ -207,6 +207,9 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .wp-content img { max-width: 100%; height: auto; border-radius: 24px; }
 .wp-content .wp-block-button__link { border-radius: 999px; background: var(--deep); color: var(--white); box-shadow: inset 0 -4px 0 var(--orange); font-weight: 800; text-decoration: none; }
 .wp-content .wp-block-quote { margin-left: 0; padding-left: 22px; border-left: 4px solid var(--orange-600); color: var(--muted); }
+.ceeducon-elementor-page { width: 100%; overflow: clip; }
+.ceeducon-elementor-page .elementor-widget { margin-block-end: 0; }
+.ceeducon-elementor-page .elementor-widget-container { width: 100%; }
 .section-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 420px); gap: clamp(24px, 4vw, 56px); align-items: end; margin-bottom: clamp(30px, 3.8vw, 52px); }
 .section-head h2 { color: var(--deep); }
 .on-dark .section-head h2, .section--navy .section-head h2 { color: var(--white); }

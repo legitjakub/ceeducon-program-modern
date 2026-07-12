@@ -15,6 +15,6 @@ Controls are derived from the theme block metadata. Text, images, links, repeate
 
 Use **Templates > Saved Templates > Import Templates** to import a JSON file from `templates/`, then insert it into the matching page. Existing Gutenberg content is not deleted automatically.
 
-The Programme widget reads the same `data/program.json` and uses the same scripts and server-rendered fallback as the Gutenberg block.
+The Programme widget reads the same `data/program.json` and uses the same scripts and server-rendered fallback as the Gutenberg block. The same component is available as `[ceeducon_programme]` for legacy content. Use only one Programme block, widget or shortcode per page.
 
 To roll back, deactivate the plugin and restore the page's original CEEDUCON template/content. Gutenberg and PHP fallback rendering remain available.
