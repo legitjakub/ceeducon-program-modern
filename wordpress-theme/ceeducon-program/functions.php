@@ -1027,7 +1027,6 @@ function ceeducon_admin_content_fields(): array
             ['sched_kicker', 'Schedule kicker', 'Interactive programme', 'text'],
             ['sched_title', 'Schedule title', 'Find the right session faster.', 'textarea'],
             ['sched_intro', 'Schedule intro', 'Search the programme, compare rooms and times, filter by theme and keep your personal selection in one place.', 'textarea'],
-            ['cookie_note', 'Cookie / storage note', '“My programme” selections are stored only in your browser\'s local storage. This site sets no analytics cookies.', 'textarea'],
         ],
         'Practical page' => [
             ['prac_hero_title', 'Hero title', 'Plan your visit to Prague.', 'textarea'],

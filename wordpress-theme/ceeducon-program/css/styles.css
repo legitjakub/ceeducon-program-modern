@@ -1147,16 +1147,11 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .modal-actions .modal-calendar { border-color: var(--deep); background: var(--deep); color: var(--white); }
 .modal-actions .modal-calendar:hover { background: var(--navy); border-color: var(--navy); }
 
-/* Toast + cookie */
+/* Toast */
 .toast { position: fixed; z-index: 120; right: 24px; bottom: 24px; display: flex; align-items: center; gap: 12px; min-width: 270px; padding: 15px 18px; background: var(--deep); color: var(--white); box-shadow: var(--shadow-lg); opacity: 0; transform: translateY(120%); transition: 0.3s var(--ease); pointer-events: none; }
 .toast.is-visible { opacity: 1; transform: none; }
 .toast > span { width: 24px; height: 24px; display: grid; place-items: center; background: var(--orange); color: var(--deep-2); font-weight: 700; }
 .toast p { margin: 0; font-size: 13px; }
-.cookie-banner { position: fixed; z-index: 110; left: 24px; bottom: 24px; width: min(420px, calc(100% - 48px)); display: flex; align-items: center; gap: 16px; padding: 16px 17px; background: var(--white); border: 1px solid var(--line); box-shadow: var(--shadow-lg); }
-.cookie-banner.is-hidden { display: none; }
-.cookie-banner p { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.55; }
-.cookie-banner button { flex: 0 0 auto; min-height: 40px; padding: 0 16px; border: 0; background: var(--deep); color: var(--white); cursor: pointer; font-size: 12px; font-weight: 700; }
-.cookie-banner button:hover { background: var(--navy); }
 .carousel-nav { display: none; }
 
 @keyframes fade-in { from { opacity: 0; } }
@@ -1503,7 +1498,6 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   .session-modal { padding: 30px 20px 22px; }
   .modal-actions { flex-direction: column; }
   .toast { left: 14px; right: 14px; bottom: 14px; min-width: 0; }
-  .cookie-banner { left: 14px; right: 14px; bottom: 14px; width: auto; }
   .footer-ghost { font-size: clamp(56px, 17vw, 96px); }
 }
 
@@ -1588,7 +1582,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 @media print {
   @page { size: A4 landscape; margin: 10mm; }
   body { background: #fff; font-size: 9pt; }
-  .site-header, .page-hero, .hero, .section, .control-panel, .day-context, .section-head > p, .live-banner, .site-footer, .modal-backdrop, .toast, .cookie-banner, .skip-link { display: none !important; }
+  .site-header, .page-hero, .hero, .section, .control-panel, .day-context, .section-head > p, .live-banner, .site-footer, .modal-backdrop, .toast, .skip-link { display: none !important; }
   .js [data-reveal] { opacity: 1 !important; transform: none !important; }
   .schedule-section { padding: 0; background: #fff; }
   .schedule-section .section-head { display: block; margin: 0 0 6mm; }

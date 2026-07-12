@@ -49,10 +49,6 @@
     </div>
 
     <div class="toast" data-toast role="status" aria-live="polite"><span>✓</span><p></p></div>
-    <div class="cookie-banner" data-cookie-banner>
-      <p><?php ceeducon_text('cookie_note', '“My programme” selections are stored only in your browser\'s local storage. This site sets no analytics cookies.'); ?></p>
-      <button type="button" data-cookie-accept>OK</button>
-    </div>
     <?php endif; ?>
 
     <?php wp_footer(); ?>
