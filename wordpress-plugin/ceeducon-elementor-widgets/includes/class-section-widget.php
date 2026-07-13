@@ -57,8 +57,7 @@ abstract class Section_Widget extends Widget_Base
     protected function render(): void
     {
         if (!function_exists('ceeducon_print_section')) {
-            $elementor = \Elementor\Plugin::$instance ?? null;
-            if ($elementor && isset($elementor->editor) && $elementor->editor->is_edit_mode()) {
+            if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
                 echo '<div class="elementor-alert elementor-alert-warning">';
                 echo esc_html__('Activate the CEEDUCON theme to render this widget.', 'ceeducon-elementor-widgets');
                 echo '</div>';
@@ -119,7 +118,7 @@ abstract class Section_Widget extends Widget_Base
             return;
         }
 
-        if ($this->ends_with($key, 'Url')) {
+        if (str_ends_with($key, 'Url')) {
             $this->add_control($key, [
                 'label'       => $label,
                 'type'        => Controls_Manager::URL,
@@ -152,7 +151,7 @@ abstract class Section_Widget extends Widget_Base
 
         $repeater = new Repeater();
         foreach (array_keys($first) as $item_key) {
-            $control_type = $this->ends_with((string) $item_key, 'url') || $this->ends_with((string) $item_key, 'Url')
+            $control_type = str_ends_with((string) $item_key, 'url') || str_ends_with((string) $item_key, 'Url')
                 ? Controls_Manager::URL
                 : (in_array($item_key, ['text', 'answer', 'quote'], true) ? Controls_Manager::TEXTAREA : Controls_Manager::TEXT);
             $config = [
@@ -165,7 +164,7 @@ abstract class Section_Widget extends Widget_Base
 
         $repeater_default = array_map(static function (array $item): array {
             foreach ($item as $item_key => $value) {
-                if (substr_compare((string) $item_key, 'url', -3) === 0 || substr_compare((string) $item_key, 'Url', -3) === 0) {
+                if (str_ends_with((string) $item_key, 'url') || str_ends_with((string) $item_key, 'Url')) {
                     $item[$item_key] = ['url' => (string) $value];
                 }
             }
@@ -227,16 +226,6 @@ abstract class Section_Widget extends Widget_Base
             }
         }
         return $item;
-    }
-
-    private function ends_with(string $value, string $suffix): bool
-    {
-        if ($suffix === '') {
-            return true;
-        }
-
-        return strlen($value) >= strlen($suffix)
-            && substr_compare($value, $suffix, -strlen($suffix)) === 0;
     }
 }
 
