@@ -12,6 +12,8 @@ if (!defined('ABSPATH')) {
 
 function ceeducon_render_section(string $section, array $attributes = []): string
 {
+    static $rendered_singletons = [];
+
     $allowed = [
         'hero',
         'page-hero',
@@ -35,6 +37,14 @@ function ceeducon_render_section(string $section, array $attributes = []): strin
         return '';
     }
 
+    // The interactive programme owns page-level IDs and can only be mounted once.
+    if ($section === 'programme-grid') {
+        if (!empty($rendered_singletons[$section])) {
+            return '';
+        }
+        $rendered_singletons[$section] = true;
+    }
+
     ob_start();
     include $template;
     return (string) ob_get_clean();
@@ -44,4 +54,3 @@ function ceeducon_print_section(string $section, array $attributes = []): void
 {
     echo ceeducon_render_section($section, $attributes); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
-

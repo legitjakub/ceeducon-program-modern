@@ -129,10 +129,13 @@ abstract class Section_Widget extends Widget_Base
             return;
         }
 
-        $rich_fields = ['title', 'lead', 'text', 'secondText', 'intro', 'cardText', 'noteText'];
+        $rich_fields = ['title', 'text', 'secondText', 'intro', 'cardText', 'noteText'];
+        $textarea_fields = ['lead'];
         $this->add_control($key, [
             'label'   => $label,
-            'type'    => in_array($key, $rich_fields, true) ? Controls_Manager::WYSIWYG : Controls_Manager::TEXT,
+            'type'    => in_array($key, $rich_fields, true)
+                ? Controls_Manager::WYSIWYG
+                : (in_array($key, $textarea_fields, true) ? Controls_Manager::TEXTAREA : Controls_Manager::TEXT),
             'default' => $default,
         ]);
     }
