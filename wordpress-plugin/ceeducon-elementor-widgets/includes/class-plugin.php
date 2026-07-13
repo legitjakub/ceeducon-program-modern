@@ -34,6 +34,8 @@ final class Plugin
 
     public function register_widgets($widgets_manager): void
     {
+        require_once CEEDUCON_ELEMENTOR_WIDGETS_PATH . 'includes/class-section-widget.php';
+
         $widgets = [
             Hero_Widget::class,
             Page_Hero_Widget::class,
@@ -53,4 +55,3 @@ final class Plugin
         }
     }
 }
-
