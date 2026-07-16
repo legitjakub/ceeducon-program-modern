@@ -29,43 +29,6 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
 
       <?php ceeducon_render_editor_content(); ?>
 
-      <section class="section" id="programme-2026">
-        <div class="shell">
-          <div class="section-head">
-            <div data-reveal>
-              <p class="kicker"><?php ceeducon_text('prog_overview_kicker', 'Overview'); ?></p>
-              <h2 class="display-2"><?php ceeducon_text('prog_overview_title', 'How the two days are planned.'); ?></h2>
-            </div>
-            <p data-reveal="2"><?php ceeducon_text('prog_overview_intro', 'Both days run as full conference days with plenaries, thematic sessions and workshops — connected by a networking dinner on the first evening.'); ?></p>
-          </div>
-          <div class="day-cards" aria-label="CEEDUCON 2026 programme overview">
-            <article data-reveal>
-              <span><?php ceeducon_text('day_1_label', 'Day 1 · Tue 1 Dec'); ?></span>
-              <h3><?php ceeducon_text('day_1_title', 'All-day conference'); ?></h3>
-              <p><?php ceeducon_text('day_1_text', 'Opening plenary and thematic sessions across the four 2026 themes at O2 universum.'); ?></p>
-            </article>
-            <article data-reveal="2">
-              <span><?php ceeducon_text('day_evening_label', 'Evening'); ?></span>
-              <h3><?php ceeducon_text('day_evening_title', 'Networking dinner'); ?></h3>
-              <p><?php ceeducon_text('day_evening_text', 'An evening dedicated to informal exchange and new partnerships. Details will follow with the final programme.'); ?></p>
-            </article>
-            <article data-reveal="3">
-              <span><?php ceeducon_text('day_2_label', 'Day 2 · Wed 2 Dec'); ?></span>
-              <h3><?php ceeducon_text('day_2_title', 'All-day conference'); ?></h3>
-              <p><?php ceeducon_text('day_2_text', 'A second full day of sessions and workshops, closing with a joint plenary.'); ?></p>
-            </article>
-          </div>
-          <div class="notice-cards">
-            <article class="notice-card notice-card--sky notice-card--wide" data-reveal>
-              <span><?php ceeducon_text('prog_grid_label', 'Interactive programme'); ?></span>
-              <h3><?php ceeducon_text('prog_grid_title', 'Work with the programme.'); ?></h3>
-              <p><?php ceeducon_text('prog_grid_text', 'Filter by theme, room and time, save sessions to “My programme” and add selected sessions to your calendar.'); ?></p>
-              <a class="btn btn--dark" href="#schedule"><?php ceeducon_text('prog_grid_button', 'Open the programme'); ?></a>
-            </article>
-          </div>
-        </div>
-      </section>
-
       <section class="schedule-section" id="schedule">
         <div class="shell">
           <div class="section-head">

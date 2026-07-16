@@ -854,15 +854,6 @@ function ceeducon_page_block_templates(): array
                 'cardText' => 'Across conference rooms, plenaries and workshops.',
                 'orange' => true,
             ]],
-            ['ceeducon/cards', [
-                'kicker' => 'Overview',
-                'title' => 'Two full conference days.',
-                'items' => [
-                    ['label' => 'Day 1', 'title' => 'Tuesday 1 December', 'text' => 'Opening plenary and thematic sessions across the 2026 programme.', 'url' => '#schedule'],
-                    ['label' => 'Evening', 'title' => 'Networking dinner', 'text' => 'Informal exchange and partnership conversations after the first conference day.', 'url' => '#schedule'],
-                    ['label' => 'Day 2', 'title' => 'Wednesday 2 December', 'text' => 'A second day of workshops, sessions and a closing plenary.', 'url' => '#schedule'],
-                ],
-            ]],
             ['ceeducon/programme-grid'],
         ]),
         'practical' => ceeducon_page_template_content([
@@ -1240,13 +1231,6 @@ function ceeducon_admin_content_fields(): array
             ['prog_card_label', 'Hero card label', 'Preliminary programme', 'text'],
             ['prog_card_title', 'Hero card title', 'Online now', 'text'],
             ['prog_card_text', 'Hero card text', 'Registration opens in September and participation is free of charge. The programme remains subject to change.', 'textarea'],
-            ['prog_overview_kicker', 'Overview kicker', 'Overview', 'text'],
-            ['prog_overview_title', 'Overview title', 'How the two days are planned.', 'textarea'],
-            ['prog_overview_intro', 'Overview intro', 'Both days run as full conference days with plenaries, thematic sessions and workshops — connected by a networking dinner on the first evening.', 'textarea'],
-            ['prog_grid_label', 'Grid notice label', 'Interactive programme', 'text'],
-            ['prog_grid_title', 'Grid notice title', 'Work with the programme.', 'text'],
-            ['prog_grid_text', 'Grid notice text', 'Filter by theme, room and time, save sessions to “My programme” and add selected sessions to your calendar.', 'textarea'],
-            ['prog_grid_button', 'Grid notice button', 'Open the programme', 'text'],
             ['sched_kicker', 'Schedule kicker', 'Interactive programme', 'text'],
             ['sched_title', 'Schedule title', 'Find the right session faster.', 'textarea'],
             ['sched_intro', 'Schedule intro', 'Search the programme, compare rooms and times, filter by theme and keep your personal selection in one place.', 'textarea'],
@@ -1434,11 +1418,6 @@ function ceeducon_migrate_default_content(): void
         'home_link_3_text' => [
             'Questions about registration, the programme or partnerships — the organisers are ready to help.',
             'Use the contact page for registration, programme, speaker or partnership questions.',
-        ],
-        'prog_grid_title' => ['Build your own schedule.', 'Work with the programme.'],
-        'prog_grid_text' => [
-            'Filter the programme by format, time and room, save sessions to “My programme” and add them straight to your calendar.',
-            'Filter by theme, room and time, save sessions to “My programme” and add selected sessions to your calendar.',
         ],
         'sched_title' => ['Explore the conference, room by room.', 'Find the right session faster.'],
         'sched_intro' => [
