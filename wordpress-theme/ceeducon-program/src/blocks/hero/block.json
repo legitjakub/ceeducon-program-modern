@@ -2,7 +2,7 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "ceeducon/hero",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "title": "Hero sekce",
   "category": "ceeducon-sections",
   "icon": "cover-image",
@@ -30,7 +30,9 @@
         { "label": "Registration", "value": "Opens in September" }
       ]
     },
-    "calendarText": { "type": "string", "default": "Add to calendar" },
+    "googleCalendarText": { "type": "string", "default": "Google Calendar" },
+    "googleCalendarUrl": { "type": "string", "default": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=CEEDUCON%202026&dates=20261201T080000Z%2F20261202T170000Z&details=Central%20European%20Conference%20on%20Internationalisation%20of%20Higher%20Education.&location=O2%20universum%2C%20Ceskomoravska%2017%2C%20Prague%209%2C%20Czech%20Republic&ctz=Europe%2FPrague" },
+    "calendarText": { "type": "string", "default": "Apple · Outlook · .ics" },
     "calendarUrl": { "type": "string", "default": "/wp-content/themes/ceeducon-program/assets/ceeducon-2026.ics" }
   },
   "supports": {

@@ -113,12 +113,22 @@
               )
             ),
             el(TextControl, {
-              label: __("Kalendář text", "ceeducon-program"),
+              label: __("Google Calendar text", "ceeducon-program"),
+              value: attributes.googleCalendarText,
+              onChange: (googleCalendarText) => setAttributes({ googleCalendarText }),
+            }),
+            el(URLInput, {
+              label: __("Google Calendar URL", "ceeducon-program"),
+              value: attributes.googleCalendarUrl,
+              onChange: (googleCalendarUrl) => setAttributes({ googleCalendarUrl }),
+            }),
+            el(TextControl, {
+              label: __("Ostatní kalendáře text", "ceeducon-program"),
               value: attributes.calendarText,
               onChange: (calendarText) => setAttributes({ calendarText }),
             }),
             el(URLInput, {
-              label: __("Kalendář URL", "ceeducon-program"),
+              label: __("ICS soubor URL", "ceeducon-program"),
               value: attributes.calendarUrl,
               onChange: (calendarUrl) => setAttributes({ calendarUrl }),
             })
@@ -174,7 +184,12 @@
             rows.map((row, index) =>
               el("div", { className: `hero-fact hero-fact--${index + 1}`, key: index }, el("span", {}, row.label), el("strong", {}, row.value))
             ),
-            el("span", { className: "hero-calendar" }, attributes.calendarText)
+            el(
+              "div",
+              { className: "hero-calendar" },
+              el("span", { className: "hero-calendar__primary" }, attributes.googleCalendarText),
+              el("span", { className: "hero-calendar__download" }, attributes.calendarText)
+            )
           )
         )
       );

@@ -34,7 +34,10 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
             <div class="hero-fact hero-fact--2"><span><?php ceeducon_text('event_row_2_label', 'Format'); ?></span><strong><?php ceeducon_text('event_row_2_value', 'Two conference days onsite'); ?></strong></div>
             <div class="hero-fact hero-fact--3"><span><?php ceeducon_text('event_row_3_label', 'Fee'); ?></span><strong><?php ceeducon_text('event_row_3_value', 'Free of charge'); ?></strong></div>
             <div class="hero-fact hero-fact--4"><span><?php ceeducon_text('event_row_4_label', 'Registration'); ?></span><strong><?php ceeducon_text('event_row_4_value', 'Opens in September'); ?></strong></div>
-            <a class="hero-calendar" href="<?php echo esc_url(ceeducon_text_value('event_calendar_url', ceeducon_asset_url('assets/ceeducon-2026.ics'))); ?>" download><?php ceeducon_text('event_calendar_label', 'Add to calendar'); ?> <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span></a>
+            <div class="hero-calendar" aria-label="<?php esc_attr_e('Add CEEDUCON 2026 to a calendar', 'ceeducon-program'); ?>">
+              <a class="hero-calendar__primary" href="<?php echo esc_url(ceeducon_text_value('event_google_calendar_url', 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=CEEDUCON%202026&dates=20261201T080000Z%2F20261202T170000Z&details=Central%20European%20Conference%20on%20Internationalisation%20of%20Higher%20Education.&location=O2%20universum%2C%20Ceskomoravska%2017%2C%20Prague%209%2C%20Czech%20Republic&ctz=Europe%2FPrague')); ?>" target="_blank" rel="noreferrer"><?php ceeducon_text('event_google_calendar_label', 'Google Calendar'); ?> <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span></a>
+              <a class="hero-calendar__download" href="<?php echo esc_url(ceeducon_text_value('event_calendar_url', ceeducon_asset_url('assets/ceeducon-2026.ics'))); ?>" download><?php ceeducon_text('event_calendar_label', 'Apple · Outlook · .ics'); ?></a>
+            </div>
           </div>
         </div>
       </section>
