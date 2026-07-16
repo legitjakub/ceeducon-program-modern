@@ -262,7 +262,7 @@ abstract class Section_Widget extends Widget_Base
             'primaryText',
             'secondaryText',
             'eventCtaText',
-            'calendarText',
+            'googleCalendarText',
         ], true)) {
             return 'actions';
         }

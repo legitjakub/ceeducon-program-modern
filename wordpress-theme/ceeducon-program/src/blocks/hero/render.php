@@ -36,14 +36,9 @@ $image_alt = (string) ceeducon_block_value($attributes, 'imageAlt');
           <strong><?php echo esc_html($row['value'] ?? ''); ?></strong>
         </div>
       <?php endforeach; ?>
-      <div class="hero-calendar" aria-label="<?php esc_attr_e('Add CEEDUCON 2026 to a calendar', 'ceeducon-program'); ?>">
-        <?php if (trim((string) ceeducon_block_value($attributes, 'googleCalendarText')) !== '' && trim((string) ceeducon_block_value($attributes, 'googleCalendarUrl')) !== '') : ?>
-          <a class="hero-calendar__primary" href="<?php echo ceeducon_block_url($attributes, 'googleCalendarUrl'); ?>" target="_blank" rel="noreferrer"><?php echo ceeducon_block_text($attributes, 'googleCalendarText'); ?> <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span></a>
-        <?php endif; ?>
-        <?php if (trim((string) ceeducon_block_value($attributes, 'calendarText')) !== '' && trim((string) ceeducon_block_value($attributes, 'calendarUrl')) !== '') : ?>
-          <a class="hero-calendar__download" href="<?php echo ceeducon_block_url($attributes, 'calendarUrl'); ?>" download><?php echo ceeducon_block_text($attributes, 'calendarText'); ?></a>
-        <?php endif; ?>
-      </div>
+      <?php if (trim((string) ceeducon_block_value($attributes, 'googleCalendarText')) !== '' && trim((string) ceeducon_block_value($attributes, 'googleCalendarUrl')) !== '') : ?>
+        <a class="hero-calendar" href="<?php echo ceeducon_block_url($attributes, 'googleCalendarUrl'); ?>" target="_blank" rel="noreferrer"><?php echo ceeducon_block_text($attributes, 'googleCalendarText'); ?> <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span></a>
+      <?php endif; ?>
     </div>
   </div>
 </section>

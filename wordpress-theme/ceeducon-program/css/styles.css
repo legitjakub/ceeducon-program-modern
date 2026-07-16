@@ -455,30 +455,16 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .hero-fact span { color: var(--sky-soft); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
 .hero-fact strong { color: var(--white); font-size: 13px; line-height: 1.35; }
 .hero-calendar {
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  gap: 5px;
-  padding: 10px;
-}
-.hero-calendar a,
-.hero-calendar__primary,
-.hero-calendar__download {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
+  gap: 10px;
   min-height: 44px;
-  padding: 7px 9px;
   color: var(--white);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  line-height: 1.2;
   transition: background 0.2s, color 0.2s;
 }
-.hero-calendar__primary { background: rgba(255, 255, 255, 0.1); }
-.hero-calendar__download { color: var(--sky-soft); font-size: 10px; }
-.hero-calendar a:hover,
-.hero-calendar a:focus-visible { background: var(--orange); color: var(--deep); }
+.hero-calendar:hover,
+.hero-calendar:focus-visible { background: var(--orange); color: var(--deep); }
 
 /* ---------- Page hero (subpages) ---------- */
 .page-hero {
@@ -852,14 +838,12 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .photo-showcase-copy .btn { margin-top: 26px; }
 .photo-gallery-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(8px, 1vw, 14px); min-width: 0; }
 .photo-gallery-item { position: relative; display: block; min-width: 0; min-height: 0; aspect-ratio: 1; padding: 0; border: 1px solid rgba(255, 255, 255, 0.2); overflow: hidden; background: var(--deep); color: var(--white); cursor: pointer; text-align: left; }
-.photo-gallery-item img { width: 100%; height: 100%; display: block; object-fit: cover; filter: grayscale(0.28) saturate(0.72) contrast(1.08) brightness(0.82); transform: scale(1.02); transition: transform 0.55s var(--ease), filter 0.55s var(--ease); }
-.photo-gallery-item::before { content: ""; position: absolute; z-index: 1; inset: 0; background: rgba(13, 94, 157, 0.28); mix-blend-mode: color; pointer-events: none; transition: opacity 0.45s var(--ease); }
+.photo-gallery-item img { width: 100%; height: 100%; display: block; object-fit: cover; transform: scale(1.02); transition: transform 0.55s var(--ease); }
 .photo-gallery-item::after { content: ""; position: absolute; z-index: 2; inset: 45% 0 0; background: linear-gradient(transparent, rgba(6, 48, 79, 0.9)); pointer-events: none; }
 .photo-gallery-item span { position: absolute; z-index: 3; left: 16px; bottom: 14px; color: var(--white); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
 .photo-gallery-item span::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 9px; background: var(--orange); }
 .photo-gallery-item:hover, .photo-gallery-item:focus-visible { border-color: rgba(255, 255, 255, 0.62); }
-.photo-gallery-item:hover img, .photo-gallery-item:focus-visible img { transform: scale(1.075); filter: grayscale(0) saturate(1.03) contrast(1.02) brightness(1); }
-.photo-gallery-item:hover::before, .photo-gallery-item:focus-visible::before { opacity: 0; }
+.photo-gallery-item:hover img, .photo-gallery-item:focus-visible img { transform: scale(1.075); }
 
 /* ---------- Media kit ---------- */
 .media-kit-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
@@ -1912,7 +1896,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 
 @media (hover: none) {
   .btn:hover,
-  .hero-calendar a:hover,
+  .hero-calendar:hover,
   .theme-card:hover,
   .link-tile:hover,
   .session-card:hover,
