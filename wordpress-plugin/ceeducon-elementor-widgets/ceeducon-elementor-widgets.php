@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CEEDUCON Elementor Widgets
  * Description: Native CEEDUCON section widgets for Elementor Free, rendered by the CEEDUCON theme.
- * Version: 1.0.3
+ * Version: 1.1.3
  * Requires at least: 6.4
  * Requires PHP: 8.0
  * Requires Plugins: elementor
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('CEEDUCON_ELEMENTOR_WIDGETS_VERSION', '1.0.3');
+define('CEEDUCON_ELEMENTOR_WIDGETS_VERSION', '1.1.3');
 define('CEEDUCON_ELEMENTOR_WIDGETS_FILE', __FILE__);
 define('CEEDUCON_ELEMENTOR_WIDGETS_PATH', plugin_dir_path(__FILE__));
 

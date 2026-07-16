@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ceeducon/testimonials",
+  "version": "1.0.0",
+  "title": "Reference",
+  "category": "ceeducon-sections",
+  "icon": "format-quote",
+  "description": "Reference nebo citace účastníků v eventovém stylu.",
+  "textdomain": "ceeducon-program",
+  "attributes": {
+    "kicker": { "type": "string", "default": "Voices from the conference" },
+    "title": { "type": "string", "default": "What participants value at CEEDUCON." },
+    "intro": { "type": "string", "default": "Use this section for short quotes from participants, speakers or partners." },
+    "items": {
+      "type": "array",
+      "default": [
+        { "quote": "A focused place to compare real approaches to internationalisation with peers from across Europe.", "name": "Participant", "role": "International office" },
+        { "quote": "The mix of policy, practice and informal exchange makes the programme genuinely useful.", "name": "Speaker", "role": "Higher education expert" },
+        { "quote": "CEEDUCON gives Central European cooperation a visible and practical meeting point.", "name": "Partner", "role": "National agency" }
+      ]
+    },
+    "dark": { "type": "boolean", "default": true }
+  },
+  "supports": { "html": false, "align": false, "color": false, "spacing": false, "typography": false },
+  "editorScript": "file:./edit.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "render": "file:./render.php"
+}

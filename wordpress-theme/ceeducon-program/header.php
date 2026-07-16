@@ -21,7 +21,7 @@
           <?php if ($custom_logo_id > 0) : ?>
             <?php echo wp_get_attachment_image($custom_logo_id, 'full', false, ['class' => 'custom-logo', 'decoding' => 'async']); ?>
           <?php else : ?>
-            <img src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-horizontal-white.png')); ?>" alt="CEEDUCON" width="1182" height="604" decoding="async" />
+            <img class="brand-mark" src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-vertical.svg')); ?>" alt="" width="145" height="283" decoding="async" />
           <?php endif; ?>
         </a>
         <?php ceeducon_render_navigation('header-nav', __('Main navigation', 'ceeducon-program')); ?>

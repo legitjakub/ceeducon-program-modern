@@ -13,46 +13,29 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
 
     <main id="main">
       <section class="hero">
-        <span class="hero-ghost" aria-hidden="true">2026</span>
-        <div class="hero-ring" aria-hidden="true"></div>
+        <div class="hero-media">
+          <img src="<?php echo esc_url(ceeducon_text_value('home_hero_image_url', ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg'))); ?>" alt="<?php echo esc_attr(ceeducon_text_value('home_hero_image_alt', 'A packed CEEDUCON plenary session')); ?>" width="1600" height="1064" decoding="async" fetchpriority="high" />
+        </div>
         <div class="hero-inner shell">
           <div class="hero-copy">
-            <p class="hero-kicker"><?php ceeducon_text('home_hero_kicker', 'Central European Conference on Internationalisation of Higher Education'); ?></p>
-            <h1><?php ceeducon_html('home_hero_title', 'Where Central Europe <em>meets the world</em> of higher education.'); ?></h1>
-            <p class="hero-lead"><?php ceeducon_text('home_hero_lead', 'CEEDUCON brings together university leaders, international office professionals, policymakers and national agencies to advance cooperation, strategy and innovation in international higher education.'); ?></p>
-            <div class="hero-meta" aria-label="Event highlights">
-              <span><?php ceeducon_html('home_meta_1', '<strong>1–2 December</strong> 2026'); ?></span>
-              <span><?php ceeducon_html('home_meta_2', '<strong>O2 universum</strong> Prague'); ?></span>
-              <span><?php ceeducon_html('home_meta_3', '<strong>Free</strong> of charge'); ?></span>
-              <span><?php ceeducon_html('home_meta_4', '<strong>English</strong>'); ?></span>
-            </div>
+            <p class="hero-kicker"><?php ceeducon_text('home_hero_kicker', 'CEEDUCON 2026 · Prague'); ?></p>
+            <h1><?php ceeducon_html('home_hero_title', 'Central Europe <em>meets the world</em> of higher education.'); ?></h1>
+            <p class="hero-lead"><?php ceeducon_text('home_hero_lead', 'Two days of practical exchange for university leaders, international offices, policymakers and national agencies.'); ?></p>
             <div class="hero-actions" aria-label="Quick actions">
-              <a class="btn btn--primary" href="<?php echo esc_url(ceeducon_page_url('programme')); ?>"><?php ceeducon_text('home_cta_primary', 'Explore the programme'); ?></a>
-              <a class="btn btn--ghost" href="<?php echo esc_url(ceeducon_page_url('about')); ?>"><?php ceeducon_text('home_cta_secondary', 'About the conference'); ?></a>
+              <a class="btn btn--primary" href="<?php echo esc_url(ceeducon_page_url('programme')); ?>"><?php ceeducon_text('home_cta_primary', 'Explore programme'); ?></a>
+              <a class="btn btn--ghost" href="<?php echo esc_url(ceeducon_page_url('practical')); ?>"><?php ceeducon_text('home_cta_secondary', 'Plan your visit'); ?></a>
             </div>
-            <p class="countdown-strip" data-countdown aria-label="Countdown to CEEDUCON 2026">
-              <strong data-countdown-days>149</strong>
-              <span><?php ceeducon_text('countdown_suffix', 'days to the conference'); ?></span>
-            </p>
           </div>
-          <aside class="event-card" aria-label="Conference essentials">
-            <div class="event-date">
-              <strong><?php ceeducon_text('event_day', '1–2'); ?></strong>
-              <span><?php ceeducon_html('event_month', 'DEC<br />2026'); ?></span>
-            </div>
-            <div class="event-card-row"><span><?php ceeducon_text('event_row_1_label', 'Venue'); ?></span><strong><?php ceeducon_text('event_row_1_value', 'O2 universum Prague'); ?></strong></div>
-            <div class="event-card-row"><span><?php ceeducon_text('event_row_2_label', 'Format'); ?></span><strong><?php ceeducon_text('event_row_2_value', 'Two conference days onsite'); ?></strong></div>
-            <div class="event-card-row"><span><?php ceeducon_text('event_row_3_label', 'Fee'); ?></span><strong><?php ceeducon_text('event_row_3_value', 'Free of charge'); ?></strong></div>
-            <div class="event-card-row"><span><?php ceeducon_text('event_row_4_label', 'Registration'); ?></span><strong><?php ceeducon_text('event_row_4_value', 'Opens in September'); ?></strong></div>
-            <a href="<?php echo esc_url(ceeducon_page_url('practical')); ?>"><?php ceeducon_text('event_cta', 'Plan your visit'); ?> <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"></path></svg></span></a>
-            <a href="<?php echo esc_url(ceeducon_text_value('event_calendar_url', ceeducon_asset_url('assets/ceeducon-2026.ics'))); ?>" download><?php ceeducon_text('event_calendar_label', 'Add to calendar'); ?> <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span></a>
-          </aside>
         </div>
-        <div class="hero-stats shell" aria-label="Conference in numbers">
-          <div><strong><?php ceeducon_text('stat_1_value', '2'); ?></strong><span><?php ceeducon_text('stat_1_label', 'conference days'); ?></span></div>
-          <div><strong><?php ceeducon_text('stat_2_value', '900+'); ?></strong><span><?php ceeducon_text('stat_2_label', 'participants in 2025'); ?></span></div>
-          <div><strong><?php ceeducon_text('stat_3_value', '130+'); ?></strong><span><?php ceeducon_text('stat_3_label', 'speakers in 2025'); ?></span></div>
-          <div><strong><?php ceeducon_text('stat_4_value', '70+'); ?></strong><span><?php ceeducon_text('stat_4_label', 'sessions in 2026'); ?></span></div>
+        <div class="hero-facts-wrap">
+          <div class="hero-facts shell" aria-label="Conference essentials">
+            <div class="hero-date"><strong><?php ceeducon_text('event_day', '1–2'); ?></strong><span><?php ceeducon_html('event_month', 'DEC<br />2026'); ?></span></div>
+            <div class="hero-fact hero-fact--1"><span><?php ceeducon_text('event_row_1_label', 'Venue'); ?></span><strong><?php ceeducon_text('event_row_1_value', 'O2 universum Prague'); ?></strong></div>
+            <div class="hero-fact hero-fact--2"><span><?php ceeducon_text('event_row_2_label', 'Format'); ?></span><strong><?php ceeducon_text('event_row_2_value', 'Two conference days onsite'); ?></strong></div>
+            <div class="hero-fact hero-fact--3"><span><?php ceeducon_text('event_row_3_label', 'Fee'); ?></span><strong><?php ceeducon_text('event_row_3_value', 'Free of charge'); ?></strong></div>
+            <div class="hero-fact hero-fact--4"><span><?php ceeducon_text('event_row_4_label', 'Registration'); ?></span><strong><?php ceeducon_text('event_row_4_value', 'Opens in September'); ?></strong></div>
+            <a class="hero-calendar" href="<?php echo esc_url(ceeducon_text_value('event_calendar_url', ceeducon_asset_url('assets/ceeducon-2026.ics'))); ?>" download><?php ceeducon_text('event_calendar_label', 'Add to calendar'); ?> <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span></a>
+          </div>
         </div>
       </section>
 
@@ -78,42 +61,36 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
         </div>
       </section>
 
-      <section class="section section--media">
-        <div class="shell media-showcase">
-          <div class="media-copy" data-reveal>
-            <p class="kicker"><?php ceeducon_text('media_kicker', 'Conference atmosphere'); ?></p>
-            <h2 class="display-2"><?php ceeducon_text('media_title', 'A professional setting for exchange.'); ?></h2>
-            <p><?php ceeducon_text('media_text', 'CEEDUCON brings the international higher education community together through plenaries, workshops, hallway conversations and practical exchange across the whole venue.'); ?></p>
-            <div class="media-actions">
-              <a class="btn btn--primary" href="<?php echo esc_url(ceeducon_page_url('programme')); ?>"><?php ceeducon_text('media_button_primary', 'Browse programme'); ?></a>
-              <button class="btn btn--outline" type="button" data-lightbox="<?php echo esc_url(ceeducon_text_value('media_hero_url', ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg'))); ?>" data-lightbox-caption="<?php echo esc_attr(ceeducon_text_value('media_hero_caption', 'CEEDUCON plenary session')); ?>"><?php ceeducon_text('media_button_secondary', 'Open photo'); ?></button>
-            </div>
-          </div>
-          <div class="media-mosaic" aria-label="<?php esc_attr_e('CEEDUCON photo gallery', 'ceeducon-program'); ?>" data-reveal="2">
-            <?php
-            $media_items = [
-                ['media_hero_url', 'assets/media/ceeducon-photo-plenary.jpg', 'media_hero_alt', 'CEEDUCON plenary session with a full audience', 'media_hero_label', 'Plenary', 'media_hero_caption', 'CEEDUCON plenary session', 'media-tile--large'],
-                ['media_image_1_url', 'assets/media/ceeducon-photo-networking.jpg', 'media_image_1_alt', 'CEEDUCON participants talking during a networking break', 'media_image_1_label', 'Networking', 'media_image_1_caption', 'CEEDUCON networking moment', ''],
-                ['media_image_2_url', 'assets/media/ceeducon-photo-workshop.jpg', 'media_image_2_alt', 'CEEDUCON workshop with participants seated around tables', 'media_image_2_label', 'Workshops', 'media_image_2_caption', 'CEEDUCON workshop room', ''],
-                ['media_image_3_url', 'assets/media/ceeducon-photo-registration.jpg', 'media_image_3_alt', 'Participants arriving and registering at CEEDUCON', 'media_image_3_label', 'Arrival', 'media_image_3_caption', 'CEEDUCON registration and arrival', ''],
-                ['media_image_4_url', 'assets/media/ceeducon-photo-accessibility.jpg', 'media_image_4_alt', 'CEEDUCON participants speaking in an accessible lounge area', 'media_image_4_label', 'Access', 'media_image_4_caption', 'CEEDUCON inclusive conference atmosphere', ''],
-            ];
-            foreach ($media_items as [$url_key, $default_url, $alt_key, $default_alt, $label_key, $default_label, $caption_key, $default_caption, $class]) :
-                $url = ceeducon_text_value($url_key, ceeducon_asset_url($default_url));
-                $alt = ceeducon_text_value($alt_key, $default_alt);
-                $label = ceeducon_text_value($label_key, $default_label);
-                $caption = ceeducon_text_value($caption_key, $default_caption);
-                ?>
-                <button class="media-tile <?php echo esc_attr($class); ?>" type="button" data-lightbox="<?php echo esc_url($url); ?>" data-lightbox-caption="<?php echo esc_attr($caption); ?>">
-                  <img src="<?php echo esc_url($url); ?>" alt="<?php echo esc_attr($alt); ?>" loading="lazy" decoding="async" />
-                  <span><?php echo esc_html($label); ?></span>
-                </button>
-            <?php endforeach; ?>
-          </div>
-        </div>
-      </section>
+      <?php
+      ceeducon_print_section('video', [
+          'kicker' => ceeducon_text_value('home_video_kicker', 'CEEDUCON in motion'),
+          'title' => ceeducon_text_value('home_video_title', 'See the conference come to life.'),
+          'text' => ceeducon_text_value('home_video_text', 'Step inside CEEDUCON and experience the plenaries, practical sessions and conversations that connect the international higher education community.'),
+          'videoUrl' => ceeducon_text_value('home_video_url', 'https://www.youtube.com/watch?v=oad5sn8ku1c'),
+          'videoTitle' => ceeducon_text_value('home_video_accessible_title', 'CEEDUCON conference video'),
+          'buttonText' => ceeducon_text_value('home_video_button', 'Watch on YouTube'),
+          'caption' => ceeducon_text_value('home_video_caption', 'Highlights from CEEDUCON'),
+      ]);
+      ?>
 
-      <section class="section section--navy on-dark">
+      <?php
+      ceeducon_print_section('photo-gallery', [
+          'kicker' => ceeducon_text_value('media_kicker', 'Conference atmosphere'),
+          'title' => ceeducon_text_value('media_title', 'The people and conversations behind the programme.'),
+          'text' => ceeducon_text_value('media_text', 'Plenaries, workshops and informal conversations make CEEDUCON a practical meeting point for the international higher education community.'),
+          'buttonText' => ceeducon_text_value('media_button_primary', 'Browse programme'),
+          'buttonUrl' => ceeducon_page_url('programme'),
+          'items' => [
+              ['imageUrl' => ceeducon_text_value('media_hero_url', ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg')), 'imageAlt' => ceeducon_text_value('media_hero_alt', 'CEEDUCON plenary session with a full audience'), 'label' => ceeducon_text_value('media_hero_label', 'Plenary')],
+              ['imageUrl' => ceeducon_text_value('media_image_1_url', ceeducon_asset_url('assets/media/ceeducon-photo-networking.jpg')), 'imageAlt' => ceeducon_text_value('media_image_1_alt', 'CEEDUCON participants talking during a networking break'), 'label' => ceeducon_text_value('media_image_1_label', 'Networking')],
+              ['imageUrl' => ceeducon_text_value('media_image_2_url', ceeducon_asset_url('assets/media/ceeducon-photo-workshop.jpg')), 'imageAlt' => ceeducon_text_value('media_image_2_alt', 'CEEDUCON workshop with participants seated around tables'), 'label' => ceeducon_text_value('media_image_2_label', 'Workshops')],
+              ['imageUrl' => ceeducon_text_value('media_image_3_url', ceeducon_asset_url('assets/media/ceeducon-photo-registration.jpg')), 'imageAlt' => ceeducon_text_value('media_image_3_alt', 'Participants arriving and registering at CEEDUCON'), 'label' => ceeducon_text_value('media_image_3_label', 'Arrival')],
+              ['imageUrl' => ceeducon_text_value('media_image_4_url', ceeducon_asset_url('assets/media/ceeducon-photo-accessibility.jpg')), 'imageAlt' => ceeducon_text_value('media_image_4_alt', 'CEEDUCON participants speaking in an accessible lounge area'), 'label' => ceeducon_text_value('media_image_4_label', 'Community')],
+          ],
+      ]);
+      ?>
+
+      <section class="section section--tint theme-section-light">
         <div class="shell">
           <div class="section-head">
             <div data-reveal>
@@ -147,7 +124,7 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
         </div>
       </section>
 
-      <section class="section section--paper">
+      <section class="section">
         <div class="shell">
           <div class="section-head">
             <div data-reveal>
@@ -184,7 +161,7 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
         </div>
       </section>
 
-      <section class="section">
+      <section class="section section--paper">
         <div class="shell feature-split" data-reveal>
           <div>
             <p class="kicker"><?php ceeducon_text('home_venue_kicker', 'Venue'); ?></p>
@@ -200,7 +177,7 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
         </div>
       </section>
 
-      <section class="section section--paper">
+      <section class="section section--tint">
         <div class="shell">
           <div class="section-head">
             <div data-reveal>
@@ -209,20 +186,35 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
             </div>
           </div>
           <div class="tile-grid">
-            <a class="link-tile" href="<?php echo esc_url(ceeducon_page_url('practical')); ?>" data-reveal>
-              <span><?php ceeducon_text('home_link_1_label', 'Practical'); ?></span>
-              <h3><?php ceeducon_text('home_link_1_title', 'Getting to the conference'); ?></h3>
-              <p><?php ceeducon_text('home_link_1_text', 'Venue, transport from the airport and stations, accessibility and accommodation tips.'); ?></p>
+            <a class="link-tile link-tile--media" href="<?php echo esc_url(ceeducon_page_url('practical')); ?>" data-reveal>
+              <span class="link-tile-media">
+                <img src="<?php ceeducon_url('home_link_1_image_url', ceeducon_asset_url('assets/media/ceeducon-photo-registration.jpg')); ?>" alt="<?php ceeducon_attr('home_link_1_image_alt', 'Participants arriving and registering at CEEDUCON'); ?>" width="1600" height="1064" loading="lazy" decoding="async" />
+              </span>
+              <span class="link-tile-body">
+                <span class="link-tile-label"><?php ceeducon_text('home_link_1_label', 'Practical'); ?></span>
+                <h3><?php ceeducon_text('home_link_1_title', 'Getting to the conference'); ?></h3>
+                <p><?php ceeducon_text('home_link_1_text', 'Venue, transport from the airport and stations, accessibility and accommodation tips.'); ?></p>
+              </span>
             </a>
-            <a class="link-tile" href="<?php echo esc_url(ceeducon_page_url('speakers')); ?>" data-reveal="2">
-              <span><?php ceeducon_text('home_link_2_label', 'For speakers'); ?></span>
-              <h3><?php ceeducon_text('home_link_2_title', 'Speaking at CEEDUCON'); ?></h3>
-              <p><?php ceeducon_text('home_link_2_text', 'Session expectations, onsite delivery, timeline and speaker support in one overview.'); ?></p>
+            <a class="link-tile link-tile--media" href="<?php echo esc_url(ceeducon_page_url('speakers')); ?>" data-reveal="2">
+              <span class="link-tile-media">
+                <img src="<?php ceeducon_url('home_link_2_image_url', ceeducon_asset_url('assets/media/ceeducon-photo-workshop.jpg')); ?>" alt="<?php ceeducon_attr('home_link_2_image_alt', 'A CEEDUCON speaker leading a workshop'); ?>" width="1600" height="1064" loading="lazy" decoding="async" />
+              </span>
+              <span class="link-tile-body">
+                <span class="link-tile-label"><?php ceeducon_text('home_link_2_label', 'For speakers'); ?></span>
+                <h3><?php ceeducon_text('home_link_2_title', 'Speaking at CEEDUCON'); ?></h3>
+                <p><?php ceeducon_text('home_link_2_text', 'Session expectations, onsite delivery, timeline and speaker support in one overview.'); ?></p>
+              </span>
             </a>
-            <a class="link-tile" href="<?php echo esc_url(ceeducon_page_url('contact')); ?>" data-reveal="3">
-              <span><?php ceeducon_text('home_link_3_label', 'Contact'); ?></span>
-              <h3><?php ceeducon_text('home_link_3_title', 'Talk to the team'); ?></h3>
-              <p><?php ceeducon_text('home_link_3_text', 'Use the contact page for registration, programme, speaker or partnership questions.'); ?></p>
+            <a class="link-tile link-tile--media" href="<?php echo esc_url(ceeducon_page_url('media')); ?>" data-reveal="3">
+              <span class="link-tile-media">
+                <img src="<?php ceeducon_url('home_link_3_image_url', ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg')); ?>" alt="<?php ceeducon_attr('home_link_3_image_alt', 'A packed CEEDUCON plenary session'); ?>" width="1600" height="1064" loading="lazy" decoding="async" />
+              </span>
+              <span class="link-tile-body">
+                <span class="link-tile-label"><?php ceeducon_text('home_link_3_label', 'Media kit'); ?></span>
+                <h3><?php ceeducon_text('home_link_3_title', 'Official assets and press information'); ?></h3>
+                <p><?php ceeducon_text('home_link_3_text', 'Download approved visuals, find press updates and contact the team for media requests.'); ?></p>
+              </span>
             </a>
           </div>
         </div>

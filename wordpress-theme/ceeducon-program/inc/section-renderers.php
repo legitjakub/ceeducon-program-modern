@@ -26,6 +26,8 @@ function ceeducon_render_section(string $section, array $attributes = []): strin
         'contact',
         'posts',
         'programme-grid',
+        'photo-gallery',
+        'video',
     ];
 
     if (!in_array($section, $allowed, true)) {

@@ -21,6 +21,8 @@ function ceeducon_theme_setup(): void
     add_theme_support('responsive-embeds');
     add_theme_support('align-wide');
     add_theme_support('editor-styles');
+    add_theme_support('wp-block-styles');
+    add_theme_support('automatic-feed-links');
     add_theme_support('html5', [
         'search-form',
         'comment-form',
@@ -36,6 +38,8 @@ function ceeducon_theme_setup(): void
     register_nav_menus([
         'primary' => __('Primary navigation', 'ceeducon-program'),
     ]);
+
+    add_image_size('ceeducon-gallery', 900, 900, true);
 }
 add_action('after_setup_theme', 'ceeducon_theme_setup');
 
@@ -181,6 +185,26 @@ function ceeducon_elementor_support(): void
 }
 add_action('after_setup_theme', 'ceeducon_elementor_support');
 
+/**
+ * Keep animated section content visible inside the Elementor editor preview.
+ *
+ * Elementor renders the page in an iframe with an `elementor-preview` query
+ * parameter. The normal reveal observer is not guaranteed to run there, so a
+ * stable theme-owned class lets CSS disable only the editor-side animation.
+ *
+ * @param string[] $classes Existing body classes.
+ * @return string[]
+ */
+function ceeducon_elementor_preview_body_class(array $classes): array
+{
+    if (isset($_GET['elementor-preview'])) {
+        $classes[] = 'ceeducon-elementor-preview';
+    }
+
+    return $classes;
+}
+add_filter('body_class', 'ceeducon_elementor_preview_body_class');
+
 function ceeducon_asset_url(string $path): string
 {
     return get_template_directory_uri() . '/' . ltrim($path, '/');
@@ -205,6 +229,143 @@ function ceeducon_html(string $key, string $default): void
 {
     echo wp_kses_post(ceeducon_text_value($key, $default));
 }
+
+/**
+ * Detect plugins that already own page metadata so the theme never emits
+ * duplicate descriptions or social cards.
+ */
+function ceeducon_has_seo_plugin(): bool
+{
+    $detected = defined('WPSEO_VERSION')
+        || defined('RANK_MATH_VERSION')
+        || defined('SEOPRESS_VERSION')
+        || defined('AIOSEO_VERSION')
+        || class_exists('The_SEO_Framework\\Load');
+
+    return (bool) apply_filters('ceeducon_has_seo_plugin', $detected);
+}
+
+function ceeducon_seo_description(): string
+{
+    if (is_singular() && has_excerpt()) {
+        return wp_strip_all_tags((string) get_the_excerpt());
+    }
+
+    $defaults = [
+        'home' => 'CEEDUCON 2026 — Central European Conference on Internationalisation of Higher Education. 1–2 December 2026, O2 universum Prague.',
+        'about' => 'About CEEDUCON, the Central European Conference on Internationalisation of Higher Education, organised by DZS with partners across the region.',
+        'programme' => 'Browse the interactive CEEDUCON 2026 programme for 1–2 December at O2 universum Prague: sessions, workshops, rooms and speakers.',
+        'practical' => 'Practical information for CEEDUCON 2026: venue, transport, accessibility and accommodation in Prague.',
+        'speakers' => 'Meet featured CEEDUCON 2026 contributors and find practical information, milestones and support for confirmed speakers.',
+        'media' => 'CEEDUCON 2026 media kit: official visuals, brand assets, press information and media contact.',
+        'contact' => 'Contact the CEEDUCON 2026 organising team about registration, programme, speakers, partnerships or media requests.',
+    ];
+
+    $slug = is_front_page() ? 'home' : (string) get_post_field('post_name', get_queried_object_id());
+    $default = $defaults[$slug] ?? get_bloginfo('description');
+
+    return trim(wp_strip_all_tags(ceeducon_text_value('seo_' . $slug . '_description', $default)));
+}
+
+function ceeducon_social_image(): array
+{
+    if (is_singular() && has_post_thumbnail()) {
+        $image = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
+        if (is_array($image)) {
+            $alt = (string) get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true);
+            return [
+                'url' => (string) $image[0],
+                'width' => (int) $image[1],
+                'height' => (int) $image[2],
+                'alt' => $alt !== '' ? $alt : (string) get_the_title(get_post_thumbnail_id()),
+            ];
+        }
+    }
+
+    return [
+        'url' => ceeducon_asset_url('assets/media/ceeducon-2026-official-banner.png'),
+        'width' => 2162,
+        'height' => 1067,
+        'alt' => __('Official CEEDUCON 2026 conference visual', 'ceeducon-program'),
+    ];
+}
+
+/**
+ * Minimal production fallback for installations without an SEO plugin.
+ * WordPress core continues to own the title and canonical URL.
+ */
+function ceeducon_output_seo_fallback(): void
+{
+    if (is_admin() || is_feed() || is_robots() || (!is_front_page() && !is_singular()) || ceeducon_has_seo_plugin()) {
+        return;
+    }
+
+    $description = ceeducon_seo_description();
+    $title = wp_get_document_title();
+    $url = is_singular() ? get_permalink() : home_url('/');
+    $image = ceeducon_social_image();
+
+    if ($description !== '') {
+        echo '<meta name="description" content="' . esc_attr($description) . '">' . "\n";
+    }
+    echo '<meta property="og:type" content="website">' . "\n";
+    echo '<meta property="og:locale" content="' . esc_attr(str_replace('-', '_', get_bloginfo('language'))) . '">' . "\n";
+    echo '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '">' . "\n";
+    echo '<meta property="og:title" content="' . esc_attr($title) . '">' . "\n";
+    echo '<meta property="og:description" content="' . esc_attr($description) . '">' . "\n";
+    echo '<meta property="og:url" content="' . esc_url($url) . '">' . "\n";
+    echo '<meta property="og:image" content="' . esc_url($image['url']) . '">' . "\n";
+    echo '<meta property="og:image:width" content="' . esc_attr((string) $image['width']) . '">' . "\n";
+    echo '<meta property="og:image:height" content="' . esc_attr((string) $image['height']) . '">' . "\n";
+    echo '<meta property="og:image:alt" content="' . esc_attr($image['alt']) . '">' . "\n";
+    echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+    echo '<meta name="twitter:title" content="' . esc_attr($title) . '">' . "\n";
+    echo '<meta name="twitter:description" content="' . esc_attr($description) . '">' . "\n";
+    echo '<meta name="twitter:image" content="' . esc_url($image['url']) . '">' . "\n";
+    echo '<meta name="twitter:image:alt" content="' . esc_attr($image['alt']) . '">' . "\n";
+}
+add_action('wp_head', 'ceeducon_output_seo_fallback', 5);
+
+function ceeducon_output_event_schema(): void
+{
+    if (!is_front_page()) {
+        return;
+    }
+
+    $schema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Event',
+        '@id' => home_url('/#ceeducon-2026'),
+        'name' => 'CEEDUCON 2026 — Central European Conference on Internationalisation of Higher Education',
+        'description' => ceeducon_seo_description(),
+        'startDate' => '2026-12-01T09:30:00+01:00',
+        'endDate' => '2026-12-02T16:00:00+01:00',
+        'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+        'eventStatus' => 'https://schema.org/EventScheduled',
+        'image' => [ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg')],
+        'url' => home_url('/'),
+        'inLanguage' => 'en',
+        'location' => [
+            '@type' => 'Place',
+            'name' => 'O2 universum',
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => 'Českomoravská 2345/17',
+                'addressLocality' => 'Praha 9',
+                'postalCode' => '190 00',
+                'addressCountry' => 'CZ',
+            ],
+        ],
+        'organizer' => [
+            '@type' => 'Organization',
+            'name' => 'Czech National Agency for International Education and Research (DZS)',
+            'url' => 'https://www.dzs.cz/',
+        ],
+    ];
+
+    echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>' . "\n";
+}
+add_action('wp_head', 'ceeducon_output_event_schema', 20);
 
 /**
  * URL of one of the conference pages (about, programme, practical, speakers, contact).
@@ -240,7 +401,8 @@ function ceeducon_nav_items(): array
         'about' => __('About', 'ceeducon-program'),
         'programme' => __('Programme', 'ceeducon-program'),
         'practical' => __('Practical', 'ceeducon-program'),
-        'speakers' => __('For speakers', 'ceeducon-program'),
+        'speakers' => __('Speakers', 'ceeducon-program'),
+        'media' => __('Media kit', 'ceeducon-program'),
         'contact' => __('Contact', 'ceeducon-program'),
     ];
 }
@@ -577,6 +739,8 @@ function ceeducon_allowed_block_types($allowed_block_types, WP_Block_Editor_Cont
         'ceeducon/contact',
         'ceeducon/posts',
         'ceeducon/programme-grid',
+        'ceeducon/photo-gallery',
+        'ceeducon/video',
         'core/paragraph',
         'core/heading',
         'core/list',
@@ -630,14 +794,15 @@ function ceeducon_page_block_templates(): array
                 'buttonText' => 'More about CEEDUCON',
                 'buttonUrl' => '/about/',
             ]],
-            ['ceeducon/image-text'],
+            ['ceeducon/video'],
+            ['ceeducon/photo-gallery'],
             ['ceeducon/cards', [
                 'kicker' => 'Plan ahead',
                 'title' => 'Find the essentials quickly.',
                 'items' => [
-                    ['label' => 'Programme', 'title' => 'Explore the two conference days', 'text' => 'Browse sessions, workshops, rooms and themes in the interactive programme.', 'url' => '/programme/'],
-                    ['label' => 'Practical', 'title' => 'Prepare your visit', 'text' => 'Venue, transport, accessibility and accommodation tips for Prague.', 'url' => '/practical/'],
-                    ['label' => 'For speakers', 'title' => 'Speaking at CEEDUCON', 'text' => 'Session expectations, milestones and speaker support in one place.', 'url' => '/speakers/'],
+                    ['label' => 'Practical', 'title' => 'Getting to the conference', 'text' => 'Venue, transport from the airport and stations, accessibility and accommodation tips.', 'url' => '/practical/', 'imageUrl' => ceeducon_asset_url('assets/media/ceeducon-photo-registration.jpg'), 'imageAlt' => 'Participants arriving and registering at CEEDUCON'],
+                    ['label' => 'For speakers', 'title' => 'Speaking at CEEDUCON', 'text' => 'Session expectations, onsite delivery, timeline and speaker support in one overview.', 'url' => '/speakers/', 'imageUrl' => ceeducon_asset_url('assets/media/ceeducon-photo-workshop.jpg'), 'imageAlt' => 'A CEEDUCON speaker leading a workshop'],
+                    ['label' => 'Media kit', 'title' => 'Official assets and press information', 'text' => 'Download approved visuals, find press updates and contact the team for media requests.', 'url' => '/media/', 'imageUrl' => ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg'), 'imageAlt' => 'A packed CEEDUCON plenary session'],
                 ],
             ]],
             ['ceeducon/cta'],
@@ -738,9 +903,9 @@ function ceeducon_page_block_templates(): array
         ]),
         'speakers' => ceeducon_page_template_content([
             ['ceeducon/page-hero', [
-                'crumb' => 'For speakers',
-                'title' => 'Information for speakers.',
-                'note' => 'A practical overview for confirmed and prospective CEEDUCON speakers: formats, deadlines, onsite delivery and support.',
+                'crumb' => 'Speakers',
+                'title' => 'Speakers at CEEDUCON.',
+                'note' => 'Meet featured contributors and find practical information about formats, milestones and support for confirmed CEEDUCON speakers.',
                 'cardLabel' => 'Speaker support',
                 'cardTitle' => 'Clear milestones',
                 'cardText' => 'Prepare your session, materials and onsite participation.',
@@ -791,6 +956,44 @@ function ceeducon_page_block_templates(): array
                 ],
             ]],
         ]),
+        'media' => ceeducon_page_template_content([
+            ['ceeducon/page-hero', [
+                'crumb' => 'Media kit',
+                'title' => 'Media resources.',
+                'note' => 'Official CEEDUCON 2026 visual assets, press information and a direct contact for journalists and partner organisations.',
+                'cardLabel' => 'Media contact',
+                'cardTitle' => 'ceeducon@dzs.cz',
+                'cardText' => 'Please include your outlet, deadline and the material you need.',
+                'orange' => true,
+            ]],
+            ['ceeducon/image-text', [
+                'kicker' => 'Official visual',
+                'title' => 'CEEDUCON 2026 banner.',
+                'text' => 'Use the official conference visual for editorial coverage and partner communication. Please preserve its proportions and colours.',
+                'imageUrl' => '/wp-content/themes/ceeducon-program/assets/media/ceeducon-2026-official-banner.png',
+                'imageAlt' => 'Official CEEDUCON 2026 conference banner',
+                'primaryText' => 'Download banner',
+                'primaryUrl' => '/wp-content/themes/ceeducon-program/assets/media/ceeducon-2026-official-banner.png',
+                'secondaryText' => '',
+                'secondaryUrl' => '',
+            ]],
+            ['ceeducon/cards', [
+                'kicker' => 'Downloads',
+                'title' => 'Ready-to-use media assets.',
+                'items' => [
+                    ['label' => 'Visual', 'title' => 'Conference banner', 'text' => 'Official CEEDUCON 2026 key visual for digital publication.', 'url' => '/wp-content/themes/ceeducon-program/assets/media/ceeducon-2026-official-banner.png'],
+                    ['label' => 'Logo', 'title' => 'CEEDUCON logo', 'text' => 'Horizontal conference logo for dark backgrounds.', 'url' => '/wp-content/themes/ceeducon-program/assets/ceeducon-logo-horizontal-white.png'],
+                    ['label' => 'Partners', 'title' => 'Partner logo row', 'text' => 'The official row of CEEDUCON partner and organiser logos.', 'url' => '/wp-content/themes/ceeducon-program/assets/media/ceeducon-partner-logos-white.png'],
+                ],
+            ]],
+            ['ceeducon/text-section', [
+                'kicker' => 'Press releases',
+                'title' => 'News for media and partners.',
+                'text' => 'Press releases and approved announcements can be added here as they are published. Each item remains normal HTML content that can be indexed and linked.',
+                'buttonText' => 'Contact the media team',
+                'buttonUrl' => 'mailto:ceeducon@dzs.cz',
+            ]],
+        ]),
     ];
 }
 
@@ -811,6 +1014,7 @@ function ceeducon_register_block_patterns(): void
         'practical' => __('CEEDUCON practical page', 'ceeducon-program'),
         'speakers' => __('CEEDUCON speakers page', 'ceeducon-program'),
         'contact' => __('CEEDUCON contact page', 'ceeducon-program'),
+        'media' => __('CEEDUCON media kit page', 'ceeducon-program'),
     ];
 
     foreach ($patterns as $key => $title) {
@@ -840,6 +1044,7 @@ function ceeducon_enqueue_editor_page_templates(): void
 
     wp_add_inline_script(
         'ceeducon-editor-page-templates',
+        'window.CEEDUCON_THEME_URL = ' . wp_json_encode(get_template_directory_uri()) . ';' .
         'window.CEEDUCON_PAGE_BLOCK_TEMPLATES = ' . wp_json_encode(ceeducon_page_block_templates()) . ';',
         'before'
     );
@@ -853,6 +1058,15 @@ add_action('enqueue_block_editor_assets', 'ceeducon_enqueue_editor_page_template
 function ceeducon_admin_content_fields(): array
 {
     return [
+        'SEO fallback (used only without an SEO plugin)' => [
+            ['seo_home_description', 'Homepage meta description', 'CEEDUCON 2026 — Central European Conference on Internationalisation of Higher Education. 1–2 December 2026, O2 universum Prague.', 'textarea'],
+            ['seo_about_description', 'About meta description', 'About CEEDUCON, the Central European Conference on Internationalisation of Higher Education, organised by DZS with partners across the region.', 'textarea'],
+            ['seo_programme_description', 'Programme meta description', 'Browse the interactive CEEDUCON 2026 programme for 1–2 December at O2 universum Prague: sessions, workshops, rooms and speakers.', 'textarea'],
+            ['seo_practical_description', 'Practical meta description', 'Practical information for CEEDUCON 2026: venue, transport, accessibility and accommodation in Prague.', 'textarea'],
+            ['seo_speakers_description', 'Speakers meta description', 'Meet featured CEEDUCON 2026 contributors and find practical information, milestones and support for confirmed speakers.', 'textarea'],
+            ['seo_media_description', 'Media kit meta description', 'CEEDUCON 2026 media kit: official visuals, brand assets, press information and media contact.', 'textarea'],
+            ['seo_contact_description', 'Contact meta description', 'Contact the CEEDUCON 2026 organising team about registration, programme, speakers, partnerships or media requests.', 'textarea'],
+        ],
         'Global — header & footer' => [
             ['footer_tagline', 'Footer tagline (HTML allowed)', 'Central European Conference on Internationalisation of Higher Education.<br />1–2 December 2026 · O2 universum Prague', 'textarea'],
             ['footer_email', 'Footer email', 'ceeducon@dzs.cz', 'text'],
@@ -862,18 +1076,15 @@ function ceeducon_admin_content_fields(): array
             ['footer_copyright', 'Copyright line', '© 2026 DZS — Czech National Agency for International Education and Research', 'text'],
         ],
         'Home — hero' => [
-            ['home_hero_kicker', 'Kicker', 'Central European Conference on Internationalisation of Higher Education', 'text'],
-            ['home_hero_title', 'Title (HTML allowed)', 'Where Central Europe <em>meets the world</em> of higher education.', 'textarea'],
-            ['home_hero_lead', 'Lead', 'CEEDUCON brings together university leaders, international office professionals, policymakers and national agencies to advance cooperation, strategy and innovation in international higher education.', 'textarea'],
-            ['home_meta_1', 'Meta chip 1 (HTML allowed)', '<strong>1–2 December</strong> 2026', 'textarea'],
-            ['home_meta_2', 'Meta chip 2 (HTML allowed)', '<strong>O2 universum</strong> Prague', 'textarea'],
-            ['home_meta_3', 'Meta chip 3 (HTML allowed)', '<strong>Free</strong> of charge', 'textarea'],
-            ['home_meta_4', 'Meta chip 4 (HTML allowed)', '<strong>English</strong>', 'textarea'],
-            ['home_cta_primary', 'Primary button', 'Explore the programme', 'text'],
-            ['home_cta_secondary', 'Secondary button', 'About the conference', 'text'],
-            ['countdown_suffix', 'Countdown suffix', 'days to the conference', 'text'],
-            ['event_day', 'Event card day', '1–2', 'text'],
-            ['event_month', 'Event card month (HTML allowed)', 'DEC<br />2026', 'textarea'],
+            ['home_hero_kicker', 'Kicker', 'CEEDUCON 2026 · Prague', 'text'],
+            ['home_hero_title', 'Title (HTML allowed)', 'Central Europe <em>meets the world</em> of higher education.', 'textarea'],
+            ['home_hero_lead', 'Lead', 'Two days of practical exchange for university leaders, international offices, policymakers and national agencies.', 'textarea'],
+            ['home_hero_image_url', 'Hero image URL', ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg'), 'url'],
+            ['home_hero_image_alt', 'Hero image alt text', 'A packed CEEDUCON plenary session', 'text'],
+            ['home_cta_primary', 'Primary button', 'Explore programme', 'text'],
+            ['home_cta_secondary', 'Secondary button', 'Plan your visit', 'text'],
+            ['event_day', 'Event date', '1–2', 'text'],
+            ['event_month', 'Event month (HTML allowed)', 'DEC<br />2026', 'textarea'],
             ['event_row_1_label', 'Event row 1 label', 'Venue', 'text'],
             ['event_row_1_value', 'Event row 1 value', 'O2 universum Prague', 'text'],
             ['event_row_2_label', 'Event row 2 label', 'Format', 'text'],
@@ -882,7 +1093,6 @@ function ceeducon_admin_content_fields(): array
             ['event_row_3_value', 'Event row 3 value', 'Free of charge', 'text'],
             ['event_row_4_label', 'Event row 4 label', 'Registration', 'text'],
             ['event_row_4_value', 'Event row 4 value', 'Opens in September', 'text'],
-            ['event_cta', 'Event card button', 'Plan your visit', 'text'],
             ['event_calendar_label', 'Calendar button', 'Add to calendar', 'text'],
             ['event_calendar_url', 'Calendar file URL', ceeducon_asset_url('assets/ceeducon-2026.ics'), 'url'],
             ['stat_1_value', 'Stat 1 value', '2', 'text'],
@@ -904,6 +1114,13 @@ function ceeducon_admin_content_fields(): array
             ['home_chip_3', 'Audience chip 3', 'Policymakers', 'text'],
             ['home_chip_4', 'Audience chip 4', 'National agencies', 'text'],
             ['home_about_button', 'About button', 'More about CEEDUCON', 'text'],
+            ['home_video_kicker', 'Video kicker', 'CEEDUCON in motion', 'text'],
+            ['home_video_title', 'Video title', 'See the conference come to life.', 'textarea'],
+            ['home_video_text', 'Video text', 'Step inside CEEDUCON and experience the plenaries, practical sessions and conversations that connect the international higher education community.', 'textarea'],
+            ['home_video_url', 'YouTube video URL', 'https://www.youtube.com/watch?v=oad5sn8ku1c', 'url'],
+            ['home_video_accessible_title', 'Accessible video title', 'CEEDUCON conference video', 'text'],
+            ['home_video_button', 'Video link text', 'Watch on YouTube', 'text'],
+            ['home_video_caption', 'Video caption', 'Highlights from CEEDUCON', 'text'],
             ['media_kicker', 'Media kicker', 'Conference atmosphere', 'text'],
             ['media_title', 'Media title', 'A professional setting for exchange.', 'textarea'],
             ['media_text', 'Media text', 'CEEDUCON brings the international higher education community together through plenaries, workshops, hallway conversations and practical exchange across the whole venue.', 'textarea'],
@@ -947,12 +1164,18 @@ function ceeducon_admin_content_fields(): array
             ['home_link_1_label', 'Quick link 1 label', 'Practical', 'text'],
             ['home_link_1_title', 'Quick link 1 title', 'Getting to the conference', 'text'],
             ['home_link_1_text', 'Quick link 1 text', 'Venue, transport from the airport and stations, accessibility and accommodation tips.', 'textarea'],
+            ['home_link_1_image_url', 'Quick link 1 image URL', ceeducon_asset_url('assets/media/ceeducon-photo-registration.jpg'), 'url'],
+            ['home_link_1_image_alt', 'Quick link 1 image alt text', 'Participants arriving and registering at CEEDUCON', 'text'],
             ['home_link_2_label', 'Quick link 2 label', 'For speakers', 'text'],
             ['home_link_2_title', 'Quick link 2 title', 'Speaking at CEEDUCON', 'text'],
             ['home_link_2_text', 'Quick link 2 text', 'Session expectations, onsite delivery, timeline and speaker support in one overview.', 'textarea'],
-            ['home_link_3_label', 'Quick link 3 label', 'Contact', 'text'],
-            ['home_link_3_title', 'Quick link 3 title', 'Talk to the team', 'text'],
-            ['home_link_3_text', 'Quick link 3 text', 'Use the contact page for registration, programme, speaker or partnership questions.', 'textarea'],
+            ['home_link_2_image_url', 'Quick link 2 image URL', ceeducon_asset_url('assets/media/ceeducon-photo-workshop.jpg'), 'url'],
+            ['home_link_2_image_alt', 'Quick link 2 image alt text', 'A CEEDUCON speaker leading a workshop', 'text'],
+            ['home_link_3_label', 'Quick link 3 label', 'Media kit', 'text'],
+            ['home_link_3_title', 'Quick link 3 title', 'Official assets and press information', 'text'],
+            ['home_link_3_text', 'Quick link 3 text', 'Download approved visuals, find press updates and contact the team for media requests.', 'textarea'],
+            ['home_link_3_image_url', 'Quick link 3 image URL', ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg'), 'url'],
+            ['home_link_3_image_alt', 'Quick link 3 image alt text', 'A packed CEEDUCON plenary session', 'text'],
             ['home_org_kicker', 'Organisers kicker', 'Organisers', 'text'],
             ['home_org_title', 'Organisers title', "Backed by Central Europe's national agencies.", 'textarea'],
             ['home_org_lead', 'Organisers lead (HTML allowed)', 'CEEDUCON is organised by DZS — the Czech National Agency for International Education and Research — in co-operation with partner organisations across the region. Reach the team at <a href="mailto:ceeducon@dzs.cz">ceeducon@dzs.cz</a>.', 'textarea'],
@@ -1068,9 +1291,9 @@ function ceeducon_admin_content_fields(): array
             ['venue_map_url', 'Map URL', 'https://www.google.com/maps/search/?api=1&query=O2%20universum%20Ceskomoravska%2017%20Prague', 'url'],
             ['venue_embed_url', 'Embedded map URL', 'https://www.google.com/maps?q=O2%20universum%20Ceskomoravska%2017%20Prague&output=embed', 'url'],
         ],
-        'For speakers page' => [
-            ['spk_hero_title', 'Hero title', 'Speaking at CEEDUCON.', 'textarea'],
-            ['spk_hero_note', 'Hero note', 'Guidance for accepted session contributors: format, onsite delivery, timeline and practical support before the conference.', 'textarea'],
+        'Speakers page' => [
+            ['spk_hero_title', 'Hero title', 'Speakers at CEEDUCON.', 'textarea'],
+            ['spk_hero_note', 'Hero note', 'Meet featured contributors and find practical information about formats, milestones and support for confirmed CEEDUCON speakers.', 'textarea'],
             ['spk_card_label', 'Hero card label', 'Programme publication', 'text'],
             ['spk_card_title', 'Hero card title', 'By September 1', 'text'],
             ['spk_card_text', 'Hero card text', 'Accepted speakers receive detailed follow-up information about registration, contracts and presentation materials.', 'textarea'],

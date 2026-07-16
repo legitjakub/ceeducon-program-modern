@@ -15,9 +15,9 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
       <section class="page-hero page-hero--orange">
         <div class="shell page-hero-grid">
           <div>
-            <p class="page-crumbs"><a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Home', 'ceeducon-program'); ?></a><span>/</span><em><?php esc_html_e('For speakers', 'ceeducon-program'); ?></em></p>
-            <h1><?php ceeducon_text('spk_hero_title', 'Speaking at CEEDUCON.'); ?></h1>
-            <p class="page-hero-note"><?php ceeducon_text('spk_hero_note', 'Guidance for accepted session contributors: format, onsite delivery, timeline and practical support before the conference.'); ?></p>
+            <p class="page-crumbs"><a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Home', 'ceeducon-program'); ?></a><span>/</span><em><?php esc_html_e('Speakers', 'ceeducon-program'); ?></em></p>
+            <h1><?php ceeducon_text('spk_hero_title', 'Speakers at CEEDUCON.'); ?></h1>
+            <p class="page-hero-note"><?php ceeducon_text('spk_hero_note', 'Meet featured contributors and find practical information about formats, milestones and support for confirmed CEEDUCON speakers.'); ?></p>
           </div>
           <div class="page-hero-card">
             <span><?php ceeducon_text('spk_card_label', 'Programme publication'); ?></span>

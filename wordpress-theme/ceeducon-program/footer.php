@@ -21,6 +21,12 @@
             </nav>
           </div>
         </div>
+        <div class="partner-logo-strip">
+          <picture>
+            <source media="(max-width: 720px)" srcset="<?php echo esc_url(ceeducon_asset_url('assets/media/ceeducon-partner-logos-mobile.png')); ?>" />
+            <img src="<?php echo esc_url(ceeducon_asset_url('assets/media/ceeducon-partner-logos-wide.png')); ?>" alt="<?php esc_attr_e('CEEDUCON organising and partner agencies', 'ceeducon-program'); ?>" width="2560" height="109" loading="lazy" decoding="async" />
+          </picture>
+        </div>
         <div class="footer-bottom">
           <p><?php ceeducon_text('footer_copyright', '© 2026 DZS — Czech National Agency for International Education and Research'); ?></p>
           <a href="#top"><?php esc_html_e('Back to top', 'ceeducon-program'); ?> <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 13V3M4 7l4-4 4 4"></path></svg></span></a>

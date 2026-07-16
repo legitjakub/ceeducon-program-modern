@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ceeducon/photo-gallery",
+  "version": "1.0.0",
+  "title": "Fotogalerie",
+  "category": "ceeducon-sections",
+  "icon": "images-alt2",
+  "description": "Editovatelná čtvercová galerie skutečných fotografií z konference.",
+  "textdomain": "ceeducon-program",
+  "attributes": {
+    "kicker": { "type": "string", "default": "Conference atmosphere" },
+    "title": { "type": "string", "default": "The people and conversations behind the programme." },
+    "text": { "type": "string", "default": "Plenaries, workshops and informal conversations make CEEDUCON a practical meeting point for the international higher education community." },
+    "items": {
+      "type": "array",
+      "default": [
+        { "imageId": 0, "imageUrl": "/wp-content/themes/ceeducon-program/assets/media/ceeducon-photo-plenary.jpg", "imageAlt": "CEEDUCON plenary session with a full audience", "label": "Plenary" },
+        { "imageId": 0, "imageUrl": "/wp-content/themes/ceeducon-program/assets/media/ceeducon-photo-networking.jpg", "imageAlt": "CEEDUCON participants during a networking break", "label": "Networking" },
+        { "imageId": 0, "imageUrl": "/wp-content/themes/ceeducon-program/assets/media/ceeducon-photo-workshop.jpg", "imageAlt": "CEEDUCON workshop with participants around tables", "label": "Workshops" },
+        { "imageId": 0, "imageUrl": "/wp-content/themes/ceeducon-program/assets/media/ceeducon-photo-registration.jpg", "imageAlt": "Participants arriving and registering at CEEDUCON", "label": "Arrival" },
+        { "imageId": 0, "imageUrl": "/wp-content/themes/ceeducon-program/assets/media/ceeducon-photo-accessibility.jpg", "imageAlt": "Participants speaking in an accessible conference lounge", "label": "Community" }
+      ]
+    },
+    "buttonText": { "type": "string", "default": "Browse programme" },
+    "buttonUrl": { "type": "string", "default": "/programme/" }
+  },
+  "supports": { "html": false, "align": false, "color": false, "spacing": false, "typography": false },
+  "editorScript": "file:./edit.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "render": "file:./render.php"
+}

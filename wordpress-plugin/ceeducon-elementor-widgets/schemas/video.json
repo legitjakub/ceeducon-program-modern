@@ -1,0 +1,11 @@
+{
+  "attributes": {
+    "kicker": { "type": "string", "default": "CEEDUCON in motion" },
+    "title": { "type": "string", "default": "See the conference come to life." },
+    "text": { "type": "string", "default": "Step inside CEEDUCON and experience the plenaries, practical sessions and conversations that connect the international higher education community." },
+    "videoUrl": { "type": "string", "default": "https://www.youtube.com/watch?v=oad5sn8ku1c" },
+    "videoTitle": { "type": "string", "default": "CEEDUCON conference video" },
+    "buttonText": { "type": "string", "default": "Watch on YouTube" },
+    "caption": { "type": "string", "default": "Highlights from CEEDUCON" }
+  }
+}

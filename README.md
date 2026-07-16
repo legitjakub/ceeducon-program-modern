@@ -1,6 +1,6 @@
 # CEEDUCON 2026 – vícestránkový konferenční web a programový modul
 
-Moderní vícestránkový web pro CEEDUCON 2026 (1.–2. prosince 2026, O2 universum Praha) se strukturou podle oficiálního webu: Home, About, Programme, Practical, Speakers a Contact. Součástí je interaktivní programový modul, který zatím ukazuje archivní data z CEEDUCON 2025 (jasně označená jako archive sample) a je připravený na oficiální program 2026.
+Moderní vícestránkový web pro CEEDUCON 2026 (1.–2. prosince 2026, O2 universum Praha) se strukturou: Home, About, Programme, Practical, Speakers, Media Kit a Contact. Součástí je interaktivní programový modul, který zatím ukazuje archivní data z CEEDUCON 2025 (jasně označená jako archive sample) a je připravený na oficiální program 2026.
 
 Live verze: <https://legitjakub.github.io/ceeducon-program-modern/>
 
@@ -18,13 +18,13 @@ Poté otevřete `http://localhost:8080`. Interaktivní program je na `programme.
 
 Design systém staví výhradně na brand identitě CEEDUCON:
 
-- tmavě modrá `#0d5e9d` (+ odvozené tmavší odstíny `#06304f`, `#041f35`),
+- tmavě modrá `#0d5e9d` (+ odvozený kontrastní odstín `#084c80`),
 - oranžová `#ec722f`,
 - světle modrá `#45c0ea`,
 - bílá `#ffffff`,
 - font **Tabac Sans** (woff2/woff v `assets/fonts`).
 
-Prvky: tmavý hero s jemným tečkovým rastrem a obrysovým „2026", glass panel s klíčovými údaji, editovatelná media galerie, číslované tematické karty, scroll-reveal animace (respektují `prefers-reduced-motion`), sticky hlavička měnící stav při scrollu a footer s obrysovým wordmarkem.
+Prvky: kompaktní tmavý hero s reálnou konferenční fotografií, editovatelná foto slideshow, regionální mapa, jednodušší číslované tematické karty, scroll-reveal animace (respektují `prefers-reduced-motion`), sticky hlavička a footer s logy partnerů.
 
 ## Funkce programového modulu
 
@@ -43,7 +43,8 @@ Prvky: tmavý hero s jemným tečkovým rastrem a obrysovým „2026", glass pan
 Struktura webu je navržená pro snadný převod do WordPressu:
 
 - programová data jsou oddělená v [`data/program.json`](data/program.json) (`rooms`, `themes`, `slots`),
-- ve WordPress verzi se všechny texty upravují v administraci přes **CEEDUCON Content** (hero, about, tematické oblasti, programme overview, practical, speakers, contact/footer i Programme JSON),
+- ve WordPress verzi se obsah stránek upravuje v nativních Gutenberg blocích nebo ve volitelných CEEDUCON Elementor widgetech; **CEEDUCON Content** zůstává jen jako kompatibilní fallback pro globální hodnoty a Programme JSON,
+- samostatná video sekce na homepage používá responzivní privacy-enhanced YouTube embed a je editovatelná jako Gutenberg blok i Elementor widget,
 - hlavní navigace používá nativní WordPress menu **Appearance → Menus → Primary navigation**,
 - brand paleta, šířky layoutu a editorový náhled fontu Tabac Sans jsou registrované přes `theme.json` a `css/editor-style.css`,
 - HTML ani JavaScript se při běžné změně obsahu neupravuje; frontend je bez frameworku a build kroku.
@@ -53,7 +54,7 @@ Struktura webu je navržená pro snadný převod do WordPressu:
 - zdrojová složka: [`wordpress-theme/ceeducon-program`](wordpress-theme/ceeducon-program)
 - ZIP pro nahrání: [`dist/ceeducon-program-wordpress-theme.zip`](dist/ceeducon-program-wordpress-theme.zip)
 
-Šablona je vícestránková (front-page + page šablony `about`, `programme`, `practical`, `speakers`, `contact` mapované podle slugů), sdílí CSS/JS se statickou verzí a všechny texty čte přes editovatelná pole s defaulty. Postup instalace je v [README šablony](wordpress-theme/ceeducon-program/README.md).
+Šablona je vícestránková (front-page + page šablony `about`, `programme`, `practical`, `speakers`, `media`, `contact` mapované podle slugů), sdílí CSS/JS se statickou verzí a podporuje editaci přes nativní bloky i volitelný Elementor Free plugin. Postup instalace je v [README šablony](wordpress-theme/ceeducon-program/README.md).
 
 Pro plnou produkční verzi je dalším krokem vlastní typ obsahu `session` (den, čas, místnost, linka, řečníci, anotace) a REST API ve stejné JSON struktuře — frontend zůstane beze změny.
 
@@ -64,7 +65,7 @@ assets/             loga CEEDUCON, DZS, favicon, font Tabac Sans
 css/styles.css      jediný design systém včetně print stylů
 data/program.json   editovatelná data programu (archiv 2025)
 dist/               ZIP balíček WordPress šablony
-js/site.js          menu, hlavička, countdown, scroll-reveal
+js/site.js          menu, hlavička, scroll-reveal a mobilní karusely
 js/program.js       vykreslení programu, filtry, modal, export
 js/program-data.js  vestavěná záložní data programu
 index.html          homepage
@@ -73,5 +74,6 @@ programme.html      2026 overview + interaktivní programový modul
 practical.html      venue, doprava, FAQ
 speakers.html       informace a timeline pro řečníky
 contact.html        kontakt, organizátor a partneři
+media.html          media kit, oficiální vizuály a press informace
 wordpress-theme/    uploadovatelná WordPress šablona
 ```

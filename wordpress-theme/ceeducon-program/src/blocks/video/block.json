@@ -1,0 +1,25 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ceeducon/video",
+  "version": "1.1.0",
+  "title": "Video sekce",
+  "category": "ceeducon-sections",
+  "icon": "video-alt3",
+  "description": "Responzivní video sekce s editovatelným textem a odkazem na YouTube.",
+  "textdomain": "ceeducon-program",
+  "attributes": {
+    "kicker": { "type": "string", "default": "CEEDUCON in motion" },
+    "title": { "type": "string", "default": "See the conference come to life." },
+    "text": { "type": "string", "default": "Step inside CEEDUCON and experience the plenaries, practical sessions and conversations that connect the international higher education community." },
+    "videoUrl": { "type": "string", "default": "https://www.youtube.com/watch?v=oad5sn8ku1c" },
+    "videoTitle": { "type": "string", "default": "CEEDUCON conference video" },
+    "buttonText": { "type": "string", "default": "Watch on YouTube" },
+    "caption": { "type": "string", "default": "Highlights from CEEDUCON" }
+  },
+  "supports": { "html": false, "align": false, "color": false, "spacing": false, "typography": false },
+  "editorScript": "file:./edit.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css",
+  "render": "file:./render.php"
+}

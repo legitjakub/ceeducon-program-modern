@@ -65,6 +65,10 @@
       return 'contact';
     }
 
+    if (/media|press/.test(probe)) {
+      return 'media';
+    }
+
     if (/about/.test(probe)) {
       return 'about';
     }

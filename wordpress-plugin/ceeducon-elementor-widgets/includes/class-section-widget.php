@@ -42,16 +42,37 @@ abstract class Section_Widget extends Widget_Base
 
     protected function register_controls(): void
     {
-        $this->start_controls_section('content', [
-            'label' => __('Content', 'ceeducon-elementor-widgets'),
-            'tab'   => Controls_Manager::TAB_CONTENT,
-        ]);
+        $groups = [
+            'content' => __('Main content', 'ceeducon-elementor-widgets'),
+            'items'   => __('Items', 'ceeducon-elementor-widgets'),
+            'details' => __('Additional details', 'ceeducon-elementor-widgets'),
+            'actions' => __('Buttons and links', 'ceeducon-elementor-widgets'),
+            'media'   => __('Media', 'ceeducon-elementor-widgets'),
+            'display' => __('Display', 'ceeducon-elementor-widgets'),
+        ];
+        $grouped_attributes = array_fill_keys(array_keys($groups), []);
 
         foreach ($this->attribute_schema() as $key => $definition) {
-            $this->register_attribute_control((string) $key, (array) $definition);
+            $group = $this->control_group((string) $key, (array) $definition);
+            $grouped_attributes[$group][(string) $key] = (array) $definition;
         }
 
-        $this->end_controls_section();
+        foreach ($groups as $group => $label) {
+            if (!$grouped_attributes[$group]) {
+                continue;
+            }
+
+            $this->start_controls_section('ceeducon_' . $group, [
+                'label' => $label,
+                'tab'   => Controls_Manager::TAB_CONTENT,
+            ]);
+
+            foreach ($grouped_attributes[$group] as $key => $definition) {
+                $this->register_attribute_control($key, $definition);
+            }
+
+            $this->end_controls_section();
+        }
     }
 
     protected function render(): void
@@ -71,17 +92,32 @@ abstract class Section_Widget extends Widget_Base
 
     private function attribute_schema(): array
     {
-        $file = get_template_directory() . '/src/blocks/' . $this->section_slug() . '/block.json';
-        if (!is_readable($file)) {
-            return [];
+        $relative_path = $this->section_slug() . '.json';
+        $candidates = [
+            get_template_directory() . '/src/blocks/' . $this->section_slug() . '/block.json',
+            CEEDUCON_ELEMENTOR_WIDGETS_PATH . 'schemas/' . $relative_path,
+        ];
+
+        foreach ($candidates as $file) {
+            if (!is_readable($file)) {
+                continue;
+            }
+
+            $metadata = json_decode((string) file_get_contents($file), true);
+            if (is_array($metadata['attributes'] ?? null)) {
+                return $metadata['attributes'];
+            }
         }
 
-        $metadata = json_decode((string) file_get_contents($file), true);
-        return is_array($metadata['attributes'] ?? null) ? $metadata['attributes'] : [];
+        return [];
     }
 
     private function register_attribute_control(string $key, array $definition): void
     {
+        if (in_array($key, ['imageId', 'logoId'], true)) {
+            return;
+        }
+
         $type = (string) ($definition['type'] ?? 'string');
         $default = $definition['default'] ?? ($type === 'boolean' ? false : '');
         $label = ucwords((string) preg_replace('/(?<!^)[A-Z]/', ' $0', $key));
@@ -125,19 +161,38 @@ abstract class Section_Widget extends Widget_Base
                 'type'        => Controls_Manager::URL,
                 'placeholder' => 'https://',
                 'default'     => ['url' => (string) $default],
+                'label_block' => true,
             ]);
             return;
         }
 
-        $rich_fields = ['title', 'text', 'secondText', 'intro', 'cardText', 'noteText'];
-        $textarea_fields = ['lead'];
-        $this->add_control($key, [
-            'label'   => $label,
-            'type'    => in_array($key, $rich_fields, true)
-                ? Controls_Manager::WYSIWYG
-                : (in_array($key, $textarea_fields, true) ? Controls_Manager::TEXTAREA : Controls_Manager::TEXT),
-            'default' => $default,
-        ]);
+        $textarea_fields = [
+            'title',
+            'lead',
+            'text',
+            'secondText',
+            'intro',
+            'note',
+            'cardTitle',
+            'cardText',
+            'noteText',
+            'partnersText',
+        ];
+        $control_type = in_array($key, $textarea_fields, true)
+            ? Controls_Manager::TEXTAREA
+            : Controls_Manager::TEXT;
+        $config = [
+            'label'       => $label,
+            'type'        => $control_type,
+            'default'     => $default,
+            'label_block' => true,
+        ];
+
+        if ($control_type === Controls_Manager::TEXTAREA) {
+            $config['rows'] = in_array($key, ['text', 'secondText', 'intro', 'noteText', 'cardText'], true) ? 5 : 3;
+        }
+
+        $this->add_control($key, $config);
     }
 
     private function register_array_control(string $key, string $label, array $default): void
@@ -155,20 +210,22 @@ abstract class Section_Widget extends Widget_Base
 
         $repeater = new Repeater();
         foreach (array_keys($first) as $item_key) {
-            $control_type = $this->ends_with((string) $item_key, 'url') || $this->ends_with((string) $item_key, 'Url')
-                ? Controls_Manager::URL
-                : (in_array($item_key, ['text', 'answer', 'quote'], true) ? Controls_Manager::TEXTAREA : Controls_Manager::TEXT);
+            $control_type = $item_key === 'imageUrl'
+                ? Controls_Manager::MEDIA
+                : (($this->ends_with((string) $item_key, 'url') || $this->ends_with((string) $item_key, 'Url'))
+                    ? Controls_Manager::URL
+                    : (in_array($item_key, ['text', 'answer', 'quote'], true) ? Controls_Manager::TEXTAREA : Controls_Manager::TEXT));
             $config = [
                 'label'   => ucwords((string) preg_replace('/(?<!^)[A-Z]/', ' $0', (string) $item_key)),
                 'type'    => $control_type,
-                'default' => $control_type === Controls_Manager::URL ? ['url' => ''] : '',
+                'default' => in_array($control_type, [Controls_Manager::URL, Controls_Manager::MEDIA], true) ? ['url' => ''] : '',
             ];
             $repeater->add_control((string) $item_key, $config);
         }
 
         $repeater_default = array_map(static function (array $item): array {
             foreach ($item as $item_key => $value) {
-                if (substr_compare((string) $item_key, 'url', -3) === 0 || substr_compare((string) $item_key, 'Url', -3) === 0) {
+                if ($item_key === 'imageUrl' || substr_compare((string) $item_key, 'url', -3) === 0 || substr_compare((string) $item_key, 'Url', -3) === 0) {
                     $item[$item_key] = ['url' => (string) $value];
                 }
             }
@@ -184,6 +241,54 @@ abstract class Section_Widget extends Widget_Base
         ]);
     }
 
+    private function control_group(string $key, array $definition): string
+    {
+        $type = (string) ($definition['type'] ?? 'string');
+
+        if ($type === 'boolean') {
+            return 'display';
+        }
+
+        if ($type === 'array') {
+            return 'items';
+        }
+
+        if (str_starts_with($key, 'image') || str_starts_with($key, 'logo')) {
+            return 'media';
+        }
+
+        if ($this->ends_with($key, 'Url') || in_array($key, [
+            'buttonText',
+            'primaryText',
+            'secondaryText',
+            'eventCtaText',
+            'calendarText',
+        ], true)) {
+            return 'actions';
+        }
+
+        if (in_array($key, [
+            'count',
+            'postType',
+            'email',
+            'phone',
+            'eventDay',
+            'eventMonth',
+            'noteLabel',
+            'noteTitle',
+            'noteText',
+            'cardLabel',
+            'cardTitle',
+            'cardText',
+            'partnersLabel',
+            'partnersText',
+        ], true)) {
+            return 'details';
+        }
+
+        return 'content';
+    }
+
     private function normalized_settings(): array
     {
         $settings = $this->get_settings_for_display();
@@ -191,6 +296,10 @@ abstract class Section_Widget extends Widget_Base
         $attributes = [];
 
         foreach ($schema as $key => $definition) {
+            if (in_array($key, ['imageId', 'logoId'], true)) {
+                continue;
+            }
+
             $type = (string) ($definition['type'] ?? 'string');
             $value = $settings[$key] ?? ($definition['default'] ?? '');
 
@@ -266,3 +375,5 @@ final class Programme_Widget extends Section_Widget
         parent::render();
     }
 }
+final class Photo_Gallery_Widget extends Section_Widget { protected function section_slug(): string { return 'photo-gallery'; } protected function section_title(): string { return __('Photo Gallery', 'ceeducon-elementor-widgets'); } }
+final class Video_Widget extends Section_Widget { protected function section_slug(): string { return 'video'; } protected function section_title(): string { return __('Video Section', 'ceeducon-elementor-widgets'); } }

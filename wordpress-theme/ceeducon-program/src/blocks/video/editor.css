@@ -1,0 +1,29 @@
+.video-feature-stage--editor {
+  min-height: clamp(240px, 32vw, 340px);
+  display: grid;
+  place-content: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.video-editor-play {
+  position: relative;
+  display: grid;
+  width: 72px;
+  height: 72px;
+  margin-inline: auto;
+  place-items: center;
+  border-radius: 50%;
+  background: #ec722f;
+  color: #ffffff;
+}
+
+.video-editor-play::before {
+  content: "";
+  width: 0;
+  height: 0;
+  margin-left: 5px;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 16px solid currentColor;
+}

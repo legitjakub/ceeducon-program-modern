@@ -13,11 +13,12 @@ The interactive programme is available as a Gutenberg block, an Elementor widget
 ## Installation
 
 1. Upload the ZIP in **Appearance → Themes → Add New → Upload Theme** and activate it.
-2. Create five pages with these slugs (the titles can be anything):
+2. Create six pages with these slugs (the titles can be anything):
    - `about`
    - `programme`
    - `practical`
    - `speakers`
+   - `media`
    - `contact`
 
    Each page is matched automatically by its slug (`page-{slug}.php`). If you use different
@@ -35,6 +36,8 @@ Available CEEDUCON blocks:
 - Hero sekce
 - Textová sekce
 - Obrázek s textem
+- Čtvercová fotogalerie
+- Mapa účastníků / regionálního dosahu
 - Karty / výhody
 - Reference
 - FAQ
@@ -58,6 +61,8 @@ The theme is a classic PHP theme with native custom Gutenberg blocks:
 - `src/blocks/{block}/render.php` renders dynamic frontend HTML.
 - `src/blocks/{block}/style.css` and `editor.css` keep frontend/editor visuals aligned.
 - `functions.php` registers all blocks and restricts page editors to the approved CEEDUCON blocks plus a small set of safe core blocks.
+
+The homepage Video block accepts a normal YouTube URL, creates a privacy-enhanced responsive embed and keeps the title, description, accessible video title, link label and caption editable in the block sidebar.
 
 Important design choices:
 
@@ -90,10 +95,25 @@ Do not edit CSS, global colours or spacing in the editor. Those are intentionall
 
 ## SEO and social previews
 
-The theme leaves document titles, meta descriptions, canonical URLs and Open Graph/Twitter card tags to
-a WordPress SEO plugin such as Yoast SEO or Rank Math. Configure the CEEDUCON 2026 banner as the default
-social image there. The static preview includes hardcoded social metadata only because it does not run
-inside WordPress.
+WordPress core owns document titles and canonical URLs. When no supported SEO plugin is active, the
+theme adds an editable meta-description and Open Graph/Twitter fallback from **CEEDUCON Content**, plus
+Event structured data on the homepage. The fallback disables itself when Yoast SEO, Rank Math, SEOPress,
+AIOSEO or The SEO Framework is active, so those plugins remain the preferred source of advanced metadata.
+Configure the CEEDUCON 2026 banner as the default social image in the selected SEO plugin.
+
+Important page content remains server-rendered HTML in PHP, Gutenberg and Elementor rendering paths.
+Media selected from the WordPress library uses attachment IDs and responsive image markup where the
+component supports it. Keep descriptive alt text with the image in the Media Library.
+
+### Production SEO checklist
+
+1. In **Settings → Reading**, make sure “Discourage search engines from indexing this site” is disabled.
+2. Use **Settings → Permalinks → Post name** and keep the page slugs used by the primary navigation.
+3. Activate only one SEO plugin. Its metadata takes precedence over the theme fallback automatically.
+4. Set a unique SEO title and description for every public page and use the approved CEEDUCON social image.
+5. Confirm the site language, timezone (`Europe/Prague`), HTTPS canonical domain and XML sitemap.
+6. Submit the sitemap in Google Search Console after the production domain is live.
+7. Replace preliminary programme data and any `TBC` speaker information before launch.
 
 ## Programme data
 
@@ -109,7 +129,7 @@ The Programme page also renders a server-side text version of sessions below the
 so important session titles, times and rooms are present in normal HTML for SEO and non-JavaScript users.
 The current data is the archived CEEDUCON 2025 programme, clearly labelled as an
 archive sample on the page; replace it with the official 2026 sessions when published.
-Theme track colours use the CEEDUCON brand palette (`#0d5e9d`, `#ec722f`, `#45c0ea`, `#06304f`).
+Theme track colours use the CEEDUCON brand palette (`#0d5e9d`, `#ec722f`, `#45c0ea`) plus the accessible dark-blue variant `#084c80`.
 
 For a later phase, the JSON can be migrated to a custom post type without changing
 the front-end: `program.js` only needs `window.CEEDUCON_PROGRAM_DATA` in the same shape.
@@ -118,11 +138,11 @@ the front-end: `program.js` only needs `window.CEEDUCON_PROGRAM_DATA` in the sam
 
 - `header.php` / `footer.php` — shared layout, navigation, footer, programme modal
 - `front-page.php` — home
-- `page-about|programme|practical|speakers|contact.php` — page templates
+- `page-about|programme|practical|speakers|media|contact.php` — page templates
 - `index.php` — fallback for any other content
 - `src/blocks/` — native CEEDUCON Gutenberg blocks
 - `css/styles.css` — full design system (identical to the static site)
 - `css/editor-style.css` + `theme.json` — WordPress editor palette, fonts and block defaults
-- `js/site.js` — menu, header state, countdown, scroll reveals
+- `js/site.js` — menu, header state, scroll reveals and mobile carousels
 - `js/program.js` + `js/program-data.js` + `data/program.json` — interactive programme
 - `assets/` — logos, favicon, Tabac Sans web fonts

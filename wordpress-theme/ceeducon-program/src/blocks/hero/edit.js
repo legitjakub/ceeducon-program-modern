@@ -1,12 +1,8 @@
 (function (blocks, element, blockEditor, components, i18n) {
   const el = element.createElement;
-  const { RichText, InspectorControls, URLInput } = blockEditor;
-  const { PanelBody, TextControl } = components;
+  const { RichText, InspectorControls, URLInput, MediaUpload, MediaUploadCheck } = blockEditor;
+  const { PanelBody, TextControl, Button } = components;
   const { __ } = i18n;
-
-  function updateArrayItem(items, index, value) {
-    return items.map((item, itemIndex) => (itemIndex === index ? value : item));
-  }
 
   function updateObjectItem(items, index, key, value) {
     return items.map((item, itemIndex) => (itemIndex === index ? { ...item, [key]: value } : item));
@@ -14,9 +10,7 @@
 
   blocks.registerBlockType("ceeducon/hero", {
     edit({ attributes, setAttributes }) {
-      const meta = attributes.meta || [];
       const rows = attributes.eventRows || [];
-      const stats = attributes.stats || [];
 
       return el(
         "section",
@@ -26,7 +20,48 @@
           {},
           el(
             PanelBody,
-            { title: __("Tlačítka", "ceeducon-program"), initialOpen: true },
+            { title: __("Fotografie", "ceeducon-program"), initialOpen: true },
+            el(
+              MediaUploadCheck,
+              {},
+              el(MediaUpload, {
+                allowedTypes: ["image"],
+                value: attributes.imageId,
+                onSelect: (media) =>
+                  setAttributes({
+                    imageId: media.id,
+                    imageUrl: media.url,
+                    imageAlt: media.alt || attributes.imageAlt,
+                  }),
+                render: ({ open }) =>
+                  el(
+                    Button,
+                    { variant: "secondary", onClick: open },
+                    attributes.imageUrl ? __("Změnit fotografii", "ceeducon-program") : __("Vybrat fotografii", "ceeducon-program")
+                  ),
+              })
+            ),
+            attributes.imageUrl
+              ? el(
+                  Button,
+                  {
+                    variant: "link",
+                    isDestructive: true,
+                    onClick: () => setAttributes({ imageId: 0, imageUrl: "" }),
+                  },
+                  __("Odebrat fotografii", "ceeducon-program")
+                )
+              : null,
+            el(TextControl, {
+              label: __("Alternativní text", "ceeducon-program"),
+              value: attributes.imageAlt,
+              onChange: (imageAlt) => setAttributes({ imageAlt }),
+              help: __("Stručně popište, co je na fotografii.", "ceeducon-program"),
+            })
+          ),
+          el(
+            PanelBody,
+            { title: __("Tlačítka", "ceeducon-program"), initialOpen: false },
             el(TextControl, {
               label: __("Primární tlačítko", "ceeducon-program"),
               value: attributes.primaryText,
@@ -50,7 +85,7 @@
           ),
           el(
             PanelBody,
-            { title: __("Event karta", "ceeducon-program"), initialOpen: false },
+            { title: __("Údaje o konferenci", "ceeducon-program"), initialOpen: false },
             el(TextControl, {
               label: __("Den", "ceeducon-program"),
               value: attributes.eventDay,
@@ -78,16 +113,6 @@
               )
             ),
             el(TextControl, {
-              label: __("CTA text", "ceeducon-program"),
-              value: attributes.eventCtaText,
-              onChange: (eventCtaText) => setAttributes({ eventCtaText }),
-            }),
-            el(URLInput, {
-              label: __("CTA URL", "ceeducon-program"),
-              value: attributes.eventCtaUrl,
-              onChange: (eventCtaUrl) => setAttributes({ eventCtaUrl }),
-            }),
-            el(TextControl, {
               label: __("Kalendář text", "ceeducon-program"),
               value: attributes.calendarText,
               onChange: (calendarText) => setAttributes({ calendarText }),
@@ -97,30 +122,11 @@
               value: attributes.calendarUrl,
               onChange: (calendarUrl) => setAttributes({ calendarUrl }),
             })
-          ),
-          el(
-            PanelBody,
-            { title: __("Statistiky", "ceeducon-program"), initialOpen: false },
-            stats.map((stat, index) =>
-              el(
-                "div",
-                { className: "ceeducon-editor-row", key: index },
-                el(TextControl, {
-                  label: __("Hodnota", "ceeducon-program"),
-                  value: stat.value,
-                  onChange: (value) => setAttributes({ stats: updateObjectItem(stats, index, "value", value) }),
-                }),
-                el(TextControl, {
-                  label: __("Popisek", "ceeducon-program"),
-                  value: stat.label,
-                  onChange: (label) => setAttributes({ stats: updateObjectItem(stats, index, "label", label) }),
-                })
-              )
-            )
           )
         ),
-        el("span", { className: "hero-ghost", "aria-hidden": true }, "2026"),
-        el("div", { className: "hero-ring", "aria-hidden": true }),
+        attributes.imageUrl
+          ? el("div", { className: "hero-media" }, el("img", { src: attributes.imageUrl, alt: attributes.imageAlt || "" }))
+          : null,
         el(
           "div",
           { className: "hero-inner shell" },
@@ -152,50 +158,24 @@
             }),
             el(
               "div",
-              { className: "hero-meta" },
-              meta.map((item, index) =>
-                el(RichText, {
-                  tagName: "span",
-                  key: index,
-                  value: item,
-                  allowedFormats: ["core/bold"],
-                  onChange: (value) => setAttributes({ meta: updateArrayItem(meta, index, value) }),
-                })
-              )
-            ),
-            el(
-              "div",
               { className: "hero-actions" },
               el("span", { className: "btn btn--primary" }, attributes.primaryText),
               el("span", { className: "btn btn--ghost" }, attributes.secondaryText)
-            ),
-            el(
-              "p",
-              { className: "countdown-strip" },
-              el("strong", {}, "149"),
-              el(RichText, {
-                tagName: "span",
-                value: attributes.countdownText,
-                allowedFormats: [],
-                onChange: (countdownText) => setAttributes({ countdownText }),
-              })
             )
-          ),
-          el(
-            "aside",
-            { className: "event-card" },
-            el("div", { className: "event-date" }, el("strong", {}, attributes.eventDay), el("span", { dangerouslySetInnerHTML: { __html: attributes.eventMonth || "" } })),
-            rows.map((row, index) =>
-              el("div", { className: "event-card-row", key: index }, el("span", {}, row.label), el("strong", {}, row.value))
-            ),
-            el("span", { className: "btn btn--primary" }, attributes.eventCtaText),
-            el("span", { className: "btn btn--ghost" }, attributes.calendarText)
           )
         ),
         el(
           "div",
-          { className: "hero-stats shell" },
-          stats.map((stat, index) => el("div", { key: index }, el("strong", {}, stat.value), el("span", {}, stat.label)))
+          { className: "hero-facts-wrap" },
+          el(
+            "div",
+            { className: "hero-facts shell" },
+            el("div", { className: "hero-date" }, el("strong", {}, attributes.eventDay), el("span", { dangerouslySetInnerHTML: { __html: attributes.eventMonth || "" } })),
+            rows.map((row, index) =>
+              el("div", { className: `hero-fact hero-fact--${index + 1}`, key: index }, el("span", {}, row.label), el("strong", {}, row.value))
+            ),
+            el("span", { className: "hero-calendar" }, attributes.calendarText)
+          )
         )
       );
     },

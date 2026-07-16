@@ -62,11 +62,6 @@
           "fontFamily": "\"Tabac Sans\", Arial, sans-serif",
           "slug": "tabac-sans",
           "name": "Tabac Sans"
-        },
-        {
-          "fontFamily": "\"Axiforma\", \"Tabac Sans\", Arial, sans-serif",
-          "slug": "axiforma",
-          "name": "Axiforma Bold"
         }
       ],
       "fontSizes": [

@@ -1,6 +1,6 @@
 (function (blocks, element, blockEditor, components, i18n) {
   const el = element.createElement;
-  const { RichText, InspectorControls, URLInput } = blockEditor;
+  const { RichText, InspectorControls, URLInput, MediaUpload, MediaUploadCheck } = blockEditor;
   const { PanelBody, TextControl, ToggleControl, Button } = components;
   const { __ } = i18n;
 
@@ -8,8 +8,13 @@
     edit({ attributes, setAttributes }) {
       const items = attributes.items || [];
       const updateItem = (index, key, value) => setAttributes({ items: items.map((item, itemIndex) => (itemIndex === index ? { ...item, [key]: value } : item)) });
-      const addItem = () => setAttributes({ items: [...items, { label: "New", title: "New card", text: "Card text.", url: "" }] });
+      const updateItemValues = (index, values) => setAttributes({ items: items.map((item, itemIndex) => (itemIndex === index ? { ...item, ...values } : item)) });
+      const addItem = () => setAttributes({ items: [...items, { label: "New", title: "New card", text: "Card text.", url: "", imageUrl: "", imageAlt: "" }] });
       const removeItem = (index) => setAttributes({ items: items.filter((_, itemIndex) => itemIndex !== index) });
+      const imageSrc = (url) => {
+        if (!url || /^(?:https?:)?\/\//.test(url) || url.startsWith("/")) return url;
+        return `${window.CEEDUCON_THEME_URL || ""}/${url.replace(/^\//, "")}`;
+      };
 
       return el(
         "section",
@@ -33,6 +38,18 @@
                 el(TextControl, { label: __("Nadpis", "ceeducon-program"), value: item.title, onChange: (value) => updateItem(index, "title", value) }),
                 el(TextControl, { label: __("Text", "ceeducon-program"), value: item.text, onChange: (value) => updateItem(index, "text", value) }),
                 el(URLInput, { label: __("URL", "ceeducon-program"), value: item.url, onChange: (value) => updateItem(index, "url", value) }),
+                el(
+                  MediaUploadCheck,
+                  {},
+                  el(MediaUpload, {
+                    allowedTypes: ["image"],
+                    value: 0,
+                    onSelect: (media) => updateItemValues(index, { imageUrl: media.url || "", imageAlt: media.alt || media.title || "" }),
+                    render: ({ open }) => el(Button, { variant: "secondary", onClick: open }, item.imageUrl ? __("Změnit obrázek", "ceeducon-program") : __("Vybrat obrázek", "ceeducon-program")),
+                  })
+                ),
+                item.imageUrl ? el(Button, { variant: "link", isDestructive: true, onClick: () => updateItem(index, "imageUrl", "") }, __("Odebrat obrázek", "ceeducon-program")) : null,
+                el(TextControl, { label: __("Alternativní text obrázku", "ceeducon-program"), value: item.imageAlt || "", onChange: (value) => updateItem(index, "imageAlt", value) }),
                 el(Button, { isDestructive: true, variant: "link", onClick: () => removeItem(index) }, __("Odebrat kartu", "ceeducon-program"))
               )
             ),
@@ -56,9 +73,14 @@
           el(
             "div",
             { className: "tile-grid" },
-            items.map((item, index) =>
-              el("article", { className: "link-tile", key: index }, el("span", {}, item.label), el("h3", {}, item.title), el("p", {}, item.text))
-            )
+            items.map((item, index) => el(
+              "article",
+              { className: `link-tile ${item.imageUrl ? "link-tile--media" : ""}`, key: index },
+              item.imageUrl ? el("span", { className: "link-tile-media" }, el("img", { src: imageSrc(item.imageUrl), alt: item.imageAlt || "" })) : null,
+              item.imageUrl
+                ? el("span", { className: "link-tile-body" }, el("span", { className: "link-tile-label" }, item.label), el("h3", {}, item.title), el("p", {}, item.text))
+                : [el("span", { key: "label" }, item.label), el("h3", { key: "title" }, item.title), el("p", { key: "text" }, item.text)]
+            ))
           )
         )
       );

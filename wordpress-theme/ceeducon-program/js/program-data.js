@@ -39,7 +39,7 @@ window.CEEDUCON_PROGRAM_DATA = {
     {
       "id": "plenary",
       "label": "Plenary",
-      "color": "#06304f"
+      "color": "#084c80"
     }
   ],
   "days": [

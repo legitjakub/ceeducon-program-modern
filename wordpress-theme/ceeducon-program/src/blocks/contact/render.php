@@ -6,6 +6,8 @@ if (!defined('ABSPATH')) {
 $email = sanitize_email((string) ceeducon_block_value($attributes, 'email'));
 $phone = (string) ceeducon_block_value($attributes, 'phone');
 $logo_url = (string) ceeducon_block_value($attributes, 'logoUrl');
+$logo_id = (int) ceeducon_block_value($attributes, 'logoId', 0);
+$logo_alt = (string) ceeducon_block_value($attributes, 'logoAlt');
 ?>
 <section class="section">
   <div class="shell contact-band">
@@ -25,8 +27,10 @@ $logo_url = (string) ceeducon_block_value($attributes, 'logoUrl');
       </div>
     </div>
     <div class="partners-card" data-reveal="2">
-      <?php if ($logo_url !== '') : ?>
-        <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr((string) ceeducon_block_value($attributes, 'logoAlt')); ?>" loading="lazy" decoding="async" />
+      <?php if ($logo_id > 0) : ?>
+        <?php echo wp_get_attachment_image($logo_id, 'medium', false, ['alt' => $logo_alt, 'loading' => 'lazy', 'decoding' => 'async']); ?>
+      <?php elseif ($logo_url !== '') : ?>
+        <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($logo_alt); ?>" loading="lazy" decoding="async" />
       <?php endif; ?>
       <span><?php echo ceeducon_block_text($attributes, 'cardLabel'); ?></span>
       <strong><?php echo ceeducon_block_html($attributes, 'cardTitle'); ?></strong>

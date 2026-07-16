@@ -48,6 +48,8 @@ final class Plugin
             Contact_Widget::class,
             Posts_Widget::class,
             Programme_Widget::class,
+            Photo_Gallery_Widget::class,
+            Video_Widget::class,
         ];
 
         foreach ($widgets as $widget) {

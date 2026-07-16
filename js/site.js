@@ -1,21 +1,10 @@
-const SITE_CONFERENCE_START = "2026-12-01T09:00:00+01:00";
-
 document.documentElement.classList.add("js");
 
 const siteElements = {
   header: document.querySelector(".site-header"),
   menuToggle: document.querySelector("[data-menu-toggle]"),
   mobileMenu: document.querySelector("[data-mobile-menu]"),
-  countdownDays: document.querySelector("[data-countdown-days]"),
 };
-
-function updateSiteCountdown() {
-  if (!siteElements.countdownDays) return;
-  const start = new Date(SITE_CONFERENCE_START).getTime();
-  const now = Date.now();
-  const days = Math.max(0, Math.ceil((start - now) / 86400000));
-  siteElements.countdownDays.textContent = String(days);
-}
 
 function bindSiteNavigation() {
   if (!siteElements.menuToggle || !siteElements.mobileMenu) return;
@@ -119,7 +108,7 @@ function bindMediaLightbox() {
 
 function bindMobileCarousels() {
   const tracks = document.querySelectorAll(
-    ".media-mosaic, .theme-grid, .day-cards, .tile-grid, .info-grid, .timeline, .step-list"
+    ".theme-grid, .day-cards, .tile-grid, .info-grid, .timeline, .step-list"
   );
   if (!tracks.length) return;
 
@@ -193,4 +182,3 @@ bindHeaderScroll();
 bindReveals();
 bindMediaLightbox();
 bindMobileCarousels();
-updateSiteCountdown();
