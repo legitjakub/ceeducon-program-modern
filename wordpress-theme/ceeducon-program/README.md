@@ -129,7 +129,7 @@ The Programme page also renders a server-side text version of sessions below the
 so important session titles, times and rooms are present in normal HTML for SEO and non-JavaScript users.
 The current data is the archived CEEDUCON 2025 programme, clearly labelled as an
 archive sample on the page; replace it with the official 2026 sessions when published.
-Theme track colours use the CEEDUCON brand palette (`#0d5e9d`, `#ec722f`, `#45c0ea`) plus the accessible dark-blue variant `#084c80`.
+Theme track colours use only the CEEDUCON brand palette (`#0d5e9d`, `#ec722f`, `#45c0ea`, `#ffffff`).
 
 For a later phase, the JSON can be migrated to a custom post type without changing
 the front-end: `program.js` only needs `window.CEEDUCON_PROGRAM_DATA` in the same shape.

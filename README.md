@@ -18,7 +18,7 @@ Poté otevřete `http://localhost:8080`. Interaktivní program je na `programme.
 
 Design systém staví výhradně na brand identitě CEEDUCON:
 
-- tmavě modrá `#0d5e9d` (+ odvozený kontrastní odstín `#084c80`),
+- modrá `#0d5e9d`,
 - oranžová `#ec722f`,
 - světle modrá `#45c0ea`,
 - bílá `#ffffff`,

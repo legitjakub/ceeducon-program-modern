@@ -12,16 +12,6 @@
           "name": "CEEDUCON Blue"
         },
         {
-          "slug": "ceeducon-deep-blue",
-          "color": "#084c80",
-          "name": "CEEDUCON Dark Blue"
-        },
-        {
-          "slug": "ceeducon-ink",
-          "color": "#0d5e9d",
-          "name": "CEEDUCON Text Blue"
-        },
-        {
           "slug": "ceeducon-orange",
           "color": "#ec722f",
           "name": "CEEDUCON Orange"
