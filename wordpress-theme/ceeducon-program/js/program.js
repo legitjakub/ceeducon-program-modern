@@ -1,6 +1,6 @@
 const DATA_URL = window.CEEDUCON_DATA_URL || "data/program.json";
 const FAVORITES_KEY = "ceeducon-2026-favorites";
-const VIEW_KEY = "ceeducon-2026-program-view-v2";
+const VIEW_KEY = "ceeducon-2026-program-view-v3";
 const PERIODS = [
   { id: "", label: "All day" },
   { id: "morning", label: "Morning" },
@@ -14,7 +14,7 @@ const state = {
   room: "",
   period: "",
   query: "",
-  view: localStorage.getItem(VIEW_KEY) || "list",
+  view: localStorage.getItem(VIEW_KEY) || "grid",
   favoritesOnly: false,
   favorites: new Set(JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]")),
   sessionMap: new Map(),
@@ -246,10 +246,10 @@ function renderSchedule() {
   state.sessionMap.clear();
   elements.schedule.classList.toggle("schedule--list", state.view === "list");
   if (elements.viewToggle) {
-    elements.viewToggle.setAttribute("aria-pressed", String(state.view === "list"));
+    elements.viewToggle.setAttribute("aria-pressed", String(state.view === "grid"));
   }
   if (elements.viewLabel) {
-    elements.viewLabel.textContent = state.view === "list" ? "Grid view" : "List view";
+    elements.viewLabel.textContent = state.view === "grid" ? "Grid view" : "List view";
   }
 
   const day = currentDay();
