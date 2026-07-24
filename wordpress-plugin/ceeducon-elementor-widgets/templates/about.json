@@ -4,7 +4,84 @@
   "type": "page",
   "content": [
     {
-      "id": "cd000018",
+      "id": "cd000015",
+      "elType": "container",
+      "settings": {
+        "content_width": "full",
+        "width": {
+          "unit": "%",
+          "size": 100,
+          "sizes": []
+        },
+        "padding": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        },
+        "gap": {
+          "unit": "px",
+          "size": 0,
+          "sizes": []
+        }
+      },
+      "elements": [
+        {
+          "id": "cd000011",
+          "elType": "widget",
+          "widgetType": "ceeducon_page_hero",
+          "settings": {
+            "crumb": "About",
+            "title": "About CEEDUCON.",
+            "note": "A Central European forum for people shaping international higher education.",
+            "cardLabel": "2026 edition",
+            "cardTitle": "1–2 December 2026"
+          },
+          "elements": []
+        }
+      ]
+    },
+    {
+      "id": "cd000016",
+      "elType": "container",
+      "settings": {
+        "content_width": "full",
+        "width": {
+          "unit": "%",
+          "size": 100,
+          "sizes": []
+        },
+        "padding": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        },
+        "gap": {
+          "unit": "px",
+          "size": 0,
+          "sizes": []
+        }
+      },
+      "elements": [
+        {
+          "id": "cd000012",
+          "elType": "widget",
+          "widgetType": "ceeducon_text_section",
+          "settings": {
+            "kicker": "The conference",
+            "title": "A platform for strategic internationalisation."
+          },
+          "elements": []
+        }
+      ]
+    },
+    {
+      "id": "cd000017",
       "elType": "container",
       "settings": {
         "content_width": "full",
@@ -31,20 +108,16 @@
         {
           "id": "cd000013",
           "elType": "widget",
-          "widgetType": "ceeducon_page_hero",
+          "widgetType": "ceeducon_themes",
           "settings": {
-            "crumb": "About",
-            "title": "About CEEDUCON.",
-            "note": "A Central European forum for people shaping international higher education.",
-            "cardLabel": "2026 edition",
-            "cardTitle": "1–2 December 2026"
+            "dark": "yes"
           },
           "elements": []
         }
       ]
     },
     {
-      "id": "cd000019",
+      "id": "cd000018",
       "elType": "container",
       "settings": {
         "content_width": "full",
@@ -71,122 +144,10 @@
         {
           "id": "cd000014",
           "elType": "widget",
-          "widgetType": "ceeducon_text_section",
-          "settings": {
-            "kicker": "The conference",
-            "title": "A platform for strategic internationalisation."
-          },
-          "elements": []
-        }
-      ]
-    },
-    {
-      "id": "cd00001a",
-      "elType": "container",
-      "settings": {
-        "content_width": "full",
-        "width": {
-          "unit": "%",
-          "size": 100,
-          "sizes": []
-        },
-        "padding": {
-          "unit": "px",
-          "top": "0",
-          "right": "0",
-          "bottom": "0",
-          "left": "0",
-          "isLinked": true
-        },
-        "gap": {
-          "unit": "px",
-          "size": 0,
-          "sizes": []
-        }
-      },
-      "elements": [
-        {
-          "id": "cd000015",
-          "elType": "widget",
-          "widgetType": "ceeducon_themes",
-          "settings": {
-            "dark": "yes"
-          },
-          "elements": []
-        }
-      ]
-    },
-    {
-      "id": "cd00001b",
-      "elType": "container",
-      "settings": {
-        "content_width": "full",
-        "width": {
-          "unit": "%",
-          "size": 100,
-          "sizes": []
-        },
-        "padding": {
-          "unit": "px",
-          "top": "0",
-          "right": "0",
-          "bottom": "0",
-          "left": "0",
-          "isLinked": true
-        },
-        "gap": {
-          "unit": "px",
-          "size": 0,
-          "sizes": []
-        }
-      },
-      "elements": [
-        {
-          "id": "cd000016",
-          "elType": "widget",
           "widgetType": "ceeducon_partners",
           "settings": {
             "title": "A Central European partnership.",
             "text": "CEEDUCON is organised by DZS in co-operation with partner agencies from Austria, Germany, Poland, Slovakia, Hungary and the Czech Republic."
-          },
-          "elements": []
-        }
-      ]
-    },
-    {
-      "id": "cd00001c",
-      "elType": "container",
-      "settings": {
-        "content_width": "full",
-        "width": {
-          "unit": "%",
-          "size": 100,
-          "sizes": []
-        },
-        "padding": {
-          "unit": "px",
-          "top": "0",
-          "right": "0",
-          "bottom": "0",
-          "left": "0",
-          "isLinked": true
-        },
-        "gap": {
-          "unit": "px",
-          "size": 0,
-          "sizes": []
-        }
-      },
-      "elements": [
-        {
-          "id": "cd000017",
-          "elType": "widget",
-          "widgetType": "ceeducon_venue",
-          "settings": {
-            "buttonText": "Plan your visit",
-            "panelLabel": "Conference days",
-            "panelTitle": "1–2 December 2026",
-            "panelText": "Registration opens in September. The preliminary programme is online and remains subject to change."
           },
           "elements": []
         }

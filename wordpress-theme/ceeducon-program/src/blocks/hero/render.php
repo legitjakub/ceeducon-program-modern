@@ -10,6 +10,10 @@ $rows = array_values(array_filter(
 $image_id = (int) ceeducon_block_value($attributes, 'imageId', 0);
 $image_url = (string) ceeducon_block_value($attributes, 'imageUrl');
 $image_alt = (string) ceeducon_block_value($attributes, 'imageAlt');
+$kicker = (string) ceeducon_block_value($attributes, 'kicker');
+if ($kicker === 'CEEDUCON 2026 · Prague') {
+    $kicker = 'CEEDUCON 2026 · CZECHIA';
+}
 ?>
 <section class="hero">
   <div class="hero-media">
@@ -21,7 +25,7 @@ $image_alt = (string) ceeducon_block_value($attributes, 'imageAlt');
   </div>
   <div class="hero-inner shell">
     <div class="hero-copy">
-      <p class="hero-kicker"><?php echo ceeducon_block_text($attributes, 'kicker'); ?></p>
+      <p class="hero-kicker"><?php echo esc_html($kicker); ?></p>
       <h1><?php echo ceeducon_block_html($attributes, 'title'); ?></h1>
       <p class="hero-lead"><?php echo ceeducon_block_text($attributes, 'lead'); ?></p>
       <div class="hero-actions" aria-label="<?php esc_attr_e('Quick actions', 'ceeducon-program'); ?>">

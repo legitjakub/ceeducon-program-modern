@@ -4,7 +4,7 @@
   "type": "page",
   "content": [
     {
-      "id": "cd00003e",
+      "id": "cd00003a",
       "elType": "container",
       "settings": {
         "content_width": "full",
@@ -29,7 +29,7 @@
       },
       "elements": [
         {
-          "id": "cd00003b",
+          "id": "cd000037",
           "elType": "widget",
           "widgetType": "ceeducon_page_hero",
           "settings": {
@@ -44,7 +44,7 @@
       ]
     },
     {
-      "id": "cd00003f",
+      "id": "cd00003b",
       "elType": "container",
       "settings": {
         "content_width": "full",
@@ -69,7 +69,7 @@
       },
       "elements": [
         {
-          "id": "cd00003c",
+          "id": "cd000038",
           "elType": "widget",
           "widgetType": "ceeducon_contact",
           "settings": {
@@ -84,7 +84,7 @@
       ]
     },
     {
-      "id": "cd000040",
+      "id": "cd00003c",
       "elType": "container",
       "settings": {
         "content_width": "full",
@@ -109,7 +109,7 @@
       },
       "elements": [
         {
-          "id": "cd00003d",
+          "id": "cd000039",
           "elType": "widget",
           "widgetType": "ceeducon_faq",
           "settings": {

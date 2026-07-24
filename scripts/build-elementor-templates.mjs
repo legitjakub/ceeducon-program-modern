@@ -39,7 +39,6 @@ const pages = {
     widget('photo-gallery'),
     themes,
     widget('schedule-overview'),
-    venue(),
     widget('cards', {
       kicker: 'Plan ahead',
       title: 'Find the essentials quickly.',
@@ -56,7 +55,6 @@ const pages = {
     widget('text-section', { kicker: 'The conference', title: 'A platform for strategic internationalisation.' }),
     widget('themes', { dark: 'yes' }),
     partners({ title: 'A Central European partnership.', text: 'CEEDUCON is organised by DZS in co-operation with partner agencies from Austria, Germany, Poland, Slovakia, Hungary and the Czech Republic.' }),
-    venue({ buttonText: 'Plan your visit', panelLabel: 'Conference days', panelTitle: '1–2 December 2026', panelText: 'Registration opens in September. The preliminary programme is online and remains subject to change.' }),
   ]),
   programme: page('CEEDUCON Programme', [
     widget('page-hero', { crumb: 'Programme', title: 'Two days. Nine rooms. One clear programme.', note: 'Search, filter and save the sessions that matter to you.', cardLabel: '1–2 December 2026', cardTitle: 'O2 universum Prague' }),

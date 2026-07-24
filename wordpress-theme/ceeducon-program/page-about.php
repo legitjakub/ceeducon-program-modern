@@ -109,21 +109,6 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
         </div>
       </section>
 
-      <section class="section">
-        <div class="shell feature-split" data-reveal>
-          <div>
-            <p class="kicker"><?php ceeducon_text('home_venue_kicker', 'Venue'); ?></p>
-            <h2 class="display-2"><?php ceeducon_text('home_venue_title', 'O2 universum Prague'); ?></h2>
-            <p><?php ceeducon_text('about_venue_text', "Českomoravská 17, Prague 9. The venue's halls host the plenaries, thematic sessions and workshops of both conference days — fully accessible and minutes from the metro."); ?></p>
-            <a class="btn btn--outline" href="<?php echo esc_url(ceeducon_page_url('practical')); ?>"><?php ceeducon_text('about_venue_button', 'Plan your visit'); ?></a>
-          </div>
-          <div class="feature-panel">
-            <span><?php ceeducon_text('about_panel_label', 'Conference days'); ?></span>
-            <strong><?php ceeducon_text('about_panel_title', '1–2 December 2026'); ?></strong>
-            <p><?php ceeducon_text('about_panel_text', 'Registration opens in September. The preliminary programme is online and remains subject to change.'); ?></p>
-          </div>
-        </div>
-      </section>
     </main>
 
 <?php

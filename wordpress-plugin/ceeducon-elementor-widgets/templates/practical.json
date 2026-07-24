@@ -4,7 +4,7 @@
   "type": "page",
   "content": [
     {
-      "id": "cd000025",
+      "id": "cd000021",
       "elType": "container",
       "settings": {
         "content_width": "full",
@@ -29,7 +29,7 @@
       },
       "elements": [
         {
-          "id": "cd000021",
+          "id": "cd00001d",
           "elType": "widget",
           "widgetType": "ceeducon_page_hero",
           "settings": {
@@ -44,7 +44,7 @@
       ]
     },
     {
-      "id": "cd000026",
+      "id": "cd000022",
       "elType": "container",
       "settings": {
         "content_width": "full",
@@ -69,7 +69,7 @@
       },
       "elements": [
         {
-          "id": "cd000022",
+          "id": "cd00001e",
           "elType": "widget",
           "widgetType": "ceeducon_venue",
           "settings": {},
@@ -78,7 +78,7 @@
       ]
     },
     {
-      "id": "cd000027",
+      "id": "cd000023",
       "elType": "container",
       "settings": {
         "content_width": "full",
@@ -103,7 +103,7 @@
       },
       "elements": [
         {
-          "id": "cd000023",
+          "id": "cd00001f",
           "elType": "widget",
           "widgetType": "ceeducon_faq",
           "settings": {
@@ -115,7 +115,7 @@
       ]
     },
     {
-      "id": "cd000028",
+      "id": "cd000024",
       "elType": "container",
       "settings": {
         "content_width": "full",
@@ -140,7 +140,7 @@
       },
       "elements": [
         {
-          "id": "cd000024",
+          "id": "cd000020",
           "elType": "widget",
           "widgetType": "ceeducon_image_text",
           "settings": {

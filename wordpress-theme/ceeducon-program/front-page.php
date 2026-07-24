@@ -18,7 +18,13 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
         </div>
         <div class="hero-inner shell">
           <div class="hero-copy">
-            <p class="hero-kicker"><?php ceeducon_text('home_hero_kicker', 'CEEDUCON 2026 · Prague'); ?></p>
+            <?php
+            $hero_kicker = ceeducon_text_value('home_hero_kicker', 'CEEDUCON 2026 · CZECHIA');
+            if ($hero_kicker === 'CEEDUCON 2026 · Prague') {
+                $hero_kicker = 'CEEDUCON 2026 · CZECHIA';
+            }
+            ?>
+            <p class="hero-kicker"><?php echo esc_html($hero_kicker); ?></p>
             <h1><?php ceeducon_html('home_hero_title', 'Central Europe <em>meets the world</em> of higher education.'); ?></h1>
             <p class="hero-lead"><?php ceeducon_text('home_hero_lead', 'Two days of practical exchange for university leaders, international offices, policymakers and national agencies.'); ?></p>
             <div class="hero-actions" aria-label="Quick actions">
@@ -159,22 +165,6 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
               <p><?php ceeducon_text('notice_prog_text', 'Browse the two-day programme — 70+ sessions and workshops across nine rooms. Details remain subject to change.'); ?></p>
               <a class="btn btn--dark" href="<?php echo esc_url(ceeducon_page_url('programme')); ?>"><?php ceeducon_text('notice_prog_button', 'Open the programme'); ?></a>
             </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section--paper">
-        <div class="shell feature-split" data-reveal>
-          <div>
-            <p class="kicker"><?php ceeducon_text('home_venue_kicker', 'Venue'); ?></p>
-            <h2 class="display-2"><?php ceeducon_text('home_venue_title', 'O2 universum Prague'); ?></h2>
-            <p><?php ceeducon_text('home_venue_text', 'Českomoravská 17, Prague 9. One of the largest conference venues in the Czech Republic hosts both CEEDUCON days — easy to reach by metro, fully accessible and built for a multi-room programme.'); ?></p>
-            <a class="btn btn--outline" href="<?php echo esc_url(ceeducon_page_url('practical')); ?>"><?php ceeducon_text('home_venue_button', 'Practical information'); ?></a>
-          </div>
-          <div class="feature-panel">
-            <span><?php ceeducon_text('home_venue_panel_label', 'Getting there'); ?></span>
-            <strong><?php ceeducon_text('home_venue_panel_title', 'Metro B · Českomoravská'); ?></strong>
-            <p><?php ceeducon_text('home_venue_panel_text', 'Around 55 minutes from Prague Airport by public transport, a short walk from Praha-Libeň railway station and steps from the Českomoravská metro stop.'); ?></p>
           </div>
         </div>
       </section>

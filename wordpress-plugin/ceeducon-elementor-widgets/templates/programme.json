@@ -4,7 +4,7 @@
   "type": "page",
   "content": [
     {
-      "id": "cd00001f",
+      "id": "cd00001b",
       "elType": "container",
       "settings": {
         "content_width": "full",
@@ -29,7 +29,7 @@
       },
       "elements": [
         {
-          "id": "cd00001d",
+          "id": "cd000019",
           "elType": "widget",
           "widgetType": "ceeducon_page_hero",
           "settings": {
@@ -44,7 +44,7 @@
       ]
     },
     {
-      "id": "cd000020",
+      "id": "cd00001c",
       "elType": "container",
       "settings": {
         "content_width": "full",
@@ -69,7 +69,7 @@
       },
       "elements": [
         {
-          "id": "cd00001e",
+          "id": "cd00001a",
           "elType": "widget",
           "widgetType": "ceeducon_programme_grid",
           "settings": {},

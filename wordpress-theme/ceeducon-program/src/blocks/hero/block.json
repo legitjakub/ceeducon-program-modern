@@ -9,7 +9,7 @@
   "description": "Kompaktní úvodní CEEDUCON sekce s fotografií, CTA a základními údaji o konferenci.",
   "textdomain": "ceeducon-program",
   "attributes": {
-    "kicker": { "type": "string", "default": "CEEDUCON 2026 · Prague" },
+    "kicker": { "type": "string", "default": "CEEDUCON 2026 · CZECHIA" },
     "title": { "type": "string", "default": "Central Europe <em>meets the world</em> of higher education." },
     "lead": { "type": "string", "default": "Two days of practical exchange for university leaders, international offices, policymakers and national agencies." },
     "imageUrl": { "type": "string", "default": "/wp-content/themes/ceeducon-program/assets/media/ceeducon-photo-plenary.jpg" },
