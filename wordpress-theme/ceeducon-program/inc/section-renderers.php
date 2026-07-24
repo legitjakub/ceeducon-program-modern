@@ -28,6 +28,10 @@ function ceeducon_render_section(string $section, array $attributes = []): strin
         'programme-grid',
         'photo-gallery',
         'video',
+        'themes',
+        'schedule-overview',
+        'venue',
+        'partners',
     ];
 
     if (!in_array($section, $allowed, true)) {

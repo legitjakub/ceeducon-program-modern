@@ -73,6 +73,166 @@ abstract class Section_Widget extends Widget_Base
 
             $this->end_controls_section();
         }
+
+        $this->register_style_controls();
+        $this->register_responsive_controls();
+    }
+
+    private function brand_colors(): array
+    {
+        return [
+            ''        => __('Theme default', 'ceeducon-elementor-widgets'),
+            '#ffffff' => __('White', 'ceeducon-elementor-widgets'),
+            '#0d5e9d' => __('CEEDUCON blue', 'ceeducon-elementor-widgets'),
+            '#45c0ea' => __('CEEDUCON sky blue', 'ceeducon-elementor-widgets'),
+            '#ec722f' => __('CEEDUCON orange', 'ceeducon-elementor-widgets'),
+            '#000000' => __('Black', 'ceeducon-elementor-widgets'),
+        ];
+    }
+
+    private function register_style_controls(): void
+    {
+        $this->start_controls_section('ceeducon_style', [
+            'label' => __('Style', 'ceeducon-elementor-widgets'),
+            'tab'   => Controls_Manager::TAB_STYLE,
+        ]);
+
+        $this->add_control('ceeducon_background_color', [
+            'label'     => __('Background', 'ceeducon-elementor-widgets'),
+            'type'      => Controls_Manager::SELECT,
+            'options'   => $this->brand_colors(),
+            'default'   => '',
+            'selectors' => ['{{WRAPPER}} > .elementor-widget-container > section' => 'background: {{VALUE}};'],
+        ]);
+        $this->add_control('ceeducon_heading_color', [
+            'label'     => __('Heading colour', 'ceeducon-elementor-widgets'),
+            'type'      => Controls_Manager::SELECT,
+            'options'   => $this->brand_colors(),
+            'default'   => '',
+            'selectors' => ['{{WRAPPER}} > .elementor-widget-container > section h1, {{WRAPPER}} > .elementor-widget-container > section h2, {{WRAPPER}} > .elementor-widget-container > section h3' => 'color: {{VALUE}};'],
+        ]);
+        $this->add_control('ceeducon_text_color', [
+            'label'     => __('Text colour', 'ceeducon-elementor-widgets'),
+            'type'      => Controls_Manager::SELECT,
+            'options'   => $this->brand_colors(),
+            'default'   => '',
+            'selectors' => ['{{WRAPPER}} > .elementor-widget-container > section p, {{WRAPPER}} > .elementor-widget-container > section li' => 'color: {{VALUE}};'],
+        ]);
+        $this->add_control('ceeducon_accent_color', [
+            'label'     => __('Accent colour', 'ceeducon-elementor-widgets'),
+            'type'      => Controls_Manager::SELECT,
+            'options'   => $this->brand_colors(),
+            'default'   => '',
+            'selectors' => [
+                '{{WRAPPER}} > .elementor-widget-container > section .kicker::before' => 'background: {{VALUE}};',
+                '{{WRAPPER}} > .elementor-widget-container > section .btn--primary' => 'box-shadow: inset 0 -4px 0 {{VALUE}};',
+                '{{WRAPPER}} > .elementor-widget-container > section .btn--plain' => 'border-bottom-color: {{VALUE}};',
+            ],
+        ]);
+        $this->add_control('ceeducon_content_width', [
+            'label'   => __('Content width', 'ceeducon-elementor-widgets'),
+            'type'    => Controls_Manager::SELECT,
+            'options' => [
+                ''       => __('Theme default', 'ceeducon-elementor-widgets'),
+                '1360px' => __('Wide (1360 px)', 'ceeducon-elementor-widgets'),
+                '1080px' => __('Compact (1080 px)', 'ceeducon-elementor-widgets'),
+                '880px'  => __('Reading width (880 px)', 'ceeducon-elementor-widgets'),
+                '100%'   => __('Full width', 'ceeducon-elementor-widgets'),
+            ],
+            'default'   => '',
+            'selectors' => ['{{WRAPPER}} > .elementor-widget-container > section .shell' => 'max-width: {{VALUE}};'],
+        ]);
+        if (in_array($this->section_slug(), ['hero', 'image-text', 'cards', 'photo-gallery', 'partners'], true)) {
+            $this->add_control('ceeducon_image_position', [
+                'label'   => __('Image focal point', 'ceeducon-elementor-widgets'),
+                'type'    => Controls_Manager::SELECT,
+                'options' => [
+                    ''       => __('Theme default', 'ceeducon-elementor-widgets'),
+                    'center' => __('Centre', 'ceeducon-elementor-widgets'),
+                    'top'    => __('Top', 'ceeducon-elementor-widgets'),
+                    'bottom' => __('Bottom', 'ceeducon-elementor-widgets'),
+                    'left'   => __('Left', 'ceeducon-elementor-widgets'),
+                    'right'  => __('Right', 'ceeducon-elementor-widgets'),
+                ],
+                'default'   => '',
+                'selectors' => ['{{WRAPPER}} > .elementor-widget-container > section img' => 'object-position: {{VALUE}};'],
+            ]);
+        }
+
+        $this->end_controls_section();
+    }
+
+    private function register_responsive_controls(): void
+    {
+        $this->start_controls_section('ceeducon_responsive', [
+            'label' => __('Responsive', 'ceeducon-elementor-widgets'),
+            'tab'   => Controls_Manager::TAB_RESPONSIVE,
+        ]);
+
+        $spacing = [
+            'unit' => 'px',
+            'size' => '',
+        ];
+        $this->add_responsive_control('ceeducon_padding_top', [
+            'label'      => __('Top spacing', 'ceeducon-elementor-widgets'),
+            'type'       => Controls_Manager::SLIDER,
+            'size_units' => ['px'],
+            'range'      => ['px' => ['min' => 0, 'max' => 240]],
+            'default'    => $spacing,
+            'selectors'  => ['{{WRAPPER}} > .elementor-widget-container > section' => 'padding-top: {{SIZE}}{{UNIT}};'],
+        ]);
+        $this->add_responsive_control('ceeducon_padding_bottom', [
+            'label'      => __('Bottom spacing', 'ceeducon-elementor-widgets'),
+            'type'       => Controls_Manager::SLIDER,
+            'size_units' => ['px'],
+            'range'      => ['px' => ['min' => 0, 'max' => 240]],
+            'default'    => $spacing,
+            'selectors'  => ['{{WRAPPER}} > .elementor-widget-container > section' => 'padding-bottom: {{SIZE}}{{UNIT}};'],
+        ]);
+        $this->add_responsive_control('ceeducon_text_alignment', [
+            'label'   => __('Text alignment', 'ceeducon-elementor-widgets'),
+            'type'    => Controls_Manager::CHOOSE,
+            'options' => [
+                'left'   => ['title' => __('Left', 'ceeducon-elementor-widgets'), 'icon' => 'eicon-text-align-left'],
+                'center' => ['title' => __('Centre', 'ceeducon-elementor-widgets'), 'icon' => 'eicon-text-align-center'],
+                'right'  => ['title' => __('Right', 'ceeducon-elementor-widgets'), 'icon' => 'eicon-text-align-right'],
+            ],
+            'default'   => '',
+            'selectors' => ['{{WRAPPER}} > .elementor-widget-container > section' => 'text-align: {{VALUE}};'],
+        ]);
+
+        $grid_selector = $this->responsive_grid_selector();
+        if ($grid_selector !== '') {
+            $this->add_responsive_control('ceeducon_columns', [
+                'label'      => __('Columns', 'ceeducon-elementor-widgets'),
+                'type'       => Controls_Manager::NUMBER,
+                'min'        => 1,
+                'max'        => 6,
+                'default'    => '',
+                'selectors'  => [$grid_selector => 'grid-template-columns: repeat({{VALUE}}, minmax(0, 1fr));'],
+            ]);
+        }
+
+        if ($this->section_slug() === 'image-text') {
+            $this->add_responsive_control('ceeducon_image_order', [
+                'label'   => __('Image order', 'ceeducon-elementor-widgets'),
+                'type'    => Controls_Manager::SELECT,
+                'options' => [
+                    ''      => __('Theme default', 'ceeducon-elementor-widgets'),
+                    '1'     => __('Text first', 'ceeducon-elementor-widgets'),
+                    '-1'    => __('Image first', 'ceeducon-elementor-widgets'),
+                ],
+                'default'   => '',
+                'selectors' => ['{{WRAPPER}} > .elementor-widget-container > section .media-mosaic' => 'order: {{VALUE}};'],
+            ]);
+        }
+
+        $this->add_control('ceeducon_reset_note', [
+            'type'            => Controls_Manager::RAW_HTML,
+            'raw'             => __('Clear a control to return to the original GitHub design. Elementor responsive values can be reset from the device control menu.', 'ceeducon-elementor-widgets'),
+            'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+        ]);
+        $this->end_controls_section();
     }
 
     protected function render(): void
@@ -210,6 +370,10 @@ abstract class Section_Widget extends Widget_Base
 
         $repeater = new Repeater();
         foreach (array_keys($first) as $item_key) {
+            if (in_array($item_key, ['imageId', 'logoId'], true)) {
+                continue;
+            }
+
             $control_type = $item_key === 'imageUrl'
                 ? Controls_Manager::MEDIA
                 : (($this->ends_with((string) $item_key, 'url') || $this->ends_with((string) $item_key, 'Url'))
@@ -232,12 +396,20 @@ abstract class Section_Widget extends Widget_Base
             return $item;
         }, $default);
 
+        $title_key = 'label';
+        foreach (['title', 'question', 'name', 'label', 'number'] as $candidate) {
+            if (array_key_exists($candidate, $first)) {
+                $title_key = $candidate;
+                break;
+            }
+        }
+
         $this->add_control($key, [
             'label'       => $label,
             'type'        => Controls_Manager::REPEATER,
             'fields'      => $repeater->get_controls(),
             'default'     => $repeater_default,
-            'title_field' => '{{{ title || question || name || label || "Item" }}}',
+            'title_field' => '{{{ ' . $title_key . ' }}}',
         ]);
     }
 
@@ -263,6 +435,7 @@ abstract class Section_Widget extends Widget_Base
             'secondaryText',
             'eventCtaText',
             'googleCalendarText',
+            'outlookCalendarText',
         ], true)) {
             return 'actions';
         }
@@ -335,6 +508,9 @@ abstract class Section_Widget extends Widget_Base
         unset($item['_id']);
         foreach ($item as $key => $value) {
             if (is_array($value) && array_key_exists('url', $value)) {
+                if ($key === 'imageUrl' && !empty($value['id'])) {
+                    $item['imageId'] = (int) $value['id'];
+                }
                 $item[$key] = (string) $value['url'];
             }
         }
@@ -349,6 +525,22 @@ abstract class Section_Widget extends Widget_Base
 
         return strlen($value) >= strlen($suffix)
             && substr_compare($value, $suffix, -strlen($suffix)) === 0;
+    }
+
+    private function responsive_grid_selector(): string
+    {
+        $selectors = [
+            'cards'             => '.tile-grid',
+            'testimonials'      => '.testimonial-grid',
+            'photo-gallery'     => '.photo-gallery-grid',
+            'themes'            => '.theme-grid',
+            'schedule-overview' => '.day-cards',
+        ];
+        $selector = $selectors[$this->section_slug()] ?? '';
+
+        return $selector === ''
+            ? ''
+            : '{{WRAPPER}} > .elementor-widget-container > section ' . $selector;
     }
 }
 
@@ -377,3 +569,7 @@ final class Programme_Widget extends Section_Widget
 }
 final class Photo_Gallery_Widget extends Section_Widget { protected function section_slug(): string { return 'photo-gallery'; } protected function section_title(): string { return __('Photo Gallery', 'ceeducon-elementor-widgets'); } }
 final class Video_Widget extends Section_Widget { protected function section_slug(): string { return 'video'; } protected function section_title(): string { return __('Video Section', 'ceeducon-elementor-widgets'); } }
+final class Themes_Widget extends Section_Widget { protected function section_slug(): string { return 'themes'; } protected function section_title(): string { return __('Conference Themes', 'ceeducon-elementor-widgets'); } }
+final class Schedule_Overview_Widget extends Section_Widget { protected function section_slug(): string { return 'schedule-overview'; } protected function section_title(): string { return __('Two-day Overview', 'ceeducon-elementor-widgets'); } }
+final class Venue_Widget extends Section_Widget { protected function section_slug(): string { return 'venue'; } protected function section_title(): string { return __('Venue', 'ceeducon-elementor-widgets'); } }
+final class Partners_Widget extends Section_Widget { protected function section_slug(): string { return 'partners'; } protected function section_title(): string { return __('Organisers and Partners', 'ceeducon-elementor-widgets'); } }

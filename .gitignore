@@ -9,3 +9,5 @@ node_modules/
 wp-content/uploads/
 wp-content/cache/
 dist/zi*
+dist/ceeducon-elementor-widgets/
+output/

@@ -3,7 +3,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$rows = ceeducon_block_array($attributes, 'eventRows');
+$rows = array_values(array_filter(
+    ceeducon_block_array($attributes, 'eventRows'),
+    static fn(array $row): bool => strtolower(trim((string) ($row['label'] ?? ''))) !== 'format'
+));
 $image_id = (int) ceeducon_block_value($attributes, 'imageId', 0);
 $image_url = (string) ceeducon_block_value($attributes, 'imageUrl');
 $image_alt = (string) ceeducon_block_value($attributes, 'imageAlt');
@@ -36,9 +39,13 @@ $image_alt = (string) ceeducon_block_value($attributes, 'imageAlt');
           <strong><?php echo esc_html($row['value'] ?? ''); ?></strong>
         </div>
       <?php endforeach; ?>
-      <?php if (trim((string) ceeducon_block_value($attributes, 'googleCalendarText')) !== '' && trim((string) ceeducon_block_value($attributes, 'googleCalendarUrl')) !== '') : ?>
-        <a class="hero-calendar" href="<?php echo ceeducon_block_url($attributes, 'googleCalendarUrl'); ?>" target="_blank" rel="noreferrer"><?php echo ceeducon_block_text($attributes, 'googleCalendarText'); ?> <span class="hero-calendar-icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M5.5 2.5v3M14.5 2.5v3M3 7.5h14M4.5 4h11A1.5 1.5 0 0 1 17 5.5v10a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 15.5v-10A1.5 1.5 0 0 1 4.5 4Z"></path><path d="M6.5 11h2v2h-2zM11.5 11h2v2h-2z"></path></svg></span></a>
-      <?php endif; ?>
+      <div class="hero-calendar-actions" aria-label="<?php esc_attr_e('Add CEEDUCON 2026 to a calendar', 'ceeducon-program'); ?>">
+        <?php foreach (['google', 'outlook'] as $calendar) : ?>
+          <?php if (trim((string) ceeducon_block_value($attributes, $calendar . 'CalendarText')) !== '' && trim((string) ceeducon_block_value($attributes, $calendar . 'CalendarUrl')) !== '') : ?>
+            <a class="hero-calendar" href="<?php echo ceeducon_block_url($attributes, $calendar . 'CalendarUrl'); ?>" target="_blank" rel="noreferrer"><?php echo ceeducon_block_text($attributes, $calendar . 'CalendarText'); ?> <span class="hero-calendar-icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M5.5 2.5v3M14.5 2.5v3M3 7.5h14M4.5 4h11A1.5 1.5 0 0 1 17 5.5v10a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 15.5v-10A1.5 1.5 0 0 1 4.5 4Z"></path><path d="M6.5 11h2v2h-2zM11.5 11h2v2h-2z"></path></svg></span></a>
+          <?php endif; ?>
+        <?php endforeach; ?>
+      </div>
     </div>
   </div>
 </section>

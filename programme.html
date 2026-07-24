@@ -102,10 +102,6 @@
               <kbd>⌘ K</kbd>
             </label>
             <div class="control-actions">
-              <button class="control-button view-toggle-button" type="button" data-view-toggle aria-pressed="true">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
-                <span data-view-label>Grid view</span>
-              </button>
               <button class="control-button favorites-button" type="button" data-favorites-toggle aria-pressed="false">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z" /></svg>
                 <span>My programme</span><b data-favorite-count>0</b>
@@ -125,10 +121,6 @@
                 <div class="filter-label"><span>Time</span></div>
                 <div class="filter-chips filter-chips--periods" data-period-filters></div>
               </div>
-              <div class="filter-group">
-                <div class="filter-label"><span>Rooms</span></div>
-                <div class="filter-chips filter-chips--rooms" data-room-filters></div>
-              </div>
               <div class="filter-footer">
                 <p data-result-count aria-live="polite">Loading programme…</p>
                 <button type="button" data-reset-filters>Clear filters <span>×</span></button>
@@ -146,7 +138,7 @@
           </noscript>
 
           <div class="empty-state" data-empty hidden>
-            <span>0</span><h3>No session matches your selection</h3><p>Try another theme, room or search term.</p><button type="button" data-empty-reset>Show full programme</button>
+            <span>0</span><h3>No session matches your selection</h3><p>Try another theme, time or search term.</p><button type="button" data-empty-reset>Show full programme</button>
           </div>
         </div>
       </section>

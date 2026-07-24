@@ -10,7 +10,7 @@
 
   blocks.registerBlockType("ceeducon/hero", {
     edit({ attributes, setAttributes }) {
-      const rows = attributes.eventRows || [];
+      const rows = (attributes.eventRows || []).filter((row) => String(row.label || "").toLowerCase() !== "format");
 
       return el(
         "section",
@@ -121,6 +121,16 @@
               label: __("Google Calendar URL", "ceeducon-program"),
               value: attributes.googleCalendarUrl,
               onChange: (googleCalendarUrl) => setAttributes({ googleCalendarUrl }),
+            }),
+            el(TextControl, {
+              label: __("Outlook Calendar text", "ceeducon-program"),
+              value: attributes.outlookCalendarText,
+              onChange: (outlookCalendarText) => setAttributes({ outlookCalendarText }),
+            }),
+            el(URLInput, {
+              label: __("Outlook Calendar URL", "ceeducon-program"),
+              value: attributes.outlookCalendarUrl,
+              onChange: (outlookCalendarUrl) => setAttributes({ outlookCalendarUrl }),
             })
           )
         ),
@@ -175,15 +185,21 @@
               el("div", { className: `hero-fact hero-fact--${index + 1}`, key: index }, el("span", {}, row.label), el("strong", {}, row.value))
             ),
             el(
-              "span",
-              { className: "hero-calendar" },
-              attributes.googleCalendarText,
-              el(
-                "span",
-                { className: "hero-calendar-icon", "aria-hidden": "true" },
-                el("svg", { viewBox: "0 0 20 20" },
-                  el("path", { d: "M5.5 2.5v3M14.5 2.5v3M3 7.5h14M4.5 4h11A1.5 1.5 0 0 1 17 5.5v10a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 15.5v-10A1.5 1.5 0 0 1 4.5 4Z" }),
-                  el("path", { d: "M6.5 11h2v2h-2zM11.5 11h2v2h-2z" })
+              "div",
+              { className: "hero-calendar-actions" },
+              [attributes.googleCalendarText, attributes.outlookCalendarText].map((label, index) =>
+                el(
+                  "span",
+                  { className: "hero-calendar", key: index },
+                  label,
+                  el(
+                    "span",
+                    { className: "hero-calendar-icon", "aria-hidden": "true" },
+                    el("svg", { viewBox: "0 0 20 20" },
+                      el("path", { d: "M5.5 2.5v3M14.5 2.5v3M3 7.5h14M4.5 4h11A1.5 1.5 0 0 1 17 5.5v10a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 15.5v-10A1.5 1.5 0 0 1 4.5 4Z" }),
+                      el("path", { d: "M6.5 11h2v2h-2zM11.5 11h2v2h-2z" })
+                    )
+                  )
                 )
               )
             )

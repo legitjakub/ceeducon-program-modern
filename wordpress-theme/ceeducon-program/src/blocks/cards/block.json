@@ -15,9 +15,9 @@
     "items": {
       "type": "array",
       "default": [
-        { "label": "Practical", "title": "Getting to the conference", "text": "Venue, transport from the airport and stations, accessibility and accommodation tips.", "url": "/practical/", "imageUrl": "assets/media/ceeducon-photo-registration.jpg", "imageAlt": "Participants arriving and registering at CEEDUCON" },
-        { "label": "For speakers", "title": "Speaking at CEEDUCON", "text": "Session expectations, onsite delivery, timeline and speaker support in one overview.", "url": "/speakers/", "imageUrl": "assets/media/ceeducon-photo-workshop.jpg", "imageAlt": "A CEEDUCON speaker leading a workshop" },
-        { "label": "Media kit", "title": "Official assets and press information", "text": "Download approved visuals, find press updates and contact the team for media requests.", "url": "/media/", "imageUrl": "assets/media/ceeducon-photo-plenary.jpg", "imageAlt": "A packed CEEDUCON plenary session" }
+        { "label": "Practical", "title": "Getting to the conference", "text": "Venue, transport from the airport and stations, accessibility and accommodation tips.", "url": "/practical-information/", "imageUrl": "assets/media/ceeducon-photo-registration.jpg", "imageAlt": "Participants arriving and registering at CEEDUCON" },
+        { "label": "For speakers", "title": "Speaking at CEEDUCON", "text": "Session expectations, onsite delivery, timeline and speaker support in one overview.", "url": "/for-speakers/", "imageUrl": "assets/media/ceeducon-photo-workshop.jpg", "imageAlt": "A CEEDUCON speaker leading a workshop" },
+        { "label": "Media kit", "title": "Official assets and press information", "text": "Download approved visuals, find press updates and contact the team for media requests.", "url": "/media-kit/", "imageUrl": "assets/media/ceeducon-photo-plenary.jpg", "imageAlt": "A packed CEEDUCON plenary session" }
       ]
     },
     "paper": { "type": "boolean", "default": true }

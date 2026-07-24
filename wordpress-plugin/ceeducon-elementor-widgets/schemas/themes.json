@@ -1,0 +1,14 @@
+{
+  "attributes": {
+    "kicker": { "type": "string", "default": "Thematic areas" },
+    "title": { "type": "string", "default": "Four themes frame the 2026 conversation." },
+    "intro": { "type": "string", "default": "From responsible technology to the complete student journey — the programme connects the questions that matter most to international higher education." },
+    "items": { "type": "array", "default": [
+      { "number": "01", "title": "Navigating the Technological Shift", "text": "AI, digitalisation, data and new tools for smarter internationalisation — with academic values and human judgement in focus." },
+      { "number": "02", "title": "Challenges of Internationalisation", "text": "Funding, safety, wellbeing and inclusion — removing barriers to meaningful international experiences for students and staff." },
+      { "number": "03", "title": "Global & Regional Partnerships", "text": "Strategic cooperation, European University alliances and equitable partnerships across global regions." },
+      { "number": "04", "title": "From Recruitment to Retention", "text": "The student journey end to end — admissions, support, employability, alumni relations and long-term success." }
+    ] },
+    "dark": { "type": "boolean", "default": false }
+  }
+}

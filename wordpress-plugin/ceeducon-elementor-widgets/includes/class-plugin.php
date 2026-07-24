@@ -50,6 +50,10 @@ final class Plugin
             Programme_Widget::class,
             Photo_Gallery_Widget::class,
             Video_Widget::class,
+            Themes_Widget::class,
+            Schedule_Overview_Widget::class,
+            Venue_Widget::class,
+            Partners_Widget::class,
         ];
 
         foreach ($widgets as $widget) {

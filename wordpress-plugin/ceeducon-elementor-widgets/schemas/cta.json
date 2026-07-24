@@ -13,7 +13,7 @@
     "title": { "type": "string", "default": "Plan your CEEDUCON visit." },
     "text": { "type": "string", "default": "Use the practical information and programme pages to prepare for the two conference days in Prague." },
     "primaryText": { "type": "string", "default": "Open practical info" },
-    "primaryUrl": { "type": "string", "default": "/practical/" },
+    "primaryUrl": { "type": "string", "default": "/practical-information/" },
     "secondaryText": { "type": "string", "default": "See programme" },
     "secondaryUrl": { "type": "string", "default": "/programme/" },
     "noteLabel": { "type": "string", "default": "CEEDUCON 2026" },

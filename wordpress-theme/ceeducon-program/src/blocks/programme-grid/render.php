@@ -23,10 +23,6 @@ if (!defined('ABSPATH')) {
         <kbd>⌘ K</kbd>
       </label>
       <div class="control-actions">
-        <button class="control-button view-toggle-button" type="button" data-view-toggle aria-pressed="true">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
-          <span data-view-label><?php esc_html_e('Grid view', 'ceeducon-program'); ?></span>
-        </button>
         <button class="control-button favorites-button" type="button" data-favorites-toggle aria-pressed="false">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z" /></svg>
           <span><?php esc_html_e('My programme', 'ceeducon-program'); ?></span><b data-favorite-count>0</b>
@@ -46,10 +42,6 @@ if (!defined('ABSPATH')) {
           <div class="filter-label"><span><?php esc_html_e('Time', 'ceeducon-program'); ?></span></div>
           <div class="filter-chips filter-chips--periods" data-period-filters></div>
         </div>
-        <div class="filter-group">
-          <div class="filter-label"><span><?php esc_html_e('Rooms', 'ceeducon-program'); ?></span></div>
-          <div class="filter-chips filter-chips--rooms" data-room-filters></div>
-        </div>
         <div class="filter-footer">
           <p data-result-count aria-live="polite"><?php esc_html_e('Loading programme…', 'ceeducon-program'); ?></p>
           <button type="button" data-reset-filters><?php esc_html_e('Clear filters', 'ceeducon-program'); ?> <span>×</span></button>
@@ -60,7 +52,7 @@ if (!defined('ABSPATH')) {
     <div class="schedule" data-schedule aria-live="polite"></div>
 
     <div class="empty-state" data-empty hidden>
-      <span>0</span><h3><?php esc_html_e('No session matches your selection', 'ceeducon-program'); ?></h3><p><?php esc_html_e('Try another theme, room or search term.', 'ceeducon-program'); ?></p><button type="button" data-empty-reset><?php esc_html_e('Show full programme', 'ceeducon-program'); ?></button>
+      <span>0</span><h3><?php esc_html_e('No session matches your selection', 'ceeducon-program'); ?></h3><p><?php esc_html_e('Try another theme, time or search term.', 'ceeducon-program'); ?></p><button type="button" data-empty-reset><?php esc_html_e('Show full programme', 'ceeducon-program'); ?></button>
     </div>
 
     <?php ceeducon_render_programme_seo_fallback(); ?>

@@ -1,6 +1,5 @@
 const DATA_URL = window.CEEDUCON_DATA_URL || "data/program.json";
 const FAVORITES_KEY = "ceeducon-2026-favorites";
-const VIEW_KEY = "ceeducon-2026-program-view-v3";
 const PERIODS = [
   { id: "", label: "All day" },
   { id: "morning", label: "Morning" },
@@ -11,10 +10,8 @@ const state = {
   data: null,
   dayIndex: 0,
   theme: "",
-  room: "",
   period: "",
   query: "",
-  view: localStorage.getItem(VIEW_KEY) || "grid",
   favoritesOnly: false,
   favorites: new Set(JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]")),
   sessionMap: new Map(),
@@ -27,7 +24,6 @@ const elements = {
   schedule: document.querySelector("[data-schedule]"),
   dayBar: document.querySelector("[data-day-bar]"),
   themeFilters: document.querySelector("[data-theme-filters]"),
-  roomFilters: document.querySelector("[data-room-filters]"),
   periodFilters: document.querySelector("[data-period-filters]"),
   search: document.getElementById("program-search"),
   resultCount: document.querySelector("[data-result-count]"),
@@ -35,8 +31,6 @@ const elements = {
   empty: document.querySelector("[data-empty]"),
   filterToggle: document.querySelector("[data-filter-toggle]"),
   filterDrawer: document.querySelector("[data-filter-drawer]"),
-  viewToggle: document.querySelector("[data-view-toggle]"),
-  viewLabel: document.querySelector("[data-view-label]"),
   favoritesToggle: document.querySelector("[data-favorites-toggle]"),
   favoriteCount: document.querySelector("[data-favorite-count]"),
   modalBackdrop: document.querySelector("[data-modal-backdrop]"),
@@ -111,7 +105,7 @@ function speakersPreview(speakers) {
 }
 
 function activeFilters() {
-  return Boolean(state.theme || state.room || state.period || state.query || state.favoritesOnly);
+  return Boolean(state.theme || state.period || state.query || state.favoritesOnly);
 }
 
 function matchesSlotPeriod(slot) {
@@ -125,7 +119,6 @@ function matchesSlotPeriod(slot) {
 
 function matchesSession(session, id) {
   if (state.theme && session.theme !== state.theme) return false;
-  if (state.room && !session.rooms.includes(state.room)) return false;
   if (state.favoritesOnly && !state.favorites.has(id)) return false;
   if (state.query) {
     const haystack = `${session.title} ${session.rooms.join(" ")} ${getThemeLabel(session.theme)} ${(session.speakers || []).join(" ")}`.toLocaleLowerCase("en");
@@ -136,7 +129,6 @@ function matchesSession(session, id) {
 
 function matchesBreakSlot(slot) {
   if (state.theme || state.favoritesOnly) return false;
-  if (state.room) return false;
   if (state.query) {
     return `${slot.title || ""}`.toLocaleLowerCase("en").includes(state.query);
   }
@@ -165,15 +157,6 @@ function renderFilters() {
       style="--chip-color:${theme.color}"
       aria-pressed="${state.theme === theme.id}"
     ><i></i><span>${escapeHtml(theme.label)}</span></button>
-  `).join("");
-
-  elements.roomFilters.innerHTML = state.data.rooms.map((room) => `
-    <button
-      class="filter-chip filter-chip--room${state.room === room ? " is-active" : ""}"
-      type="button"
-      data-room-filter="${escapeHtml(room)}"
-      aria-pressed="${state.room === room}"
-    >${escapeHtml(room)}</button>
   `).join("");
 
   elements.periodFilters.innerHTML = PERIODS.map((period) => `
@@ -244,14 +227,6 @@ function buildProgramBand(slot) {
 
 function renderSchedule() {
   state.sessionMap.clear();
-  elements.schedule.classList.toggle("schedule--list", state.view === "list");
-  if (elements.viewToggle) {
-    elements.viewToggle.setAttribute("aria-pressed", String(state.view === "grid"));
-  }
-  if (elements.viewLabel) {
-    elements.viewLabel.textContent = state.view === "grid" ? "Grid view" : "List view";
-  }
-
   const day = currentDay();
   let visibleSessions = 0;
   const slots = [];
@@ -311,7 +286,6 @@ function updateFavoritesUI() {
 
 function resetFilters() {
   state.theme = "";
-  state.room = "";
   state.period = "";
   state.query = "";
   state.favoritesOnly = false;
@@ -449,13 +423,6 @@ function bindEvents() {
     render();
   });
 
-  elements.roomFilters.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-room-filter]");
-    if (!button) return;
-    state.room = state.room === button.dataset.roomFilter ? "" : button.dataset.roomFilter;
-    render();
-  });
-
   elements.periodFilters.addEventListener("click", (event) => {
     const button = event.target.closest("[data-period-filter]");
     if (!button) return;
@@ -478,12 +445,6 @@ function bindEvents() {
   elements.favoritesToggle.addEventListener("click", () => {
     state.favoritesOnly = !state.favoritesOnly;
     render();
-  });
-
-  elements.viewToggle?.addEventListener("click", () => {
-    state.view = state.view === "list" ? "grid" : "list";
-    localStorage.setItem(VIEW_KEY, state.view);
-    renderSchedule();
   });
 
   elements.filterToggle.addEventListener("click", () => {
