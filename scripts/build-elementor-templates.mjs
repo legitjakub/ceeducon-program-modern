@@ -66,19 +66,8 @@ const pages = {
     widget('faq', { kicker: 'Good to know', title: 'Plan your visit with confidence.' }),
     widget('image-text', { kicker: 'Map and venue', title: 'Plan the route before conference day.', text: 'Check entrances, transport connections and nearby services before you arrive.', primaryText: 'Open venue website', primaryUrl: link('https://www.o2universum.cz/en'), secondaryText: 'Open map', secondaryUrl: link('https://www.google.com/maps/search/?api=1&query=O2%20universum%2C%20Ceskomoravska%202345%2F17a%2C%20Prague%209'), imageUrl: media('/wp-content/themes/ceeducon-program/assets/media/ceeducon-photo-registration.jpg'), imageAlt: 'Participants arriving at O2 universum for CEEDUCON', imageLabel: 'O2 universum Prague' }),
   ]),
-  speakers: page('CEEDUCON Speakers', [
-    widget('page-hero', { crumb: 'Speakers', title: 'Meet the voices shaping the conversation.', note: 'Featured speakers and practical information for everyone presenting at CEEDUCON.', cardLabel: 'Conference language', cardTitle: 'English' }),
-    widget('cards', {
-      kicker: 'Programme voices',
-      title: 'Selected contributors from the preliminary programme.',
-      intro: 'The full speaker line-up will be published as confirmations are completed.',
-      paper: 'yes',
-      items: [
-        { label: 'European Students’ Union', title: 'Louis Brau', text: 'Student leadership for global higher education partnerships.', url: link('/programme/') },
-        { label: 'Halmstad University', title: 'Lucie Weissova', text: 'Contributing to the session Reshaping International Offices.', url: link('/programme/') },
-        { label: 'EAIE', title: 'Jody Hoekstra-Selten', text: 'Contributing to the session At the Front Line of Change.', url: link('/programme/') },
-      ],
-    }),
+  speakers: page('CEEDUCON For Speakers', [
+    widget('page-hero', { crumb: 'For speakers', title: 'For speakers.', note: 'Practical information about formats, milestones and support for confirmed CEEDUCON speakers.', cardLabel: 'Speaker checklist', cardTitle: 'Before conference day', cardText: "Check your session details, complete speaker registration and submit final presentation materials according to the organisers' instructions." }),
     widget('text-section', { kicker: 'For speakers', title: 'Prepare a clear, practical session.', text: 'Use this section for format, timing, presentation and accessibility guidance.', secondText: 'The CEEDUCON team will publish final speaker instructions and onsite contacts before the conference.' }),
     widget('cards', { kicker: 'Timeline', title: 'Important milestones.', paper: '' }),
     widget('cta', { kicker: 'Speaker support', title: 'Need help with your session?', text: 'Contact the CEEDUCON team with programme or delivery questions.', primaryText: 'Email the team', primaryUrl: link('mailto:ceeducon@dzs.cz'), secondaryText: 'See programme', secondaryUrl: link('/programme/') }),

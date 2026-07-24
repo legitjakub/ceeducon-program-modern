@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: CEEDUCON Speakers
+ * Template Name: CEEDUCON For Speakers
  */
 
 get_header();
@@ -15,81 +15,19 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
       <section class="page-hero page-hero--orange">
         <div class="shell page-hero-grid">
           <div>
-            <p class="page-crumbs"><a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Home', 'ceeducon-program'); ?></a><span>/</span><em><?php esc_html_e('Speakers', 'ceeducon-program'); ?></em></p>
-            <h1><?php ceeducon_text('spk_hero_title', 'Speakers at CEEDUCON.'); ?></h1>
-            <p class="page-hero-note"><?php ceeducon_text('spk_hero_note', 'Meet featured contributors and find practical information about formats, milestones and support for confirmed CEEDUCON speakers.'); ?></p>
+            <p class="page-crumbs"><a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Home', 'ceeducon-program'); ?></a><span>/</span><em><?php esc_html_e('For speakers', 'ceeducon-program'); ?></em></p>
+            <h1><?php ceeducon_text('spk_hero_title', 'For speakers.'); ?></h1>
+            <p class="page-hero-note"><?php ceeducon_text('spk_hero_note', 'Practical information about formats, milestones and support for confirmed CEEDUCON speakers.'); ?></p>
           </div>
           <div class="page-hero-card">
-            <span><?php ceeducon_text('spk_card_label', 'Programme publication'); ?></span>
-            <strong><?php ceeducon_text('spk_card_title', 'By September 1'); ?></strong>
-            <p><?php ceeducon_text('spk_card_text', 'Accepted speakers receive detailed follow-up information about registration, contracts and presentation materials.'); ?></p>
+            <span><?php ceeducon_text('spk_card_label', 'Speaker checklist'); ?></span>
+            <strong><?php ceeducon_text('spk_card_title', 'Before conference day'); ?></strong>
+            <p><?php ceeducon_text('spk_card_text', "Check your session details, complete speaker registration and submit final presentation materials according to the organisers' instructions."); ?></p>
           </div>
         </div>
       </section>
 
       <?php ceeducon_render_editor_content(); ?>
-
-      <section class="section">
-        <div class="shell">
-          <div class="section-head">
-            <div data-reveal>
-              <p class="kicker"><?php ceeducon_text('featured_speakers_kicker', 'Programme voices'); ?></p>
-              <h2 class="display-2"><?php ceeducon_text('featured_speakers_title', 'Featured speakers and contributors.'); ?></h2>
-            </div>
-            <p data-reveal="2"><?php ceeducon_text('featured_speakers_intro', 'A first look at people already appearing in the preliminary CEEDUCON 2026 programme. The full speaker list will follow as confirmations are completed.'); ?></p>
-          </div>
-          <div class="speaker-card-grid" aria-label="<?php esc_attr_e('Featured CEEDUCON speakers', 'ceeducon-program'); ?>">
-            <article class="speaker-card" data-reveal>
-              <span class="speaker-initials" aria-hidden="true">MU</span>
-              <div>
-                <span><?php ceeducon_text('featured_speaker_1_label', 'Opening & strategy'); ?></span>
-                <h3><?php ceeducon_text('featured_speaker_1_name', 'Michal Uhl'); ?></h3>
-                <p><?php ceeducon_text('featured_speaker_1_text', 'Czech National Agency for International Education and Research (DZS)'); ?></p>
-              </div>
-            </article>
-            <article class="speaker-card" data-reveal="2">
-              <span class="speaker-initials" aria-hidden="true">VS</span>
-              <div>
-                <span><?php ceeducon_text('featured_speaker_2_label', 'AI & student journey'); ?></span>
-                <h3><?php ceeducon_text('featured_speaker_2_name', 'Valentýna Škrabálková'); ?></h3>
-                <p><?php ceeducon_text('featured_speaker_2_text', 'DZS'); ?></p>
-              </div>
-            </article>
-            <article class="speaker-card" data-reveal="3">
-              <span class="speaker-initials" aria-hidden="true">JVD</span>
-              <div>
-                <span><?php ceeducon_text('featured_speaker_3_label', 'Digital tools'); ?></span>
-                <h3><?php ceeducon_text('featured_speaker_3_name', 'Jeroen Van Dijk'); ?></h3>
-                <p><?php ceeducon_text('featured_speaker_3_text', 'Royal College of Art'); ?></p>
-              </div>
-            </article>
-            <article class="speaker-card" data-reveal>
-              <span class="speaker-initials" aria-hidden="true">LB</span>
-              <div>
-                <span><?php ceeducon_text('featured_speaker_4_label', 'Global partnerships'); ?></span>
-                <h3><?php ceeducon_text('featured_speaker_4_name', 'Louis Brau'); ?></h3>
-                <p><?php ceeducon_text('featured_speaker_4_text', "European Students' Union"); ?></p>
-              </div>
-            </article>
-            <article class="speaker-card" data-reveal="2">
-              <span class="speaker-initials" aria-hidden="true">JHS</span>
-              <div>
-                <span><?php ceeducon_text('featured_speaker_5_label', 'Young professionals'); ?></span>
-                <h3><?php ceeducon_text('featured_speaker_5_name', 'Jody Hoekstra-Selten'); ?></h3>
-                <p><?php ceeducon_text('featured_speaker_5_text', 'EAIE'); ?></p>
-              </div>
-            </article>
-            <article class="speaker-card" data-reveal="3">
-              <span class="speaker-initials" aria-hidden="true">JN</span>
-              <div>
-                <span><?php ceeducon_text('featured_speaker_6_label', 'European cooperation'); ?></span>
-                <h3><?php ceeducon_text('featured_speaker_6_name', 'Jiří Nantl'); ?></h3>
-                <p><?php ceeducon_text('featured_speaker_6_text', 'University of Applied Sciences St. Pölten'); ?></p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
 
       <section class="section section--navy on-dark">
         <div class="shell speakers-grid">
@@ -156,8 +94,8 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
               <strong><?php ceeducon_text('milestone_3_text', 'Contracts & presentation template'); ?></strong>
             </article>
             <article data-reveal="4">
-              <span><?php ceeducon_text('milestone_4_label', 'By September 1'); ?></span>
-              <strong><?php ceeducon_text('milestone_4_text', 'Programme publication'); ?></strong>
+              <span><?php ceeducon_text('milestone_4_label', 'Before the conference'); ?></span>
+              <strong><?php ceeducon_text('milestone_4_text', 'Final materials and technical check'); ?></strong>
             </article>
           </div>
         </div>

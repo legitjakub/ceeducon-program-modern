@@ -1,10 +1,10 @@
 {
   "version": "0.4",
-  "title": "CEEDUCON Speakers",
+  "title": "CEEDUCON For Speakers",
   "type": "page",
   "content": [
     {
-      "id": "cd00002a",
+      "id": "cd000029",
       "elType": "container",
       "settings": {
         "content_width": "full",
@@ -33,11 +33,51 @@
           "elType": "widget",
           "widgetType": "ceeducon_page_hero",
           "settings": {
-            "crumb": "Speakers",
-            "title": "Meet the voices shaping the conversation.",
-            "note": "Featured speakers and practical information for everyone presenting at CEEDUCON.",
-            "cardLabel": "Conference language",
-            "cardTitle": "English"
+            "crumb": "For speakers",
+            "title": "For speakers.",
+            "note": "Practical information about formats, milestones and support for confirmed CEEDUCON speakers.",
+            "cardLabel": "Speaker checklist",
+            "cardTitle": "Before conference day",
+            "cardText": "Check your session details, complete speaker registration and submit final presentation materials according to the organisers' instructions."
+          },
+          "elements": []
+        }
+      ]
+    },
+    {
+      "id": "cd00002a",
+      "elType": "container",
+      "settings": {
+        "content_width": "full",
+        "width": {
+          "unit": "%",
+          "size": 100,
+          "sizes": []
+        },
+        "padding": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        },
+        "gap": {
+          "unit": "px",
+          "size": 0,
+          "sizes": []
+        }
+      },
+      "elements": [
+        {
+          "id": "cd000026",
+          "elType": "widget",
+          "widgetType": "ceeducon_text_section",
+          "settings": {
+            "kicker": "For speakers",
+            "title": "Prepare a clear, practical session.",
+            "text": "Use this section for format, timing, presentation and accessibility guidance.",
+            "secondText": "The CEEDUCON team will publish final speaker instructions and onsite contacts before the conference."
           },
           "elements": []
         }
@@ -69,40 +109,13 @@
       },
       "elements": [
         {
-          "id": "cd000026",
+          "id": "cd000027",
           "elType": "widget",
           "widgetType": "ceeducon_cards",
           "settings": {
-            "kicker": "Programme voices",
-            "title": "Selected contributors from the preliminary programme.",
-            "intro": "The full speaker line-up will be published as confirmations are completed.",
-            "paper": "yes",
-            "items": [
-              {
-                "label": "European Students’ Union",
-                "title": "Louis Brau",
-                "text": "Student leadership for global higher education partnerships.",
-                "url": {
-                  "url": "/programme/"
-                }
-              },
-              {
-                "label": "Halmstad University",
-                "title": "Lucie Weissova",
-                "text": "Contributing to the session Reshaping International Offices.",
-                "url": {
-                  "url": "/programme/"
-                }
-              },
-              {
-                "label": "EAIE",
-                "title": "Jody Hoekstra-Selten",
-                "text": "Contributing to the session At the Front Line of Change.",
-                "url": {
-                  "url": "/programme/"
-                }
-              }
-            ]
+            "kicker": "Timeline",
+            "title": "Important milestones.",
+            "paper": ""
           },
           "elements": []
         }
@@ -134,84 +147,7 @@
       },
       "elements": [
         {
-          "id": "cd000027",
-          "elType": "widget",
-          "widgetType": "ceeducon_text_section",
-          "settings": {
-            "kicker": "For speakers",
-            "title": "Prepare a clear, practical session.",
-            "text": "Use this section for format, timing, presentation and accessibility guidance.",
-            "secondText": "The CEEDUCON team will publish final speaker instructions and onsite contacts before the conference."
-          },
-          "elements": []
-        }
-      ]
-    },
-    {
-      "id": "cd00002d",
-      "elType": "container",
-      "settings": {
-        "content_width": "full",
-        "width": {
-          "unit": "%",
-          "size": 100,
-          "sizes": []
-        },
-        "padding": {
-          "unit": "px",
-          "top": "0",
-          "right": "0",
-          "bottom": "0",
-          "left": "0",
-          "isLinked": true
-        },
-        "gap": {
-          "unit": "px",
-          "size": 0,
-          "sizes": []
-        }
-      },
-      "elements": [
-        {
           "id": "cd000028",
-          "elType": "widget",
-          "widgetType": "ceeducon_cards",
-          "settings": {
-            "kicker": "Timeline",
-            "title": "Important milestones.",
-            "paper": ""
-          },
-          "elements": []
-        }
-      ]
-    },
-    {
-      "id": "cd00002e",
-      "elType": "container",
-      "settings": {
-        "content_width": "full",
-        "width": {
-          "unit": "%",
-          "size": 100,
-          "sizes": []
-        },
-        "padding": {
-          "unit": "px",
-          "top": "0",
-          "right": "0",
-          "bottom": "0",
-          "left": "0",
-          "isLinked": true
-        },
-        "gap": {
-          "unit": "px",
-          "size": 0,
-          "sizes": []
-        }
-      },
-      "elements": [
-        {
-          "id": "cd000029",
           "elType": "widget",
           "widgetType": "ceeducon_cta",
           "settings": {

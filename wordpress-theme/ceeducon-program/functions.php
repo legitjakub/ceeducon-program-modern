@@ -256,7 +256,7 @@ function ceeducon_seo_description(): string
         'about' => 'About CEEDUCON, the Central European Conference on Internationalisation of Higher Education, organised by DZS with partners across the region.',
         'programme' => 'Browse the interactive CEEDUCON 2026 programme for 1–2 December at O2 universum Prague: sessions, workshops, rooms and speakers.',
         'practical' => 'Practical information for CEEDUCON 2026: venue, transport, accessibility and accommodation in Prague.',
-        'speakers' => 'Meet featured CEEDUCON 2026 contributors and find practical information, milestones and support for confirmed speakers.',
+        'speakers' => 'Practical information, milestones and support for confirmed CEEDUCON 2026 speakers.',
         'media' => 'CEEDUCON 2026 media kit: official visuals, brand assets, press information and media contact.',
         'contact' => 'Contact the CEEDUCON 2026 organising team about registration, programme, speakers, partnerships or media requests.',
     ];
@@ -401,7 +401,7 @@ function ceeducon_nav_items(): array
         'about' => __('About', 'ceeducon-program'),
         'programme' => __('Programme', 'ceeducon-program'),
         'practical' => __('Practical', 'ceeducon-program'),
-        'speakers' => __('Speakers', 'ceeducon-program'),
+        'speakers' => __('For speakers', 'ceeducon-program'),
         'media' => __('Media kit', 'ceeducon-program'),
         'contact' => __('Contact', 'ceeducon-program'),
     ];
@@ -894,12 +894,12 @@ function ceeducon_page_block_templates(): array
         ]),
         'speakers' => ceeducon_page_template_content([
             ['ceeducon/page-hero', [
-                'crumb' => 'Speakers',
-                'title' => 'Speakers at CEEDUCON.',
-                'note' => 'Meet featured contributors and find practical information about formats, milestones and support for confirmed CEEDUCON speakers.',
-                'cardLabel' => 'Speaker support',
-                'cardTitle' => 'Clear milestones',
-                'cardText' => 'Prepare your session, materials and onsite participation.',
+                'crumb' => 'For speakers',
+                'title' => 'For speakers.',
+                'note' => 'Practical information about formats, milestones and support for confirmed CEEDUCON speakers.',
+                'cardLabel' => 'Speaker checklist',
+                'cardTitle' => 'Before conference day',
+                'cardText' => "Check your session details, complete speaker registration and submit final presentation materials according to the organisers' instructions.",
                 'orange' => true,
             ]],
             ['ceeducon/text-section', [
@@ -943,7 +943,7 @@ function ceeducon_page_block_templates(): array
                 'items' => [
                     ['label' => 'Programme', 'title' => 'Sessions and schedule', 'text' => 'Questions about programme structure, sessions or speakers.', 'url' => '/programme/'],
                     ['label' => 'Practical', 'title' => 'Venue and travel', 'text' => 'Questions about O2 universum, transport and onsite access.', 'url' => '/practical-information/'],
-                    ['label' => 'Speakers', 'title' => 'Speaker information', 'text' => 'Questions about speaking, materials or session delivery.', 'url' => '/for-speakers/'],
+                    ['label' => 'For speakers', 'title' => 'Speaker information', 'text' => 'Questions about speaking, materials or session delivery.', 'url' => '/for-speakers/'],
                 ],
             ]],
         ]),
@@ -1003,7 +1003,7 @@ function ceeducon_register_block_patterns(): void
         'about' => __('CEEDUCON about page', 'ceeducon-program'),
         'programme' => __('CEEDUCON programme page', 'ceeducon-program'),
         'practical' => __('CEEDUCON practical page', 'ceeducon-program'),
-        'speakers' => __('CEEDUCON speakers page', 'ceeducon-program'),
+        'speakers' => __('CEEDUCON for speakers page', 'ceeducon-program'),
         'contact' => __('CEEDUCON contact page', 'ceeducon-program'),
         'media' => __('CEEDUCON media kit page', 'ceeducon-program'),
     ];
@@ -1054,7 +1054,7 @@ function ceeducon_admin_content_fields(): array
             ['seo_about_description', 'About meta description', 'About CEEDUCON, the Central European Conference on Internationalisation of Higher Education, organised by DZS with partners across the region.', 'textarea'],
             ['seo_programme_description', 'Programme meta description', 'Browse the interactive CEEDUCON 2026 programme for 1–2 December at O2 universum Prague: sessions, workshops, rooms and speakers.', 'textarea'],
             ['seo_practical_description', 'Practical meta description', 'Practical information for CEEDUCON 2026: venue, transport, accessibility and accommodation in Prague.', 'textarea'],
-            ['seo_speakers_description', 'Speakers meta description', 'Meet featured CEEDUCON 2026 contributors and find practical information, milestones and support for confirmed speakers.', 'textarea'],
+            ['seo_speakers_description', 'For speakers meta description', 'Practical information, milestones and support for confirmed CEEDUCON 2026 speakers.', 'textarea'],
             ['seo_media_description', 'Media kit meta description', 'CEEDUCON 2026 media kit: official visuals, brand assets, press information and media contact.', 'textarea'],
             ['seo_contact_description', 'Contact meta description', 'Contact the CEEDUCON 2026 organising team about registration, programme, speakers, partnerships or media requests.', 'textarea'],
         ],
@@ -1263,33 +1263,12 @@ function ceeducon_admin_content_fields(): array
             ['venue_map_url', 'Map URL', 'https://www.google.com/maps/search/?api=1&query=O2%20universum%20Ceskomoravska%2017%20Prague', 'url'],
             ['venue_embed_url', 'Embedded map URL', 'https://www.google.com/maps?q=O2%20universum%20Ceskomoravska%2017%20Prague&output=embed', 'url'],
         ],
-        'Speakers page' => [
-            ['spk_hero_title', 'Hero title', 'Speakers at CEEDUCON.', 'textarea'],
-            ['spk_hero_note', 'Hero note', 'Meet featured contributors and find practical information about formats, milestones and support for confirmed CEEDUCON speakers.', 'textarea'],
-            ['spk_card_label', 'Hero card label', 'Programme publication', 'text'],
-            ['spk_card_title', 'Hero card title', 'By September 1', 'text'],
-            ['spk_card_text', 'Hero card text', 'Accepted speakers receive detailed follow-up information about registration, contracts and presentation materials.', 'textarea'],
-            ['featured_speakers_kicker', 'Featured speakers kicker', 'Programme voices', 'text'],
-            ['featured_speakers_title', 'Featured speakers title', 'Featured speakers and contributors.', 'textarea'],
-            ['featured_speakers_intro', 'Featured speakers intro', 'A first look at people already appearing in the preliminary CEEDUCON 2026 programme. The full speaker list will follow as confirmations are completed.', 'textarea'],
-            ['featured_speaker_1_label', 'Featured speaker 1 label', 'Opening & strategy', 'text'],
-            ['featured_speaker_1_name', 'Featured speaker 1 name', 'Michal Uhl', 'text'],
-            ['featured_speaker_1_text', 'Featured speaker 1 text', 'Czech National Agency for International Education and Research (DZS)', 'textarea'],
-            ['featured_speaker_2_label', 'Featured speaker 2 label', 'AI & student journey', 'text'],
-            ['featured_speaker_2_name', 'Featured speaker 2 name', 'Valentýna Škrabálková', 'text'],
-            ['featured_speaker_2_text', 'Featured speaker 2 text', 'DZS', 'textarea'],
-            ['featured_speaker_3_label', 'Featured speaker 3 label', 'Digital tools', 'text'],
-            ['featured_speaker_3_name', 'Featured speaker 3 name', 'Jeroen Van Dijk', 'text'],
-            ['featured_speaker_3_text', 'Featured speaker 3 text', 'Royal College of Art', 'textarea'],
-            ['featured_speaker_4_label', 'Featured speaker 4 label', 'Global partnerships', 'text'],
-            ['featured_speaker_4_name', 'Featured speaker 4 name', 'Louis Brau', 'text'],
-            ['featured_speaker_4_text', 'Featured speaker 4 text', "European Students' Union", 'textarea'],
-            ['featured_speaker_5_label', 'Featured speaker 5 label', 'Young professionals', 'text'],
-            ['featured_speaker_5_name', 'Featured speaker 5 name', 'Jody Hoekstra-Selten', 'text'],
-            ['featured_speaker_5_text', 'Featured speaker 5 text', 'EAIE', 'textarea'],
-            ['featured_speaker_6_label', 'Featured speaker 6 label', 'European cooperation', 'text'],
-            ['featured_speaker_6_name', 'Featured speaker 6 name', 'Jiří Nantl', 'text'],
-            ['featured_speaker_6_text', 'Featured speaker 6 text', 'University of Applied Sciences St. Pölten', 'textarea'],
+        'For speakers page' => [
+            ['spk_hero_title', 'Hero title', 'For speakers.', 'textarea'],
+            ['spk_hero_note', 'Hero note', 'Practical information about formats, milestones and support for confirmed CEEDUCON speakers.', 'textarea'],
+            ['spk_card_label', 'Hero card label', 'Speaker checklist', 'text'],
+            ['spk_card_title', 'Hero card title', 'Before conference day', 'text'],
+            ['spk_card_text', 'Hero card text', "Check your session details, complete speaker registration and submit final presentation materials according to the organisers' instructions.", 'textarea'],
             ['spk_kicker', 'Section kicker', 'Speaker information', 'text'],
             ['spk_title', 'Section title', 'Clear expectations before conference day.', 'textarea'],
             ['spk_lead', 'Section lead', 'Sessions are planned primarily onsite at O2 universum Prague and delivered in English. This page keeps the essential speaker information in one place.', 'textarea'],
@@ -1314,8 +1293,8 @@ function ceeducon_admin_content_fields(): array
             ['milestone_2_text', 'Milestone 2 text', 'Speaker registration & photo', 'text'],
             ['milestone_3_label', 'Milestone 3 label', 'September', 'text'],
             ['milestone_3_text', 'Milestone 3 text', 'Contracts & presentation template', 'text'],
-            ['milestone_4_label', 'Milestone 4 label', 'By September 1', 'text'],
-            ['milestone_4_text', 'Milestone 4 text', 'Programme publication', 'text'],
+            ['milestone_4_label', 'Milestone 4 label', 'Before the conference', 'text'],
+            ['milestone_4_text', 'Milestone 4 text', 'Final materials and technical check', 'text'],
             ['spk_links_kicker', 'Quick links kicker', 'Also useful', 'text'],
             ['spk_links_title', 'Quick links title', 'Useful next steps.', 'textarea'],
             ['spk_link_1_label', 'Quick link 1 label', 'Programme', 'text'],
@@ -1373,7 +1352,7 @@ add_action('admin_menu', 'ceeducon_admin_menu');
 
 function ceeducon_migrate_default_content(): void
 {
-    $target_version = '2.2.5';
+    $target_version = '2.2.7';
     if (get_option('ceeducon_content_defaults_version') === $target_version) {
         return;
     }
@@ -1452,6 +1431,55 @@ function ceeducon_migrate_default_content(): void
             $changed = true;
         }
 
+    }
+
+    $speaker_replacements = [
+        'spk_hero_title' => [
+            ['Speakers at CEEDUCON.'],
+            'For speakers.',
+        ],
+        'spk_hero_note' => [
+            [
+                'Meet featured contributors and find practical information about formats, milestones and support for confirmed CEEDUCON speakers.',
+                'Guidance for accepted session contributors: format, onsite delivery, timeline and practical support before the conference.',
+                'CEEDUCON sessions are built on practical experience, international cooperation and diverse institutional perspectives. Here is what session contributors need to know.',
+            ],
+            'Practical information about formats, milestones and support for confirmed CEEDUCON speakers.',
+        ],
+        'seo_speakers_description' => [
+            ['Meet featured CEEDUCON 2026 contributors and find practical information, milestones and support for confirmed speakers.'],
+            'Practical information, milestones and support for confirmed CEEDUCON 2026 speakers.',
+        ],
+        'spk_card_label' => [
+            ['Programme publication', 'Speaker support'],
+            'Speaker checklist',
+        ],
+        'spk_card_title' => [
+            ['By September 1', 'Clear milestones'],
+            'Before conference day',
+        ],
+        'spk_card_text' => [
+            [
+                'Accepted speakers receive detailed follow-up information about registration, contracts and presentation materials.',
+                'Prepare your session, materials and onsite participation.',
+            ],
+            "Check your session details, complete speaker registration and submit final presentation materials according to the organisers' instructions.",
+        ],
+        'milestone_4_label' => [
+            ['By September 1'],
+            'Before the conference',
+        ],
+        'milestone_4_text' => [
+            ['Programme publication'],
+            'Final materials and technical check',
+        ],
+    ];
+
+    foreach ($speaker_replacements as $key => [$old_values, $new]) {
+        if (array_key_exists($key, $content) && in_array((string) $content[$key], $old_values, true)) {
+            $content[$key] = $new;
+            $changed = true;
+        }
     }
 
     if ($changed) {
