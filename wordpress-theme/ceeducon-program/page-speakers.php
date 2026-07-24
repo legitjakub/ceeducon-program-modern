@@ -29,7 +29,7 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
 
       <?php ceeducon_render_editor_content(); ?>
 
-      <section class="section section--navy section--warm on-dark">
+      <section class="section section--paper">
         <div class="shell speakers-grid">
           <div data-reveal>
             <p class="kicker"><?php ceeducon_text('spk_kicker', 'Speaker information'); ?></p>

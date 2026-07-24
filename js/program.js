@@ -380,19 +380,44 @@ function compactTime(time) {
   return time.replace(":", "") + "00";
 }
 
+function calendarDetails(session) {
+  return [`CEEDUCON 2026 · ${session.theme}`, speakersText(session.speakers)].filter(Boolean).join("\n");
+}
+
+function calendarLocation(session) {
+  return `O2 universum Prague — ${session.rooms.join(" + ")}`;
+}
+
 function addToCalendar() {
   const session = state.modalSession;
   if (!session) return;
-  const details = [`CEEDUCON 2026 · ${session.theme}`, speakersText(session.speakers)].filter(Boolean).join("\n");
   const params = new URLSearchParams({
     action: "TEMPLATE",
     text: session.title,
     dates: `${compactDate(session.date)}T${compactTime(session.start)}/${compactDate(session.date)}T${compactTime(session.end)}`,
     ctz: "Europe/Prague",
-    location: `O2 universum Prague — ${session.rooms.join(" + ")}`,
-    details,
+    location: calendarLocation(session),
+    details: calendarDetails(session),
   });
   window.open(`https://calendar.google.com/calendar/render?${params.toString()}`, "_blank", "noopener");
+}
+
+function addToOutlookCalendar() {
+  const session = state.modalSession;
+  if (!session) return;
+  // Outlook's deeplink takes ISO datetimes with an explicit offset. The conference
+  // runs in December, when Prague is on CET (UTC+01:00).
+  const params = new URLSearchParams({
+    path: "/calendar/action/compose",
+    rru: "addevent",
+    subject: session.title,
+    startdt: `${session.date}T${session.start}:00+01:00`,
+    enddt: `${session.date}T${session.end}:00+01:00`,
+    allday: "false",
+    location: calendarLocation(session),
+    body: calendarDetails(session),
+  });
+  window.open(`https://outlook.office.com/calendar/0/deeplink/compose?${params.toString()}`, "_blank", "noopener");
 }
 
 let toastTimer;
@@ -458,6 +483,7 @@ function bindEvents() {
   });
   elements.modalFavorite.addEventListener("click", () => toggleFavorite(state.modalSessionId));
   document.querySelector("[data-add-calendar]")?.addEventListener("click", addToCalendar);
+  document.querySelector("[data-add-outlook]")?.addEventListener("click", addToOutlookCalendar);
 
   document.addEventListener("keydown", (event) => {
     if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {

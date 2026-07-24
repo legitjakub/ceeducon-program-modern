@@ -50,6 +50,7 @@
         <div class="modal-actions">
           <button type="button" data-modal-favorite><span>☆</span> <?php esc_html_e('Add to my programme', 'ceeducon-program'); ?></button>
           <button class="modal-calendar" type="button" data-add-calendar><?php esc_html_e('Add to Google Calendar', 'ceeducon-program'); ?> <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span></button>
+          <button class="modal-calendar" type="button" data-add-outlook><?php esc_html_e('Add to Outlook Calendar', 'ceeducon-program'); ?> <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span></button>
         </div>
       </section>
     </div>
