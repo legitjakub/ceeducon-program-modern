@@ -35,9 +35,9 @@ const pages = {
   homepage: page('CEEDUCON Homepage', [
     widget('hero'),
     widget('text-section', { buttonText: 'More about CEEDUCON', buttonUrl: link('/about/') }),
+    themes,
     widget('video'),
     widget('photo-gallery'),
-    themes,
     widget('schedule-overview'),
     widget('cards', {
       kicker: 'Plan ahead',

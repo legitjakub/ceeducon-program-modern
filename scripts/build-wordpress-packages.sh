@@ -9,6 +9,7 @@ trap 'rm -rf "$STAGE"' EXIT INT TERM
 mkdir -p "$DIST/elementor-templates"
 cp -R "$ROOT/wordpress-theme/ceeducon-program" "$STAGE/ceeducon-program"
 cp -R "$ROOT/wordpress-plugin/ceeducon-elementor-widgets" "$STAGE/ceeducon-elementor-widgets"
+cp -R "$ROOT/wordpress-plugin/ceeducon-elementor-widgets/." "$DIST/ceeducon-elementor-widgets/"
 cp "$ROOT"/wordpress-plugin/ceeducon-elementor-widgets/templates/*.json "$DIST/elementor-templates/"
 cp "$ROOT/WORDPRESS-ELEMENTOR-INSTALLATION.md" "$DIST/INSTALLATION.md"
 

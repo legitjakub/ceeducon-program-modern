@@ -102,9 +102,9 @@
       },
       "elements": [
         {
-          "id": "cd000004",
+          "id": "cd000001",
           "elType": "widget",
-          "widgetType": "ceeducon_video",
+          "widgetType": "ceeducon_themes",
           "settings": {},
           "elements": []
         }
@@ -136,9 +136,9 @@
       },
       "elements": [
         {
-          "id": "cd000005",
+          "id": "cd000004",
           "elType": "widget",
-          "widgetType": "ceeducon_photo_gallery",
+          "widgetType": "ceeducon_video",
           "settings": {},
           "elements": []
         }
@@ -170,9 +170,9 @@
       },
       "elements": [
         {
-          "id": "cd000001",
+          "id": "cd000005",
           "elType": "widget",
-          "widgetType": "ceeducon_themes",
+          "widgetType": "ceeducon_photo_gallery",
           "settings": {},
           "elements": []
         }

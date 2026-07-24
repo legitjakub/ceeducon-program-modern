@@ -69,35 +69,6 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
         </div>
       </section>
 
-      <?php
-      ceeducon_print_section('video', [
-          'kicker' => ceeducon_text_value('home_video_kicker', 'CEEDUCON in motion'),
-          'title' => ceeducon_text_value('home_video_title', 'See the conference come to life.'),
-          'text' => ceeducon_text_value('home_video_text', 'Step inside CEEDUCON and experience the plenaries, practical sessions and conversations that connect the international higher education community.'),
-          'videoUrl' => ceeducon_text_value('home_video_url', 'https://www.youtube.com/watch?v=oad5sn8ku1c'),
-          'videoTitle' => ceeducon_text_value('home_video_accessible_title', 'CEEDUCON conference video'),
-          'buttonText' => ceeducon_text_value('home_video_button', 'Watch on YouTube'),
-          'caption' => ceeducon_text_value('home_video_caption', 'Highlights from CEEDUCON'),
-      ]);
-      ?>
-
-      <?php
-      ceeducon_print_section('photo-gallery', [
-          'kicker' => ceeducon_text_value('media_kicker', 'Conference atmosphere'),
-          'title' => ceeducon_text_value('media_title', 'The people and conversations behind the programme.'),
-          'text' => ceeducon_text_value('media_text', 'Plenaries, workshops and informal conversations make CEEDUCON a practical meeting point for the international higher education community.'),
-          'buttonText' => ceeducon_text_value('media_button_primary', 'Browse programme'),
-          'buttonUrl' => ceeducon_page_url('programme'),
-          'items' => [
-              ['imageUrl' => ceeducon_text_value('media_hero_url', ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg')), 'imageAlt' => ceeducon_text_value('media_hero_alt', 'CEEDUCON plenary session with a full audience'), 'label' => ceeducon_text_value('media_hero_label', 'Plenary')],
-              ['imageUrl' => ceeducon_text_value('media_image_1_url', ceeducon_asset_url('assets/media/ceeducon-photo-networking.jpg')), 'imageAlt' => ceeducon_text_value('media_image_1_alt', 'CEEDUCON participants talking during a networking break'), 'label' => ceeducon_text_value('media_image_1_label', 'Networking')],
-              ['imageUrl' => ceeducon_text_value('media_image_2_url', ceeducon_asset_url('assets/media/ceeducon-photo-workshop.jpg')), 'imageAlt' => ceeducon_text_value('media_image_2_alt', 'CEEDUCON workshop with participants seated around tables'), 'label' => ceeducon_text_value('media_image_2_label', 'Workshops')],
-              ['imageUrl' => ceeducon_text_value('media_image_3_url', ceeducon_asset_url('assets/media/ceeducon-photo-registration.jpg')), 'imageAlt' => ceeducon_text_value('media_image_3_alt', 'Participants arriving and registering at CEEDUCON'), 'label' => ceeducon_text_value('media_image_3_label', 'Arrival')],
-              ['imageUrl' => ceeducon_text_value('media_image_4_url', ceeducon_asset_url('assets/media/ceeducon-photo-accessibility.jpg')), 'imageAlt' => ceeducon_text_value('media_image_4_alt', 'CEEDUCON participants speaking in an accessible lounge area'), 'label' => ceeducon_text_value('media_image_4_label', 'Community')],
-          ],
-      ]);
-      ?>
-
       <section class="section section--tint theme-section-light">
         <div class="shell">
           <div class="section-head">
@@ -131,6 +102,35 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
           </div>
         </div>
       </section>
+
+      <?php
+      ceeducon_print_section('video', [
+          'kicker' => ceeducon_text_value('home_video_kicker', 'CEEDUCON in motion'),
+          'title' => ceeducon_text_value('home_video_title', 'See the conference come to life.'),
+          'text' => ceeducon_text_value('home_video_text', 'Step inside CEEDUCON and experience the plenaries, practical sessions and conversations that connect the international higher education community.'),
+          'videoUrl' => ceeducon_text_value('home_video_url', 'https://www.youtube.com/watch?v=oad5sn8ku1c'),
+          'videoTitle' => ceeducon_text_value('home_video_accessible_title', 'CEEDUCON conference video'),
+          'buttonText' => ceeducon_text_value('home_video_button', 'Watch on YouTube'),
+          'caption' => ceeducon_text_value('home_video_caption', 'Highlights from CEEDUCON'),
+      ]);
+      ?>
+
+      <?php
+      ceeducon_print_section('photo-gallery', [
+          'kicker' => ceeducon_text_value('media_kicker', 'Conference atmosphere'),
+          'title' => ceeducon_text_value('media_title', 'The people and conversations behind the programme.'),
+          'text' => ceeducon_text_value('media_text', 'Plenaries, workshops and informal conversations make CEEDUCON a practical meeting point for the international higher education community.'),
+          'buttonText' => ceeducon_text_value('media_button_primary', 'Browse programme'),
+          'buttonUrl' => ceeducon_page_url('programme'),
+          'items' => [
+              ['imageUrl' => ceeducon_text_value('media_hero_url', ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg')), 'imageAlt' => ceeducon_text_value('media_hero_alt', 'CEEDUCON plenary session with a full audience'), 'label' => ceeducon_text_value('media_hero_label', 'Plenary')],
+              ['imageUrl' => ceeducon_text_value('media_image_1_url', ceeducon_asset_url('assets/media/ceeducon-photo-networking.jpg')), 'imageAlt' => ceeducon_text_value('media_image_1_alt', 'CEEDUCON participants talking during a networking break'), 'label' => ceeducon_text_value('media_image_1_label', 'Networking')],
+              ['imageUrl' => ceeducon_text_value('media_image_2_url', ceeducon_asset_url('assets/media/ceeducon-photo-workshop.jpg')), 'imageAlt' => ceeducon_text_value('media_image_2_alt', 'CEEDUCON workshop with participants seated around tables'), 'label' => ceeducon_text_value('media_image_2_label', 'Workshops')],
+              ['imageUrl' => ceeducon_text_value('media_image_3_url', ceeducon_asset_url('assets/media/ceeducon-photo-registration.jpg')), 'imageAlt' => ceeducon_text_value('media_image_3_alt', 'Participants arriving and registering at CEEDUCON'), 'label' => ceeducon_text_value('media_image_3_label', 'Arrival')],
+              ['imageUrl' => ceeducon_text_value('media_image_4_url', ceeducon_asset_url('assets/media/ceeducon-photo-accessibility.jpg')), 'imageAlt' => ceeducon_text_value('media_image_4_alt', 'CEEDUCON participants speaking in an accessible lounge area'), 'label' => ceeducon_text_value('media_image_4_label', 'Community')],
+          ],
+      ]);
+      ?>
 
       <section class="section">
         <div class="shell">
