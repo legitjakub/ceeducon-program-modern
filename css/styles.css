@@ -189,6 +189,16 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   box-shadow: inset 0 1px 0 rgba(13, 94, 157, 0.1), inset 0 -1px 0 rgba(13, 94, 157, 0.1);
 }
 .section--navy { background: linear-gradient(160deg, var(--navy) 0%, var(--navy) 62%, var(--deep-2) 100%); color: var(--white); }
+.section--navy.section--warm {
+  /* Navy + brand orange, mixed (not an invented hex) — dark enough to keep this
+     section's existing white text at a safe ~5.5–6:1 contrast, while reading as
+     clearly warmer/different from the flat navy hero directly above it. */
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--navy) 72%, var(--orange) 28%) 0%,
+    color-mix(in srgb, var(--navy) 55%, var(--orange) 45%) 100%
+  );
+}
 .section--flush-top { padding-top: 0; }
 .section-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 420px); gap: clamp(22px, 3vw, 44px); align-items: end; margin-bottom: clamp(24px, 3vw, 40px); }
 .section-head h2 { color: var(--deep); }
