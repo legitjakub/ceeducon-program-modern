@@ -1147,9 +1147,9 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 
 /* ---------- Floor plan ----------
    The official O2 universum plans with a hotspot layer on top. Hotspot
-   coordinates are percentages of the source image, and the overlay uses
-   preserveAspectRatio="none" over a full-width image, so the two stay
-   aligned at any size without JS. */
+   coordinates are percentages of the source drawing, and the overlay uses
+   preserveAspectRatio="none" over a full-width image, so the two stay aligned
+   at any size without JS. Only the nine CEEDUCON halls are interactive. */
 .floorplan { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 288px); gap: clamp(16px, 2.2vw, 30px); align-items: start; }
 .floorplan-tabs { grid-column: 1 / -1; display: flex; border: 1px solid var(--line); background: var(--white); box-shadow: var(--shadow-sm); overflow: hidden; }
 .floorplan-tab { flex: 1 1 0; min-height: 74px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 3px; padding: 12px clamp(14px, 1.8vw, 24px); border: 0; border-right: 1px solid var(--line); background: transparent; cursor: pointer; text-align: left; transition: background 0.2s; }
@@ -1168,39 +1168,36 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 
 .vp-room { cursor: pointer; }
 .vp-room rect {
-  fill: rgba(236, 114, 47, 0.14);
+  fill: rgba(236, 114, 47, 0.16);
   stroke: var(--orange);
-  stroke-width: 2;
+  stroke-width: 2.5;
   transition: fill 0.18s var(--ease), stroke-width 0.18s var(--ease);
 }
-.vp-room:hover rect, .vp-room:focus-visible rect, .vp-room.is-active rect { fill: rgba(236, 114, 47, 0.46); stroke-width: 3.5; }
+.vp-room:hover rect, .vp-room:focus-visible rect, .vp-room.is-active rect { fill: rgba(236, 114, 47, 0.48); stroke-width: 4; }
 .vp-room:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; }
 
-.floorplan-zoom {
+.floorplan-source {
   position: absolute;
   right: 10px;
   bottom: 10px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  min-height: 38px;
+  gap: 7px;
+  min-height: 36px;
   padding: 0 13px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.94);
   color: var(--deep);
-  cursor: pointer;
   font-size: 12px;
   font-weight: 700;
   line-height: 1;
   backdrop-filter: blur(6px);
-  transition: background 0.18s var(--ease), border-color 0.18s var(--ease);
+  transition: border-color 0.18s var(--ease);
 }
-.floorplan-zoom:hover { border-color: var(--orange); background: var(--white); }
-.floorplan-zoom .ui-icon { width: 13px; height: 13px; }
+.floorplan-source:hover { border-color: var(--orange); }
+.floorplan-source .ui-icon { width: 12px; height: 12px; }
 
 .floorplan-key { display: grid; gap: clamp(14px, 1.6vw, 20px); }
-.floorplan-hint { display: flex; align-items: flex-start; gap: 10px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
-.fp-swatch { flex: 0 0 auto; width: 14px; height: 14px; margin-top: 3px; border: 2px solid var(--orange); background: rgba(236, 114, 47, 0.14); }
 
 .floorplan-rooms { display: grid; gap: 1px; border: 1px solid var(--line); background: var(--line); }
 .floorplan-rooms-title { margin: 0; padding: 12px 14px; background: var(--white); color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
@@ -1208,7 +1205,6 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .floorplan-room-link strong { color: var(--deep); font-size: 15px; }
 .floorplan-room-link span { color: var(--muted); font-size: 12px; }
 .floorplan-room-link:hover, .floorplan-room-link:focus-visible, .floorplan-room-link.is-active { background: var(--orange-soft); }
-.floorplan-note { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.6; }
 
 /* ---------- Speakers ---------- */
 .speakers-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr); gap: clamp(30px, 4.8vw, 68px); align-items: start; }
@@ -1590,7 +1586,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   .floorplan-tab { min-height: 62px; border-right: 0; border-bottom: 1px solid var(--line); }
   .floorplan-tab:last-child { border-bottom: 0; }
   .floorplan-stage { padding: 8px; }
-  .floorplan-zoom { right: 8px; bottom: 8px; }
+  .floorplan-source { right: 8px; bottom: 8px; }
   .media-mosaic { grid-template-columns: 1fr; grid-auto-rows: 210px; }
   .media-tile--large { grid-row: span 1; }
   .mobile-carousel {

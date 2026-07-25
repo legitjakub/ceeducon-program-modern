@@ -26,7 +26,7 @@
     <meta name="twitter:image:alt" content="Official CEEDUCON 2026 conference visual" />
     <title>Practical Information | CEEDUCON 2026</title>
     <link rel="icon" href="assets/favicon.png" />
-    <link rel="stylesheet" href="css/styles.css?v=20260724-3" />
+    <link rel="stylesheet" href="css/styles.css?v=20260724-6" />
     <script src="js/site.js?v=20260724-3" defer></script>
   </head>
   <body id="top">
@@ -171,7 +171,6 @@
               <p class="kicker">Venue plan</p>
               <h2 class="display-2">Find your hall before you arrive.</h2>
             </div>
-            <p data-reveal="2">The official O2 universum plans, with the nine CEEDUCON halls marked. Select a hall to see everything scheduled there.</p>
           </div>
 
           <div class="floorplan" data-floorplan data-reveal>
@@ -185,70 +184,37 @@
             </div>
 
             <div class="floorplan-stage">
-              <!-- Hotspot coordinates are percentages of the source plan, so the
-                   overlay stays aligned at any rendered size. -->
               <figure class="floorplan-figure" data-level-plan="0">
-                <img src="assets/media/o2-plan-level-0.png" width="782" height="727" loading="lazy" decoding="async"
-                     alt="Official O2 universum plan of the entrance level, showing the main entrance, arena and halls B1 to B3." />
+                <img src="assets/media/o2-plan-level-0.webp" width="1448" height="1086" loading="lazy" decoding="async" alt="Plan of the O2 universum entrance level: main entrance, arena, meeting hub and halls B1 to B3." />
                 <svg class="floorplan-hotspots" viewBox="0 0 100 100" preserveAspectRatio="none" aria-label="CEEDUCON halls on the entrance level">
-                  <a class="vp-room" href="programme.html?room=B3" data-room="B3">
-                    <title>Hall B3 — 8 sessions</title>
-                    <rect x="82.23" y="35.63" width="12.92" height="8.39" vector-effect="non-scaling-stroke" />
-                  </a>
-                  <a class="vp-room" href="programme.html?room=B2" data-room="B2">
-                    <title>Hall B2 — 10 sessions</title>
-                    <rect x="82.23" y="44.43" width="16.62" height="15.41" vector-effect="non-scaling-stroke" />
-                  </a>
-                  <a class="vp-room" href="programme.html?room=B1" data-room="B1">
-                    <title>Hall B1 — 10 sessions</title>
-                    <rect x="82.23" y="60.39" width="16.62" height="14.30" vector-effect="non-scaling-stroke" />
-                  </a>
+                  <a class="vp-room" href="programme.html?room=B3" data-room="B3"><title>Hall B3 — 8 sessions</title><rect x="80.52" y="37.02" width="14.02" height="9.76" vector-effect="non-scaling-stroke" /></a>
+                  <a class="vp-room" href="programme.html?room=B2" data-room="B2"><title>Hall B2 — 10 sessions</title><rect x="80.52" y="47.05" width="16.92" height="15.10" vector-effect="non-scaling-stroke" /></a>
+                  <a class="vp-room" href="programme.html?room=B1" data-room="B1"><title>Hall B1 — 10 sessions</title><rect x="80.46" y="62.43" width="16.99" height="16.21" vector-effect="non-scaling-stroke" /></a>
                 </svg>
-                <button class="floorplan-zoom" type="button" data-lightbox="assets/media/o2-plan-level-0.png" data-lightbox-caption="O2 universum — entrance level (halls B1–B3)">
-                  <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M10 2h4v4M6 14H2v-4M14 2l-5 5M2 14l5-5"></path></svg></span>
-                  Enlarge plan
-                </button>
+                <a class="floorplan-source" href="assets/media/o2-plan-level-0.png" target="_blank" rel="noreferrer">
+                  Full plan
+                  <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span>
+                </a>
               </figure>
 
               <figure class="floorplan-figure" data-level-plan="1" hidden>
-                <img src="assets/media/o2-plan-level-1.png" width="770" height="491" loading="lazy" decoding="async"
-                     alt="Official O2 universum plan of the conference level, showing halls C1 to C3 and the D halls." />
+                <img src="assets/media/o2-plan-level-1.webp" width="1619" height="971" loading="lazy" decoding="async" alt="Plan of the O2 universum conference level: halls C1 to C3, the D halls and E1, E2." />
                 <svg class="floorplan-hotspots" viewBox="0 0 100 100" preserveAspectRatio="none" aria-label="CEEDUCON halls on the conference level">
-                  <a class="vp-room" href="programme.html?room=C3" data-room="C3">
-                    <title>Hall C3 — 8 sessions</title>
-                    <rect x="0" y="12.63" width="15.06" height="19.14" vector-effect="non-scaling-stroke" />
-                  </a>
-                  <a class="vp-room" href="programme.html?room=C2" data-room="C2">
-                    <title>Hall C2 — 8 sessions</title>
-                    <rect x="0" y="32.18" width="15.06" height="9.37" vector-effect="non-scaling-stroke" />
-                  </a>
-                  <a class="vp-room" href="programme.html?room=C1" data-room="C1">
-                    <title>Hall C1 — 8 sessions</title>
-                    <rect x="0" y="41.96" width="15.06" height="19.14" vector-effect="non-scaling-stroke" />
-                  </a>
-                  <a class="vp-room" href="programme.html?room=D2" data-room="D2">
-                    <title>Hall D2 — 8 sessions</title>
-                    <rect x="52.73" y="43.99" width="9.48" height="7.33" vector-effect="non-scaling-stroke" />
-                  </a>
-                  <a class="vp-room" href="programme.html?room=D3%2BD4" data-room="D3+D4">
-                    <title>Hall D3+D4 — 8 sessions</title>
-                    <rect x="62.34" y="43.99" width="12.34" height="17.11" vector-effect="non-scaling-stroke" />
-                  </a>
-                  <a class="vp-room" href="programme.html?room=D6%2BD7" data-room="D6+D7">
-                    <title>Hall D6+D7 — 8 sessions</title>
-                    <rect x="62.34" y="67.41" width="12.34" height="15.28" vector-effect="non-scaling-stroke" />
-                  </a>
+                  <a class="vp-room" href="programme.html?room=C3" data-room="C3"><title>Hall C3 — 8 sessions</title><rect x="1.30" y="10.50" width="15.32" height="17.51" vector-effect="non-scaling-stroke" /></a>
+                  <a class="vp-room" href="programme.html?room=C2" data-room="C2"><title>Hall C2 — 8 sessions</title><rect x="1.30" y="28.53" width="15.32" height="10.92" vector-effect="non-scaling-stroke" /></a>
+                  <a class="vp-room" href="programme.html?room=C1" data-room="C1"><title>Hall C1 — 8 sessions</title><rect x="1.30" y="39.86" width="15.32" height="17.82" vector-effect="non-scaling-stroke" /></a>
+                  <a class="vp-room" href="programme.html?room=D2" data-room="D2"><title>Hall D2 — 8 sessions</title><rect x="53.49" y="40.37" width="8.52" height="5.46" vector-effect="non-scaling-stroke" /></a>
+                  <a class="vp-room" href="programme.html?room=D3%2BD4" data-room="D3+D4"><title>Hall D3+D4 — 8 sessions</title><rect x="62.45" y="40.16" width="12.35" height="16.79" vector-effect="non-scaling-stroke" /></a>
+                  <a class="vp-room" href="programme.html?room=D6%2BD7" data-room="D6+D7"><title>Hall D6+D7 — 8 sessions</title><rect x="62.51" y="64.78" width="10.56" height="15.24" vector-effect="non-scaling-stroke" /></a>
                 </svg>
-                <button class="floorplan-zoom" type="button" data-lightbox="assets/media/o2-plan-level-1.png" data-lightbox-caption="O2 universum — conference level (halls C1–C3, D2–D7)">
-                  <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M10 2h4v4M6 14H2v-4M14 2l-5 5M2 14l5-5"></path></svg></span>
-                  Enlarge plan
-                </button>
+                <a class="floorplan-source" href="assets/media/o2-plan-level-1.png" target="_blank" rel="noreferrer">
+                  Full plan
+                  <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span>
+                </a>
               </figure>
             </div>
 
             <aside class="floorplan-key">
-              <p class="floorplan-hint"><span class="fp-swatch fp-swatch--room" aria-hidden="true"></span>The nine CEEDUCON halls are outlined on the plan — select one for its sessions.</p>
-
               <div class="floorplan-rooms" data-level-list="0">
                 <p class="floorplan-rooms-title">Halls on level 0</p>
                 <a class="floorplan-room-link" href="programme.html?room=B1" data-room="B1"><strong>B1</strong><span>10 sessions</span></a>
@@ -264,8 +230,6 @@
                 <a class="floorplan-room-link" href="programme.html?room=D3%2BD4" data-room="D3+D4"><strong>D3+D4</strong><span>8 sessions</span></a>
                 <a class="floorplan-room-link" href="programme.html?room=D6%2BD7" data-room="D6+D7"><strong>D6+D7</strong><span>8 sessions</span></a>
               </div>
-
-              <p class="floorplan-note">Plans supplied by O2 universum. Signage and staff at the info points guide you on the day.</p>
             </aside>
           </div>
         </div>
