@@ -220,6 +220,181 @@ function bindFloorplan() {
     el.addEventListener("focus", () => setHighlight(room, true));
     el.addEventListener("blur", () => setHighlight(room, false));
   });
+
+  /* ---- Hall detail ----------------------------------------------------
+     Selecting a hall shows what is scheduled there without leaving the
+     page. The programme data is only fetched on the first open, so the
+     page costs nothing extra until someone actually asks for it. */
+
+  const detail = root.querySelector("[data-hall-detail]");
+  if (!detail) return;
+
+  const levelOfRoom = {};
+  root.querySelectorAll("[data-level-list]").forEach((list) => {
+    list.querySelectorAll("[data-room]").forEach((a) => { levelOfRoom[a.dataset.room] = list.dataset.levelList; });
+  });
+
+  let programme = null;
+  let openRoom = "";
+
+  function esc(v) {
+    return String(v).replace(/[&<>"']/g, (c) => (
+      { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[c]
+    ));
+  }
+
+  function speakerLine(speakers) {
+    const names = (speakers || []).filter((s) => s && s.toLowerCase() !== "tbc");
+    if (!names.length) return (speakers || []).length ? "Speakers to be confirmed" : "";
+    const shown = names.slice(0, 2).map((s) => s.replace(/\s*\(.+\)\s*$/, ""));
+    return names.length > 2 ? `${shown.join("; ")} + ${names.length - 2} more` : shown.join("; ");
+  }
+
+  function sessionsFor(room) {
+    return programme.days.map((day) => ({
+      label: day.label,
+      title: day.title,
+      items: day.slots.flatMap((slot) =>
+        (slot.sessions || [])
+          .filter((s) => s.rooms.includes(room))
+          .map((s) => ({ start: slot.start, end: slot.end, title: s.title, speakers: s.speakers }))
+      ),
+    })).filter((d) => d.items.length);
+  }
+
+  function renderDetail(room) {
+    const link = root.querySelector(`.floorplan-room-link[data-room="${CSS.escape(room)}"]`);
+    const count = link ? link.querySelector("span").textContent : "";
+    const href = link ? link.getAttribute("href") : "#";
+    const days = sessionsFor(room);
+
+    detail.innerHTML = `
+      <div class="floorplan-detail-head">
+        <div>
+          <p class="floorplan-detail-label">Hall</p>
+          <strong>${esc(room)}</strong>
+          <span>${esc(count)} · Level ${esc(levelOfRoom[room] || "")}</span>
+        </div>
+        <button class="floorplan-detail-close" type="button" data-hall-close aria-label="Close hall detail">×</button>
+      </div>
+      ${days.map((day) => `
+        <div class="floorplan-detail-day">
+          <p>${esc(day.title)}</p>
+          <ul>
+            ${day.items.map((s) => `
+              <li>
+                <time>${esc(s.start)}</time>
+                <div><strong>${esc(s.title)}</strong>${
+                  speakerLine(s.speakers) ? `<span>${esc(speakerLine(s.speakers))}</span>` : ""
+                }</div>
+              </li>`).join("")}
+          </ul>
+        </div>`).join("")}
+      <a class="floorplan-detail-link" href="${esc(href)}">Open in programme <span aria-hidden="true">→</span></a>`;
+
+    detail.querySelector("[data-hall-close]").addEventListener("click", closeHall);
+  }
+
+  function closeHall() {
+    openRoom = "";
+    toggleHidden(detail, true);
+    lists.forEach((list) => toggleHidden(list, list.dataset.levelList !== currentLevel()));
+    root.querySelectorAll("[data-room]").forEach((el) => el.classList.remove("is-selected"));
+    if (location.hash.startsWith("#hall-")) history.replaceState(null, "", location.pathname + location.search);
+  }
+
+  function currentLevel() {
+    const active = tabs.find((t) => t.classList.contains("is-active"));
+    return active ? active.dataset.level : "0";
+  }
+
+  async function openHall(room, { scrollIntoView = false } = {}) {
+    const level = levelOfRoom[room];
+    if (level && level !== currentLevel()) showLevel(level);
+
+    if (!programme) {
+      detail.innerHTML = '<p class="floorplan-detail-loading">Loading sessions…</p>';
+      lists.forEach((l) => toggleHidden(l, true));
+      toggleHidden(detail, false);
+      try {
+        const res = await fetch("data/program.json");
+        if (!res.ok) throw new Error(res.status);
+        programme = await res.json();
+      } catch (err) {
+        console.error("Hall detail: programme could not be loaded.", err);
+        const link = root.querySelector(`.floorplan-room-link[data-room="${CSS.escape(room)}"]`);
+        detail.innerHTML = `<p class="floorplan-detail-loading">Sessions could not be loaded. <a href="${
+          link ? link.getAttribute("href") : "programme.html"}">Open the programme</a>.</p>`;
+        return;
+      }
+    }
+
+    openRoom = room;
+    lists.forEach((l) => toggleHidden(l, true));
+    toggleHidden(detail, false);
+    renderDetail(room);
+    root.querySelectorAll("[data-room]").forEach((el) => el.classList.toggle("is-selected", el.dataset.room === room));
+    history.replaceState(null, "", `#hall-${room}`);
+
+    // #hall-B1 is not a real element id, so the browser cannot scroll to it.
+    // Deferred twice so it lands after the browser's own scroll restoration.
+    if (scrollIntoView) {
+      const section = root.closest("section");
+      // "auto" rather than the page's smooth scrolling: landing on a shared
+      // link should place you at the section, not animate a long way to it.
+      // Repeated on load so the browser's own scroll restoration cannot undo
+      // it; rAF is avoided because it never fires in a background tab.
+      // The page sets scroll-behavior: smooth, which some engines apply even
+      // when the option says otherwise — so suspend it around the jump.
+      const go = () => {
+        const root_ = document.documentElement;
+        const previous = root_.style.scrollBehavior;
+        root_.style.scrollBehavior = "auto";
+        section.scrollIntoView({ block: "start" });
+        root_.style.scrollBehavior = previous;
+      };
+      go();
+      if (document.readyState !== "complete") window.addEventListener("load", go, { once: true });
+    }
+  }
+
+  // Plain left-click opens the panel; modifier clicks keep normal link behaviour.
+  root.querySelectorAll("a[data-room]").forEach((a) => {
+    a.addEventListener("click", (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      openHall(a.dataset.room);
+    });
+  });
+
+  // Arrow keys walk through the halls drawn on the visible level.
+  root.addEventListener("keydown", (event) => {
+    if (!["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp", "Escape"].includes(event.key)) return;
+    if (event.key === "Escape") { if (openRoom) closeHall(); return; }
+
+    const plan = plans.find((p) => !p.hasAttribute("hidden"));
+    if (!plan || !plan.contains(document.activeElement)) return;
+    const halls = [...plan.querySelectorAll("a[data-room]")];
+    const i = halls.indexOf(document.activeElement.closest("a[data-room]"));
+    if (i < 0) return;
+    event.preventDefault();
+    const step = event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : -1;
+    halls[(i + step + halls.length) % halls.length].focus();
+  });
+
+  // #hall-D2 opens that hall directly, so a link can point at one. Handled on
+  // load and on hashchange, so back/forward and pasted links both work.
+  function openFromHash() {
+    const match = decodeURIComponent(location.hash).match(/^#hall-(.+)$/);
+    if (match && levelOfRoom[match[1]]) {
+      if (match[1] !== openRoom) openHall(match[1], { scrollIntoView: true });
+    } else if (openRoom) {
+      closeHall();
+    }
+  }
+
+  window.addEventListener("hashchange", openFromHash);
+  openFromHash();
 }
 
 bindSiteNavigation();

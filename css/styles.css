@@ -1206,6 +1206,31 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .floorplan-room-link span { color: var(--muted); font-size: 12px; }
 .floorplan-room-link:hover, .floorplan-room-link:focus-visible, .floorplan-room-link.is-active { background: var(--orange-soft); }
 
+/* Hall detail — replaces the hall list once a hall is picked. */
+.floorplan-detail { border: 1px solid var(--line); background: var(--white); }
+.floorplan-detail-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 14px 14px 13px; border-bottom: 1px solid var(--line); }
+.floorplan-detail-label { margin: 0 0 3px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.floorplan-detail-head strong { display: block; color: var(--deep); font-size: 21px; line-height: 1.1; letter-spacing: -0.02em; }
+.floorplan-detail-head > div > span { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; }
+.floorplan-detail-close { flex: 0 0 auto; width: 30px; height: 30px; margin: -4px -4px 0 0; border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 22px; line-height: 1; }
+.floorplan-detail-close:hover { color: var(--deep); }
+
+.floorplan-detail-day + .floorplan-detail-day { border-top: 1px solid var(--line); }
+.floorplan-detail-day > p { margin: 0; padding: 11px 14px 8px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.floorplan-detail-day ul { margin: 0; padding: 0 14px 12px; list-style: none; display: grid; gap: 11px; }
+.floorplan-detail-day li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; align-items: baseline; }
+.floorplan-detail-day time { color: var(--navy); font-size: 12px; font-weight: 700; }
+.floorplan-detail-day strong { display: block; color: var(--deep); font-size: 13.5px; font-weight: 500; line-height: 1.35; }
+.floorplan-detail-day div > span { display: block; margin-top: 3px; color: var(--muted); font-size: 11.5px; line-height: 1.45; }
+
+.floorplan-detail-link { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px 14px; border-top: 1px solid var(--line); color: var(--deep); font-size: 12px; font-weight: 700; transition: background 0.18s var(--ease); }
+.floorplan-detail-link:hover { background: var(--orange-soft); }
+.floorplan-detail-loading { margin: 0; padding: 16px 14px; color: var(--muted); font-size: 13px; }
+.floorplan-detail-loading a { color: var(--deep); font-weight: 700; text-decoration: underline; }
+
+/* The hall the panel is showing stays marked on the plan. */
+.vp-room.is-selected rect { fill: rgba(236, 114, 47, 0.48); stroke-width: 4; }
+
 /* ---------- Speakers ---------- */
 .speakers-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr); gap: clamp(30px, 4.8vw, 68px); align-items: start; }
 .speakers-lead { max-width: 560px; margin: 22px 0 0; color: var(--muted); font-size: 15px; line-height: 1.7; }

@@ -164,6 +164,8 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
             </div>
 
             <aside class="floorplan-key">
+              <div class="floorplan-detail" data-hall-detail hidden aria-live="polite"></div>
+
               <div class="floorplan-rooms" data-level-list="0">
                 <p class="floorplan-rooms-title">Halls on level 0</p>
                 <a class="floorplan-room-link" href="<?php echo esc_url(ceeducon_page_url('programme') . '?room=' . rawurlencode('B1')); ?>" data-room="B1"><strong>B1</strong><span>10 sessions</span></a>
