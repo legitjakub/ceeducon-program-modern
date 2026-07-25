@@ -177,8 +177,54 @@ function bindMobileCarousels() {
   });
 }
 
+/** Level switching for the venue plan, plus hover/focus sync between the
+ *  schematic and the hall list beside it. */
+function bindFloorplan() {
+  const root = document.querySelector("[data-floorplan]");
+  if (!root) return;
+
+  const tabs = [...root.querySelectorAll("[data-level]")];
+  const plans = [...root.querySelectorAll("[data-level-plan]")];
+  const lists = [...root.querySelectorAll("[data-level-list]")];
+
+  // `hidden` is an HTMLElement property — assigning it on an <svg> does nothing,
+  // so toggle the attribute instead, which works for both.
+  function toggleHidden(el, hide) {
+    if (hide) el.setAttribute("hidden", "");
+    else el.removeAttribute("hidden");
+  }
+
+  function showLevel(level) {
+    tabs.forEach((tab) => {
+      const active = tab.dataset.level === level;
+      tab.classList.toggle("is-active", active);
+      tab.setAttribute("aria-pressed", String(active));
+    });
+    plans.forEach((plan) => toggleHidden(plan, plan.dataset.levelPlan !== level));
+    lists.forEach((list) => toggleHidden(list, list.dataset.levelList !== level));
+  }
+
+  tabs.forEach((tab) => tab.addEventListener("click", () => showLevel(tab.dataset.level)));
+
+  // A hall appears twice — on the plan and in the list. Highlight both together.
+  function setHighlight(room, on) {
+    root.querySelectorAll("[data-room]").forEach((el) => {
+      if (el.dataset.room === room) el.classList.toggle("is-active", on);
+    });
+  }
+
+  root.querySelectorAll("[data-room]").forEach((el) => {
+    const room = el.dataset.room;
+    el.addEventListener("mouseenter", () => setHighlight(room, true));
+    el.addEventListener("mouseleave", () => setHighlight(room, false));
+    el.addEventListener("focus", () => setHighlight(room, true));
+    el.addEventListener("blur", () => setHighlight(room, false));
+  });
+}
+
 bindSiteNavigation();
 bindHeaderScroll();
 bindReveals();
 bindMediaLightbox();
 bindMobileCarousels();
+bindFloorplan();

@@ -509,6 +509,27 @@ function updateStats() {
   if (themeCount) themeCount.textContent = state.data.themes.length;
 }
 
+/** The venue plan links here as programme.html?room=B1. Room codes are part of
+ *  the search haystack, so pre-filling the search box filters to that hall. */
+function applyRoomFromUrl() {
+  let room = "";
+  try {
+    room = (new URLSearchParams(window.location.search).get("room") || "").trim();
+  } catch {
+    return;
+  }
+  if (!room) return;
+
+  state.query = room.toLocaleLowerCase("en");
+  if (elements.search) elements.search.value = room;
+  renderSchedule();
+
+  const schedule = document.getElementById("schedule");
+  if (schedule) {
+    requestAnimationFrame(() => schedule.scrollIntoView({ block: "start" }));
+  }
+}
+
 function restoreHashScroll() {
   if (!window.location.hash) return;
 
@@ -551,6 +572,7 @@ async function init() {
   updateStats();
   render();
   bindEvents();
+  applyRoomFromUrl();
   restoreHashScroll();
 }
 
