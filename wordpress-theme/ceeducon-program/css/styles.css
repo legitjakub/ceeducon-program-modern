@@ -1597,15 +1597,24 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   }
   .hero-actions { margin-top: 22px; }
   .hero-actions .btn { width: 100%; justify-content: space-between; }
-  .hero-facts { grid-template-columns: 1fr 1fr; min-height: 0; }
-  .hero-date, .hero-fact, .hero-calendar { min-height: 72px; padding: 14px 16px; }
-  .hero-date { padding-left: 0; }
-  .hero-date strong { font-size: 34px; }
-  .hero-fact--1 { border-left: 1px solid rgba(255, 255, 255, 0.12); }
-  .hero-fact--2 { display: flex; border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.12); }
-  .hero-fact--3 { border-top: 1px solid rgba(255, 255, 255, 0.12); }
+  /* The date is the headline of this block, so below the desktop layout it
+     becomes a full-width header with the brand rule under it rather than one
+     more equal-weight tile. The facts sit in a row beneath it and the two
+     calendar links share a single row instead of stacking. */
+  .hero-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); min-height: 0; }
+  .hero-date, .hero-fact, .hero-calendar { min-height: 0; }
+  .hero-date {
+    grid-column: 1 / -1;
+    gap: 12px;
+    padding: 15px 16px 14px;
+    box-shadow: inset 0 -3px 0 var(--orange);
+  }
+  .hero-date strong { font-size: 38px; }
+  .hero-fact { padding: 14px 16px; }
+  .hero-fact--1 { border-left: 0; }
+  .hero-fact--2 { display: flex; }
   .hero-calendar-actions { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.12); }
-  .hero-calendar { min-height: 56px; padding: 10px 14px 10px 16px; border-top: 0; }
+  .hero-calendar { min-height: 54px; padding: 10px 12px 10px 16px; border-top: 0; border-left: 0; }
   .hero-calendar-actions .hero-calendar + .hero-calendar { border-top: 0; border-left: 1px solid rgba(255, 255, 255, 0.12); }
 
   .page-hero { padding: 104px 0 42px; }
@@ -1883,9 +1892,31 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   .footer-ghost { font-size: clamp(56px, 17vw, 96px); }
 }
 
+@media (max-width: 560px) {
+  /* Too narrow for three fact columns: switch to one label/value row each.
+     A fixed label column keeps the values on a common left edge instead of
+     letting them drift to the far side of the screen. */
+  .hero-facts { grid-template-columns: minmax(0, 1fr); }
+  .hero-fact {
+    display: grid;
+    grid-template-columns: minmax(0, 96px) minmax(0, 1fr);
+    gap: 4px 14px;
+    align-items: baseline;
+    padding: 13px 16px;
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .hero-fact--1 { border-top: 0; }
+  .hero-fact strong { font-size: 13.5px; }
+}
+
 @media (max-width: 420px) {
-  .hero-calendar-actions { grid-template-columns: 1fr; }
-  .hero-calendar-actions .hero-calendar + .hero-calendar { border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+  /* Keep the two calendar links paired rather than stacked — shrinking the
+     label and icon buys enough room and halves the height they take up. */
+  .hero-calendar { padding: 9px 10px 9px 14px; font-size: 11.5px; }
+  .hero-calendar-icon { flex-basis: 26px; width: 26px; height: 26px; }
+  .hero-calendar-icon svg { width: 15px; height: 15px; }
+  .hero-date strong { font-size: 34px; }
   .brand-mark { width: 110px; height: 56px; }
   .hero h1,
   .page-hero h1,
@@ -1920,6 +1951,14 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
     margin-inline: 0;
     font-size: clamp(42px, 14vw, 68px);
   }
+}
+
+@media (max-width: 360px) {
+  /* "Outlook Calendar" runs ~7px past its half at 320px — tighten rather than
+     stack, so the smallest screens keep the shorter paired row. */
+  .hero-calendar { gap: 8px; padding: 9px 8px 9px 12px; font-size: 11px; }
+  .hero-calendar-icon { flex-basis: 24px; width: 24px; height: 24px; }
+  .hero-calendar-icon svg { width: 14px; height: 14px; }
 }
 
 @media (hover: none) {
