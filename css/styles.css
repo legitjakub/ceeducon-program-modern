@@ -1193,10 +1193,17 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   fill: rgba(236, 114, 47, 0.16);
   stroke: var(--orange);
   stroke-width: 2.5;
+  /* The global svg rule sets stroke-linejoin: round, which inherits down here
+     and rounds the hall corners — square them back for an architectural plan. */
+  stroke-linejoin: miter;
   transition: fill 0.18s var(--ease), stroke-width 0.18s var(--ease);
 }
-.vp-room:hover rect, .vp-room:focus-visible rect, .vp-room.is-active rect { fill: rgba(236, 114, 47, 0.48); stroke-width: 4; }
-.vp-room:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; }
+.vp-room:hover rect, .vp-room:focus rect, .vp-room.is-active rect { fill: rgba(236, 114, 47, 0.48); stroke-width: 4; }
+/* No focus ring on the hotspots: the overlay is stretched with
+   preserveAspectRatio="none", so an outline is scaled and rounded with it and
+   reads as a blob around the hall. The rect's own fill and stroke above mark
+   the focused hall clearly enough on their own. */
+.vp-room:focus, .vp-room:focus-visible { outline: none; }
 
 .floorplan-source {
   position: absolute;
