@@ -6,6 +6,19 @@ const PERIODS = [
   { id: "afternoon", label: "Afternoon" },
 ];
 
+// Favourites live in localStorage, which anything on the origin can overwrite.
+// This runs while `state` is being built, so an unguarded parse of a corrupted
+// value would throw before the programme ever renders — and keep throwing on
+// every reload. Fall back to an empty list instead.
+function readFavorites() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]");
+    return Array.isArray(stored) ? stored.filter((id) => typeof id === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
 const state = {
   data: null,
   dayIndex: 0,
@@ -13,7 +26,7 @@ const state = {
   period: "",
   query: "",
   favoritesOnly: false,
-  favorites: new Set(JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]")),
+  favorites: new Set(readFavorites()),
   sessionMap: new Map(),
   modalSessionId: "",
   modalSession: null,
@@ -154,7 +167,7 @@ function renderFilters() {
       class="filter-chip${state.theme === theme.id ? " is-active" : ""}"
       type="button"
       data-theme-filter="${escapeHtml(theme.id)}"
-      style="--chip-color:${theme.color}"
+      style="--chip-color:${escapeHtml(theme.color)}"
       aria-pressed="${state.theme === theme.id}"
     ><i></i><span>${escapeHtml(theme.label)}</span></button>
   `).join("");
@@ -192,7 +205,7 @@ function buildSessionCard(day, slot, session) {
   });
 
   return `
-    <article class="session-card${wide ? " session-card--wide" : ""}" style="--track:${theme.color};--room-start:${placement.start};--room-span:${placement.span}" data-room-list="${escapeHtml(session.rooms.join(","))}">
+    <article class="session-card${wide ? " session-card--wide" : ""}" style="--track:${escapeHtml(theme.color)};--room-start:${placement.start};--room-span:${placement.span}" data-room-list="${escapeHtml(session.rooms.join(","))}">
       <div class="session-card-head">
         <span class="room-tag">${escapeHtml(session.rooms.join(" + "))}</span>
         <button class="favorite-star${favorite ? " is-active" : ""}" type="button" data-favorite="${escapeHtml(id)}" aria-label="${favorite ? "Remove from my programme" : "Add to my programme"}" aria-pressed="${favorite}">${favorite ? "★" : "☆"}</button>
