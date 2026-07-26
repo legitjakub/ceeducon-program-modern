@@ -100,8 +100,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               ],
               "theme": "workshop",
               "speakers": [
-                "Theodor L. Háva (DZS)",
-                "Veronika Hojková (DZS)"
+                "Vendula Hojková (DZS)"
               ]
             },
             {
@@ -285,7 +284,8 @@ window.CEEDUCON_PROGRAM_DATA = {
               ],
               "theme": "session",
               "speakers": [
-                "Jody Hoekstra-Selten (EAIE)"
+                "Cecilia Albe (EAIE)",
+                "Simone Lepore (ESN)"
               ]
             }
           ]
@@ -477,9 +477,11 @@ window.CEEDUCON_PROGRAM_DATA = {
               "theme": "session",
               "speakers": [
                 "Silvia Riegler (Central CEEPUS Office)",
+                "Anikó Korenchy (TPF)",
                 "Mediha Ohranović (University of Graz)",
-                "Gabor Kamocsa (Tempus Public Foundation)",
-                "Dominik Opatrný (Palacky University Olomouc)"
+                "Dominik Opatrný (Palacky University Olomouc)",
+                "Andrea Toldi (University of Debrecen)",
+                "Cezary Mankowski (University of Gdansk)"
               ]
             },
             {
@@ -786,7 +788,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               "theme": "workshop",
               "speakers": [
                 "Jeanne Cuny (European Students' Union)",
-                "Peter Tordai (Eötvös Loránd University)"
+                "Tekla Gaál (Eötvös Loránd University)"
               ]
             },
             {
@@ -857,7 +859,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Petr Bures (Masaryk University)",
                 "Radka Vičarová (Masaryk University)",
                 "Alena Vyskočilová (Palacký University)",
-                "Maciej Jazdzewski (University of Lodz)"
+                "Maciej Jazdzewski (University of Lodz)",
+                "Katarzyna Basisty (University of Warsaw)"
               ]
             },
             {
