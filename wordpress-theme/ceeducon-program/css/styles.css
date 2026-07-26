@@ -1006,6 +1006,28 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   line-height: 1.65;
 }
 
+/* Press fact box: labelled rows a journalist can scan and copy, rather than
+   a run-on line of metadata. Label opacity is set for AA on the navy panel. */
+.feature-panel--facts strong { padding-top: 34px; }
+.feature-facts {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  margin: 24px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+.feature-facts > div {
+  display: grid;
+  grid-template-columns: minmax(0, 92px) minmax(0, 1fr);
+  gap: 6px 16px;
+  align-items: baseline;
+  padding: 8px 0;
+}
+.feature-facts > div + div { border-top: 1px solid rgba(255, 255, 255, 0.12); }
+.feature-facts dt { color: rgba(255, 255, 255, 0.78); font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.feature-facts dd { margin: 0; color: rgba(255, 255, 255, 0.94); font-size: 13.5px; line-height: 1.5; }
+
 /* ---------- Link tiles (plan your conference) ---------- */
 .tile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 1.6vw, 22px); }
 .link-tile {
@@ -1594,6 +1616,8 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   .feature-split::before { background: linear-gradient(90deg, var(--orange) 0 34%, var(--sky) 34% 58%, transparent 58%); }
   .feature-panel { min-height: 270px; }
   .feature-panel strong { max-width: 10em; padding-top: 54px; }
+  .feature-panel--facts strong { padding-top: 26px; }
+  .feature-facts > div { grid-template-columns: 1fr; gap: 2px; }
   .feature-panel p { margin-top: 20px; padding-top: 18px; }
   .video-section::before { top: 24px; right: 18px; opacity: 0.55; }
   .video-section::after { display: none; }
