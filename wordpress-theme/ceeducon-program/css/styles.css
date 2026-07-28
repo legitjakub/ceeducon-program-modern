@@ -1474,7 +1474,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .program-band-icon svg { width: 21px; height: 21px; stroke-width: 1.7; }
 .program-band p { margin: 0; }
 .program-band strong { display: block; font-size: 14px; letter-spacing: 0.03em; color: var(--deep); }
-.program-band span { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; }
+.program-band p span { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; }
 .program-band--registration { background: var(--surface); border-color: var(--line); border-left: 5px solid var(--sky); }
 .program-band--registration .program-band-icon { background: var(--navy); }
 .program-band--coffee { background: var(--surface); border-color: var(--line); border-left: 5px solid var(--orange); }

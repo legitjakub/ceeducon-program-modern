@@ -229,7 +229,7 @@ function buildProgramBand(slot) {
   const icons = {
     registration: `<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 8h8M8 12h5"/><circle cx="9" cy="16" r="2"/><path d="M13 18c.8-1.4 2-2 3.5-2"/></svg>`,
     coffee: `<svg viewBox="0 0 24 24"><path d="M5 9h11v3a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V9Z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2M7 4v2M11 3v3M15 4v2M4 21h15"/></svg>`,
-    lunch: `<svg viewBox="0 0 24 24"><path d="M5 3v7M2.5 3v5A2 2 0 0 0 5 10a2 2 0 0 0 2.5-2V3M5 10v11M16 3v18M16 3c3 2 3.5 6 0 9"/></svg>`,
+    lunch: `<svg viewBox="0 0 24 24"><path d="M3 3v5a3 3 0 0 0 6 0V3M6 3v18M16 3v18M16 3c3 2 4 7 0 10"/></svg>`,
   };
   return `
     <div class="program-band program-band--${variant}">
