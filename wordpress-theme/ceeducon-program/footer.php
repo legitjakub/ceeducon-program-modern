@@ -6,11 +6,11 @@
             <p><?php ceeducon_html('footer_tagline', 'Central European Conference on Internationalisation of Higher Education.<br />1–2 December 2026 · O2 universum Prague'); ?></p>
           </div>
           <div>
-            <h4><?php esc_html_e('Conference', 'ceeducon-program'); ?></h4>
+            <h3><?php esc_html_e('Conference', 'ceeducon-program'); ?></h3>
             <?php ceeducon_render_navigation('footer-menu', __('Footer conference links', 'ceeducon-program')); ?>
           </div>
           <div>
-            <h4><?php esc_html_e('Connect', 'ceeducon-program'); ?></h4>
+            <h3><?php esc_html_e('Connect', 'ceeducon-program'); ?></h3>
             <nav aria-label="Footer contact links">
               <?php $footer_email = ceeducon_text_value('footer_email', 'ceeducon@dzs.cz'); ?>
               <?php $footer_phone = ceeducon_text_value('footer_phone', '+420 221 850 100'); ?>
