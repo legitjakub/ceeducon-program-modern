@@ -33,7 +33,7 @@ function ceeducon_theme_setup(): void
         'script',
         'navigation-widgets',
     ]);
-    add_editor_style('css/editor-style.css');
+    add_editor_style(['css/styles.css', 'css/editor-style.css']);
 
     register_nav_menus([
         'primary' => __('Primary navigation', 'ceeducon-program'),
@@ -852,7 +852,6 @@ function ceeducon_page_block_templates(): array
                 'cardLabel' => 'Interactive schedule',
                 'cardTitle' => '70+ sessions',
                 'cardText' => 'Across conference rooms, plenaries and workshops.',
-                'orange' => true,
             ]],
             ['ceeducon/programme-grid'],
         ]),
@@ -900,7 +899,6 @@ function ceeducon_page_block_templates(): array
                 'cardLabel' => 'Speaker checklist',
                 'cardTitle' => 'Before conference day',
                 'cardText' => "Check your session details, complete speaker registration and submit final presentation materials according to the organisers' instructions.",
-                'orange' => true,
             ]],
             ['ceeducon/text-section', [
                 'kicker' => 'Speaking at CEEDUCON',
@@ -955,7 +953,6 @@ function ceeducon_page_block_templates(): array
                 'cardLabel' => 'Media contact',
                 'cardTitle' => 'ceeducon@dzs.cz',
                 'cardText' => 'Please include your outlet, deadline and the material you need.',
-                'orange' => true,
             ]],
             ['ceeducon/image-text', [
                 'kicker' => 'Official visual',
@@ -1075,13 +1072,13 @@ function ceeducon_admin_content_fields(): array
             ['home_cta_primary', 'Primary button', 'Explore programme', 'text'],
             ['home_cta_secondary', 'Secondary button', 'Plan your visit', 'text'],
             ['event_day', 'Event date', '1–2', 'text'],
-            ['event_month', 'Event month (HTML allowed)', 'DEC<br />2026', 'textarea'],
+            ['event_month', 'Event month / year', 'Dec 2026', 'text'],
             ['event_row_1_label', 'Event row 1 label', 'Venue', 'text'],
             ['event_row_1_value', 'Event row 1 value', 'O2 universum Prague', 'text'],
             ['event_row_3_label', 'Event row 3 label', 'Fee', 'text'],
             ['event_row_3_value', 'Event row 3 value', 'Free of charge', 'text'],
             ['event_row_4_label', 'Event row 4 label', 'Registration', 'text'],
-            ['event_row_4_value', 'Event row 4 value', 'Opens in September', 'text'],
+            ['event_row_4_value', 'Event row 4 value', 'Registration opens in September', 'text'],
             ['event_google_calendar_label', 'Google Calendar button', 'Google Calendar', 'text'],
             ['event_google_calendar_url', 'Google Calendar URL', 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=CEEDUCON%202026&dates=20261201T080000Z%2F20261202T170000Z&details=Central%20European%20Conference%20on%20Internationalisation%20of%20Higher%20Education.&location=O2%20universum%2C%20Ceskomoravska%2017%2C%20Prague%209%2C%20Czech%20Republic&ctz=Europe%2FPrague', 'url'],
             ['event_outlook_calendar_label', 'Outlook Calendar button', 'Outlook Calendar', 'text'],

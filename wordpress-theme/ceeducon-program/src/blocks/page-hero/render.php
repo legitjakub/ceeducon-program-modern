@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$section_class = !empty($attributes['orange']) ? 'page-hero page-hero--orange' : 'page-hero';
+$section_class = 'page-hero';
 ?>
 <section class="<?php echo esc_attr($section_class); ?>">
   <div class="shell page-hero-grid">

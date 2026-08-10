@@ -14,6 +14,8 @@ $kicker = (string) ceeducon_block_value($attributes, 'kicker');
 if ($kicker === 'CEEDUCON 2026 · Prague') {
     $kicker = 'CEEDUCON 2026 · CZECHIA';
 }
+$event_month = preg_replace('/<br\s*\/?>/i', ' ', (string) ceeducon_block_value($attributes, 'eventMonth'));
+$event_month = trim((string) preg_replace('/\s+/', ' ', wp_strip_all_tags((string) $event_month)));
 ?>
 <section class="hero">
   <div class="hero-media">
@@ -36,13 +38,27 @@ if ($kicker === 'CEEDUCON 2026 · Prague') {
   </div>
   <div class="hero-facts-wrap">
     <div class="hero-facts shell" aria-label="<?php esc_attr_e('Conference essentials', 'ceeducon-program'); ?>">
-      <div class="hero-date"><strong><?php echo ceeducon_block_text($attributes, 'eventDay'); ?></strong><span><?php echo ceeducon_block_html($attributes, 'eventMonth'); ?></span></div>
-      <?php foreach ($rows as $index => $row) : ?>
-        <div class="hero-fact hero-fact--<?php echo esc_attr((string) ($index + 1)); ?>">
-          <span><?php echo esc_html($row['label'] ?? ''); ?></span>
-          <strong><?php echo esc_html($row['value'] ?? ''); ?></strong>
+      <div class="hero-essentials">
+        <span class="hero-essential hero-essential--date"><strong><?php echo ceeducon_block_text($attributes, 'eventDay'); ?> <?php echo esc_html($event_month); ?></strong></span>
+        <div class="hero-essential-details">
+          <?php foreach ($rows as $row) : ?>
+            <?php
+            $label = trim((string) ($row['label'] ?? ''));
+            $value = trim((string) ($row['value'] ?? ''));
+            if ($value === '') {
+                continue;
+            }
+            if (strtolower($label) === 'registration' && strtolower($value) === 'opens in september') {
+                $value = 'Registration opens in September';
+            }
+            ?>
+            <span class="hero-essential">
+              <?php if ($label !== '') : ?><span class="sr-only"><?php echo esc_html($label); ?>: </span><?php endif; ?>
+              <?php echo esc_html($value); ?>
+            </span>
+          <?php endforeach; ?>
         </div>
-      <?php endforeach; ?>
+      </div>
       <div class="hero-calendar-actions" aria-label="<?php esc_attr_e('Add CEEDUCON 2026 to a calendar', 'ceeducon-program'); ?>">
         <?php foreach (['google', 'outlook'] as $calendar) : ?>
           <?php if (trim((string) ceeducon_block_value($attributes, $calendar . 'CalendarText')) !== '' && trim((string) ceeducon_block_value($attributes, $calendar . 'CalendarUrl')) !== '') : ?>

@@ -124,7 +124,6 @@ abstract class Section_Widget extends Widget_Base
             'options'   => $this->brand_colors(),
             'default'   => '',
             'selectors' => [
-                '{{WRAPPER}} > .elementor-widget-container > section .kicker::before' => 'background: {{VALUE}};',
                 '{{WRAPPER}} > .elementor-widget-container > section .btn--primary' => 'box-shadow: inset 0 -4px 0 {{VALUE}};',
                 '{{WRAPPER}} > .elementor-widget-container > section .btn--plain' => 'border-bottom-color: {{VALUE}};',
             ],

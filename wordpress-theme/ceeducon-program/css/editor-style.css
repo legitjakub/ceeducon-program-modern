@@ -50,6 +50,11 @@
   font-size: clamp(2.5rem, 7vw, 5.75rem);
 }
 
+.editor-styles-wrapper .hero h1 {
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+}
+
 .editor-styles-wrapper h2 {
   font-size: clamp(2rem, 5vw, 4rem);
 }

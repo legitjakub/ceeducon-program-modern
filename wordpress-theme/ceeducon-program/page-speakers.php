@@ -12,7 +12,7 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
 ?>
 
     <main id="main">
-      <section class="page-hero page-hero--orange">
+      <section class="page-hero">
         <div class="shell page-hero-grid">
           <div>
             <p class="page-crumbs"><a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Home', 'ceeducon-program'); ?></a><span>/</span><em><?php esc_html_e('For speakers', 'ceeducon-program'); ?></em></p>

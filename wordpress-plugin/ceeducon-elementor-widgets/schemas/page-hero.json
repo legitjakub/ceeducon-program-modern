@@ -14,8 +14,7 @@
     "note": { "type": "string", "default": "One forum for strategy, practice and cooperation." },
     "cardLabel": { "type": "string", "default": "CEEDUCON 2026" },
     "cardTitle": { "type": "string", "default": "1–2 December · Prague" },
-    "cardText": { "type": "string", "default": "Organised by DZS with national agencies from across Central Europe." },
-    "orange": { "type": "boolean", "default": false }
+    "cardText": { "type": "string", "default": "Organised by DZS with national agencies from across Central Europe." }
   },
   "supports": { "html": false, "align": false, "color": false, "spacing": false, "typography": false },
   "editorScript": "file:./edit.js",

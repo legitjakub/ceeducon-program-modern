@@ -36,11 +36,11 @@
           ),
           el(
             PanelBody,
-            { title: __("Štítky", "ceeducon-program"), initialOpen: false },
+            { title: __("Položky seznamu", "ceeducon-program"), initialOpen: false },
             chips.map((chip, index) =>
               el(TextControl, {
                 key: index,
-                label: `${__("Štítek", "ceeducon-program")} ${index + 1}`,
+                label: `${__("Položka", "ceeducon-program")} ${index + 1}`,
                 value: chip,
                 onChange: (value) => updateChip(index, value),
               })
@@ -83,7 +83,7 @@
               allowedFormats: ["core/bold", "core/italic"],
               onChange: (secondText) => setAttributes({ secondText }),
             }),
-            el("div", { className: "fact-chips" }, chips.map((chip, index) => el("span", { key: index }, chip))),
+            el("div", { className: "fact-chips", "aria-label": __("Who attends", "ceeducon-program") }, chips.map((chip, index) => el("span", { key: index }, chip))),
             attributes.buttonText ? el("span", { className: "btn btn--outline mt-lg" }, attributes.buttonText) : null
           )
         )

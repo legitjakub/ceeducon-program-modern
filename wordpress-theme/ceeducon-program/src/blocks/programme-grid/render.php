@@ -20,7 +20,6 @@ if (!defined('ABSPATH')) {
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m16 16 5 5" /></svg>
         <span class="sr-only"><?php esc_html_e('Search the programme', 'ceeducon-program'); ?></span>
         <input id="program-search" type="search" placeholder="<?php esc_attr_e('Search session or topic…', 'ceeducon-program'); ?>" autocomplete="off" />
-        <kbd>⌘ K</kbd>
       </label>
       <div class="control-actions">
         <button class="control-button favorites-button" type="button" data-favorites-toggle aria-pressed="false">

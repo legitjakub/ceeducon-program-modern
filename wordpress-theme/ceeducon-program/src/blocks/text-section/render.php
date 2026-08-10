@@ -18,7 +18,7 @@ $section_class = !empty($attributes['paper']) ? 'section section--paper' : 'sect
         <p><?php echo ceeducon_block_html($attributes, 'secondText'); ?></p>
       <?php endif; ?>
       <?php if ($chips) : ?>
-        <div class="fact-chips">
+        <div class="fact-chips" aria-label="<?php esc_attr_e('Who attends', 'ceeducon-program'); ?>">
           <?php foreach ($chips as $chip) : ?>
             <?php if ($chip !== '') : ?><span><?php echo esc_html((string) $chip); ?></span><?php endif; ?>
           <?php endforeach; ?>

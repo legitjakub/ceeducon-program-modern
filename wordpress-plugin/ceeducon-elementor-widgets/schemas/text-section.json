@@ -2,11 +2,11 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "ceeducon/text-section",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": "Textová sekce",
   "category": "ceeducon-sections",
   "icon": "editor-alignleft",
-  "description": "Dvousloupcová textová sekce s kickerem, nadpisem, texty a volitelnými štítky.",
+  "description": "Dvousloupcová textová sekce s kickerem, nadpisem, texty a volitelným seznamem publika.",
   "textdomain": "ceeducon-program",
   "attributes": {
     "kicker": { "type": "string", "default": "The conference" },

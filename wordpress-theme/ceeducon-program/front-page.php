@@ -9,6 +9,13 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
     get_footer();
     return;
 }
+
+$event_month = preg_replace('/<br\s*\/?>/i', ' ', ceeducon_text_value('event_month', 'Dec 2026'));
+$event_month = trim((string) preg_replace('/\s+/', ' ', wp_strip_all_tags((string) $event_month)));
+$registration_value = ceeducon_text_value('event_row_4_value', 'Registration opens in September');
+if (strtolower(trim($registration_value)) === 'opens in september') {
+    $registration_value = 'Registration opens in September';
+}
 ?>
 
     <main id="main">
@@ -35,10 +42,14 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
         </div>
         <div class="hero-facts-wrap">
           <div class="hero-facts shell" aria-label="Conference essentials">
-            <div class="hero-date"><strong><?php ceeducon_text('event_day', '1–2'); ?></strong><span><?php ceeducon_html('event_month', 'DEC<br />2026'); ?></span></div>
-            <div class="hero-fact hero-fact--1"><span><?php ceeducon_text('event_row_1_label', 'Venue'); ?></span><strong><?php ceeducon_text('event_row_1_value', 'O2 universum Prague'); ?></strong></div>
-            <div class="hero-fact hero-fact--2"><span><?php ceeducon_text('event_row_3_label', 'Fee'); ?></span><strong><?php ceeducon_text('event_row_3_value', 'Free of charge'); ?></strong></div>
-            <div class="hero-fact hero-fact--3"><span><?php ceeducon_text('event_row_4_label', 'Registration'); ?></span><strong><?php ceeducon_text('event_row_4_value', 'Opens in September'); ?></strong></div>
+            <div class="hero-essentials">
+              <span class="hero-essential hero-essential--date"><strong><?php ceeducon_text('event_day', '1–2'); ?> <?php echo esc_html($event_month); ?></strong></span>
+              <div class="hero-essential-details">
+                <span class="hero-essential"><span class="sr-only"><?php ceeducon_text('event_row_1_label', 'Venue'); ?>: </span><?php ceeducon_text('event_row_1_value', 'O2 universum Prague'); ?></span>
+                <span class="hero-essential"><span class="sr-only"><?php ceeducon_text('event_row_3_label', 'Fee'); ?>: </span><?php ceeducon_text('event_row_3_value', 'Free of charge'); ?></span>
+                <span class="hero-essential"><span class="sr-only"><?php ceeducon_text('event_row_4_label', 'Registration'); ?>: </span><?php echo esc_html($registration_value); ?></span>
+              </div>
+            </div>
             <div class="hero-calendar-actions" aria-label="<?php esc_attr_e('Add CEEDUCON 2026 to a calendar', 'ceeducon-program'); ?>">
               <a class="hero-calendar" href="<?php echo esc_url(ceeducon_text_value('event_google_calendar_url', 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=CEEDUCON%202026&dates=20261201T080000Z%2F20261202T170000Z&details=Central%20European%20Conference%20on%20Internationalisation%20of%20Higher%20Education.&location=O2%20universum%2C%20Ceskomoravska%2017%2C%20Prague%209%2C%20Czech%20Republic&ctz=Europe%2FPrague')); ?>" target="_blank" rel="noreferrer"><?php ceeducon_text('event_google_calendar_label', 'Google Calendar'); ?> <span class="hero-calendar-icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M5.5 2.5v3M14.5 2.5v3M3 7.5h14M4.5 4h11A1.5 1.5 0 0 1 17 5.5v10a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 15.5v-10A1.5 1.5 0 0 1 4.5 4Z"></path><path d="M6.5 11h2v2h-2zM11.5 11h2v2h-2z"></path></svg></span></a>
               <a class="hero-calendar" href="<?php echo esc_url(ceeducon_text_value('event_outlook_calendar_url', 'https://outlook.live.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent&subject=CEEDUCON%202026&startdt=2026-12-01T09%3A00%3A00%2B01%3A00&enddt=2026-12-02T18%3A00%3A00%2B01%3A00&body=Central%20European%20Conference%20on%20Internationalisation%20of%20Higher%20Education.&location=O2%20universum%2C%20Ceskomoravska%2017%2C%20Prague%209%2C%20Czech%20Republic')); ?>" target="_blank" rel="noreferrer"><?php ceeducon_text('event_outlook_calendar_label', 'Outlook Calendar'); ?> <span class="hero-calendar-icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M5.5 2.5v3M14.5 2.5v3M3 7.5h14M4.5 4h11A1.5 1.5 0 0 1 17 5.5v10a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 15.5v-10A1.5 1.5 0 0 1 4.5 4Z"></path><path d="M6.5 11h2v2h-2zM11.5 11h2v2h-2z"></path></svg></span></a>

@@ -20,7 +20,7 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
             <p class="page-hero-note"><?php ceeducon_text('about_hero_note', "One forum for strategy, practice and cooperation — connecting Central Europe's higher education community with colleagues from around the world."); ?></p>
           </div>
           <div class="page-hero-card">
-            <img src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-vertical.svg')); ?>" alt="" width="145" height="283" loading="lazy" decoding="async" />
+            <img class="page-hero-card-logo" src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-horizontal-white.png')); ?>" alt="" width="1182" height="604" loading="lazy" decoding="async" />
             <span><?php ceeducon_text('about_card_label', 'CEEDUCON 2026'); ?></span>
             <strong><?php ceeducon_text('about_card_title', '1–2 December · Prague'); ?></strong>
             <p><?php ceeducon_text('about_card_text', 'Organised by DZS with national agencies from across Central Europe.'); ?></p>

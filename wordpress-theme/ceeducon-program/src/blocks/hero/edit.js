@@ -8,6 +8,14 @@
     return items.map((item, itemIndex) => (itemIndex === index ? { ...item, [key]: value } : item));
   }
 
+  function inlineText(value) {
+    return String(value || "")
+      .replace(/<br\s*\/?>/gi, " ")
+      .replace(/<[^>]*>/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
   blocks.registerBlockType("ceeducon/hero", {
     edit({ attributes, setAttributes }) {
       const rows = (attributes.eventRows || []).filter((row) => String(row.label || "").toLowerCase() !== "format");
@@ -180,9 +188,25 @@
           el(
             "div",
             { className: "hero-facts shell" },
-            el("div", { className: "hero-date" }, el("strong", {}, attributes.eventDay), el("span", { dangerouslySetInnerHTML: { __html: attributes.eventMonth || "" } })),
-            rows.map((row, index) =>
-              el("div", { className: `hero-fact hero-fact--${index + 1}`, key: index }, el("span", {}, row.label), el("strong", {}, row.value))
+            el(
+              "div",
+              { className: "hero-essentials" },
+              el("span", { className: "hero-essential hero-essential--date" }, el("strong", {}, `${attributes.eventDay} ${inlineText(attributes.eventMonth)}`)),
+              el(
+                "div",
+                { className: "hero-essential-details" },
+                rows.map((row, index) => {
+                  const value = String(row.label || "").toLowerCase() === "registration" && String(row.value || "").toLowerCase() === "opens in september"
+                    ? "Registration opens in September"
+                    : row.value;
+                  return el(
+                    "span",
+                    { className: "hero-essential", key: index },
+                    row.label ? el("span", { className: "sr-only" }, `${row.label}: `) : null,
+                    value
+                  );
+                })
+              )
             ),
             el(
               "div",
