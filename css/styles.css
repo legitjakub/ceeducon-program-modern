@@ -1834,7 +1834,9 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
     overflow-x: auto;
     overflow-y: visible;
     scroll-padding-inline: var(--pad);
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x proximity;
+    overscroll-behavior-inline: contain;
+    touch-action: pan-y pinch-zoom;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }

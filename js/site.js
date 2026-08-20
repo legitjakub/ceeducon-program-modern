@@ -58,6 +58,70 @@ function bindReveals() {
   targets.forEach((el) => observer.observe(el));
 }
 
+function bindStatCounters() {
+  const rows = document.querySelectorAll(".stat-row");
+  if (!rows.length) return;
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  const animateRow = (row) => {
+    if (row.dataset.counted === "true") return;
+    row.dataset.counted = "true";
+
+    row.querySelectorAll("strong").forEach((number, index) => {
+      const original = number.textContent.trim();
+      const match = original.match(/^(\D*)(\d[\d\s,.]*)(.*)$/);
+      if (!match || prefersReducedMotion.matches) return;
+
+      const target = Number(match[2].replace(/[\s,]/g, ""));
+      if (!Number.isFinite(target)) return;
+
+      const [, prefix, , suffix] = match;
+      const duration = 1100;
+      const delay = index * 90;
+      let startedAt;
+
+      number.setAttribute("aria-label", original);
+      number.textContent = `${prefix}0${suffix}`;
+
+      const frame = (now) => {
+        if (startedAt === undefined) startedAt = now + delay;
+        if (now < startedAt) {
+          window.requestAnimationFrame(frame);
+          return;
+        }
+
+        const progress = Math.min((now - startedAt) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        number.textContent = `${prefix}${Math.round(target * eased)}${suffix}`;
+
+        if (progress < 1) window.requestAnimationFrame(frame);
+        else number.textContent = original;
+      };
+
+      window.requestAnimationFrame(frame);
+    });
+  };
+
+  if (!("IntersectionObserver" in window) || prefersReducedMotion.matches) {
+    rows.forEach(animateRow);
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        animateRow(entry.target);
+        observer.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "0px 0px -10% 0px", threshold: 0.2 }
+  );
+
+  rows.forEach((row) => observer.observe(row));
+}
+
 function bindMediaLightbox() {
   const triggers = document.querySelectorAll("[data-lightbox]");
   if (!triggers.length) return;
@@ -432,6 +496,7 @@ function bindFloorplan() {
 bindSiteNavigation();
 bindHeaderScroll();
 bindReveals();
+bindStatCounters();
 bindMediaLightbox();
 bindThemeDetails();
 bindMobileCarousels();
