@@ -169,8 +169,7 @@ function renderDayBar() {
       <span>${escapeHtml(day.label)}</span><strong>${escapeHtml(day.title)}</strong>
     </button>`
     )
-    .join("") + `
-    <div class="day-context"><span class="day-context-dot"></span><span>${escapeHtml(state.data.event?.status || "")}</span></div>`;
+    .join("");
 }
 
 function renderFilters() {

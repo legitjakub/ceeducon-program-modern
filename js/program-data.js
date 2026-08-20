@@ -6,8 +6,7 @@ window.CEEDUCON_PROGRAM_DATA = {
       "2026-12-02"
     ],
     "location": "O2 universum Prague",
-    "timezone": "Europe/Prague",
-    "status": "Preliminary programme — subject to change"
+    "timezone": "Europe/Prague"
   },
   "rooms": [
     "B1",

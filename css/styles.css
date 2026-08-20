@@ -1446,13 +1446,11 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .schedule-section { padding: clamp(46px, 5vw, 68px) 0 clamp(52px, 5.5vw, 82px); background: var(--paper); }
 
 .day-bar { display: flex; align-items: stretch; min-height: 76px; border: 1px solid var(--line); background: var(--white); box-shadow: var(--shadow-sm); }
-.day-tab { min-width: 230px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 3px; padding: 0 26px; border: 0; border-right: 1px solid var(--line); background: transparent; cursor: pointer; }
+.day-tab { flex: 1 1 0; min-width: 230px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 3px; padding: 0 26px; border: 0; border-right: 1px solid var(--line); background: transparent; cursor: pointer; }
 .day-tab span { color: var(--muted); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; }
 .day-tab strong { font-size: 17px; letter-spacing: -0.01em; }
 .day-tab.is-active { background: var(--deep); color: var(--white); }
 .day-tab.is-active span { color: var(--sky-soft); }
-.day-context { display: flex; align-items: center; gap: 10px; margin-left: auto; padding: 0 24px; color: var(--muted); font-size: 12px; }
-.day-context-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sky); }
 
 .control-panel {
   position: sticky;
@@ -2034,7 +2032,6 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   }
   .day-bar::-webkit-scrollbar { display: none; }
   .day-tab { min-width: 180px; padding: 0 16px; }
-  .day-context { display: none; }
   .control-panel { top: 80px; grid-template-columns: 1fr; gap: 8px; padding: 8px; }
   .control-actions { display: grid; grid-template-columns: minmax(0, 1fr) 46px; }
   .control-button { padding: 0 10px; font-size: 11px; }
@@ -2166,7 +2163,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 @media print {
   @page { size: A4 landscape; margin: 10mm; }
   body { background: #fff; font-size: 9pt; }
-  .site-header, .page-hero, .hero, .section, .control-panel, .day-context, .section-head > p, .site-footer, .modal-backdrop, .toast, .skip-link { display: none !important; }
+  .site-header, .page-hero, .hero, .section, .control-panel, .section-head > p, .site-footer, .modal-backdrop, .toast, .skip-link { display: none !important; }
   .js [data-reveal] { opacity: 1 !important; transform: none !important; }
   .schedule-section { padding: 0; background: #fff; }
   .schedule-section .section-head { display: block; margin: 0 0 6mm; }
