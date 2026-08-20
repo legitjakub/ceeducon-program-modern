@@ -766,7 +766,11 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .section--navy .theme-card::before { height: 6px; }
 .section--navy .theme-card:hover { border-color: var(--accent); }
 .section--navy .theme-card > span:first-child,
-.section--navy .theme-card summary > span:first-child { -webkit-text-stroke-color: var(--accent); }
+.section--navy .theme-card summary > span:first-child {
+  color: color-mix(in srgb, var(--accent) 46%, var(--white));
+  -webkit-text-stroke: 0;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.14);
+}
 .section--navy .theme-card[open] {
   border-color: var(--white);
   background: var(--white);
