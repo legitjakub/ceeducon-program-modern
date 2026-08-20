@@ -156,7 +156,7 @@ $hero_image = (array) apply_filters('ceeducon_home_hero_image', [
             </article>
             <article data-reveal="2">
               <span><?php ceeducon_text('day_evening_label', 'Evening'); ?></span>
-              <h3><?php ceeducon_text('day_evening_title', 'Networking dinner'); ?></h3>
+              <h3><?php ceeducon_text('day_evening_title', 'Networking reception'); ?></h3>
               <p><?php ceeducon_text('day_evening_text', 'An evening dedicated to informal exchange and new partnerships. Details will follow with the final programme.'); ?></p>
             </article>
             <article data-reveal="3">

@@ -5,7 +5,7 @@
     "intro": { "type": "string", "default": "The preliminary room-by-room programme is online — sessions, workshops and speakers for both conference days." },
     "items": { "type": "array", "default": [
       { "label": "Day 1", "title": "All-day conference", "text": "Plenary opening, thematic sessions and workshops across the halls of {{venue}}." },
-      { "label": "Evening", "title": "Networking dinner", "text": "An evening to build the partnerships the daytime sessions talk about." },
+      { "label": "Evening", "title": "Networking reception", "text": "An evening to build the partnerships the daytime sessions talk about." },
       { "label": "Day 2 · Wed 2 Dec", "title": "All-day conference", "text": "A second full day of sessions, practical exchange and closing plenary." }
     ] },
     "buttonText": { "type": "string", "default": "Open the programme" },

@@ -1226,7 +1226,7 @@ function ceeducon_admin_content_fields(): array
             ['day_1_title', 'Day 1 title', 'All-day conference', 'text'],
             ['day_1_text', 'Day 1 text', 'Opening plenary and thematic sessions across the four 2026 themes at O2 universum.', 'textarea'],
             ['day_evening_label', 'Evening label', 'Evening', 'text'],
-            ['day_evening_title', 'Evening title', 'Networking dinner', 'text'],
+            ['day_evening_title', 'Evening title', 'Networking reception', 'text'],
             ['day_evening_text', 'Evening text', 'An evening dedicated to informal exchange and new partnerships. Details will follow with the final programme.', 'textarea'],
             ['day_2_label', 'Day 2 label', 'Day 2 · Wed 2 Dec', 'text'],
             ['day_2_title', 'Day 2 title', 'All-day conference', 'text'],
@@ -1430,7 +1430,7 @@ add_action('admin_menu', 'ceeducon_admin_menu');
 
 function ceeducon_migrate_default_content(): void
 {
-    $target_version = '2.4.0';
+    $target_version = '2.4.1';
     if (get_option('ceeducon_content_defaults_version') === $target_version) {
         return;
     }
@@ -1482,6 +1482,7 @@ function ceeducon_migrate_default_content(): void
             'CEEDUCON brings the international higher education community together through plenaries, workshops, hallway conversations and practical exchange across the whole venue.',
         ],
         'home_plan_title' => ['Everything you need, one page away.', 'Find the essentials quickly.'],
+        'day_evening_title' => ['Networking dinner', 'Networking reception'],
         'home_link_3_text' => [
             'Questions about registration, the programme or partnerships — the organisers are ready to help.',
             'Use the contact page for registration, programme, speaker or partnership questions.',
