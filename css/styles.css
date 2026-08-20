@@ -762,6 +762,11 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .theme-section-light .theme-card-more { background: rgba(13, 94, 157, 0.9); }
 
 /* On navy sections, give the expanded theme its own clear reading surface. */
+.section--navy .theme-card { border-top-color: var(--accent); }
+.section--navy .theme-card::before { height: 6px; }
+.section--navy .theme-card:hover { border-color: var(--accent); }
+.section--navy .theme-card > span:first-child,
+.section--navy .theme-card summary > span:first-child { -webkit-text-stroke-color: var(--accent); }
 .section--navy .theme-card[open] {
   border-color: var(--white);
   background: var(--white);
