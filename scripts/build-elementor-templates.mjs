@@ -69,7 +69,19 @@ const pages = {
   speakers: page('CEEDUCON For Speakers', [
     widget('page-hero', { crumb: 'For speakers', title: 'For speakers.', note: 'Practical information about formats, milestones and support for confirmed CEEDUCON speakers.', cardLabel: 'Speaker checklist', cardTitle: 'Before conference day', cardText: "Check your session details, complete speaker registration and submit final presentation materials according to the organisers' instructions." }),
     widget('text-section', { kicker: 'For speakers', title: 'Prepare a clear, practical session.', text: 'Use this section for format, timing, presentation and accessibility guidance.', secondText: 'The CEEDUCON team will publish final speaker instructions and onsite contacts before the conference.' }),
-    widget('cards', { kicker: 'Timeline', title: 'Important milestones.', paper: '' }),
+    widget('cards', {
+      kicker: 'Timeline',
+      title: 'Speaker’s timeline.',
+      paper: '',
+      items: [
+        { label: 'By June 30', title: 'Acceptance notifications', text: '' },
+        { label: 'By July 31', title: 'Speaker registration & photo', text: '' },
+        { label: 'September', title: 'Contracts & presentation template', text: '' },
+        { label: 'Before the conference', title: 'Final materials and technical check', text: '' },
+        { label: 'At the conference / online', title: 'Sign the reimbursement contract', text: '' },
+        { label: 'By 9 December 2026', title: 'Send us the necessary documents/receipts for the reimbursement', text: '' },
+      ],
+    }),
     widget('cta', { kicker: 'Speaker support', title: 'Need help with your session?', text: 'Contact the CEEDUCON team with programme or delivery questions.', primaryText: 'Email the team', primaryUrl: link('mailto:ceeducon@dzs.cz'), secondaryText: 'See programme', secondaryUrl: link('/programme/') }),
   ]),
   media: page('CEEDUCON Media Kit', [
@@ -87,7 +99,7 @@ const pages = {
     widget('cta', { kicker: 'Media requests', title: 'Need a quote or interview?', primaryText: 'Contact the team', primaryUrl: link('mailto:ceeducon@dzs.cz'), secondaryText: '', secondaryUrl: link('') }),
   ]),
   contact: page('CEEDUCON Contact', [
-    widget('page-hero', { crumb: 'Contact', title: 'Talk to the CEEDUCON team.', note: 'Questions about attendance, programme, media or speaking are welcome.', cardLabel: 'Email', cardTitle: 'ceeducon@dzs.cz' }),
+    widget('page-hero', { crumb: 'Contact', title: 'Talk to us.', note: 'Questions about attendance, programme, media or speaking are welcome.', cardLabel: 'Email', cardTitle: 'ceeducon@dzs.cz' }),
     widget('contact', { logoUrl: media('/wp-content/themes/ceeducon-program/assets/dzs-logo.png'), logoAlt: 'DZS — Czech National Agency for International Education and Research' }),
     widget('faq', { kicker: 'Quick answers', title: 'Before you write.' }),
   ]),

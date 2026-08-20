@@ -11,9 +11,7 @@ $image_id = (int) ceeducon_block_value($attributes, 'imageId', 0);
 $image_url = (string) ceeducon_block_value($attributes, 'imageUrl');
 $image_alt = (string) ceeducon_block_value($attributes, 'imageAlt');
 $kicker = (string) ceeducon_block_value($attributes, 'kicker');
-if ($kicker === 'CEEDUCON 2026 · Prague') {
-    $kicker = 'CEEDUCON 2026 · CZECHIA';
-}
+$registration_url = (string) ceeducon_block_value($attributes, 'registrationUrl');
 $event_month = preg_replace('/<br\s*\/?>/i', ' ', (string) ceeducon_block_value($attributes, 'eventMonth'));
 $event_month = trim((string) preg_replace('/\s+/', ' ', wp_strip_all_tags((string) $event_month)));
 ?>
@@ -48,18 +46,19 @@ $event_month = trim((string) preg_replace('/\s+/', ' ', wp_strip_all_tags((strin
             if ($value === '') {
                 continue;
             }
-            if (strtolower($label) === 'registration' && strtolower($value) === 'opens in september') {
-                $value = 'Registration opens in September';
-            }
             ?>
             <span class="hero-essential">
               <?php if ($label !== '') : ?><span class="sr-only"><?php echo esc_html($label); ?>: </span><?php endif; ?>
-              <?php echo esc_html($value); ?>
+              <?php if (strtolower($label) === 'registration' && $registration_url !== '') : ?>
+                <a class="hero-essential-link" href="<?php echo esc_url($registration_url); ?>"><?php echo esc_html($value); ?></a>
+              <?php else : ?>
+                <?php echo esc_html($value); ?>
+              <?php endif; ?>
             </span>
           <?php endforeach; ?>
         </div>
       </div>
-      <div class="hero-calendar-actions" aria-label="<?php esc_attr_e('Add CEEDUCON 2026 to a calendar', 'ceeducon-program'); ?>">
+      <div class="hero-calendar-actions" aria-label="<?php echo esc_attr(sprintf(__('Add %s to a calendar', 'ceeducon-program'), $kicker)); ?>">
         <?php foreach (['google', 'outlook'] as $calendar) : ?>
           <?php if (trim((string) ceeducon_block_value($attributes, $calendar . 'CalendarText')) !== '' && trim((string) ceeducon_block_value($attributes, $calendar . 'CalendarUrl')) !== '') : ?>
             <a class="hero-calendar" href="<?php echo ceeducon_block_url($attributes, $calendar . 'CalendarUrl'); ?>" target="_blank" rel="noreferrer"><?php echo ceeducon_block_text($attributes, $calendar . 'CalendarText'); ?> <span class="hero-calendar-icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M5.5 2.5v3M14.5 2.5v3M3 7.5h14M4.5 4h11A1.5 1.5 0 0 1 17 5.5v10a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 15.5v-10A1.5 1.5 0 0 1 4.5 4Z"></path><path d="M6.5 11h2v2h-2zM11.5 11h2v2h-2z"></path></svg></span></a>

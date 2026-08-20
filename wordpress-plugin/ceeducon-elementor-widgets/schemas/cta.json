@@ -11,13 +11,13 @@
   "attributes": {
     "kicker": { "type": "string", "default": "Next step" },
     "title": { "type": "string", "default": "Plan your CEEDUCON visit." },
-    "text": { "type": "string", "default": "Use the practical information and programme pages to prepare for the two conference days in Prague." },
+    "text": { "type": "string", "default": "Use the practical information and programme pages to prepare for the conference in {{city}}." },
     "primaryText": { "type": "string", "default": "Open practical info" },
     "primaryUrl": { "type": "string", "default": "/practical-information/" },
     "secondaryText": { "type": "string", "default": "See programme" },
     "secondaryUrl": { "type": "string", "default": "/programme/" },
-    "noteLabel": { "type": "string", "default": "CEEDUCON 2026" },
-    "noteTitle": { "type": "string", "default": "1–2 December 2026 · O2 universum Prague" },
+    "noteLabel": { "type": "string", "default": "{{event_title}}" },
+    "noteTitle": { "type": "string", "default": "{{date}} · {{venue}}" },
     "noteText": { "type": "string", "default": "Registration details will be published once confirmed by the organisers." },
     "dark": { "type": "boolean", "default": true }
   },

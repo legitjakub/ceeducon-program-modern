@@ -43,7 +43,8 @@ Prvky: kompaktní tmavý hero s reálnou konferenční fotografií, editovateln�
 Struktura webu je navržená pro snadný převod do WordPressu:
 
 - programová data jsou oddělená v [`data/program.json`](data/program.json) (`rooms`, `themes`, `slots`),
-- ve WordPress verzi se obsah stránek upravuje v nativních Gutenberg blocích nebo ve volitelných CEEDUCON Elementor widgetech; **CEEDUCON Content** zůstává jen jako kompatibilní fallback pro globální hodnoty a Programme JSON,
+- každoročně proměnné údaje se spravují na jedné obrazovce pluginu **CEEDUCON Conference Edition**; datum, místo, registrace, kalendáře, statistiky a SEO Event data se odtud propíšou automaticky,
+- běžný obsah může nadále používat nativní Gutenberg bloky nebo volitelné CEEDUCON Elementor widgety; design a layout zůstávají řízené šablonou,
 - samostatná video sekce na homepage používá responzivní privacy-enhanced YouTube embed a je editovatelná jako Gutenberg blok i Elementor widget,
 - hlavní navigace používá nativní WordPress menu **Appearance → Menus → Primary navigation**,
 - brand paleta, šířky layoutu a editorový náhled fontu Tabac Sans jsou registrované přes `theme.json` a `css/editor-style.css`,
@@ -53,6 +54,7 @@ Struktura webu je navržená pro snadný převod do WordPressu:
 
 - zdrojová složka: [`wordpress-theme/ceeducon-program`](wordpress-theme/ceeducon-program)
 - ZIP pro nahrání: [`dist/ceeducon-program-wordpress-theme.zip`](dist/ceeducon-program-wordpress-theme.zip)
+- plugin pro správu ročníku: [`dist/ceeducon-conference-settings.zip`](dist/ceeducon-conference-settings.zip)
 
 Šablona je vícestránková (front-page + page šablony `about`, `programme`, `practical`, `speakers`, `media`, `contact` mapované podle slugů), sdílí CSS/JS se statickou verzí a podporuje editaci přes nativní bloky i volitelný Elementor Free plugin. Postup instalace je v [README šablony](wordpress-theme/ceeducon-program/README.md).
 

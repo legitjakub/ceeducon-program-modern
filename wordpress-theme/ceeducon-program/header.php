@@ -16,7 +16,7 @@
 
     <header class="site-header">
       <div class="header-inner shell">
-        <a class="brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="CEEDUCON 2026 home">
+        <a class="brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr(ceeducon_text_value('site_home_label', '{{event_title}} home')); ?>">
           <?php $custom_logo_id = (int) get_theme_mod('custom_logo'); ?>
           <?php if ($custom_logo_id > 0) : ?>
             <?php echo wp_get_attachment_image($custom_logo_id, 'full', false, ['class' => 'custom-logo', 'decoding' => 'async']); ?>

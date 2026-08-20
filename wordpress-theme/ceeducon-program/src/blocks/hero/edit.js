@@ -18,7 +18,10 @@
 
   blocks.registerBlockType("ceeducon/hero", {
     edit({ attributes, setAttributes }) {
-      const rows = (attributes.eventRows || []).filter((row) => String(row.label || "").toLowerCase() !== "format");
+      const edition = window.CEEDUCON_HERO_EDITOR_DATA || { managed: false, attributes: {} };
+      const managed = Boolean(edition.managed);
+      const displayAttributes = managed ? { ...attributes, ...(edition.attributes || {}) } : attributes;
+      const rows = (displayAttributes.eventRows || []).filter((row) => String(row.label || "").toLowerCase() !== "format");
 
       return el(
         "section",
@@ -26,7 +29,15 @@
         el(
           InspectorControls,
           {},
-          el(
+          managed
+            ? el(
+                PanelBody,
+                { title: __("Ročník konference", "ceeducon-program"), initialOpen: true },
+                el("p", {}, __("Datum, místo, registrace, kalendáře a úvodní fotografie se spravují centrálně.", "ceeducon-program")),
+                el("a", { href: edition.settingsUrl || "#", target: "_top" }, __("Otevřít nastavení ročníku", "ceeducon-program"))
+              )
+            : null,
+          !managed ? el(
             PanelBody,
             { title: __("Fotografie", "ceeducon-program"), initialOpen: true },
             el(
@@ -66,7 +77,7 @@
               onChange: (imageAlt) => setAttributes({ imageAlt }),
               help: __("Stručně popište, co je na fotografii.", "ceeducon-program"),
             })
-          ),
+          ) : null,
           el(
             PanelBody,
             { title: __("Tlačítka", "ceeducon-program"), initialOpen: false },
@@ -91,7 +102,7 @@
               onChange: (secondaryUrl) => setAttributes({ secondaryUrl }),
             })
           ),
-          el(
+          !managed ? el(
             PanelBody,
             { title: __("Údaje o konferenci", "ceeducon-program"), initialOpen: false },
             el(TextControl, {
@@ -140,10 +151,10 @@
               value: attributes.outlookCalendarUrl,
               onChange: (outlookCalendarUrl) => setAttributes({ outlookCalendarUrl }),
             })
-          )
+          ) : null
         ),
-        attributes.imageUrl
-          ? el("div", { className: "hero-media" }, el("img", { src: attributes.imageUrl, alt: attributes.imageAlt || "" }))
+        displayAttributes.imageUrl
+          ? el("div", { className: "hero-media" }, el("img", { src: displayAttributes.imageUrl, alt: displayAttributes.imageAlt || "" }))
           : null,
         el(
           "div",
@@ -151,14 +162,16 @@
           el(
             "div",
             { className: "hero-copy" },
-            el(RichText, {
-              tagName: "p",
-              className: "hero-kicker",
-              value: attributes.kicker,
-              allowedFormats: [],
-              onChange: (kicker) => setAttributes({ kicker }),
-              placeholder: __("Kicker", "ceeducon-program"),
-            }),
+            managed
+              ? el("p", { className: "hero-kicker" }, inlineText(displayAttributes.kicker))
+              : el(RichText, {
+                  tagName: "p",
+                  className: "hero-kicker",
+                  value: attributes.kicker,
+                  allowedFormats: [],
+                  onChange: (kicker) => setAttributes({ kicker }),
+                  placeholder: __("Kicker", "ceeducon-program"),
+                }),
             el(RichText, {
               tagName: "h1",
               value: attributes.title,
@@ -191,7 +204,7 @@
             el(
               "div",
               { className: "hero-essentials" },
-              el("span", { className: "hero-essential hero-essential--date" }, el("strong", {}, `${attributes.eventDay} ${inlineText(attributes.eventMonth)}`)),
+              el("span", { className: "hero-essential hero-essential--date" }, el("strong", {}, `${displayAttributes.eventDay} ${inlineText(displayAttributes.eventMonth)}`)),
               el(
                 "div",
                 { className: "hero-essential-details" },
@@ -211,7 +224,7 @@
             el(
               "div",
               { className: "hero-calendar-actions" },
-              [attributes.googleCalendarText, attributes.outlookCalendarText].map((label, index) =>
+              [displayAttributes.googleCalendarText, displayAttributes.outlookCalendarText].map((label, index) =>
                 el(
                   "span",
                   { className: "hero-calendar", key: index },

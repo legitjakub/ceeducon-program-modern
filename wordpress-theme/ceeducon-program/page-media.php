@@ -21,7 +21,7 @@ $partners_url = ceeducon_asset_url('assets/media/ceeducon-partner-logos-white.pn
           <div>
             <p class="page-crumbs"><a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Home', 'ceeducon-program'); ?></a><span>/</span><em><?php esc_html_e('Media kit', 'ceeducon-program'); ?></em></p>
             <h1><?php esc_html_e('Media resources.', 'ceeducon-program'); ?></h1>
-            <p class="page-hero-note"><?php esc_html_e('Official CEEDUCON 2026 visual assets, press information and a direct contact for journalists and partner organisations.', 'ceeducon-program'); ?></p>
+            <p class="page-hero-note"><?php ceeducon_text('media_hero_note', 'Official {{event_title}} visual assets, press information and a direct contact for journalists and partner organisations.'); ?></p>
           </div>
           <div class="page-hero-card page-hero-card--orange">
             <span><?php esc_html_e('Media contact', 'ceeducon-program'); ?></span>
@@ -44,10 +44,10 @@ $partners_url = ceeducon_asset_url('assets/media/ceeducon-partner-logos-white.pn
         </div>
         <div class="shell media-kit-grid">
           <article class="media-kit-card" data-reveal>
-            <img src="<?php echo esc_url($banner_url); ?>" alt="<?php esc_attr_e('Official CEEDUCON 2026 conference banner', 'ceeducon-program'); ?>" width="2162" height="1067" loading="lazy" decoding="async" />
+            <img src="<?php echo esc_url($banner_url); ?>" alt="<?php echo esc_attr(ceeducon_text_value('media_banner_alt', 'Official {{event_title}} conference banner')); ?>" width="2162" height="1067" loading="lazy" decoding="async" />
             <span><?php esc_html_e('Official visual', 'ceeducon-program'); ?></span>
             <h3><?php esc_html_e('Conference banner', 'ceeducon-program'); ?></h3>
-            <p><?php esc_html_e('High-resolution CEEDUCON 2026 key visual for digital publication.', 'ceeducon-program'); ?></p>
+            <p><?php ceeducon_text('media_banner_text', 'High-resolution {{event_title}} key visual for digital publication.'); ?></p>
             <a class="btn btn--outline" href="<?php echo esc_url($banner_url); ?>" download><?php esc_html_e('Download PNG', 'ceeducon-program'); ?></a>
           </article>
           <article class="media-kit-card media-kit-card--dark" data-reveal="2">
@@ -76,7 +76,7 @@ $partners_url = ceeducon_asset_url('assets/media/ceeducon-partner-logos-white.pn
           <article class="press-item" data-reveal="2">
             <span><?php esc_html_e('Coming soon', 'ceeducon-program'); ?></span>
             <div>
-              <h3><?php esc_html_e('CEEDUCON 2026 press releases', 'ceeducon-program'); ?></h3>
+              <h3><?php ceeducon_text('media_press_title', '{{event_title}} press releases'); ?></h3>
               <p><?php esc_html_e('Approved press releases and announcements will be published here as they become available.', 'ceeducon-program'); ?></p>
             </div>
           </article>

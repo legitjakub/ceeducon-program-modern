@@ -19,11 +19,11 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
         <div class="shell page-hero-grid">
           <div>
             <p class="page-crumbs"><a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Home', 'ceeducon-program'); ?></a><span>/</span><em><?php esc_html_e('Contact', 'ceeducon-program'); ?></em></p>
-            <h1><?php ceeducon_text('con_hero_title', 'Talk to the CEEDUCON team.'); ?></h1>
+            <h1><?php ceeducon_text('con_hero_title', 'Talk to us.'); ?></h1>
             <p class="page-hero-note"><?php ceeducon_text('con_hero_note', 'Registration updates, programme questions, speaker communication or partnerships — the organisers are happy to help.'); ?></p>
           </div>
           <div class="page-hero-card">
-            <span><?php ceeducon_text('con_card_label', 'Write or call'); ?></span>
+            <span><?php ceeducon_text('con_card_label', 'Contact us'); ?></span>
             <strong><a href="mailto:<?php echo esc_attr($con_email); ?>"><?php echo esc_html($con_email); ?></a></strong>
             <p><?php echo esc_html($con_phone); ?></p>
           </div>
@@ -75,7 +75,7 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
             <a class="link-tile" href="<?php echo esc_url(ceeducon_page_url('speakers')); ?>" data-reveal="3">
               <span><?php ceeducon_text('con_link_3_label', 'For speakers'); ?></span>
               <h3><?php ceeducon_text('con_link_3_title', 'Session guidance'); ?></h3>
-              <p><?php ceeducon_text('con_link_3_text', 'Expectations, delivery format and the speaker timeline for 2026.'); ?></p>
+              <p><?php ceeducon_text('con_link_3_text', 'Expectations, delivery format and the speaker timeline for {{year}}.'); ?></p>
             </a>
           </div>
         </div>

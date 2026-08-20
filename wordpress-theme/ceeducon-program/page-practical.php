@@ -16,13 +16,13 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
         <div class="shell page-hero-grid">
           <div>
             <p class="page-crumbs"><a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Home', 'ceeducon-program'); ?></a><span>/</span><em><?php esc_html_e('Practical information', 'ceeducon-program'); ?></em></p>
-            <h1><?php ceeducon_text('prac_hero_title', 'Plan your visit to Prague.'); ?></h1>
-            <p class="page-hero-note"><?php ceeducon_text('prac_hero_note', 'Where to go, how to get there and what to prepare — everything participants need before arriving at CEEDUCON 2026.'); ?></p>
+            <h1><?php ceeducon_text('prac_hero_title', 'Plan your visit to {{city}}.'); ?></h1>
+            <p class="page-hero-note"><?php ceeducon_text('prac_hero_note', 'Where to go, how to get there and what to prepare — everything participants need before arriving at {{event_title}}.'); ?></p>
           </div>
           <div class="page-hero-card">
             <span><?php ceeducon_text('prac_card_label', 'Venue'); ?></span>
-            <strong><?php ceeducon_text('prac_card_title', 'O2 universum'); ?></strong>
-            <p><?php ceeducon_text('prac_card_text', 'Českomoravská 17, Prague 9 — home of both CEEDUCON 2026 conference days.'); ?></p>
+            <strong><?php ceeducon_text('prac_card_title', '{{venue}}'); ?></strong>
+            <p><?php ceeducon_text('prac_card_text', 'Conference venue in {{city}} — home of all {{event_title}} conference days.'); ?></p>
           </div>
         </div>
       </section>
@@ -41,8 +41,8 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
           <div class="info-grid" aria-label="Practical essentials">
             <article data-reveal>
               <span><?php ceeducon_text('info_1_label', 'Venue'); ?></span>
-              <h3><?php ceeducon_text('info_1_title', 'O2 universum'); ?></h3>
-              <p><?php ceeducon_text('info_1_text', 'Českomoravská 17, Prague 9. All plenaries, sessions and workshops of CEEDUCON 2026 take place here.'); ?></p>
+              <h3><?php ceeducon_text('info_1_title', '{{venue}}'); ?></h3>
+              <p><?php ceeducon_text('info_1_text', 'All plenaries, sessions and workshops of {{event_title}} take place at {{venue}}.'); ?></p>
             </article>
             <article data-reveal="2">
               <span><?php ceeducon_text('info_2_label', 'From the airport'); ?></span>
@@ -74,15 +74,19 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
           <div class="faq-list" aria-label="Practical FAQ" data-reveal>
             <details open>
               <summary><?php ceeducon_text('faq_1_title', 'Is there a conference fee?'); ?></summary>
-              <p><?php ceeducon_html('faq_1_text', 'No — participation at CEEDUCON 2026 is free of charge for registered attendees. Registration opens in September.'); ?></p>
+              <p><?php ceeducon_html('faq_1_text', 'Participation at {{event_title}} is {{fee}} for registered attendees. {{registration}}.'); ?></p>
+            </details>
+            <details>
+              <summary><?php ceeducon_text('faq_capacity_title', 'Is there a limit on the number of participants?'); ?></summary>
+              <p><?php ceeducon_html('faq_capacity_text', 'Yes. The conference venue has a limited capacity, and registration will be accepted on a first-come, first-served basis. We therefore encourage you to register as early as possible to secure your place. Once the conference reaches its maximum capacity, registration will be closed.'); ?></p>
             </details>
             <details>
               <summary><?php ceeducon_text('faq_2_title', 'Where should I stay?'); ?></summary>
-              <p><?php ceeducon_html('faq_2_text', 'Participants arrange accommodation individually. Hotels within easy reach of the venue include Stages Hotel and Carol Hotel; central Prague is around 20 minutes away by metro.'); ?></p>
+              <p><?php ceeducon_html('faq_2_text', 'Participants are responsible for arranging and covering the cost of their own accommodation. Please note that neither accommodation nor travel expenses can be reimbursed by the conference organizers. Hotels within easy reach of the venue include <a href="https://www.stageshotel.com/" target="_blank" rel="noreferrer">Stages Hotel</a> and <a href="https://www.hotelcarol.cz/en/" target="_blank" rel="noreferrer">Carol Hotel</a>, while Prague city centre is approximately 20 minutes away by metro.'); ?></p>
             </details>
             <details>
               <summary><?php ceeducon_text('faq_3_title', 'How do I register?'); ?></summary>
-              <p><?php ceeducon_html('faq_3_text', 'Registration opens in September. The registration form and practical details will be published on the official CEEDUCON website once confirmed.'); ?></p>
+              <p><?php ceeducon_html('faq_3_text', '{{registration}}. The registration form and practical details will be published on the official CEEDUCON website once confirmed.'); ?></p>
             </details>
             <details>
               <summary><?php ceeducon_text('faq_4_title', 'Anything to check before travelling?'); ?></summary>

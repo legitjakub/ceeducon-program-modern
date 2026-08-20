@@ -42,6 +42,24 @@ abstract class Section_Widget extends Widget_Base
 
     protected function register_controls(): void
     {
+        if ($this->section_slug() === 'hero' && function_exists('ceeducon_edition_get')) {
+            $this->start_controls_section('ceeducon_annual_settings', [
+                'label' => __('Conference edition', 'ceeducon-elementor-widgets'),
+                'tab'   => Controls_Manager::TAB_CONTENT,
+            ]);
+            $this->add_control('ceeducon_annual_settings_note', [
+                'type'            => Controls_Manager::RAW_HTML,
+                'raw'             => sprintf(
+                    '%s <a href="%s" target="_blank" rel="noopener">%s</a>',
+                    esc_html__('The year, date, venue, registration, statistics, hero image and calendar links are managed centrally.', 'ceeducon-elementor-widgets'),
+                    esc_url(admin_url('admin.php?page=ceeducon-edition')),
+                    esc_html__('Open Conference edition', 'ceeducon-elementor-widgets')
+                ),
+                'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+            ]);
+            $this->end_controls_section();
+        }
+
         $groups = [
             'content' => __('Main content', 'ceeducon-elementor-widgets'),
             'items'   => __('Items', 'ceeducon-elementor-widgets'),
@@ -52,7 +70,15 @@ abstract class Section_Widget extends Widget_Base
         ];
         $grouped_attributes = array_fill_keys(array_keys($groups), []);
 
+        $central_hero_keys = [
+            'kicker', 'imageId', 'imageUrl', 'imageAlt', 'eventDay', 'eventMonth',
+            'eventRows', 'googleCalendarText', 'googleCalendarUrl',
+            'outlookCalendarText', 'outlookCalendarUrl',
+        ];
         foreach ($this->attribute_schema() as $key => $definition) {
+            if ($this->section_slug() === 'hero' && function_exists('ceeducon_edition_get') && in_array((string) $key, $central_hero_keys, true)) {
+                continue;
+            }
             $group = $this->control_group((string) $key, (array) $definition);
             $grouped_attributes[$group][(string) $key] = (array) $definition;
         }
@@ -377,7 +403,7 @@ abstract class Section_Widget extends Widget_Base
                 ? Controls_Manager::MEDIA
                 : (($this->ends_with((string) $item_key, 'url') || $this->ends_with((string) $item_key, 'Url'))
                     ? Controls_Manager::URL
-                    : (in_array($item_key, ['text', 'answer', 'quote'], true) ? Controls_Manager::TEXTAREA : Controls_Manager::TEXT));
+                    : (in_array($item_key, ['text', 'answer', 'quote', 'question', 'details'], true) ? Controls_Manager::TEXTAREA : Controls_Manager::TEXT));
             $config = [
                 'label'   => ucwords((string) preg_replace('/(?<!^)[A-Z]/', ' $0', (string) $item_key)),
                 'type'    => $control_type,

@@ -1,13 +1,13 @@
 {
   "attributes": {
     "kicker": { "type": "string", "default": "Thematic areas" },
-    "title": { "type": "string", "default": "Four themes frame the 2026 conversation." },
+    "title": { "type": "string", "default": "Four themes frame the {{year}} conversation." },
     "intro": { "type": "string", "default": "From responsible technology to the complete student journey — the programme connects the questions that matter most to international higher education." },
     "items": { "type": "array", "default": [
-      { "number": "01", "title": "Navigating the Technological Shift", "text": "AI, digitalisation, data and new tools for smarter internationalisation — with academic values and human judgement in focus." },
-      { "number": "02", "title": "Challenges of Internationalisation", "text": "Funding, safety, wellbeing and inclusion — removing barriers to meaningful international experiences for students and staff." },
-      { "number": "03", "title": "Global & Regional Partnerships", "text": "Strategic cooperation, European University alliances and equitable partnerships across global regions." },
-      { "number": "04", "title": "From Recruitment to Retention", "text": "The student journey end to end — admissions, support, employability, alumni relations and long-term success." }
+      { "number": "01", "title": "Navigating the Technological Shift", "text": "AI, digitalisation, data and new tools for smarter internationalisation — with academic values and human judgement in focus.", "question": "How can universities use AI, digitalisation and data responsibly while preserving academic values and human judgement?", "details": "Key topics include AI in international offices and project work, data-driven strategies and evaluation, responsible data use, digital partnerships and staff skills." },
+      { "number": "02", "title": "Challenges of Internationalisation", "text": "Funding, safety, wellbeing and inclusion — removing barriers to meaningful international experiences for students and staff.", "question": "How can universities remove structural, social and financial barriers while creating safe, inclusive and meaningful international experiences?", "details": "Key topics include housing, mobility safety and visas, wellbeing and crisis response, funding, inclusive participation, Green Erasmus and mobility quality." },
+      { "number": "03", "title": "Global & Regional Partnerships", "text": "Strategic cooperation, European University alliances and equitable partnerships across global regions.", "question": "How can universities build sustainable partnerships that balance strategic priorities, mutual benefit and equitable collaboration?", "details": "Key topics include European University alliances, regional and global networks, capacity building, Global Gateway, BIPs, joint degrees and more equal partnerships." },
+      { "number": "04", "title": "From Recruitment to Retention", "text": "The student journey end to end — admissions, support, employability, alumni relations and long-term success.", "question": "How can universities connect recruitment, admissions, support and alumni engagement into one coherent student-centred strategy?", "details": "Key topics include targeted recruitment, transparent admissions, onboarding, integration and support, retention, employability, alumni relations and stakeholder engagement." }
     ] },
     "dark": { "type": "boolean", "default": false }
   }

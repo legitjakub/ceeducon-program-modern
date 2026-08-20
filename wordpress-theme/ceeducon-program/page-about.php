@@ -21,8 +21,8 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
           </div>
           <div class="page-hero-card">
             <img class="page-hero-card-logo" src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-horizontal-white.png')); ?>" alt="" width="1182" height="604" loading="lazy" decoding="async" />
-            <span><?php ceeducon_text('about_card_label', 'CEEDUCON 2026'); ?></span>
-            <strong><?php ceeducon_text('about_card_title', '1–2 December · Prague'); ?></strong>
+            <span><?php ceeducon_text('about_card_label', '{{event_title}}'); ?></span>
+            <strong><?php ceeducon_text('about_card_title', '{{date_short}} · {{city}}'); ?></strong>
             <p><?php ceeducon_text('about_card_text', 'Organised by DZS with national agencies from across Central Europe.'); ?></p>
           </div>
         </div>
@@ -63,31 +63,25 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
           <div class="section-head">
             <div data-reveal>
               <p class="kicker"><?php ceeducon_text('home_themes_kicker', 'Thematic areas'); ?></p>
-              <h2 class="display-2"><?php ceeducon_text('about_themes_title', 'The 2026 themes.'); ?></h2>
+              <h2 class="display-2"><?php ceeducon_text('about_themes_title', 'The {{year}} themes.'); ?></h2>
             </div>
-            <p data-reveal="2"><?php ceeducon_text('about_themes_intro', 'Four thematic areas structure the sessions, workshops and plenaries of CEEDUCON 2026 — connecting technology, inclusion, partnerships and the student journey.'); ?></p>
+            <p data-reveal="2"><?php ceeducon_text('about_themes_intro', 'Four thematic areas structure the sessions, workshops and plenaries of {{event_title}} — connecting technology, inclusion, partnerships and the student journey.'); ?></p>
           </div>
           <div class="theme-grid" aria-label="Conference thematic areas">
-            <article class="theme-card theme-card--sky" data-reveal>
-              <span>01</span>
-              <h3><?php ceeducon_text('theme_1_title', 'Navigating the Technological Shift'); ?></h3>
-              <p><?php ceeducon_text('theme_1_text', 'Responsible use of AI, digitalisation, data analytics and new tools in international education — while keeping academic values and human judgement in focus.'); ?></p>
-            </article>
-            <article class="theme-card theme-card--orange" data-reveal="2">
-              <span>02</span>
-              <h3><?php ceeducon_text('theme_2_title', 'Challenges of Internationalisation'); ?></h3>
-              <p><?php ceeducon_text('theme_2_text', 'Structural, social and financial barriers, safety, wellbeing, funding and inclusive access to meaningful international experiences for all students and staff.'); ?></p>
-            </article>
-            <article class="theme-card theme-card--white" data-reveal="3">
-              <span>03</span>
-              <h3><?php ceeducon_text('theme_3_title', 'Global & Regional Partnerships'); ?></h3>
-              <p><?php ceeducon_text('theme_3_text', 'Sustainable strategic cooperation, European University alliances and equitable academic partnerships across global regions.'); ?></p>
-            </article>
-            <article class="theme-card theme-card--navy" data-reveal="4">
-              <span>04</span>
-              <h3><?php ceeducon_text('theme_4_title', 'From Recruitment to Retention'); ?></h3>
-              <p><?php ceeducon_text('theme_4_text', 'A student-centred journey from marketing and admissions through support services to employability, alumni relations and graduate success.'); ?></p>
-            </article>
+            <?php
+            $theme_items = [];
+            foreach (ceeducon_default_theme_items() as $index => $item) {
+                $number = $index + 1;
+                $theme_items[] = [
+                    'number' => $item['number'],
+                    'title' => ceeducon_text_value("theme_{$number}_title", $item['title']),
+                    'text' => ceeducon_text_value("theme_{$number}_text", $item['text']),
+                    'question' => ceeducon_text_value("theme_{$number}_question", $item['question']),
+                    'details' => ceeducon_text_value("theme_{$number}_details", $item['details']),
+                ];
+            }
+            ceeducon_render_theme_cards($theme_items);
+            ?>
           </div>
         </div>
       </section>

@@ -10,9 +10,9 @@
   "textdomain": "ceeducon-program",
   "attributes": {
     "kicker": { "type": "string", "default": "The conference" },
-    "title": { "type": "string", "default": "A focused forum for international higher education." },
-    "text": { "type": "string", "default": "CEEDUCON connects people who work on internationalisation every day: university leadership, international offices, policymakers, national agencies and practitioners from across Europe." },
-    "secondText": { "type": "string", "default": "The programme is built around practical exchange: what is changing, what works in institutions, and where Central European cooperation can move higher education forward." },
+    "title": { "type": "string", "default": "Where the people shaping international higher education come together." },
+    "text": { "type": "string", "default": "CEEDUCON connects university leaders, internationalisation professionals, policymakers, national agencies and practitioners from across Europe to exchange ideas, experiences and solutions." },
+    "secondText": { "type": "string", "default": "From emerging challenges to proven approaches, the programme focuses on what is changing, what works in practice, and what we can achieve through stronger Central European cooperation." },
     "chips": { "type": "array", "default": ["University leadership", "International offices", "Policymakers", "National agencies"] },
     "buttonText": { "type": "string", "default": "" },
     "buttonUrl": { "type": "string", "default": "" },

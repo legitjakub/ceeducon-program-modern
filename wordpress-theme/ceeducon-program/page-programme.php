@@ -17,12 +17,12 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
           <div>
             <p class="page-crumbs"><a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Home', 'ceeducon-program'); ?></a><span>/</span><em><?php esc_html_e('Programme', 'ceeducon-program'); ?></em></p>
             <h1><?php ceeducon_text('prog_hero_title', 'Two days. One programme.'); ?></h1>
-            <p class="page-hero-note"><?php ceeducon_text('prog_hero_note', 'CEEDUCON 2026 runs across the halls of O2 universum Prague on 1–2 December. Browse the preliminary room-by-room programme below — sessions, workshops and speakers for both days.'); ?></p>
+            <p class="page-hero-note"><?php ceeducon_text('prog_hero_note', '{{event_title}} runs across the halls of {{venue}} on {{date_short}}. Browse the room-by-room programme below — sessions, workshops and speakers for both days.'); ?></p>
           </div>
           <div class="page-hero-card">
             <span><?php ceeducon_text('prog_card_label', 'Preliminary programme'); ?></span>
             <strong><?php ceeducon_text('prog_card_title', 'Online now'); ?></strong>
-            <p><?php ceeducon_text('prog_card_text', 'Registration opens in September and participation is free of charge. The programme remains subject to change.'); ?></p>
+            <p><?php ceeducon_text('prog_card_text', '{{registration}} and participation is {{fee}}. The programme remains subject to change.'); ?></p>
           </div>
         </div>
       </section>

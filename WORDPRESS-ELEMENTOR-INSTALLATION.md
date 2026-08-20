@@ -6,6 +6,7 @@
 - PHP 8.0 or newer
 - Elementor Free 3.20 or newer
 - `ceeducon-program-wordpress-theme.zip`
+- `ceeducon-conference-settings.zip`
 - `ceeducon-elementor-widgets.zip`
 
 The theme owns the design, Tabac Sans font, header, footer, navigation, responsive layout and semantic HTML. Elementor owns page content assembled from CEEDUCON section widgets. Programme sessions remain in **CEEDUCON Content** in WordPress so a large schedule is not stored in one Elementor repeater.
@@ -15,9 +16,11 @@ The theme owns the design, Tabac Sans font, header, footer, navigation, responsi
 1. Make a database and files backup or create a staging copy of the website.
 2. In **Appearance → Themes → Add New → Upload Theme**, upload and activate `ceeducon-program-wordpress-theme.zip`.
 3. Install and activate Elementor Free. Update it to at least version 3.20.
-4. In **Plugins → Add New → Upload Plugin**, upload and activate `ceeducon-elementor-widgets.zip`.
-5. If WordPress shows a compatibility notice, update the named component before continuing. The plugin does not load its widget classes until Elementor is available and compatible.
-6. Go to **Elementor → Tools** and run **Regenerate CSS & Data**. Clear the WordPress and hosting cache.
+4. In **Plugins → Add New → Upload Plugin**, upload and activate `ceeducon-conference-settings.zip`.
+5. Open **CEEDUCON Content → Conference edition** and verify the event year, date, venue, registration and statistics. These values are the central source for the theme, calendars, SEO, Gutenberg and Elementor.
+6. Upload and activate `ceeducon-elementor-widgets.zip` only when Elementor page editing is needed. The annual settings plugin does not depend on Elementor.
+7. If WordPress shows a compatibility notice, update the named component before continuing. The widget plugin does not load its widget classes until Elementor is available and compatible.
+8. Go to **Elementor → Tools** and run **Regenerate CSS & Data**. Clear the WordPress and hosting cache.
 
 ## Import without overwriting the live website
 
@@ -37,6 +40,8 @@ The theme owns the design, Tabac Sans font, header, footer, navigation, responsi
 - Clear a changed style control to restore the original GitHub design.
 
 Header, footer, logo and navigation are global. Edit the menu under **Appearance → Menus** and the logo/site identity under **Appearance → Customise** rather than changing them on every Elementor page.
+
+The recurring annual facts are intentionally not owned by individual Elementor pages. Change them once under **CEEDUCON Content → Conference edition**. This prevents an old date or venue from remaining on one forgotten page.
 
 ## SEO and migration checks
 

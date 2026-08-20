@@ -214,10 +214,50 @@ function ceeducon_text_value(string $key, string $default): string
 {
     $content = get_option('ceeducon_content', []);
     if (is_array($content) && array_key_exists($key, $content) && $content[$key] !== '') {
-        return (string) $content[$key];
+        $value = (string) $content[$key];
+    } else {
+        $value = (string) get_theme_mod('ceeducon_' . $key, $default);
     }
 
-    return get_theme_mod('ceeducon_' . $key, $default);
+    /**
+     * Lets a small companion plugin centrally own values that change with
+     * every conference edition while the theme continues to own the layout.
+     */
+    $value = (string) apply_filters('ceeducon_text_value', $value, $key, $default);
+    return ceeducon_expand_content_tokens($value);
+}
+
+function ceeducon_content_tokens(): array
+{
+    return (array) apply_filters('ceeducon_content_tokens', [
+        '{{event_title}}' => 'CEEDUCON 2026',
+        '{{year}}' => '2026',
+        '{{date}}' => '1–2 December 2026',
+        '{{date_short}}' => '1–2 December',
+        '{{venue}}' => 'O2 universum Prague',
+        '{{city}}' => 'Prague',
+        '{{fee}}' => 'Free of charge',
+        '{{registration}}' => 'Registration opens in September',
+    ]);
+}
+
+function ceeducon_expand_content_tokens(string $value): string
+{
+    return strtr($value, ceeducon_content_tokens());
+}
+
+function ceeducon_expand_content_tokens_recursive($value)
+{
+    if (is_string($value)) {
+        return ceeducon_expand_content_tokens($value);
+    }
+    if (!is_array($value)) {
+        return $value;
+    }
+    foreach ($value as $key => $item) {
+        $value[$key] = ceeducon_expand_content_tokens_recursive($item);
+    }
+    return $value;
 }
 
 function ceeducon_text(string $key, string $default): void
@@ -273,21 +313,26 @@ function ceeducon_social_image(): array
         $image = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
         if (is_array($image)) {
             $alt = (string) get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true);
-            return [
+            return ceeducon_filter_social_image([
                 'url' => (string) $image[0],
                 'width' => (int) $image[1],
                 'height' => (int) $image[2],
                 'alt' => $alt !== '' ? $alt : (string) get_the_title(get_post_thumbnail_id()),
-            ];
+            ]);
         }
     }
 
-    return [
+    return ceeducon_filter_social_image([
         'url' => ceeducon_asset_url('assets/media/ceeducon-2026-official-banner.png'),
         'width' => 2162,
         'height' => 1067,
         'alt' => __('Official CEEDUCON 2026 conference visual', 'ceeducon-program'),
-    ];
+    ]);
+}
+
+function ceeducon_filter_social_image(array $image): array
+{
+    return (array) apply_filters('ceeducon_social_image', $image);
 }
 
 /**
@@ -363,6 +408,7 @@ function ceeducon_output_event_schema(): void
         ],
     ];
 
+    $schema = (array) apply_filters('ceeducon_event_schema', $schema);
     echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>' . "\n";
 }
 add_action('wp_head', 'ceeducon_output_event_schema', 20);
@@ -628,6 +674,12 @@ function ceeducon_theme_scripts(): void
         true
     );
 
+    wp_add_inline_script(
+        'ceeducon-site',
+        'window.CEEDUCON_DATA_URL = ' . wp_json_encode(ceeducon_asset_url('data/program.json')) . ';',
+        'before'
+    );
+
     if (!ceeducon_should_render_programme_ui()) {
         return;
     }
@@ -664,12 +716,6 @@ function ceeducon_enqueue_programme_assets(): void
     );
 
     if (!$configured) {
-        wp_add_inline_script(
-            'ceeducon-program',
-            'window.CEEDUCON_DATA_URL = ' . wp_json_encode(ceeducon_asset_url('data/program.json')) . ';',
-            'before'
-        );
-
         if (!empty($programme_data)) {
             wp_add_inline_script(
                 'ceeducon-program-data',
@@ -787,13 +833,14 @@ function ceeducon_page_block_templates(): array
             ['ceeducon/hero'],
             ['ceeducon/text-section', [
                 'kicker' => 'The conference',
-                'title' => 'A focused forum for international higher education.',
-                'text' => 'CEEDUCON connects university leadership, international offices, policymakers, national agencies and practitioners from across Europe.',
-                'secondText' => 'The programme is built around practical exchange: what is changing, what works in institutions, and where Central European cooperation can move higher education forward.',
+                'title' => 'Where the people shaping international higher education come together.',
+                'text' => 'CEEDUCON connects university leaders, internationalisation professionals, policymakers, national agencies and practitioners from across Europe to exchange ideas, experiences and solutions.',
+                'secondText' => 'From emerging challenges to proven approaches, the programme focuses on what is changing, what works in practice, and what we can achieve through stronger Central European cooperation.',
                 'chips' => ['University leadership', 'International offices', 'Policymakers', 'National agencies'],
                 'buttonText' => 'More about CEEDUCON',
                 'buttonUrl' => '/about/',
             ]],
+            ['ceeducon/themes'],
             ['ceeducon/video'],
             ['ceeducon/photo-gallery'],
             ['ceeducon/cards', [
@@ -813,9 +860,9 @@ function ceeducon_page_block_templates(): array
                 'crumb' => 'About',
                 'title' => 'About CEEDUCON.',
                 'note' => 'Central European Conference on Internationalisation of Higher Education brings together people shaping international higher education across Europe.',
-                'cardLabel' => '2026 edition',
-                'cardTitle' => '1–2 December 2026',
-                'cardText' => 'Two conference days at O2 universum Prague.',
+                'cardLabel' => '{{year}} edition',
+                'cardTitle' => '{{date}}',
+                'cardText' => 'Conference days at {{venue}}.',
             ]],
             ['ceeducon/text-section', [
                 'kicker' => 'The conference',
@@ -824,16 +871,7 @@ function ceeducon_page_block_templates(): array
                 'secondText' => 'The conference focuses on practical exchange, institutional strategy, partnerships and student-centred international education.',
                 'chips' => ['Strategy', 'Partnerships', 'Mobility', 'Student support'],
             ]],
-            ['ceeducon/cards', [
-                'kicker' => 'Themes',
-                'title' => 'Four themes frame the 2026 conversation.',
-                'items' => [
-                    ['label' => '01', 'title' => 'Navigating the Technological Shift', 'text' => 'Responsible use of AI, digitalisation and new tools in international education.', 'url' => '/programme/'],
-                    ['label' => '02', 'title' => 'Challenges of Internationalisation', 'text' => 'Barriers, wellbeing, funding and inclusive access to meaningful international experiences.', 'url' => '/programme/'],
-                    ['label' => '03', 'title' => 'Global & Regional Partnerships', 'text' => 'Sustainable strategic cooperation and equitable academic partnerships.', 'url' => '/programme/'],
-                    ['label' => '04', 'title' => 'From Recruitment to Retention', 'text' => 'A student-centred journey from admissions to employability and alumni relations.', 'url' => '/programme/'],
-                ],
-            ]],
+            ['ceeducon/themes', ['dark' => true]],
             ['ceeducon/cta', [
                 'kicker' => 'Next step',
                 'title' => 'Continue with the programme.',
@@ -847,7 +885,7 @@ function ceeducon_page_block_templates(): array
         'programme' => ceeducon_page_template_content([
             ['ceeducon/page-hero', [
                 'crumb' => 'Programme',
-                'title' => 'Programme 2026.',
+                'title' => 'Programme {{year}}.',
                 'note' => 'Browse the preliminary two-day programme by day, room, theme and time. Save sessions to your own programme and export them to your calendar.',
                 'cardLabel' => 'Interactive schedule',
                 'cardTitle' => '70+ sessions',
@@ -859,16 +897,16 @@ function ceeducon_page_block_templates(): array
             ['ceeducon/page-hero', [
                 'crumb' => 'Practical',
                 'title' => 'Practical information.',
-                'note' => 'Everything participants need before travelling to Prague: venue, transport, accessibility, accommodation and registration basics.',
+                'note' => 'Everything participants need before travelling to {{city}}: venue, transport, accessibility, accommodation and registration basics.',
                 'cardLabel' => 'Venue',
-                'cardTitle' => 'O2 universum Prague',
-                'cardText' => 'Českomoravská 17, Prague 9.',
+                'cardTitle' => '{{venue}}',
+                'cardText' => 'Conference venue in {{city}}.',
             ]],
             ['ceeducon/cards', [
                 'kicker' => 'Essentials',
                 'title' => 'Plan your visit without digging.',
                 'items' => [
-                    ['label' => 'Venue', 'title' => 'O2 universum Prague', 'text' => 'A modern multi-room conference venue close to metro B, station Českomoravská.', 'url' => 'https://www.o2universum.cz/en'],
+                    ['label' => 'Venue', 'title' => '{{venue}}', 'text' => 'A modern multi-room conference venue in {{city}}.', 'url' => 'https://www.o2universum.cz/en'],
                     ['label' => 'Transport', 'title' => 'Easy public transport', 'text' => 'Reach the venue by metro, tram, bus or train. Airport transfer takes around 55 minutes.', 'url' => 'https://pid.cz/en/'],
                     ['label' => 'Access', 'title' => 'Accessible venue', 'text' => 'The venue supports barrier-free access and clear navigation between rooms.', 'url' => 'https://www.o2universum.cz/en'],
                 ],
@@ -877,9 +915,9 @@ function ceeducon_page_block_templates(): array
                 'kicker' => 'Good to know',
                 'title' => 'Frequently asked questions.',
                 'items' => [
-                    ['question' => 'Is there a conference fee?', 'answer' => 'No. Participation at CEEDUCON 2026 is free of charge for registered attendees.'],
+                    ['question' => 'Is there a conference fee?', 'answer' => 'Participation at {{event_title}} is {{fee}} for registered attendees.'],
                     ['question' => 'When does registration open?', 'answer' => 'Registration details will be published once confirmed by the organisers.'],
-                    ['question' => 'Where does the conference take place?', 'answer' => 'CEEDUCON 2026 takes place at O2 universum, Českomoravská 17, Prague 9.'],
+                    ['question' => 'Where does the conference take place?', 'answer' => '{{event_title}} takes place at {{venue}}.'],
                 ],
             ]],
             ['ceeducon/cta', [
@@ -909,11 +947,14 @@ function ceeducon_page_block_templates(): array
             ]],
             ['ceeducon/cards', [
                 'kicker' => 'Timeline',
-                'title' => 'Key speaker milestones.',
+                'title' => 'Speaker’s timeline.',
                 'items' => [
-                    ['label' => '01', 'title' => 'Confirmation', 'text' => 'Confirm your participation, session title and institutional details.', 'url' => '/contact/'],
-                    ['label' => '02', 'title' => 'Materials', 'text' => 'Prepare your slides and session materials according to organiser instructions.', 'url' => '/contact/'],
-                    ['label' => '03', 'title' => 'Onsite', 'text' => 'Arrive early, check the room setup and connect with the programme team.', 'url' => '/practical-information/'],
+                    ['label' => 'By June 30', 'title' => 'Acceptance notifications', 'text' => ''],
+                    ['label' => 'By July 31', 'title' => 'Speaker registration & photo', 'text' => ''],
+                    ['label' => 'September', 'title' => 'Contracts & presentation template', 'text' => ''],
+                    ['label' => 'Before the conference', 'title' => 'Final materials and technical check', 'text' => ''],
+                    ['label' => 'At the conference / online', 'title' => 'Sign the reimbursement contract', 'text' => ''],
+                    ['label' => 'By 9 December 2026', 'title' => 'Send us the necessary documents/receipts for the reimbursement', 'text' => ''],
                 ],
             ]],
             ['ceeducon/cta', [
@@ -940,7 +981,7 @@ function ceeducon_page_block_templates(): array
                 'title' => 'Find the right topic faster.',
                 'items' => [
                     ['label' => 'Programme', 'title' => 'Sessions and schedule', 'text' => 'Questions about programme structure, sessions or speakers.', 'url' => '/programme/'],
-                    ['label' => 'Practical', 'title' => 'Venue and travel', 'text' => 'Questions about O2 universum, transport and onsite access.', 'url' => '/practical-information/'],
+                    ['label' => 'Practical', 'title' => 'Venue and travel', 'text' => 'Questions about {{venue}}, transport and onsite access.', 'url' => '/practical-information/'],
                     ['label' => 'For speakers', 'title' => 'Speaker information', 'text' => 'Questions about speaking, materials or session delivery.', 'url' => '/for-speakers/'],
                 ],
             ]],
@@ -949,17 +990,17 @@ function ceeducon_page_block_templates(): array
             ['ceeducon/page-hero', [
                 'crumb' => 'Media kit',
                 'title' => 'Media resources.',
-                'note' => 'Official CEEDUCON 2026 visual assets, press information and a direct contact for journalists and partner organisations.',
+                'note' => 'Official {{event_title}} visual assets, press information and a direct contact for journalists and partner organisations.',
                 'cardLabel' => 'Media contact',
                 'cardTitle' => 'ceeducon@dzs.cz',
                 'cardText' => 'Please include your outlet, deadline and the material you need.',
             ]],
             ['ceeducon/image-text', [
                 'kicker' => 'Official visual',
-                'title' => 'CEEDUCON 2026 banner.',
+                'title' => '{{event_title}} banner.',
                 'text' => 'Use the official conference visual for editorial coverage and partner communication. Please preserve its proportions and colours.',
                 'imageUrl' => '/wp-content/themes/ceeducon-program/assets/media/ceeducon-2026-official-banner.png',
-                'imageAlt' => 'Official CEEDUCON 2026 conference banner',
+                'imageAlt' => 'Official {{event_title}} conference banner',
                 'primaryText' => 'Download banner',
                 'primaryUrl' => '/wp-content/themes/ceeducon-program/assets/media/ceeducon-2026-official-banner.png',
                 'secondaryText' => '',
@@ -969,7 +1010,7 @@ function ceeducon_page_block_templates(): array
                 'kicker' => 'Downloads',
                 'title' => 'Ready-to-use media assets.',
                 'items' => [
-                    ['label' => 'Visual', 'title' => 'Conference banner', 'text' => 'Official CEEDUCON 2026 key visual for digital publication.', 'url' => '/wp-content/themes/ceeducon-program/assets/media/ceeducon-2026-official-banner.png'],
+                    ['label' => 'Visual', 'title' => 'Conference banner', 'text' => 'Official {{event_title}} key visual for digital publication.', 'url' => '/wp-content/themes/ceeducon-program/assets/media/ceeducon-2026-official-banner.png'],
                     ['label' => 'Logo', 'title' => 'CEEDUCON logo', 'text' => 'Horizontal conference logo for dark backgrounds.', 'url' => '/wp-content/themes/ceeducon-program/assets/ceeducon-logo-horizontal-white.png'],
                     ['label' => 'Partners', 'title' => 'Partner logo row', 'text' => 'The official row of CEEDUCON partner and organiser logos.', 'url' => '/wp-content/themes/ceeducon-program/assets/media/ceeducon-partner-logos-white.png'],
                 ],
@@ -1033,7 +1074,8 @@ function ceeducon_enqueue_editor_page_templates(): void
     wp_add_inline_script(
         'ceeducon-editor-page-templates',
         'window.CEEDUCON_THEME_URL = ' . wp_json_encode(get_template_directory_uri()) . ';' .
-        'window.CEEDUCON_PAGE_BLOCK_TEMPLATES = ' . wp_json_encode(ceeducon_page_block_templates()) . ';',
+        'window.CEEDUCON_PAGE_BLOCK_TEMPLATES = ' . wp_json_encode(ceeducon_page_block_templates()) . ';' .
+        'window.CEEDUCON_HERO_EDITOR_DATA = ' . wp_json_encode((array) apply_filters('ceeducon_hero_editor_data', ['managed' => false, 'attributes' => []])) . ';',
         'before'
     );
 }
@@ -1045,26 +1087,26 @@ add_action('enqueue_block_editor_assets', 'ceeducon_enqueue_editor_page_template
  */
 function ceeducon_admin_content_fields(): array
 {
-    return [
+    $fields = [
         'SEO fallback (used only without an SEO plugin)' => [
-            ['seo_home_description', 'Homepage meta description', 'CEEDUCON 2026 — Central European Conference on Internationalisation of Higher Education. 1–2 December 2026, O2 universum Prague.', 'textarea'],
+            ['seo_home_description', 'Homepage meta description', '{{event_title}} — Central European Conference on Internationalisation of Higher Education. {{date}}, {{venue}}.', 'textarea'],
             ['seo_about_description', 'About meta description', 'About CEEDUCON, the Central European Conference on Internationalisation of Higher Education, organised by DZS with partners across the region.', 'textarea'],
-            ['seo_programme_description', 'Programme meta description', 'Browse the interactive CEEDUCON 2026 programme for 1–2 December at O2 universum Prague: sessions, workshops, rooms and speakers.', 'textarea'],
-            ['seo_practical_description', 'Practical meta description', 'Practical information for CEEDUCON 2026: venue, transport, accessibility and accommodation in Prague.', 'textarea'],
-            ['seo_speakers_description', 'For speakers meta description', 'Practical information, milestones and support for confirmed CEEDUCON 2026 speakers.', 'textarea'],
-            ['seo_media_description', 'Media kit meta description', 'CEEDUCON 2026 media kit: official visuals, brand assets, press information and media contact.', 'textarea'],
-            ['seo_contact_description', 'Contact meta description', 'Contact the CEEDUCON 2026 organising team about registration, programme, speakers, partnerships or media requests.', 'textarea'],
+            ['seo_programme_description', 'Programme meta description', 'Browse the interactive {{event_title}} programme for {{date_short}} at {{venue}}: sessions, workshops, rooms and speakers.', 'textarea'],
+            ['seo_practical_description', 'Practical meta description', 'Practical information for {{event_title}}: venue, transport, accessibility and accommodation in {{city}}.', 'textarea'],
+            ['seo_speakers_description', 'For speakers meta description', 'Practical information, milestones and support for confirmed {{event_title}} speakers.', 'textarea'],
+            ['seo_media_description', 'Media kit meta description', '{{event_title}} media kit: official visuals, brand assets, press information and media contact.', 'textarea'],
+            ['seo_contact_description', 'Contact meta description', 'Contact the {{event_title}} organising team about registration, programme, speakers, partnerships or media requests.', 'textarea'],
         ],
         'Global — header & footer' => [
-            ['footer_tagline', 'Footer tagline (HTML allowed)', 'Central European Conference on Internationalisation of Higher Education.<br />1–2 December 2026 · O2 universum Prague', 'textarea'],
+            ['footer_tagline', 'Footer tagline (HTML allowed)', 'Central European Conference on Internationalisation of Higher Education.<br />{{date}} · {{venue}}', 'textarea'],
             ['footer_email', 'Footer email', 'ceeducon@dzs.cz', 'text'],
             ['footer_phone', 'Footer phone', '+420 221 850 100', 'text'],
             ['footer_official_url', 'Official website URL', 'https://www.ceeducon.cz/', 'url'],
             ['footer_dzs_url', 'DZS URL', 'https://www.dzs.cz/', 'url'],
-            ['footer_copyright', 'Copyright line', '© 2026 DZS — Czech National Agency for International Education and Research', 'text'],
+            ['footer_copyright', 'Copyright line', '© {{year}} DZS — Czech National Agency for International Education and Research', 'text'],
         ],
         'Home — hero' => [
-            ['home_hero_kicker', 'Kicker', 'CEEDUCON 2026 · CZECHIA', 'text'],
+            ['home_hero_kicker', 'Kicker', '{{event_title}} · CZECHIA', 'text'],
             ['home_hero_title', 'Title (HTML allowed)', 'Central Europe <em>meets the world</em> of higher education.', 'textarea'],
             ['home_hero_lead', 'Lead', 'Two days of practical exchange for university leaders, international offices, policymakers and national agencies.', 'textarea'],
             ['home_hero_image_url', 'Hero image URL', ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg'), 'url'],
@@ -1074,11 +1116,11 @@ function ceeducon_admin_content_fields(): array
             ['event_day', 'Event date', '1–2', 'text'],
             ['event_month', 'Event month / year', 'Dec 2026', 'text'],
             ['event_row_1_label', 'Event row 1 label', 'Venue', 'text'],
-            ['event_row_1_value', 'Event row 1 value', 'O2 universum Prague', 'text'],
+            ['event_row_1_value', 'Event row 1 value', '{{venue}}', 'text'],
             ['event_row_3_label', 'Event row 3 label', 'Fee', 'text'],
-            ['event_row_3_value', 'Event row 3 value', 'Free of charge', 'text'],
+            ['event_row_3_value', 'Event row 3 value', '{{fee}}', 'text'],
             ['event_row_4_label', 'Event row 4 label', 'Registration', 'text'],
-            ['event_row_4_value', 'Event row 4 value', 'Registration opens in September', 'text'],
+            ['event_row_4_value', 'Event row 4 value', '{{registration}}', 'text'],
             ['event_google_calendar_label', 'Google Calendar button', 'Google Calendar', 'text'],
             ['event_google_calendar_url', 'Google Calendar URL', 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=CEEDUCON%202026&dates=20261201T080000Z%2F20261202T170000Z&details=Central%20European%20Conference%20on%20Internationalisation%20of%20Higher%20Education.&location=O2%20universum%2C%20Ceskomoravska%2017%2C%20Prague%209%2C%20Czech%20Republic&ctz=Europe%2FPrague', 'url'],
             ['event_outlook_calendar_label', 'Outlook Calendar button', 'Outlook Calendar', 'text'],
@@ -1090,13 +1132,13 @@ function ceeducon_admin_content_fields(): array
             ['stat_3_value', 'Stat 3 value', '130+', 'text'],
             ['stat_3_label', 'Stat 3 label', 'speakers in 2025', 'text'],
             ['stat_4_value', 'Stat 4 value', '70+', 'text'],
-            ['stat_4_label', 'Stat 4 label', 'sessions in 2026', 'text'],
+            ['stat_4_label', 'Stat 4 label', 'sessions in {{year}}', 'text'],
         ],
         'Home — sections' => [
             ['home_about_kicker', 'About kicker', 'The conference', 'text'],
-            ['home_about_title', 'About title', 'A focused forum for international higher education.', 'textarea'],
-            ['home_about_text_1', 'About paragraph 1', 'CEEDUCON connects people who work on internationalisation every day: university leadership, international offices, policymakers, national agencies and practitioners from across Europe.', 'textarea'],
-            ['home_about_text_2', 'About paragraph 2', 'The programme is built around practical exchange: what is changing, what works in institutions, and where Central European cooperation can move higher education forward.', 'textarea'],
+            ['home_about_title', 'About title', 'Where the people shaping international higher education come together.', 'textarea'],
+            ['home_about_text_1', 'About paragraph 1', 'CEEDUCON connects university leaders, internationalisation professionals, policymakers, national agencies and practitioners from across Europe to exchange ideas, experiences and solutions.', 'textarea'],
+            ['home_about_text_2', 'About paragraph 2', 'From emerging challenges to proven approaches, the programme focuses on what is changing, what works in practice, and what we can achieve through stronger Central European cooperation.', 'textarea'],
             ['home_chip_1', 'Audience chip 1', 'University leadership', 'text'],
             ['home_chip_2', 'Audience chip 2', 'International offices', 'text'],
             ['home_chip_3', 'Audience chip 3', 'Policymakers', 'text'],
@@ -1135,10 +1177,10 @@ function ceeducon_admin_content_fields(): array
             ['media_image_4_label', 'Media image 4 label', 'Access', 'text'],
             ['media_image_4_caption', 'Media image 4 caption', 'CEEDUCON inclusive conference atmosphere', 'text'],
             ['home_themes_kicker', 'Themes kicker', 'Thematic areas', 'text'],
-            ['home_themes_title', 'Themes title', 'Four themes frame the 2026 conversation.', 'textarea'],
-            ['home_themes_intro', 'Themes intro', 'From responsible technology to the complete student journey — the 2026 programme connects the questions that matter most to international higher education right now.', 'textarea'],
-            ['home_prog_kicker', 'Programme kicker', 'Programme 2026', 'text'],
-            ['home_prog_title', 'Programme title', 'Two full conference days in Prague.', 'textarea'],
+            ['home_themes_title', 'Themes title', 'Four themes frame the {{year}} conversation.', 'textarea'],
+            ['home_themes_intro', 'Themes intro', 'From responsible technology to the complete student journey — the {{year}} programme connects the questions that matter most to international higher education right now.', 'textarea'],
+            ['home_prog_kicker', 'Programme kicker', 'Programme {{year}}', 'text'],
+            ['home_prog_title', 'Programme title', 'Two full conference days in {{city}}.', 'textarea'],
             ['home_prog_intro', 'Programme intro', 'The preliminary room-by-room programme is online — sessions, workshops and speakers for both conference days.', 'textarea'],
             ['home_plan_kicker', 'Plan kicker', 'Plan ahead', 'text'],
             ['home_plan_title', 'Plan title', 'Find the essentials quickly.', 'textarea'],
@@ -1163,13 +1205,21 @@ function ceeducon_admin_content_fields(): array
         ],
         'Thematic areas (shared)' => [
             ['theme_1_title', 'Theme 1 title', 'Navigating the Technological Shift', 'text'],
-            ['theme_1_text', 'Theme 1 text', 'Responsible use of AI, digitalisation, data analytics and new tools in international education — while keeping academic values and human judgement in focus.', 'textarea'],
+            ['theme_1_text', 'Theme 1 text', 'AI, digitalisation, data and new tools for smarter internationalisation — with academic values and human judgement in focus.', 'textarea'],
+            ['theme_1_question', 'Theme 1 guiding question', 'How can universities use AI, digitalisation and data responsibly while preserving academic values and human judgement?', 'textarea'],
+            ['theme_1_details', 'Theme 1 details', 'Key topics include AI in international offices and project work, data-driven strategies and evaluation, responsible data use, digital partnerships and staff skills.', 'textarea'],
             ['theme_2_title', 'Theme 2 title', 'Challenges of Internationalisation', 'text'],
-            ['theme_2_text', 'Theme 2 text', 'Structural, social and financial barriers, safety, wellbeing, funding and inclusive access to meaningful international experiences for all students and staff.', 'textarea'],
+            ['theme_2_text', 'Theme 2 text', 'Funding, safety, wellbeing and inclusion — removing barriers to meaningful international experiences for students and staff.', 'textarea'],
+            ['theme_2_question', 'Theme 2 guiding question', 'How can universities remove structural, social and financial barriers while creating safe, inclusive and meaningful international experiences?', 'textarea'],
+            ['theme_2_details', 'Theme 2 details', 'Key topics include housing, mobility safety and visas, wellbeing and crisis response, funding, inclusive participation, Green Erasmus and mobility quality.', 'textarea'],
             ['theme_3_title', 'Theme 3 title', 'Global & Regional Partnerships', 'text'],
-            ['theme_3_text', 'Theme 3 text', 'Sustainable strategic cooperation, European University alliances and equitable academic partnerships across global regions.', 'textarea'],
+            ['theme_3_text', 'Theme 3 text', 'Strategic cooperation, European University alliances and equitable partnerships across global regions.', 'textarea'],
+            ['theme_3_question', 'Theme 3 guiding question', 'How can universities build sustainable partnerships that balance strategic priorities, mutual benefit and equitable collaboration?', 'textarea'],
+            ['theme_3_details', 'Theme 3 details', 'Key topics include European University alliances, regional and global networks, capacity building, Global Gateway, BIPs, joint degrees and more equal partnerships.', 'textarea'],
             ['theme_4_title', 'Theme 4 title', 'From Recruitment to Retention', 'text'],
-            ['theme_4_text', 'Theme 4 text', 'A student-centred journey from marketing and admissions through support services to employability, alumni relations and graduate success.', 'textarea'],
+            ['theme_4_text', 'Theme 4 text', 'The student journey end to end — admissions, support, employability, alumni relations and long-term success.', 'textarea'],
+            ['theme_4_question', 'Theme 4 guiding question', 'How can universities connect recruitment, admissions, support and alumni engagement into one coherent student-centred strategy?', 'textarea'],
+            ['theme_4_details', 'Theme 4 details', 'Key topics include targeted recruitment, transparent admissions, onboarding, integration and support, retention, employability, alumni relations and stakeholder engagement.', 'textarea'],
         ],
         'Programme days & notices (shared)' => [
             ['day_1_label', 'Day 1 label', 'Day 1 · Tue 1 Dec', 'text'],
@@ -1195,8 +1245,8 @@ function ceeducon_admin_content_fields(): array
         'About page' => [
             ['about_hero_title', 'Hero title', 'The conference for internationalisation of higher education.', 'textarea'],
             ['about_hero_note', 'Hero note', "One forum for strategy, practice and cooperation — connecting Central Europe's higher education community with colleagues from around the world.", 'textarea'],
-            ['about_card_label', 'Hero card label', 'CEEDUCON 2026', 'text'],
-            ['about_card_title', 'Hero card title', '1–2 December · Prague', 'text'],
+            ['about_card_label', 'Hero card label', '{{event_title}}', 'text'],
+            ['about_card_title', 'Hero card title', '{{date_short}} · {{city}}', 'text'],
             ['about_card_text', 'Hero card text', 'Organised by DZS with national agencies from across Central Europe.', 'textarea'],
             ['about_what_kicker', 'Section kicker', 'What is CEEDUCON', 'text'],
             ['about_what_title', 'Section title', 'A practical conference for the people shaping international higher education.', 'textarea'],
@@ -1205,33 +1255,33 @@ function ceeducon_admin_content_fields(): array
             ['about_chip_5', 'Audience chip 5', 'Experts & practitioners', 'text'],
             ['about_stat_4_value', 'Stat 4 value', '6', 'text'],
             ['about_stat_4_label', 'Stat 4 label', 'partner agencies', 'text'],
-            ['about_themes_title', 'Themes title', 'The 2026 themes.', 'textarea'],
-            ['about_themes_intro', 'Themes intro', 'Four thematic areas structure the sessions, workshops and plenaries of CEEDUCON 2026 — connecting technology, inclusion, partnerships and the student journey.', 'textarea'],
+            ['about_themes_title', 'Themes title', 'The {{year}} themes.', 'textarea'],
+            ['about_themes_intro', 'Themes intro', 'Four thematic areas structure the sessions, workshops and plenaries of {{event_title}} — connecting technology, inclusion, partnerships and the student journey.', 'textarea'],
             ['about_org_title', 'Organisers title', 'A Central European partnership.', 'textarea'],
             ['about_org_lead', 'Organisers lead', 'CEEDUCON is organised by the Czech National Agency for International Education and Research (DZS) in co-operation with its partner agencies. Together they connect the national perspectives of Austria, Germany, Poland, Slovakia, Hungary and the Czech Republic into one regional conversation.', 'textarea'],
         ],
         'Programme page' => [
             ['prog_hero_title', 'Hero title', 'Two days. One programme.', 'textarea'],
-            ['prog_hero_note', 'Hero note', 'CEEDUCON 2026 runs across the halls of O2 universum Prague on 1–2 December. Browse the preliminary room-by-room programme below — sessions, workshops and speakers for both days.', 'textarea'],
+            ['prog_hero_note', 'Hero note', '{{event_title}} runs across the halls of {{venue}} on {{date_short}}. Browse the room-by-room programme below — sessions, workshops and speakers for both days.', 'textarea'],
             ['prog_card_label', 'Hero card label', 'Preliminary programme', 'text'],
             ['prog_card_title', 'Hero card title', 'Online now', 'text'],
-            ['prog_card_text', 'Hero card text', 'Registration opens in September and participation is free of charge. The programme remains subject to change.', 'textarea'],
+            ['prog_card_text', 'Hero card text', '{{registration}} and participation is {{fee}}. The programme remains subject to change.', 'textarea'],
             ['sched_kicker', 'Schedule kicker', 'Interactive programme', 'text'],
             ['sched_title', 'Schedule title', 'Find the right session faster.', 'textarea'],
             ['sched_intro', 'Schedule intro', 'Search the programme, compare rooms and times, filter by theme and keep your personal selection in one place.', 'textarea'],
         ],
         'Practical page' => [
-            ['prac_hero_title', 'Hero title', 'Plan your visit to Prague.', 'textarea'],
-            ['prac_hero_note', 'Hero note', 'Where to go, how to get there and what to prepare — everything participants need before arriving at CEEDUCON 2026.', 'textarea'],
+            ['prac_hero_title', 'Hero title', 'Plan your visit to {{city}}.', 'textarea'],
+            ['prac_hero_note', 'Hero note', 'Where to go, how to get there and what to prepare — everything participants need before arriving at {{event_title}}.', 'textarea'],
             ['prac_card_label', 'Hero card label', 'Venue', 'text'],
-            ['prac_card_title', 'Hero card title', 'O2 universum', 'text'],
-            ['prac_card_text', 'Hero card text', 'Českomoravská 17, Prague 9 — home of both CEEDUCON 2026 conference days.', 'textarea'],
+            ['prac_card_title', 'Hero card title', '{{venue}}', 'text'],
+            ['prac_card_text', 'Hero card text', 'Conference venue in {{city}} — home of all {{event_title}} conference days.', 'textarea'],
             ['prac_kicker', 'Essentials kicker', 'Essentials', 'text'],
             ['prac_title', 'Essentials title', 'Venue, access and travel basics.', 'textarea'],
             ['prac_intro', 'Essentials intro', 'The conference language is English, participation is free of charge and the venue is fully accessible.', 'textarea'],
             ['info_1_label', 'Card 1 label', 'Venue', 'text'],
-            ['info_1_title', 'Card 1 title', 'O2 universum', 'text'],
-            ['info_1_text', 'Card 1 text', 'Českomoravská 17, Prague 9. All plenaries, sessions and workshops of CEEDUCON 2026 take place here.', 'textarea'],
+            ['info_1_title', 'Card 1 title', '{{venue}}', 'text'],
+            ['info_1_text', 'Card 1 text', 'All plenaries, sessions and workshops of {{event_title}} take place at {{venue}}.', 'textarea'],
             ['info_2_label', 'Card 2 label', 'From the airport', 'text'],
             ['info_2_title', 'Card 2 title', 'Around 55 minutes', 'text'],
             ['info_2_text', 'Card 2 text', 'Take trolleybus 59 to Nádraží Veleslavín, then metro line A and line B towards Českomoravská.', 'textarea'],
@@ -1244,11 +1294,13 @@ function ceeducon_admin_content_fields(): array
             ['faq_kicker', 'FAQ kicker', 'Good to know', 'text'],
             ['faq_title', 'FAQ title', 'Frequently asked questions.', 'textarea'],
             ['faq_1_title', 'FAQ 1 question', 'Is there a conference fee?', 'text'],
-            ['faq_1_text', 'FAQ 1 answer', 'No — participation at CEEDUCON 2026 is free of charge for registered attendees. Registration opens in September.', 'textarea'],
+            ['faq_1_text', 'FAQ 1 answer', 'Participation at {{event_title}} is {{fee}} for registered attendees. {{registration}}.', 'textarea'],
+            ['faq_capacity_title', 'Capacity FAQ question', 'Is there a limit on the number of participants?', 'text'],
+            ['faq_capacity_text', 'Capacity FAQ answer', 'Yes. The conference venue has a limited capacity, and registration will be accepted on a first-come, first-served basis. We therefore encourage you to register as early as possible to secure your place. Once the conference reaches its maximum capacity, registration will be closed.', 'textarea'],
             ['faq_2_title', 'FAQ 2 question', 'Where should I stay?', 'text'],
-            ['faq_2_text', 'FAQ 2 answer', 'Participants arrange accommodation individually. Hotels within easy reach of the venue include Stages Hotel and Carol Hotel; central Prague is around 20 minutes away by metro.', 'textarea'],
+            ['faq_2_text', 'FAQ 2 answer (HTML allowed)', 'Participants are responsible for arranging and covering the cost of their own accommodation. Please note that neither accommodation nor travel expenses can be reimbursed by the conference organizers. Hotels within easy reach of the venue include <a href="https://www.stageshotel.com/" target="_blank" rel="noreferrer">Stages Hotel</a> and <a href="https://www.hotelcarol.cz/en/" target="_blank" rel="noreferrer">Carol Hotel</a>, while Prague city centre is approximately 20 minutes away by metro.', 'textarea'],
             ['faq_3_title', 'FAQ 3 question', 'How do I register?', 'text'],
-            ['faq_3_text', 'FAQ 3 answer (HTML allowed)', 'Registration opens in September. The registration form and practical details will be published on the official CEEDUCON website once confirmed.', 'textarea'],
+            ['faq_3_text', 'FAQ 3 answer (HTML allowed)', '{{registration}}. The registration form and practical details will be published on the official CEEDUCON website once confirmed.', 'textarea'],
             ['faq_4_title', 'FAQ 4 question', 'Anything to check before travelling?', 'text'],
             ['faq_4_text', 'FAQ 4 answer', 'Check current Prague public transport information before you travel, especially around the Českomoravská metro station, and verify travel requirements for the Czech Republic if you need a visa or an event confirmation from the organisers.', 'textarea'],
             ['map_kicker', 'Map kicker', 'Map & venue', 'text'],
@@ -1268,7 +1320,7 @@ function ceeducon_admin_content_fields(): array
             ['spk_card_text', 'Hero card text', "Check your session details, complete speaker registration and submit final presentation materials according to the organisers' instructions.", 'textarea'],
             ['spk_kicker', 'Section kicker', 'Speaker information', 'text'],
             ['spk_title', 'Section title', 'Clear expectations before conference day.', 'textarea'],
-            ['spk_lead', 'Section lead', 'Sessions are planned primarily onsite at O2 universum Prague and delivered in English. This page keeps the essential speaker information in one place.', 'textarea'],
+            ['spk_lead', 'Section lead', 'Sessions are planned primarily onsite at {{venue}} and delivered in English. This page keeps the essential speaker information in one place.', 'textarea'],
             ['spk_fact_1', 'Fact 1', 'No speaker fee', 'text'],
             ['spk_fact_2', 'Fact 2', 'Primarily onsite', 'text'],
             ['spk_fact_3', 'Fact 3', 'Up to 3 contributors', 'text'],
@@ -1292,6 +1344,10 @@ function ceeducon_admin_content_fields(): array
             ['milestone_3_text', 'Milestone 3 text', 'Contracts & presentation template', 'text'],
             ['milestone_4_label', 'Milestone 4 label', 'Before the conference', 'text'],
             ['milestone_4_text', 'Milestone 4 text', 'Final materials and technical check', 'text'],
+            ['milestone_5_label', 'Milestone 5 label', 'At the conference / online', 'text'],
+            ['milestone_5_text', 'Milestone 5 text', 'Sign the reimbursement contract', 'text'],
+            ['milestone_6_label', 'Milestone 6 label', 'By 9 December {{year}}', 'text'],
+            ['milestone_6_text', 'Milestone 6 text', 'Send us the necessary documents/receipts for the reimbursement', 'text'],
             ['spk_links_kicker', 'Quick links kicker', 'Also useful', 'text'],
             ['spk_links_title', 'Quick links title', 'Useful next steps.', 'textarea'],
             ['spk_link_1_label', 'Quick link 1 label', 'Programme', 'text'],
@@ -1305,9 +1361,9 @@ function ceeducon_admin_content_fields(): array
             ['spk_link_3_text', 'Quick link 3 text', 'Reach the CEEDUCON team for anything the speaker information does not cover.', 'textarea'],
         ],
         'Contact page' => [
-            ['con_hero_title', 'Hero title', 'Talk to the CEEDUCON team.', 'textarea'],
+            ['con_hero_title', 'Hero title', 'Talk to us.', 'textarea'],
             ['con_hero_note', 'Hero note', 'Registration updates, programme questions, speaker communication or partnerships — the organisers are happy to help.', 'textarea'],
-            ['con_card_label', 'Hero card label', 'Write or call', 'text'],
+            ['con_card_label', 'Hero card label', 'Contact us', 'text'],
             ['con_email', 'Contact email', 'ceeducon@dzs.cz', 'text'],
             ['con_phone', 'Contact phone', '+420 221 850 100', 'text'],
             ['con_kicker', 'Section kicker', 'Organiser', 'text'],
@@ -1325,12 +1381,37 @@ function ceeducon_admin_content_fields(): array
             ['con_link_2_text', 'Quick link 2 text', 'Transport, accessibility, accommodation and travel tips for Prague.', 'textarea'],
             ['con_link_3_label', 'Quick link 3 label', 'For speakers', 'text'],
             ['con_link_3_title', 'Quick link 3 title', 'Session guidance', 'text'],
-            ['con_link_3_text', 'Quick link 3 text', 'Expectations, delivery format and the speaker timeline for 2026.', 'textarea'],
+            ['con_link_3_text', 'Quick link 3 text', 'Expectations, delivery format and the speaker timeline for {{year}}.', 'textarea'],
         ],
         'Programme data' => [
             ['programme_json', 'Programme JSON', ceeducon_default_programme_json(), 'code'],
         ],
     ];
+
+    if (function_exists('ceeducon_edition_get')) {
+        $annual_keys = [
+            'seo_home_description', 'seo_programme_description', 'seo_practical_description',
+            'seo_speakers_description', 'seo_media_description', 'seo_contact_description',
+            'footer_tagline', 'footer_copyright', 'home_hero_kicker', 'event_day', 'event_month',
+            'event_row_1_label', 'event_row_1_value', 'event_row_3_label', 'event_row_3_value',
+            'event_row_4_label', 'event_row_4_value', 'event_google_calendar_label',
+            'event_google_calendar_url', 'event_outlook_calendar_label', 'event_outlook_calendar_url',
+            'stat_1_value', 'stat_1_label', 'stat_2_value', 'stat_2_label',
+            'stat_3_value', 'stat_3_label', 'stat_4_value', 'stat_4_label',
+        ];
+
+        foreach ($fields as $group => $group_fields) {
+            $fields[$group] = array_values(array_filter(
+                $group_fields,
+                static fn(array $field): bool => !in_array((string) ($field[0] ?? ''), $annual_keys, true)
+            ));
+            if ($fields[$group] === []) {
+                unset($fields[$group]);
+            }
+        }
+    }
+
+    return $fields;
 }
 
 function ceeducon_admin_menu(): void
@@ -1349,7 +1430,7 @@ add_action('admin_menu', 'ceeducon_admin_menu');
 
 function ceeducon_migrate_default_content(): void
 {
-    $target_version = '2.2.7';
+    $target_version = '2.4.0';
     if (get_option('ceeducon_content_defaults_version') === $target_version) {
         return;
     }
@@ -1361,17 +1442,39 @@ function ceeducon_migrate_default_content(): void
 
     $replacements = [
         'home_about_title' => [
-            'A meeting point for everyone shaping international higher education.',
             'A focused forum for international higher education.',
+            'Where the people shaping international higher education come together.',
         ],
         'home_about_text_1' => [
-            'CEEDUCON focuses on advancing global cooperation, strategy and innovation in higher education. It creates space for knowledge exchange, best practice and open discussion on internationalisation strategy, digitalisation, inclusion, partnerships, mobility, alumni engagement and employability.',
             'CEEDUCON connects people who work on internationalisation every day: university leadership, international offices, policymakers, national agencies and practitioners from across Europe.',
+            'CEEDUCON connects university leaders, internationalisation professionals, policymakers, national agencies and practitioners from across Europe to exchange ideas, experiences and solutions.',
         ],
         'home_about_text_2' => [
-            'The conference is organised by the Czech National Agency for International Education and Research (DZS) together with partner agencies from across Central Europe.',
             'The programme is built around practical exchange: what is changing, what works in institutions, and where Central European cooperation can move higher education forward.',
+            'From emerging challenges to proven approaches, the programme focuses on what is changing, what works in practice, and what we can achieve through stronger Central European cooperation.',
         ],
+        'theme_1_text' => [
+            'Responsible use of AI, digitalisation, data analytics and new tools in international education — while keeping academic values and human judgement in focus.',
+            'AI, digitalisation, data and new tools for smarter internationalisation — with academic values and human judgement in focus.',
+        ],
+        'theme_2_text' => [
+            'Structural, social and financial barriers, safety, wellbeing, funding and inclusive access to meaningful international experiences for all students and staff.',
+            'Funding, safety, wellbeing and inclusion — removing barriers to meaningful international experiences for students and staff.',
+        ],
+        'theme_3_text' => [
+            'Sustainable strategic cooperation, European University alliances and equitable academic partnerships across global regions.',
+            'Strategic cooperation, European University alliances and equitable partnerships across global regions.',
+        ],
+        'theme_4_text' => [
+            'A student-centred journey from marketing and admissions through support services to employability, alumni relations and graduate success.',
+            'The student journey end to end — admissions, support, employability, alumni relations and long-term success.',
+        ],
+        'faq_2_text' => [
+            'Participants arrange accommodation individually. Hotels within easy reach of the venue include Stages Hotel and Carol Hotel; central Prague is around 20 minutes away by metro.',
+            'Participants are responsible for arranging and covering the cost of their own accommodation. Please note that neither accommodation nor travel expenses can be reimbursed by the conference organizers. Hotels within easy reach of the venue include <a href="https://www.stageshotel.com/" target="_blank" rel="noreferrer">Stages Hotel</a> and <a href="https://www.hotelcarol.cz/en/" target="_blank" rel="noreferrer">Carol Hotel</a>, while Prague city centre is approximately 20 minutes away by metro.',
+        ],
+        'con_hero_title' => ['Talk to the CEEDUCON team.', 'Talk to us.'],
+        'con_card_label' => ['Write or call', 'Contact us'],
         'media_kicker' => ['Atmosphere', 'Conference atmosphere'],
         'media_title' => ['See the conference before you arrive.', 'A professional setting for exchange.'],
         'media_text' => [
@@ -1417,7 +1520,7 @@ function ceeducon_migrate_default_content(): void
         ],
         'spk_cta_button' => ['Contact the team', 'Contact page'],
         'spk_cta_url' => ['mailto:ceeducon@dzs.cz?subject=CEEDUCON%202026%20speaker%20question', home_url('/contact/')],
-        'timeline_title' => ['Key dates for speakers.', 'Speaker timeline.'],
+        'timeline_title' => ['Key dates for speakers.', 'Speaker’s timeline.'],
         'spk_links_title' => ['Before you travel.', 'Useful next steps.'],
     ];
 
@@ -1470,11 +1573,28 @@ function ceeducon_migrate_default_content(): void
             ['Programme publication'],
             'Final materials and technical check',
         ],
+        'timeline_title' => [
+            ['Speaker timeline.', 'Key dates for speakers.'],
+            'Speaker’s timeline.',
+        ],
     ];
 
     foreach ($speaker_replacements as $key => [$old_values, $new]) {
         if (array_key_exists($key, $content) && in_array((string) $content[$key], $old_values, true)) {
             $content[$key] = $new;
+            $changed = true;
+        }
+    }
+
+    $new_speaker_milestones = [
+        'milestone_5_label' => 'At the conference / online',
+        'milestone_5_text'  => 'Sign the reimbursement contract',
+        'milestone_6_label' => 'By 9 December {{year}}',
+        'milestone_6_text'  => 'Send us the necessary documents/receipts for the reimbursement',
+    ];
+    foreach ($new_speaker_milestones as $key => $value) {
+        if (!array_key_exists($key, $content)) {
+            $content[$key] = $value;
             $changed = true;
         }
     }
@@ -1502,7 +1622,9 @@ function ceeducon_render_content_admin_page(): void
         if (!is_array($existing)) {
             $existing = [];
         }
-        $clean = [];
+        // Preserve values owned by companion plugins when their fields are
+        // intentionally hidden from this legacy content screen.
+        $clean = $existing;
         $programme_json_error = '';
 
         foreach ($fields as $group_fields) {

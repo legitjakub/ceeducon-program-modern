@@ -80,7 +80,19 @@ function themeById(id) {
 }
 
 function getThemeLabel(themeId) {
-  return themeById(themeId)?.label || themeId;
+  return themeById(themeId)?.label || "";
+}
+
+function formatById(id) {
+  return (state.data.formats || []).find((format) => format.id === id);
+}
+
+function getFormatLabel(formatId) {
+  return formatById(formatId)?.label || formatId || "Conference session";
+}
+
+function getSessionCategoryLabel(session) {
+  return getThemeLabel(session.theme) || getFormatLabel(session.format);
 }
 
 function sessionId(day, slot, session) {
@@ -134,7 +146,7 @@ function matchesSession(session, id) {
   if (state.theme && session.theme !== state.theme) return false;
   if (state.favoritesOnly && !state.favorites.has(id)) return false;
   if (state.query) {
-    const haystack = `${session.title} ${session.rooms.join(" ")} ${getThemeLabel(session.theme)} ${(session.speakers || []).join(" ")}`.toLocaleLowerCase("en");
+    const haystack = `${session.title} ${session.rooms.join(" ")} ${getSessionCategoryLabel(session)} ${getFormatLabel(session.format)} ${(session.speakers || []).join(" ")}`.toLocaleLowerCase("en");
     if (!haystack.includes(state.query)) return false;
   }
   return true;
@@ -184,9 +196,11 @@ function renderFilters() {
 
 function buildSessionCard(day, slot, session) {
   const id = sessionId(day, slot, session);
-  const theme = themeById(session.theme) || { color: "#0d5e9d", id: "" };
+  const theme = themeById(session.theme) || { color: "#0d5e9d", softColor: "#ffffff", id: "" };
   const favorite = state.favorites.has(id);
   const themeLabel = getThemeLabel(session.theme);
+  const formatLabel = getFormatLabel(session.format);
+  const categoryLabel = themeLabel || formatLabel;
   const placement = roomPlacement(session);
   const wide = session.rooms.length > 1;
   const preview = speakersPreview(session.speakers || []);
@@ -198,6 +212,8 @@ function buildSessionCard(day, slot, session) {
     start: slot.start,
     end: slot.end,
     theme: themeLabel,
+    category: categoryLabel,
+    format: formatLabel,
     color: theme.color,
     date: day.date,
     speakers: session.speakers || [],
@@ -205,7 +221,7 @@ function buildSessionCard(day, slot, session) {
   });
 
   return `
-    <article class="session-card${wide ? " session-card--wide" : ""}" style="--track:${escapeHtml(theme.color)};--room-start:${placement.start};--room-span:${placement.span}" data-room-list="${escapeHtml(session.rooms.join(","))}">
+    <article class="session-card${wide ? " session-card--wide" : ""}" style="--track:${escapeHtml(theme.color)};--theme-soft:${escapeHtml(theme.softColor || "#ffffff")};--room-start:${placement.start};--room-span:${placement.span}" data-room-list="${escapeHtml(session.rooms.join(","))}">
       <div class="session-card-head">
         <span class="room-tag">${escapeHtml(session.rooms.join(" + "))}</span>
         <button class="favorite-star${favorite ? " is-active" : ""}" type="button" data-favorite="${escapeHtml(id)}" aria-label="${favorite ? "Remove from my programme" : "Add to my programme"}" aria-pressed="${favorite}">${favorite ? "★" : "☆"}</button>
@@ -213,7 +229,7 @@ function buildSessionCard(day, slot, session) {
       <button class="session-card-open" type="button" data-session-open="${escapeHtml(id)}" title="${escapeHtml(session.title)}">
         <h3>${escapeHtml(session.title)}</h3>
         ${preview ? `<p class="session-speakers">${escapeHtml(preview)}</p>` : ""}
-        <p class="session-theme">${escapeHtml(themeLabel)}</p>
+        <p class="session-theme">${escapeHtml(categoryLabel)}</p>
         <span class="session-arrow ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span>
       </button>
     </article>`;
@@ -330,13 +346,14 @@ function openModal(id) {
   state.modalSessionId = id;
   state.modalSession = session;
   elements.modalTitle.textContent = session.title;
-  elements.modalTheme.textContent = session.theme;
+  elements.modalTheme.textContent = session.category;
   elements.modalTrack.style.background = session.color;
   elements.modalTime.textContent = `${session.start} – ${session.end}`;
   elements.modalRoom.textContent = session.rooms.join(" + ");
   const parts = [];
   if (session.description) parts.push(session.description);
-  parts.push(`Format: ${session.theme}.`);
+  if (session.theme) parts.push(`Theme: ${session.theme}.`);
+  parts.push(`Format: ${session.format}.`);
   const speakers = speakersText(session.speakers);
   if (speakers) parts.push(speakers);
   elements.modalNote.textContent = parts.join(" ");
@@ -394,7 +411,7 @@ function compactTime(time) {
 }
 
 function calendarDetails(session) {
-  return [`CEEDUCON 2026 · ${session.theme}`, speakersText(session.speakers)].filter(Boolean).join("\n");
+  return [`CEEDUCON 2026 · ${session.category}`, `Format: ${session.format}`, speakersText(session.speakers)].filter(Boolean).join("\n");
 }
 
 function calendarLocation(session) {

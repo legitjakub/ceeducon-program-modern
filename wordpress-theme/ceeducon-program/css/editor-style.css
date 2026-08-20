@@ -76,3 +76,17 @@
   border-left: 4px solid var(--ceeducon-orange);
   color: var(--ceeducon-deep-blue);
 }
+
+/* The frontend theme detail is a hover/tap overlay. Keep both layers visible
+   in Gutenberg so editors can review every field while editing the block. */
+.editor-styles-wrapper .ceeducon-editor-block .theme-card-more {
+  position: static;
+  inset: auto;
+  margin: 18px calc(-1 * var(--theme-card-pad)) calc(-1 * var(--theme-card-pad));
+  padding: 22px var(--theme-card-pad) var(--theme-card-pad);
+  background: rgba(13, 94, 157, 0.9);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+}

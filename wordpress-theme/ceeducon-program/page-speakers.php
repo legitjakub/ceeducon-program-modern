@@ -34,7 +34,7 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
           <div data-reveal>
             <p class="kicker"><?php ceeducon_text('spk_kicker', 'Speaker information'); ?></p>
             <h2 class="display-2"><?php ceeducon_text('spk_title', 'Clear expectations before conference day.'); ?></h2>
-            <p class="speakers-lead"><?php ceeducon_text('spk_lead', 'Sessions are planned primarily onsite at O2 universum Prague and delivered in English. This page keeps the essential speaker information in one place.'); ?></p>
+            <p class="speakers-lead"><?php ceeducon_text('spk_lead', 'Sessions are planned primarily onsite at {{venue}} and delivered in English. This page keeps the essential speaker information in one place.'); ?></p>
             <div class="fact-chips" aria-label="Speaker quick facts">
               <span><?php ceeducon_text('spk_fact_1', 'No speaker fee'); ?></span>
               <span><?php ceeducon_text('spk_fact_2', 'Primarily onsite'); ?></span>
@@ -77,10 +77,10 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
           <div class="section-head">
             <div data-reveal>
               <p class="kicker"><?php ceeducon_text('timeline_kicker', 'Timeline'); ?></p>
-              <h2 class="display-2"><?php ceeducon_text('timeline_title', 'Speaker timeline.'); ?></h2>
+              <h2 class="display-2"><?php ceeducon_text('timeline_title', 'Speaker’s timeline.'); ?></h2>
             </div>
           </div>
-          <div class="timeline timeline--light" aria-label="Speaker timeline">
+          <div class="timeline timeline--light" aria-label="Speaker’s timeline">
             <article data-reveal>
               <span><?php ceeducon_text('milestone_1_label', 'By June 30'); ?></span>
               <strong><?php ceeducon_text('milestone_1_text', 'Acceptance notifications'); ?></strong>
@@ -96,6 +96,14 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
             <article data-reveal="4">
               <span><?php ceeducon_text('milestone_4_label', 'Before the conference'); ?></span>
               <strong><?php ceeducon_text('milestone_4_text', 'Final materials and technical check'); ?></strong>
+            </article>
+            <article data-reveal>
+              <span><?php ceeducon_text('milestone_5_label', 'At the conference / online'); ?></span>
+              <strong><?php ceeducon_text('milestone_5_text', 'Sign the reimbursement contract'); ?></strong>
+            </article>
+            <article data-reveal="2">
+              <span><?php ceeducon_text('milestone_6_label', 'By 9 December {{year}}'); ?></span>
+              <strong><?php ceeducon_text('milestone_6_text', 'Send us the necessary documents/receipts for the reimbursement'); ?></strong>
             </article>
           </div>
         </div>

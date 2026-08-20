@@ -1,13 +1,13 @@
 {
   "attributes": {
     "kicker": { "type": "string", "default": "Venue" },
-    "title": { "type": "string", "default": "O2 universum Prague" },
-    "text": { "type": "string", "default": "Českomoravská 17, Prague 9. One of the largest conference venues in the Czech Republic hosts both CEEDUCON days — easy to reach by metro, fully accessible and built for a multi-room programme." },
+    "title": { "type": "string", "default": "{{venue}}" },
+    "text": { "type": "string", "default": "The conference venue in {{city}} hosts all CEEDUCON days and is easy to reach, fully accessible and built for a multi-room programme." },
     "buttonText": { "type": "string", "default": "Practical information" },
     "buttonUrl": { "type": "string", "default": "/practical-information/" },
     "panelLabel": { "type": "string", "default": "Getting there" },
     "panelTitle": { "type": "string", "default": "Metro B · Českomoravská" },
-    "panelText": { "type": "string", "default": "Around 55 minutes from Prague Airport by public transport, a short walk from Praha-Libeň railway station and steps from the Českomoravská metro stop." },
+    "panelText": { "type": "string", "default": "Check current public transport connections, nearby railway stations and the most convenient route before travelling to {{venue}}." },
     "paper": { "type": "boolean", "default": true }
   }
 }

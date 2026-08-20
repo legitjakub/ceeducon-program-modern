@@ -13,24 +13,26 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
 $event_month = preg_replace('/<br\s*\/?>/i', ' ', ceeducon_text_value('event_month', 'Dec 2026'));
 $event_month = trim((string) preg_replace('/\s+/', ' ', wp_strip_all_tags((string) $event_month)));
 $registration_value = ceeducon_text_value('event_row_4_value', 'Registration opens in September');
-if (strtolower(trim($registration_value)) === 'opens in september') {
-    $registration_value = 'Registration opens in September';
-}
+$registration_url = ceeducon_text_value('registration_url', '');
+$hero_kicker = ceeducon_text_value('home_hero_kicker', '{{event_title}} · CZECHIA');
+$hero_image = (array) apply_filters('ceeducon_home_hero_image', [
+    'id' => 0,
+    'url' => ceeducon_text_value('home_hero_image_url', ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg')),
+    'alt' => ceeducon_text_value('home_hero_image_alt', 'A packed CEEDUCON plenary session'),
+]);
 ?>
 
     <main id="main">
       <section class="hero">
         <div class="hero-media">
-          <img src="<?php echo esc_url(ceeducon_text_value('home_hero_image_url', ceeducon_asset_url('assets/media/ceeducon-photo-plenary.jpg'))); ?>" alt="<?php echo esc_attr(ceeducon_text_value('home_hero_image_alt', 'A packed CEEDUCON plenary session')); ?>" width="1600" height="1064" decoding="async" fetchpriority="high" />
+          <?php if (!empty($hero_image['id'])) : ?>
+            <?php echo wp_get_attachment_image((int) $hero_image['id'], 'full', false, ['alt' => (string) ($hero_image['alt'] ?? ''), 'loading' => 'eager', 'decoding' => 'async', 'fetchpriority' => 'high']); ?>
+          <?php elseif (!empty($hero_image['url'])) : ?>
+            <img src="<?php echo esc_url((string) $hero_image['url']); ?>" alt="<?php echo esc_attr((string) ($hero_image['alt'] ?? '')); ?>" width="1600" height="1064" decoding="async" fetchpriority="high" />
+          <?php endif; ?>
         </div>
         <div class="hero-inner shell">
           <div class="hero-copy">
-            <?php
-            $hero_kicker = ceeducon_text_value('home_hero_kicker', 'CEEDUCON 2026 · CZECHIA');
-            if ($hero_kicker === 'CEEDUCON 2026 · Prague') {
-                $hero_kicker = 'CEEDUCON 2026 · CZECHIA';
-            }
-            ?>
             <p class="hero-kicker"><?php echo esc_html($hero_kicker); ?></p>
             <h1><?php ceeducon_html('home_hero_title', 'Central Europe <em>meets the world</em> of higher education.'); ?></h1>
             <p class="hero-lead"><?php ceeducon_text('home_hero_lead', 'Two days of practical exchange for university leaders, international offices, policymakers and national agencies.'); ?></p>
@@ -45,12 +47,12 @@ if (strtolower(trim($registration_value)) === 'opens in september') {
             <div class="hero-essentials">
               <span class="hero-essential hero-essential--date"><strong><?php ceeducon_text('event_day', '1–2'); ?> <?php echo esc_html($event_month); ?></strong></span>
               <div class="hero-essential-details">
-                <span class="hero-essential"><span class="sr-only"><?php ceeducon_text('event_row_1_label', 'Venue'); ?>: </span><?php ceeducon_text('event_row_1_value', 'O2 universum Prague'); ?></span>
+                <span class="hero-essential"><span class="sr-only"><?php ceeducon_text('event_row_1_label', 'Venue'); ?>: </span><?php ceeducon_text('event_row_1_value', '{{venue}}'); ?></span>
                 <span class="hero-essential"><span class="sr-only"><?php ceeducon_text('event_row_3_label', 'Fee'); ?>: </span><?php ceeducon_text('event_row_3_value', 'Free of charge'); ?></span>
-                <span class="hero-essential"><span class="sr-only"><?php ceeducon_text('event_row_4_label', 'Registration'); ?>: </span><?php echo esc_html($registration_value); ?></span>
+                <span class="hero-essential"><span class="sr-only"><?php ceeducon_text('event_row_4_label', 'Registration'); ?>: </span><?php if ($registration_url !== '') : ?><a class="hero-essential-link" href="<?php echo esc_url($registration_url); ?>"><?php echo esc_html($registration_value); ?></a><?php else : ?><?php echo esc_html($registration_value); ?><?php endif; ?></span>
               </div>
             </div>
-            <div class="hero-calendar-actions" aria-label="<?php esc_attr_e('Add CEEDUCON 2026 to a calendar', 'ceeducon-program'); ?>">
+            <div class="hero-calendar-actions" aria-label="<?php echo esc_attr(sprintf(__('Add %s to a calendar', 'ceeducon-program'), $hero_kicker)); ?>">
               <a class="hero-calendar" href="<?php echo esc_url(ceeducon_text_value('event_google_calendar_url', 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=CEEDUCON%202026&dates=20261201T080000Z%2F20261202T170000Z&details=Central%20European%20Conference%20on%20Internationalisation%20of%20Higher%20Education.&location=O2%20universum%2C%20Ceskomoravska%2017%2C%20Prague%209%2C%20Czech%20Republic&ctz=Europe%2FPrague')); ?>" target="_blank" rel="noreferrer"><?php ceeducon_text('event_google_calendar_label', 'Google Calendar'); ?> <span class="hero-calendar-icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M5.5 2.5v3M14.5 2.5v3M3 7.5h14M4.5 4h11A1.5 1.5 0 0 1 17 5.5v10a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 15.5v-10A1.5 1.5 0 0 1 4.5 4Z"></path><path d="M6.5 11h2v2h-2zM11.5 11h2v2h-2z"></path></svg></span></a>
               <a class="hero-calendar" href="<?php echo esc_url(ceeducon_text_value('event_outlook_calendar_url', 'https://outlook.live.com/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent&subject=CEEDUCON%202026&startdt=2026-12-01T09%3A00%3A00%2B01%3A00&enddt=2026-12-02T18%3A00%3A00%2B01%3A00&body=Central%20European%20Conference%20on%20Internationalisation%20of%20Higher%20Education.&location=O2%20universum%2C%20Ceskomoravska%2017%2C%20Prague%209%2C%20Czech%20Republic')); ?>" target="_blank" rel="noreferrer"><?php ceeducon_text('event_outlook_calendar_label', 'Outlook Calendar'); ?> <span class="hero-calendar-icon" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M5.5 2.5v3M14.5 2.5v3M3 7.5h14M4.5 4h11A1.5 1.5 0 0 1 17 5.5v10a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 15.5v-10A1.5 1.5 0 0 1 4.5 4Z"></path><path d="M6.5 11h2v2h-2zM11.5 11h2v2h-2z"></path></svg></span></a>
             </div>
@@ -64,11 +66,11 @@ if (strtolower(trim($registration_value)) === 'opens in september') {
         <div class="shell statement-grid">
           <div data-reveal>
             <p class="kicker"><?php ceeducon_text('home_about_kicker', 'The conference'); ?></p>
-            <h2 class="display-2"><?php ceeducon_text('home_about_title', 'A focused forum for international higher education.'); ?></h2>
+            <h2 class="display-2"><?php ceeducon_text('home_about_title', 'Where the people shaping international higher education come together.'); ?></h2>
           </div>
           <div class="statement-copy" data-reveal="2">
-            <p><?php ceeducon_text('home_about_text_1', 'CEEDUCON connects people who work on internationalisation every day: university leadership, international offices, policymakers, national agencies and practitioners from across Europe.'); ?></p>
-            <p><?php ceeducon_text('home_about_text_2', 'The programme is built around practical exchange: what is changing, what works in institutions, and where Central European cooperation can move higher education forward.'); ?></p>
+            <p><?php ceeducon_text('home_about_text_1', 'CEEDUCON connects university leaders, internationalisation professionals, policymakers, national agencies and practitioners from across Europe to exchange ideas, experiences and solutions.'); ?></p>
+            <p><?php ceeducon_text('home_about_text_2', 'From emerging challenges to proven approaches, the programme focuses on what is changing, what works in practice, and what we can achieve through stronger Central European cooperation.'); ?></p>
             <div class="fact-chips" aria-label="Who attends">
               <span><?php ceeducon_text('home_chip_1', 'University leadership'); ?></span>
               <span><?php ceeducon_text('home_chip_2', 'International offices'); ?></span>
@@ -85,31 +87,25 @@ if (strtolower(trim($registration_value)) === 'opens in september') {
           <div class="section-head">
             <div data-reveal>
               <p class="kicker"><?php ceeducon_text('home_themes_kicker', 'Thematic areas'); ?></p>
-              <h2 class="display-2"><?php ceeducon_text('home_themes_title', 'Four themes frame the 2026 conversation.'); ?></h2>
+              <h2 class="display-2"><?php ceeducon_text('home_themes_title', 'Four themes frame the {{year}} conversation.'); ?></h2>
             </div>
-            <p data-reveal="2"><?php ceeducon_text('home_themes_intro', 'From responsible technology to the complete student journey — the 2026 programme connects the questions that matter most to international higher education right now.'); ?></p>
+            <p data-reveal="2"><?php ceeducon_text('home_themes_intro', 'From responsible technology to the complete student journey — the {{year}} programme connects the questions that matter most to international higher education right now.'); ?></p>
           </div>
           <div class="theme-grid" aria-label="Conference thematic areas">
-            <article class="theme-card theme-card--sky" data-reveal>
-              <span>01</span>
-              <h3><?php ceeducon_text('theme_1_title', 'Navigating the Technological Shift'); ?></h3>
-              <p><?php ceeducon_text('theme_1_text', 'Responsible use of AI, digitalisation, data analytics and new tools in international education — while keeping academic values and human judgement in focus.'); ?></p>
-            </article>
-            <article class="theme-card theme-card--orange" data-reveal="2">
-              <span>02</span>
-              <h3><?php ceeducon_text('theme_2_title', 'Challenges of Internationalisation'); ?></h3>
-              <p><?php ceeducon_text('theme_2_text', 'Structural, social and financial barriers, safety, wellbeing, funding and inclusive access to meaningful international experiences for all students and staff.'); ?></p>
-            </article>
-            <article class="theme-card theme-card--white" data-reveal="3">
-              <span>03</span>
-              <h3><?php ceeducon_text('theme_3_title', 'Global & Regional Partnerships'); ?></h3>
-              <p><?php ceeducon_text('theme_3_text', 'Sustainable strategic cooperation, European University alliances and equitable academic partnerships across global regions.'); ?></p>
-            </article>
-            <article class="theme-card theme-card--navy" data-reveal="4">
-              <span>04</span>
-              <h3><?php ceeducon_text('theme_4_title', 'From Recruitment to Retention'); ?></h3>
-              <p><?php ceeducon_text('theme_4_text', 'A student-centred journey from marketing and admissions through support services to employability, alumni relations and graduate success.'); ?></p>
-            </article>
+            <?php
+            $theme_items = [];
+            foreach (ceeducon_default_theme_items() as $index => $item) {
+                $number = $index + 1;
+                $theme_items[] = [
+                    'number' => $item['number'],
+                    'title' => ceeducon_text_value("theme_{$number}_title", $item['title']),
+                    'text' => ceeducon_text_value("theme_{$number}_text", $item['text']),
+                    'question' => ceeducon_text_value("theme_{$number}_question", $item['question']),
+                    'details' => ceeducon_text_value("theme_{$number}_details", $item['details']),
+                ];
+            }
+            ceeducon_render_theme_cards($theme_items);
+            ?>
           </div>
         </div>
       </section>
@@ -147,16 +143,16 @@ if (strtolower(trim($registration_value)) === 'opens in september') {
         <div class="shell">
           <div class="section-head">
             <div data-reveal>
-              <p class="kicker"><?php ceeducon_text('home_prog_kicker', 'Programme 2026'); ?></p>
-              <h2 class="display-2"><?php ceeducon_text('home_prog_title', 'Two full conference days in Prague.'); ?></h2>
+              <p class="kicker"><?php ceeducon_text('home_prog_kicker', 'Programme {{year}}'); ?></p>
+              <h2 class="display-2"><?php ceeducon_text('home_prog_title', 'Two full conference days in {{city}}.'); ?></h2>
             </div>
             <p data-reveal="2"><?php ceeducon_text('home_prog_intro', 'The preliminary room-by-room programme is online — sessions, workshops and speakers for both conference days.'); ?></p>
           </div>
-          <div class="day-cards" aria-label="CEEDUCON 2026 outline">
+          <div class="day-cards" aria-label="<?php echo esc_attr(ceeducon_text_value('home_programme_aria', '{{event_title}} outline')); ?>">
             <article data-reveal>
               <span><?php ceeducon_text('day_1_label', 'Day 1 · Tue 1 Dec'); ?></span>
               <h3><?php ceeducon_text('day_1_title', 'All-day conference'); ?></h3>
-              <p><?php ceeducon_text('day_1_text', 'Opening plenary and thematic sessions across the four 2026 themes at O2 universum.'); ?></p>
+              <p><?php ceeducon_text('day_1_text', 'Opening plenary and thematic sessions across the four {{year}} themes at {{venue}}.'); ?></p>
             </article>
             <article data-reveal="2">
               <span><?php ceeducon_text('day_evening_label', 'Evening'); ?></span>

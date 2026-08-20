@@ -114,8 +114,40 @@
           "widgetType": "ceeducon_cards",
           "settings": {
             "kicker": "Timeline",
-            "title": "Important milestones.",
-            "paper": ""
+            "title": "Speaker’s timeline.",
+            "paper": "",
+            "items": [
+              {
+                "label": "By June 30",
+                "title": "Acceptance notifications",
+                "text": ""
+              },
+              {
+                "label": "By July 31",
+                "title": "Speaker registration & photo",
+                "text": ""
+              },
+              {
+                "label": "September",
+                "title": "Contracts & presentation template",
+                "text": ""
+              },
+              {
+                "label": "Before the conference",
+                "title": "Final materials and technical check",
+                "text": ""
+              },
+              {
+                "label": "At the conference / online",
+                "title": "Sign the reimbursement contract",
+                "text": ""
+              },
+              {
+                "label": "By 9 December 2026",
+                "title": "Send us the necessary documents/receipts for the reimbursement",
+                "text": ""
+              }
+            ]
           },
           "elements": []
         }

@@ -13,13 +13,7 @@ $section_class = $dark ? 'section section--navy on-dark' : 'section section--tin
       <?php if (trim((string) ceeducon_block_value($attributes, 'intro')) !== '') : ?><p data-reveal="2"><?php echo ceeducon_block_html($attributes, 'intro'); ?></p><?php endif; ?>
     </div>
     <div class="theme-grid" aria-label="<?php esc_attr_e('Conference thematic areas', 'ceeducon-program'); ?>">
-      <?php $variants = ['sky', 'orange', 'white', 'navy']; foreach ($items as $index => $item) : ?>
-        <article class="theme-card theme-card--<?php echo esc_attr($variants[$index % count($variants)]); ?>" data-reveal="<?php echo esc_attr((string) ($index + 1)); ?>">
-          <span><?php echo esc_html($item['number'] ?? sprintf('%02d', $index + 1)); ?></span>
-          <h3><?php echo esc_html($item['title'] ?? ''); ?></h3>
-          <p><?php echo esc_html($item['text'] ?? ''); ?></p>
-        </article>
-      <?php endforeach; ?>
+      <?php ceeducon_render_theme_cards($items); ?>
     </div>
   </div>
 </section>

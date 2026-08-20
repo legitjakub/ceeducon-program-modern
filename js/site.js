@@ -177,6 +177,38 @@ function bindMobileCarousels() {
   });
 }
 
+/** Keep the theme cards compact: opening a card closes the other card in the
+ * same group, while preserving the native keyboard and no-JavaScript behavior. */
+function bindThemeDetails() {
+  const hoverCapable = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+  document.querySelectorAll(".theme-grid").forEach((grid) => {
+    const cards = [...grid.querySelectorAll("details.theme-card")];
+    cards.forEach((card) => {
+      let openedByHover = false;
+
+      card.addEventListener("mouseenter", () => {
+        if (!hoverCapable.matches || card.open) return;
+        openedByHover = true;
+        card.open = true;
+      });
+
+      card.addEventListener("mouseleave", () => {
+        if (!hoverCapable.matches || !openedByHover) return;
+        openedByHover = false;
+        card.open = false;
+      });
+
+      card.addEventListener("toggle", () => {
+        if (!card.open) return;
+        cards.forEach((other) => {
+          if (other !== card) other.open = false;
+        });
+      });
+    });
+  });
+}
+
 /** Level switching for the venue plan, plus hover/focus sync between the
  *  schematic and the hall list beside it. */
 function bindFloorplan() {
@@ -317,7 +349,7 @@ function bindFloorplan() {
       lists.forEach((l) => toggleHidden(l, true));
       toggleHidden(detail, false);
       try {
-        const res = await fetch("data/program.json");
+        const res = await fetch(window.CEEDUCON_DATA_URL || "data/program.json");
         if (!res.ok) throw new Error(res.status);
         programme = await res.json();
       } catch (err) {
@@ -401,5 +433,6 @@ bindSiteNavigation();
 bindHeaderScroll();
 bindReveals();
 bindMediaLightbox();
+bindThemeDetails();
 bindMobileCarousels();
 bindFloorplan();

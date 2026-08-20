@@ -3,7 +3,7 @@
         <div class="footer-grid">
           <div>
             <img src="<?php echo esc_url(ceeducon_asset_url('assets/ceeducon-logo-horizontal-white.png')); ?>" alt="CEEDUCON" width="1182" height="604" loading="lazy" decoding="async" />
-            <p><?php ceeducon_html('footer_tagline', 'Central European Conference on Internationalisation of Higher Education.<br />1–2 December 2026 · O2 universum Prague'); ?></p>
+            <p><?php ceeducon_html('footer_tagline', 'Central European Conference on Internationalisation of Higher Education.<br />{{date}} · {{venue}}'); ?></p>
           </div>
           <div>
             <h3><?php esc_html_e('Conference', 'ceeducon-program'); ?></h3>
@@ -22,13 +22,26 @@
           </div>
         </div>
         <div class="partner-logo-strip">
-          <picture>
-            <source media="(max-width: 720px)" srcset="<?php echo esc_url(ceeducon_asset_url('assets/media/ceeducon-partner-logos-mobile.png')); ?>" />
-            <img src="<?php echo esc_url(ceeducon_asset_url('assets/media/ceeducon-partner-logos-wide.png')); ?>" alt="<?php esc_attr_e('CEEDUCON organising and partner agencies', 'ceeducon-program'); ?>" width="2560" height="109" loading="lazy" decoding="async" />
-          </picture>
+          <?php
+          $partner_logos = [
+              ['dzs', 'DZS — Czech National Agency for International Education and Research', 'https://www.dzs.cz/en', 198],
+              ['msmt', 'Ministry of Education, Youth and Sports of the Czech Republic', 'https://msmt.gov.cz/?lang=2', 267],
+              ['european-union', 'European Union', 'https://european-union.europa.eu/index_en', 367],
+              ['oead', "OeAD — Austria's Agency for Education and Internationalisation", 'https://oead.at/en/', 203],
+              ['daad', 'DAAD — German Academic Exchange Service', 'https://www.daad.de/en/', 412],
+              ['frse', 'FRSE — Foundation for the Development of the Education System', 'https://www.frse.org.pl/', 198],
+              ['saaic', 'SAAIC — Slovak Academic Association for International Cooperation', 'https://www.saaic.sk/', 183],
+              ['tempus', 'Tempus Public Foundation', 'https://tka.hu/english', 275],
+          ];
+          ?>
+          <nav class="partner-logo-grid" aria-label="<?php esc_attr_e('CEEDUCON organising and partner organisations', 'ceeducon-program'); ?>">
+            <?php foreach ($partner_logos as [$logo_slug, $logo_name, $logo_url, $logo_width]) : ?>
+              <a class="partner-logo-link" href="<?php echo esc_url($logo_url); ?>" target="_blank" rel="noreferrer"><img src="<?php echo esc_url(ceeducon_asset_url('assets/media/partners/' . $logo_slug . '.png')); ?>" alt="<?php echo esc_attr($logo_name); ?>" width="<?php echo esc_attr((string) $logo_width); ?>" height="109" loading="lazy" decoding="async" /></a>
+            <?php endforeach; ?>
+          </nav>
         </div>
         <div class="footer-bottom">
-          <p><?php ceeducon_text('footer_copyright', '© 2026 DZS — Czech National Agency for International Education and Research'); ?></p>
+          <p><?php ceeducon_text('footer_copyright', '© {{year}} DZS — Czech National Agency for International Education and Research'); ?></p>
           <a href="#top"><?php esc_html_e('Back to top', 'ceeducon-program'); ?> <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 13V3M4 7l4-4 4 4"></path></svg></span></a>
         </div>
       </div>
