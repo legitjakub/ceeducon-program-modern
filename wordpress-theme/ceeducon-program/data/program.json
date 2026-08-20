@@ -77,7 +77,7 @@
           "end": "11:00",
           "type": "break",
           "break": "coffee",
-          "title": "Coffee break",
+          "title": "Break",
           "span": "all"
         },
         {
@@ -446,7 +446,7 @@
           "end": "15:50",
           "type": "break",
           "break": "coffee",
-          "title": "Coffee break",
+          "title": "Break",
           "span": "all"
         },
         {
@@ -831,7 +831,7 @@
           "end": "11:50",
           "type": "break",
           "break": "coffee",
-          "title": "Coffee break",
+          "title": "Break",
           "span": "all"
         },
         {
