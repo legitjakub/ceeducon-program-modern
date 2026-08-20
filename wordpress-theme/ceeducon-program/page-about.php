@@ -91,7 +91,7 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
           <div data-reveal>
             <p class="kicker"><?php ceeducon_text('home_org_kicker', 'Organisers'); ?></p>
             <h2 class="display-2"><?php ceeducon_text('about_org_title', 'A Central European partnership.'); ?></h2>
-            <p class="lead"><?php ceeducon_text('about_org_lead', 'CEEDUCON is organised by the Czech National Agency for International Education and Research (DZS) in co-operation with its partner agencies. Together they connect the national perspectives of Austria, Germany, Poland, Slovakia, Hungary and the Czech Republic into one regional conversation.'); ?></p>
+            <p class="lead"><?php ceeducon_text('about_org_lead', 'CEEDUCON is organised by the Czech National Agency for International Education and Research (DZS) in co-operation with its partner agencies. Together they connect the national perspectives of Austria, Germany, Poland, Slovakia, Hungary and Czechia into one regional conversation.'); ?></p>
           </div>
           <div class="partners-card" data-reveal="2">
             <img src="<?php echo esc_url(ceeducon_asset_url('assets/dzs-logo.png')); ?>" alt="DZS" width="1024" height="522" loading="lazy" decoding="async" />

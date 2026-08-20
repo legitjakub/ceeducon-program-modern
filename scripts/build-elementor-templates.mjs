@@ -54,7 +54,7 @@ const pages = {
     widget('page-hero', { crumb: 'About', title: 'About CEEDUCON.', note: 'A Central European forum for people shaping international higher education.', cardLabel: '2026 edition', cardTitle: '1–2 December 2026' }),
     widget('text-section', { kicker: 'The conference', title: 'A platform for strategic internationalisation.' }),
     widget('themes', { dark: 'yes' }),
-    partners({ title: 'A Central European partnership.', text: 'CEEDUCON is organised by DZS in co-operation with partner agencies from Austria, Germany, Poland, Slovakia, Hungary and the Czech Republic.' }),
+    partners({ title: 'A Central European partnership.', text: 'CEEDUCON is organised by DZS in co-operation with partner agencies from Austria, Germany, Poland, Slovakia, Hungary and Czechia.' }),
   ]),
   programme: page('CEEDUCON Programme', [
     widget('page-hero', { crumb: 'Programme', title: 'Two days. Nine rooms. One clear programme.', note: 'Search, filter and save the sessions that matter to you.', cardLabel: '1–2 December 2026', cardTitle: 'O2 universum Prague' }),

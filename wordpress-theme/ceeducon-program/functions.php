@@ -1258,7 +1258,7 @@ function ceeducon_admin_content_fields(): array
             ['about_themes_title', 'Themes title', 'The {{year}} themes.', 'textarea'],
             ['about_themes_intro', 'Themes intro', 'Four thematic areas structure the sessions, workshops and plenaries of {{event_title}} — connecting technology, inclusion, partnerships and the student journey.', 'textarea'],
             ['about_org_title', 'Organisers title', 'A Central European partnership.', 'textarea'],
-            ['about_org_lead', 'Organisers lead', 'CEEDUCON is organised by the Czech National Agency for International Education and Research (DZS) in co-operation with its partner agencies. Together they connect the national perspectives of Austria, Germany, Poland, Slovakia, Hungary and the Czech Republic into one regional conversation.', 'textarea'],
+            ['about_org_lead', 'Organisers lead', 'CEEDUCON is organised by the Czech National Agency for International Education and Research (DZS) in co-operation with its partner agencies. Together they connect the national perspectives of Austria, Germany, Poland, Slovakia, Hungary and Czechia into one regional conversation.', 'textarea'],
         ],
         'Programme page' => [
             ['prog_hero_title', 'Hero title', 'Two days. One programme.', 'textarea'],
@@ -1430,7 +1430,7 @@ add_action('admin_menu', 'ceeducon_admin_menu');
 
 function ceeducon_migrate_default_content(): void
 {
-    $target_version = '2.4.1';
+    $target_version = '2.4.2';
     if (get_option('ceeducon_content_defaults_version') === $target_version) {
         return;
     }
@@ -1483,6 +1483,10 @@ function ceeducon_migrate_default_content(): void
         ],
         'home_plan_title' => ['Everything you need, one page away.', 'Find the essentials quickly.'],
         'day_evening_title' => ['Networking dinner', 'Networking reception'],
+        'about_org_lead' => [
+            'CEEDUCON is organised by the Czech National Agency for International Education and Research (DZS) in co-operation with its partner agencies. Together they connect the national perspectives of Austria, Germany, Poland, Slovakia, Hungary and the Czech Republic into one regional conversation.',
+            'CEEDUCON is organised by the Czech National Agency for International Education and Research (DZS) in co-operation with its partner agencies. Together they connect the national perspectives of Austria, Germany, Poland, Slovakia, Hungary and Czechia into one regional conversation.',
+        ],
         'home_link_3_text' => [
             'Questions about registration, the programme or partnerships — the organisers are ready to help.',
             'Use the contact page for registration, programme, speaker or partnership questions.',
