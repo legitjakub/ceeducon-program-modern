@@ -41,6 +41,10 @@
   --orange-soft: rgba(236, 114, 47, 0.1);
   --sky: #45c0ea;
   --sky-soft: #ffffff;
+  --theme-technology: #2f75b5;
+  --theme-challenges: #c6597b;
+  --theme-partnerships: #c55a11;
+  --theme-recruitment: #548235;
   --white: #ffffff;
   --surface: rgba(69, 192, 234, 0.08);
   --paper: var(--surface);
@@ -729,10 +733,10 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .theme-card-more p + p { margin-top: 12px; }
 .theme-card .theme-card-more p { color: rgba(255, 255, 255, 0.88); }
 .theme-card .theme-card-question { color: var(--white); font-size: clamp(18px, 1.4vw, 22px); font-weight: 700; line-height: 1.22; letter-spacing: -0.01em; }
-.theme-card--sky { --accent: var(--sky); }
-.theme-card--orange { --accent: var(--orange); }
-.theme-card--white { --accent: var(--navy); }
-.theme-card--navy { --accent: var(--sky); }
+.theme-card--sky { --accent: var(--theme-technology); }
+.theme-card--orange { --accent: var(--theme-challenges); }
+.theme-card--white { --accent: var(--theme-partnerships); }
+.theme-card--navy { --accent: var(--theme-recruitment); }
 .theme-section-light .theme-card {
   border-color: rgba(13, 94, 157, 0.16);
   background: var(--white);
