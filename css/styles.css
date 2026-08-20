@@ -2111,10 +2111,12 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
     font-size: 13px;
     overflow-wrap: anywhere;
   }
-  .display-2 {
-    max-width: 8.4em;
+  main .display-2 {
+    width: 100%;
+    max-width: none;
     font-size: clamp(24px, 7.7vw, 28px);
     line-height: 1.04;
+    text-wrap: balance;
   }
   .favorites-button span { max-width: 74px; overflow: hidden; text-overflow: ellipsis; }
   .day-tab { min-width: min(168px, 76vw); }
