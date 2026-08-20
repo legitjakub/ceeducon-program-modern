@@ -138,13 +138,13 @@ if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_conte
 
             <div class="floorplan-stage">
               <figure class="floorplan-figure" data-level-plan="0">
-                <img src="<?php echo esc_url(ceeducon_asset_url('assets/media/o2-plan-level-0.webp')); ?>" width="1448" height="868" loading="lazy" decoding="async" alt="Plan of the O2 universum entrance level: main entrance, arena, meeting hub and halls B1 to B3." />
+                <img src="<?php echo esc_url(ceeducon_asset_url('assets/media/o2-plan-level-0.webp') . '?v=2.13.18'); ?>" width="1448" height="868" loading="lazy" decoding="async" alt="Plan of the O2 universum entrance level: main entrance, arena and halls B1 to B3." />
                 <svg class="floorplan-hotspots" viewBox="0 0 100 100" preserveAspectRatio="none" aria-label="CEEDUCON halls on the entrance level">
                   <a class="vp-room" href="<?php echo esc_url(ceeducon_page_url('programme') . '?room=' . rawurlencode('B3')); ?>" data-room="B3"><title>Hall B3 — 8 sessions</title><rect class="vp-hit" x="80.52" y="13.20" width="14.02" height="20.38" /><rect x="80.52" y="21.20" width="14.02" height="12.21" vector-effect="non-scaling-stroke" /></a>
                   <a class="vp-room" href="<?php echo esc_url(ceeducon_page_url('programme') . '?room=' . rawurlencode('B2')); ?>" data-room="B2"><title>Hall B2 — 10 sessions</title><rect class="vp-hit" x="80.52" y="33.58" width="16.92" height="19.24" /><rect x="80.52" y="33.75" width="16.92" height="18.89" vector-effect="non-scaling-stroke" /></a>
                   <a class="vp-room" href="<?php echo esc_url(ceeducon_page_url('programme') . '?room=' . rawurlencode('B1')); ?>" data-room="B1"><title>Hall B1 — 10 sessions</title><rect class="vp-hit" x="80.46" y="52.96" width="16.99" height="21.85" /><rect x="80.46" y="52.99" width="16.99" height="20.28" vector-effect="non-scaling-stroke" /></a>
                 </svg>
-                <a class="floorplan-source" href="<?php echo esc_url(ceeducon_asset_url('assets/media/o2-plan-level-0.png')); ?>" target="_blank" rel="noreferrer">
+                <a class="floorplan-source" href="<?php echo esc_url(ceeducon_asset_url('assets/media/o2-plan-level-0.png') . '?v=2.13.18'); ?>" target="_blank" rel="noreferrer">
                   Full plan
                   <span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span>
                 </a>
