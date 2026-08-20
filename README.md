@@ -1,6 +1,6 @@
 # CEEDUCON 2026 – vícestránkový konferenční web a programový modul
 
-Moderní vícestránkový web pro CEEDUCON 2026 (1.–2. prosince 2026, O2 universum Praha) se strukturou: Home, About, Programme, Practical, Speakers, Media Kit a Contact. Součástí je interaktivní programový modul, který zatím ukazuje archivní data z CEEDUCON 2025 (jasně označená jako archive sample) a je připravený na oficiální program 2026.
+Moderní vícestránkový web pro CEEDUCON 2026 (1.–2. prosince 2026, O2 universum Praha) se strukturou: Home, About, Programme, Practical, Speakers, Media Kit a Contact. Součástí je interaktivní programový modul s aktuálním dvoudenním programem 2026.
 
 Live verze: <https://legitjakub.github.io/ceeducon-program-modern/>
 
@@ -33,8 +33,6 @@ Prvky: kompaktní tmavý hero s reálnou konferenční fotografií, editovateln�
 - přepínání mezi čitelným seznamem a gridem místností,
 - vlastní výběr „My programme" uložený v prohlížeči,
 - detail příspěvku a export do kalendáře (`.ics`),
-- ukázkový live režim se zvýrazněním probíhajícího bloku,
-- odpočet do začátku konference,
 - tisková verze (A4 landscape) pro export do PDF,
 - plně responzivní: na mobilu se grid místností skládá do časové osy.
 
@@ -65,7 +63,7 @@ Pro plnou produkční verzi je dalším krokem vlastní typ obsahu `session` (de
 ```text
 assets/             loga CEEDUCON, DZS, favicon, font Tabac Sans
 css/styles.css      jediný design systém včetně print stylů
-data/program.json   editovatelná data programu (archiv 2025)
+data/program.json   editovatelná data programu 2026
 dist/               ZIP balíček WordPress šablony
 js/site.js          menu, hlavička, scroll-reveal a mobilní karusely
 js/program.js       vykreslení programu, filtry, modal, export

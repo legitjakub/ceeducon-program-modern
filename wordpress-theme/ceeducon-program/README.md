@@ -127,8 +127,8 @@ Invalid JSON is not saved over the last valid value, so a formatting mistake in 
 the public programme.
 The Programme page also renders a server-side text version of sessions below the interactive grid,
 so important session titles, times and rooms are present in normal HTML for SEO and non-JavaScript users.
-The current data is the archived CEEDUCON 2025 programme, clearly labelled as an
-archive sample on the page; replace it with the official 2026 sessions when published.
+The bundled data contains the current two-day CEEDUCON 2026 programme. Update the
+central Programme JSON field when approved session details change.
 Theme track colours use only the CEEDUCON brand palette (`#0d5e9d`, `#ec722f`, `#45c0ea`, `#ffffff`).
 
 For a later phase, the JSON can be migrated to a custom post type without changing
