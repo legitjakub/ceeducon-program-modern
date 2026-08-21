@@ -5,7 +5,7 @@
 
 get_header();
 
-if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_content()) {
+if (ceeducon_render_block_page_content()) {
     get_footer();
     return;
 }

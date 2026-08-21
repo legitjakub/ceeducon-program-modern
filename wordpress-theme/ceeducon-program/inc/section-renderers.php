@@ -2,7 +2,7 @@
 /**
  * Shared section rendering adapter.
  *
- * Gutenberg dynamic blocks and the companion Elementor plugin use the same
+ * Gutenberg dynamic blocks and PHP page fallbacks use the same
  * render templates, so frontend markup remains owned by the theme.
  */
 
@@ -111,7 +111,7 @@ function ceeducon_render_section(string $section, array $attributes = []): strin
 
     /**
      * Annual conference data can be injected here once for Gutenberg,
-     * Elementor and direct PHP rendering without duplicating templates.
+     * Gutenberg and direct PHP rendering without duplicating templates.
      */
     $attributes = (array) apply_filters('ceeducon_section_attributes', $attributes, $section);
     if (function_exists('ceeducon_expand_content_tokens_recursive')) {

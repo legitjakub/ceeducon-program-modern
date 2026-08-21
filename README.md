@@ -42,8 +42,8 @@ Struktura webu je navržená pro snadný převod do WordPressu:
 
 - programová data jsou oddělená v [`data/program.json`](data/program.json) (`rooms`, `themes`, `slots`),
 - každoročně proměnné údaje se spravují na jedné obrazovce pluginu **CEEDUCON Conference Edition**; datum, místo, registrace, kalendáře, statistiky a SEO Event data se odtud propíšou automaticky,
-- běžný obsah může nadále používat nativní Gutenberg bloky nebo volitelné CEEDUCON Elementor widgety; design a layout zůstávají řízené šablonou,
-- samostatná video sekce na homepage používá responzivní privacy-enhanced YouTube embed a je editovatelná jako Gutenberg blok i Elementor widget,
+- běžný obsah používá nativní CEEDUCON Gutenberg bloky; důležité texty se mění přímo v blocích a design i layout zůstávají řízené šablonou,
+- samostatná video sekce na homepage používá responzivní privacy-enhanced YouTube embed a je editovatelná jako Gutenberg blok,
 - hlavní navigace používá nativní WordPress menu **Appearance → Menus → Primary navigation**,
 - brand paleta, šířky layoutu a editorový náhled fontu Tabac Sans jsou registrované přes `theme.json` a `css/editor-style.css`,
 - HTML ani JavaScript se při běžné změně obsahu neupravuje; frontend je bez frameworku a build kroku.
@@ -54,7 +54,7 @@ Struktura webu je navržená pro snadný převod do WordPressu:
 - ZIP pro nahrání: [`dist/ceeducon-program-wordpress-theme.zip`](dist/ceeducon-program-wordpress-theme.zip)
 - plugin pro správu ročníku: [`dist/ceeducon-conference-settings.zip`](dist/ceeducon-conference-settings.zip)
 
-Šablona je vícestránková (front-page + page šablony `about`, `programme`, `practical`, `speakers`, `media`, `contact` mapované podle slugů), sdílí CSS/JS se statickou verzí a podporuje editaci přes nativní bloky i volitelný Elementor Free plugin. Postup instalace je v [README šablony](wordpress-theme/ceeducon-program/README.md).
+Šablona je vícestránková (front-page + page šablony `about`, `programme`, `practical`, `speakers`, `media`, `contact` mapované podle slugů), sdílí CSS/JS se statickou verzí a podporuje editaci přes nativní CEEDUCON bloky. Postup instalace je v [README šablony](wordpress-theme/ceeducon-program/README.md).
 
 Pro plnou produkční verzi je dalším krokem vlastní typ obsahu `session` (den, čas, místnost, linka, řečníci, anotace) a REST API ve stejné JSON struktuře — frontend zůstane beze změny.
 

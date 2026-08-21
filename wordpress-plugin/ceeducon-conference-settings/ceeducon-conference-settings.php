@@ -662,7 +662,7 @@ function ceeducon_edition_render_admin(): void
     ?>
     <div class="wrap ceeducon-edition-admin">
         <h1><?php esc_html_e('CEEDUCON conference edition', 'ceeducon-conference-settings'); ?></h1>
-        <p class="description"><?php esc_html_e('Change the facts that are different every year. The theme keeps the layout fixed and automatically reuses these values in the hero, calendar links, SEO and Elementor/Gutenberg output.', 'ceeducon-conference-settings'); ?></p>
+        <p class="description"><?php esc_html_e('Change the facts that are different every year. The theme keeps the layout fixed and automatically reuses these values in the hero, calendar links, SEO and Gutenberg output.', 'ceeducon-conference-settings'); ?></p>
         <?php settings_errors(); ?>
 
         <div class="ceeducon-edition-summary">
@@ -729,7 +729,7 @@ function ceeducon_edition_render_admin(): void
 
             <section class="ceeducon-edition-card">
                 <h2><?php esc_html_e('Reusable annual text tokens', 'ceeducon-conference-settings'); ?></h2>
-                <p><?php esc_html_e('Use these placeholders in CEEDUCON text fields, Gutenberg blocks or Elementor widgets. Visitors always see the current saved values.', 'ceeducon-conference-settings'); ?></p>
+                <p><?php esc_html_e('Use these placeholders in CEEDUCON text fields or Gutenberg blocks. Visitors always see the current saved values.', 'ceeducon-conference-settings'); ?></p>
                 <p><code>{{event_title}}</code> <code>{{year}}</code> <code>{{date}}</code> <code>{{date_short}}</code> <code>{{venue}}</code> <code>{{city}}</code> <code>{{fee}}</code> <code>{{registration}}</code></p>
             </section>
 

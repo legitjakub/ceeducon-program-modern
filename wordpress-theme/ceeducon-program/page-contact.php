@@ -8,7 +8,7 @@ get_header();
 $con_email = ceeducon_text_value('con_email', 'ceeducon@dzs.cz');
 $con_phone = ceeducon_text_value('con_phone', '+420 221 850 100');
 
-if (ceeducon_render_elementor_page_content() || ceeducon_render_block_page_content()) {
+if (ceeducon_render_block_page_content()) {
     get_footer();
     return;
 }

@@ -122,88 +122,12 @@ function ceeducon_render_block_page_content(): bool
         return false;
     }
 
-    echo '<main id="main">';
+    echo '<main id="main" class="ceeducon-block-page">';
     echo apply_filters('the_content', $post->post_content);
     echo '</main>';
 
     return true;
 }
-
-function ceeducon_is_elementor_page(?WP_Post $post = null): bool
-{
-    $post = $post ?: get_post();
-    if (!$post instanceof WP_Post) {
-        return false;
-    }
-
-    if (class_exists('\\Elementor\\Plugin')) {
-        $document = \Elementor\Plugin::$instance->documents->get($post->ID);
-        if ($document && $document->is_built_with_elementor()) {
-            return true;
-        }
-    }
-
-    return get_post_meta($post->ID, '_elementor_edit_mode', true) === 'builder';
-}
-
-function ceeducon_elementor_page_has_widget(string $widget_name, ?WP_Post $post = null): bool
-{
-    $post = $post ?: get_post();
-    if (!$post instanceof WP_Post) {
-        return false;
-    }
-
-    $elementor_data = get_post_meta($post->ID, '_elementor_data', true);
-    if (!is_string($elementor_data) || $elementor_data === '') {
-        return false;
-    }
-
-    return str_contains($elementor_data, '"widgetType":"' . $widget_name . '"');
-}
-
-function ceeducon_render_elementor_page_content(): bool
-{
-    if (!is_singular('page')) {
-        return false;
-    }
-
-    $post = get_post();
-    if (!$post instanceof WP_Post || !ceeducon_is_elementor_page($post)) {
-        return false;
-    }
-
-    echo '<main id="main" class="ceeducon-elementor-page">';
-    echo apply_filters('the_content', $post->post_content); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-    echo '</main>';
-
-    return true;
-}
-
-function ceeducon_elementor_support(): void
-{
-    add_theme_support('elementor');
-}
-add_action('after_setup_theme', 'ceeducon_elementor_support');
-
-/**
- * Keep animated section content visible inside the Elementor editor preview.
- *
- * Elementor renders the page in an iframe with an `elementor-preview` query
- * parameter. The normal reveal observer is not guaranteed to run there, so a
- * stable theme-owned class lets CSS disable only the editor-side animation.
- *
- * @param string[] $classes Existing body classes.
- * @return string[]
- */
-function ceeducon_elementor_preview_body_class(array $classes): array
-{
-    if (isset($_GET['elementor-preview'])) {
-        $classes[] = 'ceeducon-elementor-preview';
-    }
-
-    return $classes;
-}
-add_filter('body_class', 'ceeducon_elementor_preview_body_class');
 
 function ceeducon_asset_url(string $path): string
 {
@@ -558,7 +482,6 @@ function ceeducon_should_render_programme_ui(): bool
 {
     return ceeducon_is_programme_page()
         || ceeducon_current_page_has_block('ceeducon/programme-grid')
-        || ceeducon_elementor_page_has_widget('ceeducon_programme_grid')
         || ceeducon_current_page_has_shortcode('ceeducon_programme')
         || ceeducon_programme_ui_requested();
 }

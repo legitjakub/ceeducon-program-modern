@@ -1,14 +1,9 @@
 # CEEDUCON Programme — WordPress theme
 
 Multi-page conference theme for CEEDUCON 2026 (1–2 December 2026, O2 universum Prague).
-The theme now uses native Gutenberg section blocks for page content. There is no ACF Blocks,
-Elementor, Divi or page builder dependency for the default editing workflow.
+The theme uses native Gutenberg section blocks for page content and has no third-party page builder dependency.
 
-## Optional Elementor Free workflow
-
-The companion plugin in `wordpress-plugin/ceeducon-elementor-widgets/` adds CEEDUCON widgets for Elementor Free. Elementor pages use the **CEEDUCON Elementor Full Width** template and render the same PHP section templates as the native Gutenberg blocks. Existing Gutenberg content and built-in PHP fallbacks remain available, so pages can be migrated and rolled back individually.
-
-The interactive programme is available as a Gutenberg block, an Elementor widget and the `[ceeducon_programme]` shortcode. Place only one programme component on a page; its modal and supporting UI are rendered once in the theme footer.
+The interactive programme is available as a Gutenberg block and the `[ceeducon_programme]` shortcode. Place only one programme component on a page; its modal and supporting UI are rendered once in the theme footer.
 
 ## Installation
 
@@ -101,7 +96,7 @@ Event structured data on the homepage. The fallback disables itself when Yoast S
 AIOSEO or The SEO Framework is active, so those plugins remain the preferred source of advanced metadata.
 Configure the CEEDUCON 2026 banner as the default social image in the selected SEO plugin.
 
-Important page content remains server-rendered HTML in PHP, Gutenberg and Elementor rendering paths.
+Important page content remains server-rendered HTML in PHP and Gutenberg rendering paths.
 Media selected from the WordPress library uses attachment IDs and responsive image markup where the
 component supports it. Keep descriptive alt text with the image in the Media Library.
 
