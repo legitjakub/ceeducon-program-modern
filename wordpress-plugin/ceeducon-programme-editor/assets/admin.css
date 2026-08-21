@@ -1,0 +1,44 @@
+.cp-wrap .cp-summary {
+  display: flex; flex-wrap: wrap; gap: 22px;
+  margin: 16px 0; padding: 12px 16px;
+  border: 1px solid #c3c4c7; border-left: 4px solid #0d5e9d; background: #fff;
+}
+.cp-wrap .cp-summary strong { font-size: 18px; }
+
+.cp-panel { margin: 16px 0; border: 1px solid #c3c4c7; background: #fff; }
+.cp-panel > summary { padding: 12px 16px; font-weight: 600; cursor: pointer; }
+.cp-panel-body { padding: 0 16px 16px; }
+.cp-json { width: 100%; font-family: Menlo, Consolas, monospace; font-size: 12px; }
+.cp-warnings { margin: 0 0 8px 18px; list-style: disc; }
+
+.cp-day { margin: 20px 0; padding: 16px; border: 1px solid #c3c4c7; background: #fff; }
+.cp-day-head { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; padding-bottom: 14px; border-bottom: 1px solid #e0e0e0; }
+
+.cp-field { display: flex; flex-direction: column; gap: 4px; }
+.cp-field > span { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: #50575e; }
+.cp-field input[type="text"], .cp-field textarea, .cp-field select { min-width: 0; }
+.cp-grow { flex: 1 1 240px; }
+.cp-time input { width: 8em; }
+
+.cp-slot { margin: 14px 0; padding: 12px; border: 1px solid #dcdcde; border-left: 4px solid #0d5e9d; background: #f6f7f7; }
+.cp-slot--break { border-left-color: #ec722f; }
+.cp-slot-head, .cp-break-fields { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
+.cp-break-fields { margin-top: 12px; }
+
+.cp-sessions { margin-top: 12px; display: grid; gap: 10px; }
+.cp-session { padding: 10px 12px; border: 1px solid #dcdcde; background: #fff; }
+.cp-session-main, .cp-session-meta { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+.cp-session-meta { margin-top: 10px; }
+.cp-session-meta textarea { width: 100%; }
+
+.cp-room-list { display: flex; flex-wrap: wrap; gap: 4px 10px; max-width: 420px; }
+.cp-room { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; white-space: nowrap; }
+
+.cp-remove { color: #b32d2e !important; font-size: 20px; line-height: 1; text-decoration: none; }
+.cp-remove:hover { color: #8a2424 !important; }
+.cp-add { margin-top: 4px; }
+
+@media (max-width: 782px) {
+  .cp-slot-head, .cp-session-main, .cp-day-head { gap: 10px; }
+  .cp-room-list { max-width: none; }
+}
