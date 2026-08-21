@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CEEDUCON Conference Edition
  * Description: One central WordPress screen for the CEEDUCON details that change every year.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Requires at least: 6.5
  * Requires PHP: 8.0
  * Author: CEEDUCON
@@ -420,13 +420,23 @@ function ceeducon_edition_schema_filter(array $schema): array
         ],
     ];
 
+    // A free event still deserves an Offer — it is what lets search results say
+    // "Free". Previously this only appeared once a registration URL existed, so
+    // the fact that attendance costs nothing never reached the structured data.
     $registration_url = (string) ceeducon_edition_get('registration_url');
-    if ($registration_url !== '') {
-        $schema['offers'] = [
-            '@type' => 'Offer',
-            'url' => esc_url_raw($registration_url),
-            'availability' => 'https://schema.org/InStock',
-        ];
+    $fee_text = (string) ceeducon_edition_get('fee_text');
+    $is_free = stripos($fee_text, 'free') !== false || trim($fee_text) === '0';
+
+    if ($is_free || $registration_url !== '') {
+        $offer = ['@type' => 'Offer', 'availability' => 'https://schema.org/InStock'];
+        if ($is_free) {
+            $offer['price'] = '0';
+            $offer['priceCurrency'] = (string) apply_filters('ceeducon_edition_price_currency', 'EUR');
+        }
+        if ($registration_url !== '') {
+            $offer['url'] = esc_url_raw($registration_url);
+        }
+        $schema['offers'] = $offer;
     } else {
         unset($schema['offers']);
     }
