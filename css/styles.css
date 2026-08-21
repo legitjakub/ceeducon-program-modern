@@ -93,6 +93,29 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 ::selection { background: var(--sky); color: var(--deep-2); }
 :focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; }
 
+/* This site's WordPress carries per-weight font families from the Use Any Font
+   plugin — .tabac-sans-regular, .has-tabac-sans-bold-font-family and 21 more,
+   each setting font-family with !important, which beats anything here. Fold
+   them back into the one family the design uses, and translate the weight and
+   slant those names carried into real properties so nothing visually flattens.
+   Every selector also requires "tabac" so a theme class such as .highlight,
+   which contains "light", can never be caught. Inert on the static site. */
+body [class*="tabac"],
+body [class*="axiforma"],
+body [class*="-font-family"] { font-family: var(--font-body) !important; }
+body [class*="tabac"][class*="bold"],
+body [class*="tabac"][class*="black"],
+body [class*="axiforma"][class*="bold"] { font-weight: 700 !important; }
+body [class*="tabac"][class*="medium"] { font-weight: 500 !important; }
+body [class*="tabac"][class*="regular"],
+body [class*="tabac"][class*="light"],
+body [class*="tabac"][class*="thin"],
+body [class*="tabac"][class*="hair"] { font-weight: 400 !important; }
+body [class*="tabac"][class*="ital"],
+body [class*="tabac"][class*="-it"],
+body [class~="tabac-sans-regular-i"],
+body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important; }
+
 .shell { width: min(100%, var(--shell)); margin-inline: auto; padding-inline: var(--pad); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .skip-link { position: fixed; z-index: 1000; left: 16px; top: -80px; padding: 12px 18px; border-bottom: 3px solid var(--orange); background: var(--deep); color: var(--white); font-weight: 700; transition: top 0.2s; }
