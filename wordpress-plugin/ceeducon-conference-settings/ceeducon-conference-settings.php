@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CEEDUCON Conference Edition
  * Description: One central WordPress screen for the CEEDUCON details that change every year.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Requires at least: 6.5
  * Requires PHP: 8.0
  * Author: CEEDUCON
@@ -24,9 +24,9 @@ function ceeducon_edition_defaults(): array
         'edition_year' => 2026,
         'country_label' => 'CZECHIA',
         'start_date' => '2026-12-01',
-        'start_time' => '09:00',
+        'start_time' => '09:30',
         'end_date' => '2026-12-02',
-        'end_time' => '18:00',
+        'end_time' => '16:00',
         'timezone' => 'Europe/Prague',
         'venue_name' => 'O2 universum Prague',
         'city_label' => 'Prague',
@@ -47,8 +47,8 @@ function ceeducon_edition_defaults(): array
         'stat_2_label' => 'participants in 2025',
         'stat_3_value' => '130+',
         'stat_3_label' => 'speakers in 2025',
-        'stat_4_value' => '70+',
-        'stat_4_label' => 'sessions in {{year}}',
+        'stat_4_value' => '50+',
+        'stat_4_label' => 'sessions & workshops',
         'hero_image_id' => 0,
         'hero_image_alt' => 'A packed CEEDUCON plenary session',
         'social_image_id' => 0,
