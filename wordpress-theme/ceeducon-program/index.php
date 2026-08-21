@@ -1,4 +1,7 @@
 <?php
+if (!defined('ABSPATH')) {
+    exit;
+}
 /**
  * Fallback template — generic page content inside the CEEDUCON layout.
  */

@@ -1,4 +1,7 @@
 <?php
+if (!defined('ABSPATH')) {
+    exit;
+}
 get_header();
 
 if (ceeducon_render_block_page_content()) {

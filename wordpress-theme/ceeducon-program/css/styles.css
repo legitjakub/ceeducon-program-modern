@@ -170,8 +170,6 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
 .btn--dark:hover { background: var(--navy-600); border-color: var(--navy-600); }
 .btn--outline { border-color: var(--deep); color: var(--deep); }
 .btn--outline:hover { background: var(--deep); color: var(--white); }
-.btn--plain { min-height: 0; padding: 0 0 6px; border: 0; border-bottom: 2px solid var(--orange); color: inherit; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; }
-.btn--plain:hover { color: var(--accent-text); }
 .mt-lg { margin-top: 34px; }
 
 .ui-icon {
