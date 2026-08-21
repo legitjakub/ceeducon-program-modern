@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ceeducon/schedule-overview",
+  "version": "1.0.0",
+  "title": "Přehled dnů",
+  "category": "ceeducon-sections",
+  "icon": "calendar-alt",
+  "description": "Přehled konferenčních dnů v kartách s odkazem na program.",
+  "textdomain": "ceeducon-program",
+  "attributes": {
+    "kicker": { "type": "string", "default": "Programme {{year}}" },
+    "title": { "type": "string", "default": "Conference days in {{city}}." },
+    "intro": { "type": "string", "default": "The preliminary room-by-room programme is online — sessions, workshops and speakers for both conference days." },
+    "items": {
+      "type": "array",
+      "default": [
+        { "label": "Day 1", "title": "All-day conference", "text": "Plenary opening, thematic sessions and workshops across the halls of {{venue}}." },
+        { "label": "Evening", "title": "Networking reception", "text": "An evening to build the partnerships the daytime sessions talk about." },
+        { "label": "Day 2 · Wed 2 Dec", "title": "All-day conference", "text": "A second full day of sessions, practical exchange and closing plenary." }
+      ]
+    },
+    "buttonText": { "type": "string", "default": "Open the programme" },
+    "buttonUrl": { "type": "string", "default": "/programme/" },
+    "paper": { "type": "boolean", "default": false }
+  },
+  "supports": { "html": false, "align": false, "color": false, "spacing": false, "typography": false },
+  "editorScript": "file:./edit.js",
+  "render": "file:./render.php"
+}

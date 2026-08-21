@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ceeducon/partners",
+  "version": "1.0.0",
+  "title": "Organizátoři a partneři",
+  "category": "ceeducon-sections",
+  "icon": "groups",
+  "description": "Sekce s pořadatelem, partnerskými agenturami a pruhem log.",
+  "textdomain": "ceeducon-program",
+  "attributes": {
+    "kicker": { "type": "string", "default": "Organisers" },
+    "title": { "type": "string", "default": "Backed by Central Europe's national agencies." },
+    "text": { "type": "string", "default": "CEEDUCON is organised by DZS — the Czech National Agency for International Education and Research — in co-operation with partner organisations across the region." },
+    "email": { "type": "string", "default": "ceeducon@dzs.cz" },
+    "cardLabel": { "type": "string", "default": "Organised by" },
+    "cardTitle": { "type": "string", "default": "Czech National Agency for International Education and Research (DZS)" },
+    "partnersLabel": { "type": "string", "default": "In co-operation with" },
+    "partnersText": { "type": "string", "default": "OeAD · DAAD · FRSE · SAAIC · Tempus Public Foundation" },
+    "logoUrl": { "type": "string", "default": "assets/media/ceeducon-partner-logos-wide.png" },
+    "logoId": { "type": "number", "default": 0 },
+    "logoAlt": { "type": "string", "default": "CEEDUCON organising and partner agencies" },
+    "paper": { "type": "boolean", "default": false }
+  },
+  "supports": { "html": false, "align": false, "color": false, "spacing": false, "typography": false },
+  "editorScript": "file:./edit.js",
+  "render": "file:./render.php"
+}

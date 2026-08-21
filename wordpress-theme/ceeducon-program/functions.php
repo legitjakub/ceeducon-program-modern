@@ -189,6 +189,20 @@ function ceeducon_text(string $key, string $default): void
     echo esc_html(ceeducon_text_value($key, $default));
 }
 
+/**
+ * Same override chain as ceeducon_text(), escaped for the contexts the
+ * templates actually use these in: an href/src, and a plain attribute.
+ */
+function ceeducon_url(string $key, string $default): void
+{
+    echo esc_url(ceeducon_text_value($key, $default));
+}
+
+function ceeducon_attr(string $key, string $default): void
+{
+    echo esc_attr(ceeducon_text_value($key, $default));
+}
+
 function ceeducon_html(string $key, string $default): void
 {
     echo wp_kses_post(ceeducon_text_value($key, $default));
