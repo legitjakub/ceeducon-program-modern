@@ -206,6 +206,24 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 }
 .section--tint.theme-section-light { box-shadow: none; }
 .section--navy { background: linear-gradient(160deg, var(--navy) 0%, var(--navy) 62%, var(--deep-2) 100%); color: var(--white); }
+/* Fallback for a page written with plain WordPress blocks rather than CEEDUCON
+   sections. Styles were dropped with the Elementor cleanup; without them this
+   content renders unstyled. */
+.section--editor-content { padding: clamp(40px, 4.5vw, 64px) 0; background: var(--paper); }
+.wp-content {
+  max-width: 880px;
+  color: var(--deep);
+  font-size: clamp(17px, 1.8vw, 20px);
+  line-height: 1.72;
+}
+.wp-content > * { margin-top: 0; margin-bottom: 1.1em; }
+.wp-content > :last-child { margin-bottom: 0; }
+.wp-content h1, .wp-content h2, .wp-content h3, .wp-content h4 { color: var(--deep); line-height: 1.05; }
+.wp-content a { color: var(--navy); font-weight: 700; text-decoration-thickness: 2px; text-underline-offset: 0.18em; }
+.wp-content img { max-width: 100%; height: auto; }
+.wp-content .wp-block-button__link { background: var(--deep); color: var(--white); box-shadow: inset 0 -4px 0 var(--orange); font-weight: 800; text-decoration: none; }
+.wp-content .wp-block-quote { margin-left: 0; padding-left: 22px; border-left: 4px solid var(--accent-text); color: var(--muted); }
+
 .section-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 420px); gap: clamp(22px, 3vw, 44px); align-items: end; margin-bottom: clamp(24px, 3vw, 40px); }
 .section-head h2 { color: var(--deep); }
 .on-dark .section-head h2, .section--navy .section-head h2 { color: var(--white); }

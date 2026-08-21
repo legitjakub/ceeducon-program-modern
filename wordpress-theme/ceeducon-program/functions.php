@@ -584,9 +584,17 @@ function ceeducon_render_editor_content(): void
         return;
     }
 
+    // The raw content can be non-empty and still render to nothing — an empty
+    // paragraph block or a leftover block comment is enough. Test what would
+    // actually reach the page, otherwise an empty section is printed.
+    $rendered = (string) apply_filters('the_content', $content);
+    if (trim(wp_strip_all_tags($rendered)) === '' && !preg_match('/<(img|iframe|video|audio|svg|hr|table)\b/i', $rendered)) {
+        return;
+    }
+
     echo '<section class="section section--editor-content">';
     echo '<div class="shell wp-content">';
-    echo apply_filters('the_content', $content);
+    echo $rendered; // phpcs:ignore WordPress.Security.EscapeOutput -- already filtered by the_content
     echo '</div>';
     echo '</section>';
 }
