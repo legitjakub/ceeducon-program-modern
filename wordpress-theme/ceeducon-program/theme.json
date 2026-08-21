@@ -49,9 +49,41 @@
       "customFontSize": false,
       "fontFamilies": [
         {
-          "fontFamily": "\"Tabac Sans\", Arial, sans-serif",
+          "fontFamily": "\"Tabac Sans\", \"Segoe UI\", Arial, sans-serif",
           "slug": "tabac-sans",
-          "name": "Tabac Sans"
+          "name": "Tabac Sans",
+          "fontFace": [
+            {
+              "fontFamily": "Tabac Sans",
+              "fontWeight": "400",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/Tabac-Sans-Regular.woff2",
+                "file:./assets/fonts/Tabac-Sans-Regular.woff"
+              ]
+            },
+            {
+              "fontFamily": "Tabac Sans",
+              "fontWeight": "500",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/Tabac-Sans-Medium.woff2",
+                "file:./assets/fonts/Tabac-Sans-Medium.woff"
+              ]
+            },
+            {
+              "fontFamily": "Tabac Sans",
+              "fontWeight": "700",
+              "fontStyle": "normal",
+              "fontDisplay": "swap",
+              "src": [
+                "file:./assets/fonts/Tabac-Sans-Bold.woff2",
+                "file:./assets/fonts/Tabac-Sans-Bold.woff"
+              ]
+            }
+          ]
         }
       ],
       "fontSizes": [
@@ -84,8 +116,8 @@
       "text": "#0d5e9d"
     },
     "typography": {
-      "fontFamily": "var(--wp--preset--font-family--tabac-sans)",
-      "lineHeight": "1.5"
+      "fontFamily": "\"Tabac Sans\", \"Segoe UI\", Arial, sans-serif",
+      "lineHeight": "1.55"
     }
   }
 }
