@@ -7,21 +7,81 @@ const siteElements = {
 };
 
 function bindSiteNavigation() {
-  if (!siteElements.menuToggle || !siteElements.mobileMenu) return;
+  const { menuToggle, mobileMenu, header } = siteElements;
+  if (!menuToggle || !mobileMenu) return;
 
-  siteElements.menuToggle.addEventListener("click", () => {
-    const expanded = siteElements.menuToggle.getAttribute("aria-expanded") === "true";
-    siteElements.menuToggle.setAttribute("aria-expanded", String(!expanded));
-    siteElements.mobileMenu.hidden = expanded;
-    siteElements.header?.classList.toggle("is-open", !expanded);
+  let scrollY = 0;
+
+  const isOpen = () => !mobileMenu.hidden;
+
+  /* The menu covers the viewport, so the page behind it must not scroll. iOS
+     ignores overflow:hidden on body, hence pinning it with a fixed position and
+     restoring the offset afterwards. */
+  function lockScroll(lock) {
+    if (lock) {
+      scrollY = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
+    } else {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, scrollY);
+    }
+  }
+
+  function setOpen(open, { returnFocus = true } = {}) {
+    if (open === isOpen()) return;
+    menuToggle.setAttribute("aria-expanded", String(open));
+    mobileMenu.hidden = !open;
+    header?.classList.toggle("is-open", open);
+    lockScroll(open);
+    if (open) {
+      mobileMenu.scrollTop = 0;
+      mobileMenu.querySelector("a")?.focus();
+    } else if (returnFocus) {
+      menuToggle.focus();
+    }
+  }
+
+  menuToggle.addEventListener("click", () => setOpen(!isOpen()));
+  mobileMenu.querySelector("[data-menu-close]")?.addEventListener("click", () => setOpen(false));
+  mobileMenu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setOpen(false, { returnFocus: false }));
   });
 
-  siteElements.mobileMenu.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      siteElements.menuToggle.setAttribute("aria-expanded", "false");
-      siteElements.mobileMenu.hidden = true;
-      siteElements.header?.classList.remove("is-open");
-    });
+  // Tapping the empty area beside the links reads as "dismiss".
+  mobileMenu.addEventListener("click", (event) => {
+    if (event.target === mobileMenu) setOpen(false);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!isOpen()) return;
+    if (event.key === "Escape") {
+      setOpen(false);
+      return;
+    }
+    if (event.key !== "Tab") return;
+    // Keep focus inside the overlay while it is open.
+    const focusable = [...mobileMenu.querySelectorAll("a[href], button:not([disabled])")]
+      .filter((el) => el.offsetParent !== null);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  // Rotating a phone can put the layout back on the desktop nav with the
+  // overlay still open and the body still pinned.
+  window.addEventListener("resize", () => {
+    if (isOpen() && window.matchMedia("(min-width: 981px)").matches) setOpen(false, { returnFocus: false });
   });
 }
 

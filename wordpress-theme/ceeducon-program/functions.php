@@ -407,7 +407,8 @@ class CEEDUCON_Anchor_Walker extends Walker_Nav_Menu
         $classes = empty($item->classes) ? [] : (array) $item->classes;
         $active_classes = ['current-menu-item', 'current_page_item', 'current-menu-ancestor', 'current_page_ancestor'];
         $is_active = (bool) array_intersect($active_classes, $classes);
-        $link_classes = $is_active ? ' class="is-active"' : '';
+        // aria-current is what a screen reader announces; the class only paints.
+        $link_classes = $is_active ? ' class="is-active" aria-current="page"' : '';
         $target = !empty($item->target) ? ' target="' . esc_attr($item->target) . '"' : '';
         $rel_value = !empty($item->xfn) ? (string) $item->xfn : '';
         if ($item->target === '_blank' && stripos($rel_value, 'noopener') === false) {
@@ -443,6 +444,69 @@ function ceeducon_nav_attributes(array $attributes): string
     }
 
     return $output;
+}
+
+/**
+ * The mobile menu is a full-screen overlay, not a copy of the desktop bar: rows
+ * are numbered and chevroned, the two primary journeys sit below them as
+ * buttons, and the close control repeats at thumb height. Rendered separately
+ * so that markup can differ from ceeducon_render_navigation().
+ */
+function ceeducon_render_mobile_navigation(): void
+{
+    $items = [];
+
+    if (has_nav_menu('primary')) {
+        $menu = wp_nav_menu([
+            'theme_location' => 'primary',
+            'container' => false,
+            'items_wrap' => '%3$s',
+            'depth' => 1,
+            'echo' => false,
+            'fallback_cb' => '__return_empty_string',
+            'walker' => new CEEDUCON_Anchor_Walker(),
+        ]);
+        // Reuse the walker's anchors and only wrap them with the index column.
+        if (is_string($menu) && preg_match_all('#<a\b[^>]*>.*?</a>#s', $menu, $m)) {
+            $items = $m[0];
+        }
+    }
+
+    if (!$items) {
+        foreach (ceeducon_nav_items() as $slug => $label) {
+            $items[] = '<a' . (ceeducon_is_current($slug) ? ' class="is-active" aria-current="page"' : '')
+                . ' href="' . esc_url(ceeducon_page_url($slug)) . '">' . esc_html($label) . '</a>';
+        }
+    }
+
+    echo '<nav class="mobile-menu" id="mobile-menu" data-mobile-menu aria-label="'
+        . esc_attr__('Mobile navigation', 'ceeducon-program') . '" hidden>';
+    echo '<div class="mobile-menu-inner shell"><ul class="mobile-menu-list">';
+    foreach ($items as $i => $anchor) {
+        $index = sprintf('<span class="mobile-menu-index">%02d</span>', $i + 1);
+        // Insert the index and wrap the label, keeping the anchor's own attributes.
+        $row = preg_replace('#(<a\b[^>]*>)(.*?)(</a>)#s', '$1' . $index . '<span>$2</span>$3', $anchor, 1);
+        echo '<li>' . $row . '</li>';
+    }
+    echo '</ul>';
+    echo '<div class="mobile-menu-actions">';
+    echo ceeducon_render_block_button(
+        (string) ceeducon_text_value('nav_cta_primary', __('Explore programme', 'ceeducon-program')),
+        ceeducon_page_url('programme'),
+        'btn btn--primary'
+    );
+    echo ceeducon_render_block_button(
+        (string) ceeducon_text_value('nav_cta_secondary', __('Plan your visit', 'ceeducon-program')),
+        ceeducon_page_url('practical'),
+        'btn btn--ghost'
+    );
+    echo '</div>';
+    echo '</div>';
+    echo '<button class="mobile-menu-close" type="button" data-menu-close aria-label="'
+        . esc_attr__('Close menu', 'ceeducon-program')
+        . '"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round">'
+        . '<path d="M6 6l12 12M18 6L6 18"/></svg></button>';
+    echo '</nav>';
 }
 
 function ceeducon_render_navigation(string $class, string $label, array $attributes = []): void

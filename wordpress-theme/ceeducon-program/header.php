@@ -37,5 +37,5 @@ if (!defined('ABSPATH')) {
           </button>
         </div>
       </div>
-      <?php ceeducon_render_navigation('mobile-menu shell', __('Mobile navigation', 'ceeducon-program'), ['id' => 'mobile-menu', 'data-mobile-menu' => '', 'hidden' => true]); ?>
+        <?php ceeducon_render_mobile_navigation(); ?>
     </header>
