@@ -256,16 +256,13 @@ function buildSessionCard(day, slot, session) {
   return `
     <article class="session-card${wide ? " session-card--wide" : ""}" style="--track:${escapeHtml(theme.color)};--theme-soft:${escapeHtml(theme.softColor || "#ffffff")};--room-start:${placement.start};--room-span:${placement.span}" data-room-list="${escapeHtml(session.rooms.join(","))}">
       <div class="session-card-head">
-        <span class="card-tags">
-          <span class="room-tag">${escapeHtml(session.rooms.join(" + "))}</span>
-          ${typeLabel ? `<span class="type-tag type-tag--${escapeHtml(session.type)}">${escapeHtml(typeLabel)}</span>` : ""}
-        </span>
+        <span class="room-tag">${escapeHtml(session.rooms.join(" + "))}</span>
         <button class="favorite-star${favorite ? " is-active" : ""}" type="button" data-favorite="${escapeHtml(id)}" aria-label="${favorite ? "Remove from my programme" : "Add to my programme"}" aria-pressed="${favorite}">${favorite ? "★" : "☆"}</button>
       </div>
       <button class="session-card-open" type="button" data-session-open="${escapeHtml(id)}" title="${escapeHtml(session.title)}">
         <h3>${escapeHtml(session.title)}</h3>
         ${preview ? `<p class="session-speakers">${escapeHtml(preview)}</p>` : ""}
-        <p class="session-theme">${escapeHtml(categoryLabel)}</p>
+        <p class="session-theme">${typeLabel && themeLabel ? `<span class="session-format session-format--${escapeHtml(session.type)}">${escapeHtml(typeLabel)}</span> · ` : ""}${escapeHtml(categoryLabel)}</p>
         <span class="session-arrow ui-icon" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 4h6v6M12 4 5 11"></path></svg></span>
       </button>
     </article>`;

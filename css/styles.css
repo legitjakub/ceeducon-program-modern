@@ -1721,9 +1721,16 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
 .session-card-open { flex: 1; width: 100%; display: flex; flex-direction: column; padding: 0; border: 0; outline: 0; background: transparent; color: inherit; cursor: pointer; text-align: left; }
 .room-tag { display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px; border-radius: 999px; background: var(--paper); color: var(--deep); font-size: 10px; font-weight: 700; letter-spacing: 0.04em; }
 .room-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--track); }
-.card-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-width: 0; }
-/* Format tag: the same pill as the room, outlined rather than filled so the two
-   read as different kinds of fact at a glance. */
+/* Format on the card rides the line it already ends with, rather than a pill
+   beside the room — the room tag is a different width on every card, so a pill
+   after it started at a different place each time and the grid read as ragged.
+   Here it is flush left on every card and on one baseline across a row. */
+.session-format { font-weight: 700; color: var(--type-tint, var(--muted)); }
+.session-format--presentation { --type-tint: #0d5e9d; }
+.session-format--discussion { --type-tint: #c6597b; }
+.session-format--workshop { --type-tint: #c55a11; }
+
+/* The dialog has room for the pill proper. */
 .type-tag {
   display: inline-flex;
   align-items: center;
