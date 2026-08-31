@@ -128,17 +128,22 @@ function roomPlacement(session) {
   };
 }
 
+/** The schedule writes an unnamed speaker as TBC; case varies by row. */
+function isTbc(speaker) {
+  return String(speaker || "").trim().toLowerCase() === "tbc";
+}
+
 function speakersText(speakers) {
   if (!speakers || !speakers.length) return "";
-  if (speakers.length === 1 && speakers[0] === "tbc") return "Speakers: to be confirmed.";
+  if (speakers.length === 1 && isTbc(speakers[0])) return "Speakers: to be confirmed.";
   return `Speakers: ${speakers.map((s) => (s === "tbc" ? "tbc" : s)).join("; ")}.`;
 }
 
 function speakersPreview(speakers) {
   if (!speakers || !speakers.length) return "";
-  if (speakers.length === 1 && speakers[0] === "tbc") return "Speakers to be confirmed";
+  if (speakers.length === 1 && isTbc(speakers[0])) return "Speakers to be confirmed";
   const names = speakers
-    .filter((speaker) => speaker && speaker !== "tbc")
+    .filter((speaker) => speaker && !isTbc(speaker))
     .slice(0, 2)
     .map((speaker) => speaker.replace(/\s*\(.+\)\s*$/, ""));
   if (!names.length) return "Speakers to be confirmed";

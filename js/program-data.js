@@ -65,7 +65,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               ],
               "theme": "",
               "speakers": [
-                "MŠMT, European Commission, KPR, Charles University and DZS (TBC)"
+                "MŠMT, EK?, KPR?, UK?, DZS"
               ],
               "format": "plenary",
               "type": "presentation"
@@ -367,7 +367,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               "speakers": [
                 "Shiv Kumar Tripathi (Berlin School of Business and Innovation)",
                 "Kyriakos Kouveliotis (Berlin School of Business and Innovation)",
-                "Pankaj Mittal (TBC)"
+                "Pankaj Mittal?"
               ],
               "format": "workshop",
               "type": "workshop",
@@ -469,7 +469,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               "speakers": [
                 "Lucia Miadoková (Slovak University of Technology)",
                 "Nodir Ismailov (Fergana State Technical University)",
-                "Jana Burešová (TBC)"
+                "Jana Burešová, TBC"
               ],
               "format": "session",
               "type": "workshop",
@@ -482,7 +482,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               ],
               "theme": "global-partnerships",
               "speakers": [
-                "Beate Körner (DAAD, TBC)"
+                "Beate Körner, DAAD, TBC"
               ],
               "format": "session",
               "type": "presentation"
@@ -571,7 +571,6 @@ window.CEEDUCON_PROGRAM_DATA = {
               "theme": "global-partnerships",
               "speakers": [
                 "Silvia Riegler (Central CEEPUS Office)",
-                "Anikó Korenchy (TPF)",
                 "Mediha Ohranović (University of Graz)",
                 "Dominik Opatrný (Palacky University Olomouc)",
                 "Andrea Toldi (University of Debrecen)",
@@ -589,7 +588,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               "theme": "challenges-internationalisation",
               "speakers": [
                 "Jiřina Fryčová (MŠMT)",
-                "tbc"
+                "TBC"
               ],
               "format": "session",
               "type": "discussion",
@@ -629,7 +628,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               ],
               "theme": "",
               "speakers": [
-                "tbc"
+                "TBC"
               ],
               "format": "session",
               "type": "presentation"
@@ -803,7 +802,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               "speakers": [
                 "Marta Hochmal (Prague University of Economics and Business)",
                 "Iga Fijołek (Kozminski University)",
-                "tbc"
+                "TBC"
               ],
               "format": "online",
               "type": "workshop",
@@ -818,7 +817,8 @@ window.CEEDUCON_PROGRAM_DATA = {
               "speakers": [
                 "Veronika Plchová (ESN Czechia)",
                 "Jakub Starý (ESN Czechia)",
-                "Zuzanna Łapot-Myszewska (Czech University of Life Sciences Prague), Maksud Safaraliyev (University of West Bohemia in Pilsen)"
+                "Zuzanna Łapot-Myszewska (Czech University of Life Sciences Prague)",
+                "Maksud Safaraliyev (University of West Bohemia in Pilsen)"
               ],
               "format": "session",
               "type": "discussion",
@@ -918,8 +918,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               "theme": "recruitment-retention",
               "speakers": [
                 "Daniel Casten (Sycamore International)",
-                "Uwe Brandenburg (Global Impact Institute)",
-                "Katrin Kiisler (Ministry of Education and Research of Estonia)"
+                "Uwe Brandenburg (Global Impact Institute)"
               ],
               "format": "session",
               "type": "presentation",
@@ -1054,7 +1053,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               ],
               "theme": "",
               "speakers": [
-                "tbc"
+                "TBC"
               ],
               "format": "session",
               "type": "presentation"
@@ -1066,7 +1065,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               ],
               "theme": "technological-shift",
               "speakers": [
-                "tbc"
+                "TBC"
               ],
               "format": "session",
               "type": "presentation"
