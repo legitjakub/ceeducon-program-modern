@@ -31,7 +31,7 @@ if (!defined('ABSPATH')) {
         </a>
         <?php ceeducon_render_navigation('header-nav', __('Main navigation', 'ceeducon-program')); ?>
         <div class="header-actions">
-          <?php $ceeducon_registration_url = (string) ceeducon_text_value('registration_url', ''); ?>
+          <?php $ceeducon_registration_url = ceeducon_registration_url(); ?>
           <?php if ($ceeducon_registration_url !== '') : ?>
             <a class="header-cta" href="<?php echo esc_url($ceeducon_registration_url); ?>" target="_blank" rel="noreferrer">
               <span><?php echo esc_html(ceeducon_text_value('nav_cta_register', __('Register', 'ceeducon-program'))); ?></span>

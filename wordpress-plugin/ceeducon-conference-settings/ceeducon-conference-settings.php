@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CEEDUCON Conference Edition
  * Description: One central WordPress screen for the CEEDUCON details that change every year.
- * Version: 1.3.0
+ * Version: 1.4.0
  * Requires at least: 6.5
  * Requires PHP: 8.0
  * Author: CEEDUCON
@@ -185,6 +185,42 @@ function ceeducon_edition_lcfirst(string $value): string
         ? mb_strtolower(mb_substr($value, 0, 1)) . mb_substr($value, 1)
         : lcfirst($value);
 }
+
+/**
+ * A default only applies while a value has never been saved. The edition screen
+ * saves every field at once, so an install that was set up once holds the
+ * defaults of that day — including "Registration opens in September", which is
+ * now wrong and cannot be reached by shipping a new default.
+ *
+ * Rewrite such a value only when it is still byte-for-byte the superseded
+ * default, which means nobody ever edited it. Anything a human touched is left
+ * alone, and running this twice changes nothing.
+ */
+function ceeducon_edition_migrate_superseded_defaults(): void
+{
+    $settings = get_option(CEEDUCON_EDITION_OPTION, []);
+    if (!is_array($settings) || $settings === []) {
+        return;
+    }
+
+    $superseded = [
+        'registration_text' => ['Registration opens in September' => 'Registration is open'],
+    ];
+
+    $changed = false;
+    foreach ($superseded as $key => $replacements) {
+        $current = isset($settings[$key]) ? (string) $settings[$key] : '';
+        if ($current !== '' && isset($replacements[$current])) {
+            $settings[$key] = $replacements[$current];
+            $changed = true;
+        }
+    }
+
+    if ($changed) {
+        update_option(CEEDUCON_EDITION_OPTION, $settings);
+    }
+}
+add_action('admin_init', 'ceeducon_edition_migrate_superseded_defaults');
 
 function ceeducon_edition_token_values(array $tokens): array
 {

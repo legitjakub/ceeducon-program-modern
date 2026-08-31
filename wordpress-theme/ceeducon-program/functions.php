@@ -495,7 +495,7 @@ function ceeducon_render_mobile_navigation(): void
     echo '<div class="mobile-menu-actions">';
     // The header button is hidden on the narrowest bars, so registration leads
     // the overlay actions. Renders only once a registration URL is set.
-    $registration_url = (string) ceeducon_text_value('registration_url', '');
+    $registration_url = ceeducon_registration_url();
     if ($registration_url !== '') {
         echo ceeducon_render_block_button(
             (string) ceeducon_text_value('nav_cta_register_long', __('Register for CEEDUCON 2026', 'ceeducon-program')),
@@ -584,6 +584,19 @@ function ceeducon_programme_ui_requested(bool $request = false): bool
         $requested = true;
     }
     return $requested;
+}
+
+/**
+ * The registration form. The edition plugin's Registration URL wins when it is
+ * filled in; this default keeps the button working on an install where nobody
+ * has filled it, which is how every other value in this theme behaves. It was
+ * the one field left empty, from back when registration had not opened yet.
+ */
+function ceeducon_registration_url(): string
+{
+    $url = trim((string) ceeducon_text_value('registration_url', ''));
+
+    return $url !== '' ? $url : 'https://dzs.attendu.com/event/46636e257ee8dd1b8659138c/?p=699431c27ede6cd9c80c7445&lang=en';
 }
 
 function ceeducon_default_programme_json(): string

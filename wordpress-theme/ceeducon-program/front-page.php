@@ -16,7 +16,7 @@ if (ceeducon_render_block_page_content()) {
 $event_month = preg_replace('/<br\s*\/?>/i', ' ', ceeducon_text_value('event_month', 'Dec 2026'));
 $event_month = trim((string) preg_replace('/\s+/', ' ', wp_strip_all_tags((string) $event_month)));
 $registration_value = ceeducon_text_value('event_row_4_value', 'Registration is open');
-$registration_url = ceeducon_text_value('registration_url', '');
+$registration_url = ceeducon_registration_url();
 $hero_kicker = ceeducon_text_value('home_hero_kicker', '{{event_title}} · CZECHIA');
 $hero_image = (array) apply_filters('ceeducon_home_hero_image', [
     'id' => 0,
