@@ -11,7 +11,7 @@
   "attributes": {
     "kicker": { "type": "string", "default": "Interactive programme" },
     "title": { "type": "string", "default": "Find the right session faster." },
-    "intro": { "type": "string", "default": "Search the programme, compare rooms and times, filter by theme and keep your personal selection in one place." }
+    "intro": { "type": "string", "default": "Search the programme, compare rooms and times, filter by theme or format and keep your personal selection in one place." }
   },
   "supports": { "html": false, "align": false, "color": false, "spacing": false, "typography": false },
   "editorScript": "file:./edit.js",

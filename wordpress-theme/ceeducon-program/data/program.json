@@ -67,7 +67,8 @@
               "speakers": [
                 "MŠMT, European Commission, KPR, Charles University and DZS (TBC)"
               ],
-              "format": "plenary"
+              "format": "plenary",
+              "type": "presentation"
             }
           ]
         },
@@ -96,7 +97,8 @@
               "speakers": [
                 "ACA, Erasmus+ directors"
               ],
-              "format": "plenary"
+              "format": "plenary",
+              "type": "discussion"
             },
             {
               "title": "Youth Volunteering and Civic Engagement: Opportunities within the European Solidarity Corps",
@@ -107,7 +109,8 @@
               "speakers": [
                 "Vendula Hojková (DZS)"
               ],
-              "format": "workshop"
+              "format": "workshop",
+              "type": "workshop"
             },
             {
               "title": "Building Bridges across Continents: Student Leadership for Global Higher Education Partnerships",
@@ -119,7 +122,8 @@
                 "Louis Brau (European Students' Union)",
                 "Silke Preymann (FH Oberösterreich Studienbetriebs GmbH)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Central Europe, Global Issues- Satisfaction of Germany, Czech Republic and Poland as Mobility Destination",
@@ -132,7 +136,8 @@
                 "Phillip Höhne (ESN Germany)",
                 "Jakub Starý (ESN Czechia)"
               ],
-              "format": "online"
+              "format": "online",
+              "type": "workshop"
             },
             {
               "title": "Reshaping International Offices",
@@ -145,7 +150,8 @@
                 "Alexis Carriere (IMT Mines Albi)",
                 "Jelizaveta Getta (Charles University)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "When Internationalisation Gets Real",
@@ -158,7 +164,8 @@
                 "Simona Tichá (Comenius University Bratislava)",
                 "Petra Javorčíková (Comenius University Bratislava)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "From Search to Choice: How AI Is Reshaping the International Student Journey",
@@ -171,7 +178,8 @@
                 "Jeroen Van Dijk (Royal College of Art)",
                 "Guus Goorts (Education Marketing Coach)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "Small Is Strong: Leveraging Institutional Agility for a Student-Centred Recruitment-to-Retention Lifecycle",
@@ -183,7 +191,8 @@
                 "Katalin Linda Krajczár-Sári (University of Sopron)",
                 "Daria Mlejnková (Technical University of Liberec)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             }
           ]
         },
@@ -214,7 +223,8 @@
                 "Malgorzata Fialkowska-Filipek (Wroclaw University of Science and Technology)",
                 "Paolo Machado (Lusofona University)"
               ],
-              "format": "workshop"
+              "format": "workshop",
+              "type": "workshop"
             },
             {
               "title": "Index of Internationalisation: Measuring Internationalisation from Students' Perspective",
@@ -226,7 +236,8 @@
                 "Ester Kunštátová (DZS)",
                 "Michal Uhl (DZS)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Inclusive and Resilient Internationalisation: Overcoming Barriers through Innovative Mobility in Teacher Education",
@@ -238,7 +249,8 @@
                 "Marina Olmos-Soria (University of Murcia)",
                 "Wilfried Admiraal (Oslo Metropolitan University)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Supporting Admissions through Structured Quality Assurance Data: The EQAR Knowledge Base",
@@ -249,7 +261,8 @@
               "speakers": [
                 "Aleksandra Zhivkovikj (EQAR)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "The Digital Future of European Mobility: Enter ESCI+",
@@ -260,7 +273,8 @@
               "speakers": [
                 "Giacomo Bulian (NTT DATA)"
               ],
-              "format": "online"
+              "format": "online",
+              "type": "workshop"
             },
             {
               "title": "The End of Neutral Internationalisation: Why Universities Can No Longer Pretend Geopolitics Doesn't Exist",
@@ -271,7 +285,8 @@
               "speakers": [
                 "Andres Gomez (Esic University)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Teacher Education Network (TEN): Initiatives, Mobilities, Projects!",
@@ -283,7 +298,8 @@
                 "Oliver Holz (KU Leuven)",
                 "Jolien Vercammen (KU Leuven)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Anchoring an European University Alliance - European Campus Hainburg",
@@ -294,7 +310,8 @@
               "speakers": [
                 "Jiří Nantl (University of Applied Sciences St Pölten)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "At the Front Line of Change: Young Professionals in IHE",
@@ -306,7 +323,8 @@
                 "Cecilia Albe (EAIE)",
                 "Simone Lepore (ESN)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             }
           ]
         },
@@ -336,7 +354,8 @@
                 "Kyriakos Kouveliotis (Berlin School of Business and Innovation)",
                 "Pankaj Mittal (TBC)"
               ],
-              "format": "workshop"
+              "format": "workshop",
+              "type": "workshop"
             },
             {
               "title": "Crafting Change: International Peer Reviews as a Tool in Advancing Internationalisation",
@@ -349,7 +368,8 @@
                 "Alenka Flander (CMEPIUS)",
                 "Roman Klepetko (DZS)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "Mapping the Use of Artificial Intelligence in Higher Education Marketing: Insights and Practical Application",
@@ -360,7 +380,8 @@
               "speakers": [
                 "Rita Csúri-Magosi (University of Szeged)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "How to Ruin Your BIP in 10 Easy Steps – What It Reveals About International Partnerships (And What Can We Learn from It)",
@@ -373,7 +394,8 @@
                 "Veronika Meca (VSB-TUO)",
                 "Monika Krejzková (VSB-TUO)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "workshop"
             },
             {
               "title": "Turning Mobility into Partnership: Data Driven Networks between the U.S. and Central Europe",
@@ -387,7 +409,8 @@
                 "Charles Hornstra (EducationUSA)",
                 "Gordana Mirchikj (EducationUSA)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "Mental Health of Mobile Students Before During and After.",
@@ -400,7 +423,8 @@
                 "Abdulkadir Golcü (Selcuk University)",
                 "Celine Guerin (Erasmus Student Network)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "From ESCI to ESCI+",
@@ -411,7 +435,8 @@
               "speakers": [
                 "Victor Aguilar (European Commission, DG EAC)"
               ],
-              "format": "online"
+              "format": "online",
+              "type": "workshop"
             },
             {
               "title": "Making Erasmus+ ICM Work in Practice: What Actually Keeps Mobility Running Smoothly",
@@ -424,7 +449,8 @@
                 "Nodir Ismailov (Fergana State Technical University)",
                 "Jana Burešová (TBC)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "workshop"
             },
             {
               "title": "DAAD: From the Few to the Many: How Do European Universities Alliances Inspire the Wider Higher Education Sector",
@@ -435,7 +461,8 @@
               "speakers": [
                 "Beate Körner (DAAD, TBC)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             }
           ]
         },
@@ -466,7 +493,8 @@
                 "Rúna Gudmarsdóttir (RANNIS)",
                 "Eveke de Louw (The Hague University of Applied Sciences)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Beyond Matching: How Quality-Based Digital Traineeship Infrastructures Can Reduce Visibility and Trust Gaps across Europe",
@@ -480,7 +508,8 @@
                 "Monika Kasova (EDUCA international o.p.s.)",
                 "Maruta Funta (University of Latvia)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "Bridging the Innovation Gap: A Hands-On Toolkit for European University Alliances and Industry Cooperation",
@@ -492,7 +521,8 @@
                 "Karolína Šedivcová (Charles University)",
                 "Veronika Haissingerová (Charles University)"
               ],
-              "format": "workshop"
+              "format": "workshop",
+              "type": "workshop"
             },
             {
               "title": "ESCI and EWP: How to Deal with Parallel Processes?",
@@ -503,7 +533,8 @@
               "speakers": [
                 "Maximilian Pinnen (DAAD)"
               ],
-              "format": "online"
+              "format": "online",
+              "type": "workshop"
             },
             {
               "title": "Building Sustainable Academic Partnerships: The CEEPUS Perspective",
@@ -519,7 +550,8 @@
                 "Andrea Toldi (University of Debrecen)",
                 "Cezary Mankowski (University of Gdansk)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "Responsible Internationalisation in Practice: Navigating Openness and Risk",
@@ -531,7 +563,8 @@
                 "Jiřina Fryčová (MŠMT)",
                 "tbc"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "The Art of Welcoming with a Closed Door: Talent Attraction and Retention in the Nordics",
@@ -543,7 +576,8 @@
                 "Darko Pantelic (Jönköping International Business School)",
                 "Sandra Slotte (Future Place Leadership)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Mythology of Erasmus Final Reports",
@@ -554,7 +588,8 @@
               "speakers": [
                 "Ondřej Votinský (Czech University of Life Sciences Prague)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "FRSE Session — Details to Be Confirmed",
@@ -565,7 +600,8 @@
               "speakers": [
                 "tbc"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             }
           ]
         }
@@ -592,7 +628,8 @@
                 "Daniel Kopitz (University of Ostrava)",
                 "Anna Dobošová (University of Ostrava)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Internationalisation at Home through COIL: Connecting First-Generation Students Across Continents",
@@ -604,7 +641,8 @@
                 "Adrian Gardner (University of Central Arkansas)",
                 "Nicole Horáková Hirschlerová (University of Ostrava)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Microlearning Modules on AI for University Teachers",
@@ -616,7 +654,8 @@
                 "Tatjana Atanasoska (PH Oberösterreich)",
                 "Nora Czechovsky (PH Oberösterreich)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Global Competence Is Not Enough: International Education in the Disinformation Age",
@@ -627,7 +666,8 @@
               "speakers": [
                 "Todd Nesbitt (SUNY Empire State University)"
               ],
-              "format": "workshop"
+              "format": "workshop",
+              "type": "workshop"
             },
             {
               "title": "Internationalisation Without Borders: Virtual Mobility, Structured Certification, and Intercultural Learning in the EUPeace Alliance",
@@ -640,7 +680,8 @@
                 "Kirsten Apel (Justus Liebig University Giessen)",
                 "Jiří Kohout (University of West Bohemia in Pilsen)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Testing Data-Driven Marketing in High-Priority, Low-Awareness Markets",
@@ -651,7 +692,8 @@
               "speakers": [
                 "Max Maccarone (Swedish Institute)"
               ],
-              "format": "online"
+              "format": "online",
+              "type": "workshop"
             },
             {
               "title": "KA2 Groundbreaking Erasmus+ Project: EQuIP (Enhancing Quality Assessment in International Partnerships)",
@@ -663,7 +705,8 @@
                 "Annika Treiber (HAN University of Applied Sciences)",
                 "Jannicke Holmseth Bukve (HVL Western Norway University of Applied Sciences)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "From Signature to Impact: Making Partnerships Work Across Regions",
@@ -676,7 +719,8 @@
                 "Markéta Novotná (Masaryk University)",
                 "Jenny Oesterle-El Nabbout (University of Regensburg)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Czech Pathways to Research Security: Embedding Risk-Aware Practices in University Structures and Processes",
@@ -690,7 +734,8 @@
                 "Valérie Hůrská (Charles University)",
                 "Iveta Šimberová (Brno University of Technology)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             }
           ]
         },
@@ -720,7 +765,8 @@
                 "Iga Fijołek (Kozminski University)",
                 "tbc"
               ],
-              "format": "online"
+              "format": "online",
+              "type": "workshop"
             },
             {
               "title": "From Admission to Integration: Challenges of Full-Degree International Students in Czechia",
@@ -733,7 +779,8 @@
                 "Jakub Starý (ESN Czechia)",
                 "Zuzanna Łapot-Myszewska (Czech University of Life Sciences Prague), Maksud Safaraliyev (University of West Bohemia in Pilsen)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "Artificial Intelligence as a Co-Leader: A Hands-on Approach to Agile Learning in International Classrooms",
@@ -744,7 +791,8 @@
               "speakers": [
                 "Jarosław Tomaszewski (WSB Merito University in Wrocław)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "workshop"
             },
             {
               "title": "Are Universities Structurally Ready for Deep International Partnerships, or Are Individuals Compensating for Institutional Gaps?",
@@ -757,7 +805,8 @@
                 "Agata Mannino (Chemnitz University of Technology)",
                 "Francesco Girotti (University of Bologna)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Designing Sustainable Partnerships: A Practice-Based Workshop on Engaging Ukrainian and Accession Country Universities",
@@ -770,7 +819,8 @@
                 "Rafał Witkowski (Adam Mickiewicz University)",
                 "Michael Hall (Munster Technological University)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "workshop"
             },
             {
               "title": "Breaking the Routine: AI Automation for the Modern Admin",
@@ -781,7 +831,8 @@
               "speakers": [
                 "Daria Mlejnková (Technical University of Liberec)"
               ],
-              "format": "workshop"
+              "format": "workshop",
+              "type": "workshop"
             },
             {
               "title": "Unlocking Potential: Tools and Strategies for Empowering Academic Collaboration in Multi-Actor Networks",
@@ -794,7 +845,8 @@
                 "Magdalena Sikorska (EUNICE European University)",
                 "Anna Stina Sinisalo (University of Helsinki)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Designing Institutional Pathways for First-Year International Students",
@@ -807,7 +859,8 @@
                 "Georgina Kasza (Tempus Public Foundation)",
                 "Csilla Szabó (Tempus Public Foundation)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Internationalisation of Doctoral Education – From the IRO to Doctoral Supervision",
@@ -820,7 +873,8 @@
                 "Uwe Brandenburg (Global Impact Institute)",
                 "Katrin Kiisler (Ministry of Education and Research of Estonia)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             }
           ]
         },
@@ -849,7 +903,8 @@
                 "Jeanne Cuny (European Students' Union)",
                 "Tekla Gaál (Eötvös Loránd University)"
               ],
-              "format": "workshop"
+              "format": "workshop",
+              "type": "workshop"
             },
             {
               "title": "Why EDI Matters in Academic Partnerships: The Role of the Coimbra Group in Advancing Inclusive Universities",
@@ -863,7 +918,8 @@
                 "Emmanuelle Gardan (Coimbra Group)",
                 "Siobán O'Brien Green (Trinity College Dublin)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "Career Pathways as a Magnet: Attracting and Retaining International Talent in Czechia",
@@ -874,7 +930,8 @@
               "speakers": [
                 "Linnea Lindgren (Global Outreach and Student Retention Strategist at Study in Sweden)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Beyond Borders: Supporting Gen Z from EU and Africa in UNICIA Erasmus+ Virtual Exchange Project",
@@ -887,7 +944,8 @@
                 "Ewa Michałkiewicz-Kądziela (University of Szczecin)",
                 "Lenka Badinská (University of Hradec Králové)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "From Partnerships to Ecosystems: Governing European University Alliances",
@@ -901,7 +959,8 @@
                 "Ivona Barešová (Palacký University Olomouc)",
                 "Ladislav Janíček (Brno University of Technology)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "Blended Intensive Programs and Short Program Opportunities: Strategies for Successful Design and Implementation",
@@ -913,7 +972,8 @@
                 "Jana Snížková (Prague University of Economics and Business)",
                 "Christina Kampe (Vienna University of Economics and Business)"
               ],
-              "format": "online"
+              "format": "online",
+              "type": "workshop"
             },
             {
               "title": "Beyond the Welcome Desk: Strategic Talent Development Throughout the Academic Lifecycle",
@@ -928,7 +988,8 @@
                 "Maciej Jazdzewski (University of Lodz)",
                 "Katarzyna Basisty (University of Warsaw)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "OeAD Session — Details to Be Confirmed",
@@ -939,7 +1000,8 @@
               "speakers": [
                 "tbc"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "US Experience in AI Impact on Higher Education (Potential, Risks and Challenges – Preliminary Title)",
@@ -950,7 +1012,8 @@
               "speakers": [
                 "tbc"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             }
           ]
         },
@@ -971,7 +1034,8 @@
                 "Lydia Tobiasova (Fulbright Commission Slovakia)",
                 "Ewa Czarnojan (Fulbright Commission Poland)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "What Do They Want?! - How Student-Focused Surveys Lead to Data-Driven Decisions",
@@ -984,7 +1048,8 @@
                 "Caleb House (Charles University)",
                 "Eva Marková (Czech Technical University)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Enhancing Professional Development for Higher Education Staff through Micro-Credentials",
@@ -996,7 +1061,8 @@
                 "Ida Velthoven (European University Foundation)",
                 "Fernando Cerdeira Pérez (University of Vigo)"
               ],
-              "format": "workshop"
+              "format": "workshop",
+              "type": "workshop"
             },
             {
               "title": "Building Sustainable Global and Regional Partnerships through Complementary Funding Frameworks: The Charles University – Macquarie University Case",
@@ -1009,7 +1075,8 @@
                 "Agnieszka Baginska (Macquarie University)",
                 "Tomáš Karásek (Charles University)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "Attracting, Admitting and Supporting International Students in Europe",
@@ -1022,7 +1089,8 @@
                 "Martin Mejstrik (Charles University)",
                 "Phillip Höhne (ESN)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "Labelling Europe for a Global Higher Education Area",
@@ -1035,7 +1103,8 @@
                 "Ulrike Krawagna (University of Graz)",
                 "Samira Bonucci (University of Padova)"
               ],
-              "format": "online"
+              "format": "online",
+              "type": "workshop"
             },
             {
               "title": "Rethinking Internationalisation through European University Alliances",
@@ -1049,7 +1118,8 @@
                 "John Gardiner (Ulysseus European University Alliance)",
                 "Fernando Pérez (SEA-EU European University Alliance)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "discussion"
             },
             {
               "title": "Driving Sustainable Change in Erasmus+: Practical Steps for Greener Internationalisation",
@@ -1061,7 +1131,8 @@
                 "Neli Kalinova-Schmieder (Erasmus Student Network)",
                 "Peter Alexander Edinger (Technical University of Denmark)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             },
             {
               "title": "Inclusive Mobility: Real Stories, Real Solutions",
@@ -1074,7 +1145,8 @@
                 "Christina Bohle (Humboldt University)",
                 "Martin Bogdan (ACA)"
               ],
-              "format": "session"
+              "format": "session",
+              "type": "presentation"
             }
           ]
         },
@@ -1101,7 +1173,8 @@
               ],
               "theme": "",
               "speakers": [],
-              "format": "plenary"
+              "format": "plenary",
+              "type": "presentation"
             }
           ]
         },
@@ -1137,6 +1210,23 @@
       "id": "plenary",
       "label": "Plenary",
       "color": "#0d5e9d"
+    }
+  ],
+  "types": [
+    {
+      "id": "presentation",
+      "label": "Presentation",
+      "color": "#0d5e9d"
+    },
+    {
+      "id": "discussion",
+      "label": "Discussion",
+      "color": "#c6597b"
+    },
+    {
+      "id": "workshop",
+      "label": "Workshop",
+      "color": "#ec722f"
     }
   ]
 }

@@ -23,6 +23,7 @@ const state = {
   data: null,
   dayIndex: 0,
   theme: "",
+  type: "",
   period: "",
   query: "",
   favoritesOnly: false,
@@ -37,6 +38,7 @@ const elements = {
   schedule: document.querySelector("[data-schedule]"),
   dayBar: document.querySelector("[data-day-bar]"),
   themeFilters: document.querySelector("[data-theme-filters]"),
+  typeFilters: document.querySelector("[data-type-filters]"),
   periodFilters: document.querySelector("[data-period-filters]"),
   search: document.getElementById("program-search"),
   resultCount: document.querySelector("[data-result-count]"),
@@ -91,6 +93,15 @@ function getFormatLabel(formatId) {
   return formatById(formatId)?.label || formatId || "Conference session";
 }
 
+function typeById(id) {
+  return (state.data.types || []).find((type) => type.id === id);
+}
+
+/** Workshop / discussion / presentation, as marked up in the organisers' schedule. */
+function getTypeLabel(typeId) {
+  return typeById(typeId)?.label || "";
+}
+
 function getSessionCategoryLabel(session) {
   return getThemeLabel(session.theme) || getFormatLabel(session.format);
 }
@@ -130,7 +141,7 @@ function speakersPreview(speakers) {
 }
 
 function activeFilters() {
-  return Boolean(state.theme || state.period || state.query || state.favoritesOnly);
+  return Boolean(state.theme || state.type || state.period || state.query || state.favoritesOnly);
 }
 
 function matchesSlotPeriod(slot) {
@@ -144,16 +155,17 @@ function matchesSlotPeriod(slot) {
 
 function matchesSession(session, id) {
   if (state.theme && session.theme !== state.theme) return false;
+  if (state.type && session.type !== state.type) return false;
   if (state.favoritesOnly && !state.favorites.has(id)) return false;
   if (state.query) {
-    const haystack = `${session.title} ${session.rooms.join(" ")} ${getSessionCategoryLabel(session)} ${getFormatLabel(session.format)} ${(session.speakers || []).join(" ")}`.toLocaleLowerCase("en");
+    const haystack = `${session.title} ${session.rooms.join(" ")} ${getSessionCategoryLabel(session)} ${getFormatLabel(session.format)} ${getTypeLabel(session.type)} ${(session.speakers || []).join(" ")}`.toLocaleLowerCase("en");
     if (!haystack.includes(state.query)) return false;
   }
   return true;
 }
 
 function matchesBreakSlot(slot) {
-  if (state.theme || state.favoritesOnly) return false;
+  if (state.theme || state.type || state.favoritesOnly) return false;
   if (state.query) {
     return `${slot.title || ""}`.toLocaleLowerCase("en").includes(state.query);
   }
@@ -181,6 +193,16 @@ function renderFilters() {
       style="--chip-color:${escapeHtml(theme.color)}"
       aria-pressed="${state.theme === theme.id}"
     ><i></i><span>${escapeHtml(theme.label)}</span></button>
+  `).join("");
+
+  elements.typeFilters.innerHTML = (state.data.types || []).map((type) => `
+    <button
+      class="filter-chip${state.type === type.id ? " is-active" : ""}"
+      type="button"
+      data-type-filter="${escapeHtml(type.id)}"
+      style="--chip-color:${escapeHtml(type.color)}"
+      aria-pressed="${state.type === type.id}"
+    ><i></i><span>${escapeHtml(type.label)}</span></button>
   `).join("");
 
   elements.periodFilters.innerHTML = PERIODS.map((period) => `
@@ -314,6 +336,7 @@ function updateFavoritesUI() {
 
 function resetFilters() {
   state.theme = "";
+  state.type = "";
   state.period = "";
   state.query = "";
   state.favoritesOnly = false;
@@ -474,6 +497,13 @@ function bindEvents() {
     const button = event.target.closest("[data-theme-filter]");
     if (!button) return;
     state.theme = state.theme === button.dataset.themeFilter ? "" : button.dataset.themeFilter;
+    render();
+  });
+
+  elements.typeFilters.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-type-filter]");
+    if (!button) return;
+    state.type = state.type === button.dataset.typeFilter ? "" : button.dataset.typeFilter;
     render();
   });
 

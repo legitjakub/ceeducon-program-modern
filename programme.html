@@ -99,7 +99,7 @@
               <p class="kicker">Interactive programme</p>
               <h2 class="display-2">Find the right session faster.</h2>
             </div>
-            <p data-reveal="2">Search the programme, compare rooms and times, filter by theme and keep your personal selection in one place.</p>
+            <p data-reveal="2">Search the programme, compare rooms and times, filter by theme or format and keep your personal selection in one place.</p>
           </div>
 
           <div class="day-bar" data-day-bar aria-label="Day selection"></div>
@@ -127,6 +127,10 @@
                 <div class="filter-chips" data-theme-filters></div>
               </div>
               <div class="filter-group">
+                <div class="filter-label"><span>Format</span></div>
+                <div class="filter-chips" data-type-filters></div>
+              </div>
+              <div class="filter-group">
                 <div class="filter-label"><span>Time</span></div>
                 <div class="filter-chips filter-chips--periods" data-period-filters></div>
               </div>
@@ -147,7 +151,7 @@
           </noscript>
 
           <div class="empty-state" data-empty hidden>
-            <span>0</span><h3>No session matches your selection</h3><p>Try another theme, time or search term.</p><button type="button" data-empty-reset>Show full programme</button>
+            <span>0</span><h3>No session matches your selection</h3><p>Try another theme, format, time or search term.</p><button type="button" data-empty-reset>Show full programme</button>
           </div>
         </div>
       </section>

@@ -38,6 +38,10 @@ if (!defined('ABSPATH')) {
           <div class="filter-chips" data-theme-filters></div>
         </div>
         <div class="filter-group">
+          <div class="filter-label"><span><?php esc_html_e('Format', 'ceeducon-program'); ?></span></div>
+          <div class="filter-chips" data-type-filters></div>
+        </div>
+        <div class="filter-group">
           <div class="filter-label"><span><?php esc_html_e('Time', 'ceeducon-program'); ?></span></div>
           <div class="filter-chips filter-chips--periods" data-period-filters></div>
         </div>
@@ -51,7 +55,7 @@ if (!defined('ABSPATH')) {
     <div class="schedule" data-schedule aria-live="polite"></div>
 
     <div class="empty-state" data-empty hidden>
-      <span>0</span><h3><?php esc_html_e('No session matches your selection', 'ceeducon-program'); ?></h3><p><?php esc_html_e('Try another theme, time or search term.', 'ceeducon-program'); ?></p><button type="button" data-empty-reset><?php esc_html_e('Show full programme', 'ceeducon-program'); ?></button>
+      <span>0</span><h3><?php esc_html_e('No session matches your selection', 'ceeducon-program'); ?></h3><p><?php esc_html_e('Try another theme, format, time or search term.', 'ceeducon-program'); ?></p><button type="button" data-empty-reset><?php esc_html_e('Show full programme', 'ceeducon-program'); ?></button>
     </div>
 
     <?php ceeducon_render_programme_seo_fallback(); ?>

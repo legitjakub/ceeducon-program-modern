@@ -1280,7 +1280,7 @@ function ceeducon_admin_content_fields(): array
             ['prog_card_text', 'Hero card text', '{{registration}} and participation is {{fee_lower}}. The programme remains subject to change.', 'textarea'],
             ['sched_kicker', 'Schedule kicker', 'Interactive programme', 'text'],
             ['sched_title', 'Schedule title', 'Find the right session faster.', 'textarea'],
-            ['sched_intro', 'Schedule intro', 'Search the programme, compare rooms and times, filter by theme and keep your personal selection in one place.', 'textarea'],
+            ['sched_intro', 'Schedule intro', 'Search the programme, compare rooms and times, filter by theme or format and keep your personal selection in one place.', 'textarea'],
         ],
         'Practical page' => [
             ['prac_hero_title', 'Hero title', 'Plan your visit to {{city}}.', 'textarea'],

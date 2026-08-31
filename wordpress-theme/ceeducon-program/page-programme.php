@@ -39,7 +39,7 @@ if (ceeducon_render_block_page_content()) {
               <p class="kicker"><?php ceeducon_text('sched_kicker', 'Interactive programme'); ?></p>
               <h2 class="display-2"><?php ceeducon_text('sched_title', 'Find the right session faster.'); ?></h2>
             </div>
-            <p data-reveal="2"><?php ceeducon_text('sched_intro', 'Search the programme, compare rooms and times, filter by theme and keep your personal selection in one place.'); ?></p>
+            <p data-reveal="2"><?php ceeducon_text('sched_intro', 'Search the programme, compare rooms and times, filter by theme or format and keep your personal selection in one place.'); ?></p>
           </div>
 
           <div class="day-bar" data-day-bar aria-label="Day selection"></div>
@@ -67,6 +67,10 @@ if (ceeducon_render_block_page_content()) {
                 <div class="filter-chips" data-theme-filters></div>
               </div>
               <div class="filter-group">
+                <div class="filter-label"><span><?php esc_html_e('Format', 'ceeducon-program'); ?></span></div>
+                <div class="filter-chips" data-type-filters></div>
+              </div>
+              <div class="filter-group">
                 <div class="filter-label"><span><?php esc_html_e('Time', 'ceeducon-program'); ?></span></div>
                 <div class="filter-chips filter-chips--periods" data-period-filters></div>
               </div>
@@ -80,7 +84,7 @@ if (ceeducon_render_block_page_content()) {
           <div class="schedule" data-schedule aria-live="polite"></div>
 
           <div class="empty-state" data-empty hidden>
-            <span>0</span><h3><?php esc_html_e('No session matches your selection', 'ceeducon-program'); ?></h3><p><?php esc_html_e('Try another theme, time or search term.', 'ceeducon-program'); ?></p><button type="button" data-empty-reset><?php esc_html_e('Show full programme', 'ceeducon-program'); ?></button>
+            <span>0</span><h3><?php esc_html_e('No session matches your selection', 'ceeducon-program'); ?></h3><p><?php esc_html_e('Try another theme, format, time or search term.', 'ceeducon-program'); ?></p><button type="button" data-empty-reset><?php esc_html_e('Show full programme', 'ceeducon-program'); ?></button>
           </div>
 
           <?php ceeducon_render_programme_seo_fallback(); ?>
