@@ -2105,7 +2105,11 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
     scroll-padding-inline: var(--pad);
     scroll-snap-type: x proximity;
     overscroll-behavior-inline: contain;
-    touch-action: pan-y pinch-zoom;
+    /* No touch-action here on purpose. "pan-y" told the browser this element
+       may only be panned vertically, so a sideways swipe on a phone did
+       nothing at all — the one gesture the carousel exists for. The default
+       lets the browser pick the axis: sideways scrolls the track, up and down
+       scrolls the page. */
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
