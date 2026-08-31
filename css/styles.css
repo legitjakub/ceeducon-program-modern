@@ -1803,13 +1803,16 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
 .modal-abstract p { margin: 0; }
 .modal-abstract p + p { margin-top: 0.95em; }
 /* Most abstracts run several hundred words. Show the opening and let the
-   reader ask for the rest, so the dialog opens at a readable length. */
-.modal-abstract.is-clamped { position: relative; max-height: 12.4em; overflow: hidden; }
+   reader ask for the rest, so the dialog opens at a readable length. Four
+   lines here: the dialog is 620px wide, so a line holds about twice what it
+   does on a phone — at seven lines two thirds of the abstracts cleared the
+   clamp and never offered the toggle at all. */
+.modal-abstract.is-clamped { position: relative; max-height: 7em; overflow: hidden; }
 .modal-abstract.is-clamped::after {
   content: "";
   position: absolute;
   inset: auto 0 0;
-  height: 3.4em;
+  height: 2.4em;
   background: linear-gradient(rgba(255, 255, 255, 0), var(--white) 82%);
   pointer-events: none;
 }
@@ -2299,6 +2302,9 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
   .session-modal { max-height: 92vh; padding: 30px 20px 22px; }
   .modal-close { margin: -20px -4px 0 0; }
   .modal-abstract { font-size: 14.5px; line-height: 1.7; }
+  /* A narrow line holds far less, so the phone keeps seven of them. */
+  .modal-abstract.is-clamped { max-height: 12.4em; }
+  .modal-abstract.is-clamped::after { height: 3.4em; }
   .modal-actions { grid-template-columns: 1fr; }
   .toast { left: 14px; right: 14px; bottom: 14px; min-width: 0; }
   .footer-ghost { font-size: clamp(56px, 17vw, 96px); }
