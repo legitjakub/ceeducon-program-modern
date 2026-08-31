@@ -64,6 +64,7 @@ if (!defined('ABSPATH')) {
           <div><span><?php esc_html_e('Time', 'ceeducon-program'); ?></span><strong data-modal-time></strong></div>
           <div><span><?php esc_html_e('Room', 'ceeducon-program'); ?></span><strong data-modal-room></strong></div>
         </div>
+        <div class="modal-abstract" data-modal-abstract hidden></div>
         <p class="modal-note" data-modal-note></p>
         <div class="modal-actions">
           <button type="button" data-modal-favorite><span>☆</span> <?php esc_html_e('Add to my programme', 'ceeducon-program'); ?></button>

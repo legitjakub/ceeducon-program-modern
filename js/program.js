@@ -57,6 +57,7 @@ const elements = {
   modalRoom: document.querySelector("[data-modal-room]"),
   modalFavorite: document.querySelector("[data-modal-favorite]"),
   modalNote: document.querySelector("[data-modal-note]"),
+  modalAbstract: document.querySelector("[data-modal-abstract]"),
   toast: document.querySelector("[data-toast]"),
 };
 
@@ -238,8 +239,8 @@ function buildSessionCard(day, slot, session) {
     format: formatLabel,
     color: theme.color,
     date: day.date,
+    abstract: session.abstract || "",
     speakers: session.speakers || [],
-    description: session.description || "",
   });
 
   return `
@@ -382,6 +383,19 @@ function toggleFavorite(id) {
   if (state.modalSessionId === id) updateModalFavorite();
 }
 
+/** Abstracts arrive as plain text with blank lines between paragraphs. */
+function renderAbstract(text) {
+  if (!elements.modalAbstract) return;
+  const paragraphs = String(text || "")
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+  elements.modalAbstract.hidden = paragraphs.length === 0;
+  elements.modalAbstract.innerHTML = paragraphs
+    .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+    .join("");
+}
+
 function openModal(id) {
   const session = state.sessionMap.get(id);
   if (!session) return;
@@ -393,8 +407,8 @@ function openModal(id) {
   elements.modalTrack.style.background = session.color;
   elements.modalTime.textContent = `${session.start} – ${session.end}`;
   elements.modalRoom.textContent = session.rooms.join(" + ");
+  renderAbstract(session.abstract);
   const parts = [];
-  if (session.description) parts.push(session.description);
   if (session.theme) parts.push(`Theme: ${session.theme}.`);
   parts.push(`Format: ${session.format}.`);
   const speakers = speakersText(session.speakers);

@@ -110,7 +110,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Vendula Hojková (DZS)"
               ],
               "format": "workshop",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "This workshop provides university staff with a structured introduction to the European Solidarity Corps, an EU-funded initiative that fosters youth volunteering and civic participation. The session will explore strategies for supporting student engagement in local and international solidarity activities and identify opportunities for institutional involvement."
             },
             {
               "title": "Building Bridges across Continents: Student Leadership for Global Higher Education Partnerships",
@@ -123,7 +124,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Silke Preymann (FH Oberösterreich Studienbetriebs GmbH)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "The NELS project (Next Level Skills for Student Leaders), funded by Erasmus+, connects student representatives from Europe and Sub-Saharan Africa through an online, credit-bearing training programme. Across two cycles, 1,200 participants developed leadership, digital, and intercultural competencies via peer learning. NELS models how equitable transcontinental partnerships — bridging ESU, AASU, and universities across both regions — can reshape global higher education cooperation."
             },
             {
               "title": "Central Europe, Global Issues- Satisfaction of Germany, Czech Republic and Poland as Mobility Destination",
@@ -137,7 +139,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Jakub Starý (ESN Czechia)"
               ],
               "format": "online",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "This 50-minute interactive session explores student satisfaction in Poland, Czech Republic and Germany as mobility destinations, based on the newest edition of the ESNsurvey data. Participants will compare strengths and challenges in HEI services, including academic support and integration. Through group discussions, they will co-create practical solutions to improve the mobility experience and enhance cooperation between students and institutions."
             },
             {
               "title": "Reshaping International Offices",
@@ -151,7 +154,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Jelizaveta Getta (Charles University)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "International offices are evolving, but what should they become? This round table session explores future possibilities for reshaping international offices as strategic partners in whole-institution internationalisation. In a turbulent geopolitical landscape, with roles expanding and expectations shifting, it is time to rethink how international offices work. Together we will reflect on shared challenges and untap the potential of future-oriented roles and collaboration models."
             },
             {
               "title": "When Internationalisation Gets Real",
@@ -165,7 +169,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Petra Javorčíková (Comenius University Bratislava)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "Internationalisation often succeeds or fails in moments when students need help with visas, residence permits, isolation or unclear procedures. This session shares how Comenius University built a Welcome Centre in response to severe challenges faced in 2024. With student wellbeing as a priority, the Centre has provided visa and residence support, run activities that connect students, co-created student support methodology with faculties, and engaged state authorities on policy and security."
             },
             {
               "title": "From Search to Choice: How AI Is Reshaping the International Student Journey",
@@ -179,7 +184,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Guus Goorts (Education Marketing Coach)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "AI is changing how prospective students discover universities, compare options, and make decisions. This panel explores what that means for the international student journey, with a focus on recruitment, university websites, digital visibility, and the role of student voices across online channels. Drawing on perspectives from recruitment marketing, student engagement, and higher education web strategy, the session will examine how universities can respond to shifting search behaviours and remain visible, trustworthy, and relevant in an AI-shaped digital environment."
             },
             {
               "title": "Small Is Strong: Leveraging Institutional Agility for a Student-Centred Recruitment-to-Retention Lifecycle",
@@ -192,7 +198,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Daria Mlejnková (Technical University of Liberec)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "Can mid-sized universities out-compete giants? This session argues \"Small is Strong\", leveraging institutional scale to catalyze student success and wellbeing. With >50% growth since 2021 and 50+ nationalities, we showcase how \"boutique\" journeys bridge silos from recruitment to alumni. Key pillars: the \"Human Connection\" via certified Peer Support and mental healthcare (StudentHelp), professionalized mentorship, and using institutional intimacy to foster a loyal, sustainable global community."
             }
           ]
         },
@@ -224,7 +231,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Paolo Machado (Lusofona University)"
               ],
               "format": "workshop",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "How can universities build sustainable partnerships without the overhead of massive alliances? Join this 30-minute Fishbowl featuring a three-institution project team. We share how we leveraged complementary resources to overcome structural hurdles in a joint didactic initiative. This dynamic session rotates presenters and invites you—the audience—into the \"hot seat\" to discuss balancing regional capacities and priorities through authentic, equitable collaboration."
             },
             {
               "title": "Index of Internationalisation: Measuring Internationalisation from Students' Perspective",
@@ -237,7 +245,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Michal Uhl (DZS)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "The session will present a Czech approach to measuring internationalisation of higher education from students' perspectives and give a first look at the unique results of the DZS Index of Internationalisation. The data was collected as part of the Eurostudent 9 survey where we introduced a complex set of questions and built an index which allows us to compare internationalisation at national, regional, institutional as well as ISCED levels and look in depth at the different challenges of internationalisation in Czechia."
             },
             {
               "title": "Inclusive and Resilient Internationalisation: Overcoming Barriers through Innovative Mobility in Teacher Education",
@@ -250,7 +259,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Wilfried Admiraal (Oslo Metropolitan University)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "This presentation explores how universities address structural, social, and financial barriers to internationalisation through inclusive and flexible mobility models in teacher education. Drawing on multi-country data, it highlights challenges and shares best practices such as hybrid formats and structured pathways. Participants will gain practical insights to foster equitable, meaningful, and resilient international experiences in a changing geopolitical context and policy landscape."
             },
             {
               "title": "Supporting Admissions through Structured Quality Assurance Data: The EQAR Knowledge Base",
@@ -262,7 +272,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Aleksandra Zhivkovikj (EQAR)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "The EQAR Knowledge Base is a core transparency tool in the EHEA, offering structured and open access data on topics such as (cross‑border) QA requirements and the use of the European Approach for Joint Programmes. The session will invite the participants to reflect on the updated tool, featuring new content and areas such as QA of transnational education and micro‑credentials, as well as to learn about how this data can be integrated in the digital systems for handling admission procedures."
             },
             {
               "title": "The Digital Future of European Mobility: Enter ESCI+",
@@ -274,7 +285,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Giacomo Bulian (NTT DATA)"
               ],
               "format": "online",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "Since 2017, the European Student Card Initiative (ESCI) has been supporting the digitalisation of Erasmus+. To prepare the ground for the next Programme, in 2026 the European Commission ran a large-scale consultation (including a survey and multiple in-person and online workshops) to design the future of ESCI together with the higher education community. This session will bring the results of the consultation to a broader audience, showcasing how ESCI+ can further contribute to student mobility."
             },
             {
               "title": "The End of Neutral Internationalisation: Why Universities Can No Longer Pretend Geopolitics Doesn't Exist",
@@ -286,7 +298,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Andres Gomez (Esic University)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "The assumption that universities can internationalise while remaining geopolitically neutral is no longer tenable. Drawing on Involuntary Geopolitical Alignment theory and evidence from European HEIs navigating Ukraine, China and EU regulatory shifts, this presentation proposes a diagnostic framework to map geopolitical exposure against strategic agency and offers four actionable tools for internationalisation offices."
             },
             {
               "title": "Teacher Education Network (TEN): Initiatives, Mobilities, Projects!",
@@ -299,7 +312,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Jolien Vercammen (KU Leuven)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "We aim to introduce the Teacher Education Network of the School of Education at KU Leuven (Belgium), an international collaborative network of teacher education institutions. It was created to strengthen quality, internationalisation and innovation in teacher education through sustainable collaboration. We will present current initiatives and projects and show how universities can build sustainable global and regional partnerships by introducing our BIP, KA2 partnership and Teacher Academy."
             },
             {
               "title": "Anchoring an European University Alliance - European Campus Hainburg",
@@ -311,7 +325,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Jiří Nantl (University of Applied Sciences St Pölten)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "European university alliances are strong as networks but lack shared physical anchors. This presentation introduces European Campus Hainburg as a hub linking EUDRES and EULiST in a cross-border region of 3 million people. It explores how a co-located campus with joint infrastructure and governance can turn partnerships into core institutional practice—a model for place-based internationalisation."
             },
             {
               "title": "At the Front Line of Change: Young Professionals in IHE",
@@ -355,7 +370,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Pankaj Mittal (TBC)"
               ],
               "format": "workshop",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "The workshop aims to explore possible solutions to the to main challenges in cross-border academic credit transfer across different international contexts. Due to fast development of online education programme, and MOOCs , there are good opportunities to increase affordability and student experience through innovative blending of face-to-face and online modules across different contexts. Similar opportunities exist in integration of vocational education mapping. However, the variation in different academic credit systems present a major challenge to this process. This workshop will be divided in 3 parts: first, 10-minute introduction; second, 20 minutes of breakout sessions in small groups of 4 to 5 each; followed by 15 minutes of key point presentations; and 5-minute concluding remarks focusing on action implementation points and project piloting options."
             },
             {
               "title": "Crafting Change: International Peer Reviews as a Tool in Advancing Internationalisation",
@@ -369,7 +385,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Roman Klepetko (DZS)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "The panel will examine how international peer reviews connect different dimensions of internationalisation and build resilience in an increasingly complex setting. As structural and financial constraints challenge the sustainability of both quality and critical mass of internationalisation, and geopolitical uncertainty demands more coordinated responses, higher education institutions are under pressure to critically reassess their strategic approaches. In this context, external peer reviews—drawing on the expertise of multiple actors, including Erasmus+ National Agencies—can support institutions in validating or reconfiguring their strategic pathways for internationalisation. The session will draw on the MICHE and MISIHE projects in Czechia and Slovenia, and open a discussion on how similar approaches are being developed and applied in the context of broader university partnerships."
             },
             {
               "title": "Mapping the Use of Artificial Intelligence in Higher Education Marketing: Insights and Practical Application",
@@ -381,7 +398,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Rita Csúri-Magosi (University of Szeged)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "This presentation/workshop explores how artificial intelligence is used in higher education marketing, based on a systematic literature review. It highlights that AI is a broad concept, and its adoption depends on institutional, technological, and human factors. Participants will gain a clear overview of AI applications and practical inspiration for integrating AI into their own student recruitment and engagement strategies."
             },
             {
               "title": "How to Ruin Your BIP in 10 Easy Steps – What It Reveals About International Partnerships (And What Can We Learn from It)",
@@ -395,7 +413,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Monika Krejzková (VSB-TUO)"
               ],
               "format": "session",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "Blended Intensive Programmes (BIPs) are often presented as successful examples of international collaboration and innovative teaching. In reality, things don’t always go as planned—and those moments often reveal the most about how international partnerships actually work. This interactive workshop focuses on common mistakes and “failure scenarios” from real BIP experience. Using a light and slightly humorous approach, we will explore what can go wrong in planning, communication, student engagement, coordination, and cooperation between partners—and what these situations reveal about expectations, roles, and collaboration in international contexts. Instead of presenting a perfect model, the workshop creates space to openly share challenges, compare experiences, and learn from them. Participants will: • identify typical pitfalls in BIP design and delivery • explore what these challenges reveal about how partnerships function in practice • reflect on their own experience (or expectations) in a safe, informal setting • co-create simple, practical ideas for improving future BIPs The session is designed for academic and administrative staff involved in international programmes and Erasmus+. No prior experience with BIPs is needed, and the format will adapt to participants’ experience and needs."
             },
             {
               "title": "Turning Mobility into Partnership: Data Driven Networks between the U.S. and Central Europe",
@@ -410,7 +429,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Gordana Mirchikj (EducationUSA)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "In an increasingly complex global higher education landscape, sustainable international engagement depends less on isolated recruitment efforts and more on strong, trusted networks that connect institutions, people, and programs. Drawing on data and practitioner experience, the session will explore how networks across the U.S. and Central Europe have strengthened over time. The panel will open with key data from the Open Doors Report on International Educational Exchange, grounding the session in recent trends in student mobility between the United States and Central and Eastern Europe. Drawing on global and regional data, the opening segment will highlight shifts in outbound and inbound mobility patterns, emerging opportunities for engagement, and the broader context. The speakers will then shift the focus to the networks and partnerships that make sustained exchange possible. Panelists will highlight the roles of EducationUSA and Fulbright as critical infrastructure for transatlantic partnership building. The discussion will explore how EducationUSA advising networks and Fulbright Commissions function as conveners and connectors—linking institutions, aligning priorities, and creating pathways for students, scholars, and professionals. Particular emphasis will be placed on how these platforms help institutions move from initial contact to sustained collaboration. The panel will examine Fulbright’s role not only as a scholarship program, but as a long term partnership mechanism that anchors academic cooperation, and how institutions can more intentionally engage EducationUSA and Fulbright to activate networks, integrate recruitment with partnership strategies, and embed mobility within broader internationalization goals. Key Takeaways for Attendees Participants will leave this session with: • A data informed understanding of U.S.–European mobility trends, grounded in insights from the Open Doors Report on International Educational Exchange. • A clearer picture of how EducationUSA and Fulbright function as partnership infrastructure, including their roles as conveners, connectors, and long term anchors of institutional collaboration across the U.S. and Central Europe. • Actionable ideas for institutions to better leverage existing networks, integrating EducationUSA and Fulbright more intentionally into recruitment, mobility, partnership development, and broader internationalization strategies."
             },
             {
               "title": "Mental Health of Mobile Students Before During and After.",
@@ -424,7 +444,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Celine Guerin (Erasmus Student Network)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "International Erasmus mobility offers growth but also poses mental health challenges across the student journey. This presentation highlights key risk points before, during, and after mobility, from uncertainty and isolation to reintegration. It explores gaps in current support and presents practical approaches for higher education institutions to better integrate student wellbeing into mobility programs."
             },
             {
               "title": "From ESCI to ESCI+",
@@ -436,7 +457,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Victor Aguilar (European Commission, DG EAC)"
               ],
               "format": "online",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "The European Student Card Initiative (ESCI) facilitates student mobility by digitising and streamlining mobility management workflows, improving administrative efficiency and rolling out a common European student identity for cross-border student authentication. This session will take stock of ESCI implementation and present the vision and roadmap for ESCI’s evolution into a more integrated and user-centric infrastructure (“ESCI+”) in the next Erasmus+ programme (2028-2034)."
             },
             {
               "title": "Making Erasmus+ ICM Work in Practice: What Actually Keeps Mobility Running Smoothly",
@@ -450,7 +472,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Jana Burešová (TBC)"
               ],
               "format": "session",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "This interactive workshop explores what makes Erasmus+ ICM mobility function effectively beyond signed agreements. Drawing on real institutional practice from European and Central Asian perspectives, it focuses on communication, coordination, and operational alignment as key drivers of successful mobility. Participants will collaborate on real-life scenarios, exchange best practices, and co-create practical solutions for smoother international cooperation."
             },
             {
               "title": "DAAD: From the Few to the Many: How Do European Universities Alliances Inspire the Wider Higher Education Sector",
@@ -494,7 +517,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Eveke de Louw (The Hague University of Applied Sciences)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "Much of the work of international higher education is highly practical in nature, focused on activities like student and staff mobility, partnership development and maintenance, and academic administration. Practice, however, can be informed and enhanced through research. Join this session to learn more about several current / recent research projects that aim to improve our knowledge base and, by extension, how we address the challenges we face in our daily work."
             },
             {
               "title": "Beyond Matching: How Quality-Based Digital Traineeship Infrastructures Can Reduce Visibility and Trust Gaps across Europe",
@@ -509,7 +533,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Maruta Funta (University of Latvia)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "As international traineeships grow, students, hosts and HEIs still face uneven visibility, trust and quality signals. This panel examines how digital traineeship infrastructures can make mobility more transparent and equitable through structured offer labels, feedback loops and post-placement ratings. ErasmusIntern 2.0 will serve as a case study, with reflections from partners across Europe, including Central and Eastern Europe."
             },
             {
               "title": "Bridging the Innovation Gap: A Hands-On Toolkit for European University Alliances and Industry Cooperation",
@@ -522,7 +547,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Veronika Haissingerová (Charles University)"
               ],
               "format": "workshop",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "University Alliances represent a goldmine of potential. To bridge the gap with industry, this workshop introduces the \"Collaboration Canvas,\" a tool to streamline partnerships. In a fast-paced design sprint, teams will tackle real-world scenarios—from corporations to NGOs. Participants will gain a practical framework to transform the university alliance potential into successful corporate and public-sector partnerships."
             },
             {
               "title": "ESCI and EWP: How to Deal with Parallel Processes?",
@@ -534,7 +560,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Maximilian Pinnen (DAAD)"
               ],
               "format": "online",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "This session, led by German Erasmus+ digital experts, aims to bring together EWP enthusiasts from Czechia, Slovakia, Poland, Hungary, and Austria. As EWP implementation often requires HEIs to manage both digital and non-digital processes, participants will discuss practical challenges and effective solutions. The session focuses on sharing experiences and exploring ways how EWP can succeed in overcoming these parallel processes for the next programme generation."
             },
             {
               "title": "Building Sustainable Academic Partnerships: The CEEPUS Perspective",
@@ -551,7 +578,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Cezary Mankowski (University of Gdansk)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "This panel looks at the increasing pressure on universities to build partnerships that are not only strategic, but also fair and meaningful for all sides. While differences in resources and priorities can make collaboration challenging, they can also create opportunities for new forms of cooperation. Using the CEEPUS programme as an example, the discussion explores how flexible mobility schemes and network-based approaches can support long-term collaboration. Bringing together institutional and programme perspectives through representatives from different organisational backgrounds and countries in the CEEPUS region, the panel reflects on what works in practice, what gets in the way, and how partnerships can be designed in a more balanced and sustainable way."
             },
             {
               "title": "Responsible Internationalisation in Practice: Navigating Openness and Risk",
@@ -564,7 +592,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "tbc"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "How do universities turn responsible internationalisation into everyday practice? This panel examines how institutions operationalise policy through governance, internal processes and support mechanisms, drawing on experience from CZ, UK, US and the EC. It focuses on how to stay open in international cooperation while managing real-world risks and growing institutional pressures."
             },
             {
               "title": "The Art of Welcoming with a Closed Door: Talent Attraction and Retention in the Nordics",
@@ -577,7 +606,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Sandra Slotte (Future Place Leadership)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "Across Europe, attracting international talent is a growing priority. Drawing on 100+ alumni interviews in Sweden, research on employers and talent ecosystems in Finland, and 20+ years’ experience in higher education internationalisation, we show why retention—not recruitment—is the real challenge. While strategy drives attraction, lack of local employment and unwelcoming host societies frequently work against retention. We will engage our audience in resolving this tension."
             },
             {
               "title": "Mythology of Erasmus Final Reports",
@@ -589,7 +619,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Ondřej Votinský (Czech University of Life Sciences Prague)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "Mythology of Erasmus Final Reports dives into the curious world of KA131 and KA171 statistics, revealing how numbers can mislead, oversimplify, and sometimes paint a far gloomier picture than reality. Expect myths busted, data questioned, and a light-hearted take on serious reporting—perfect for statistical nerds and anyone who secretly enjoys a good spreadsheet. Highly recommended for Erasmus+ Institutional Coordinators and anyone involved in drafting Final Reports."
             },
             {
               "title": "FRSE Session — Details to Be Confirmed",
@@ -629,7 +660,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Anna Dobošová (University of Ostrava)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "This session showcases an Erasmus+ Adult Education project enabling senior learners to experience their E+ journey for the first time. Practical approaches, project design, lessons learnt and main obstacles overcome are highlighted together with the outcomes of this once-in-a-lifetime opportunity for the seniors. It also offers tips for educators and administrative staff for next call of project application. Inclusion, digitalization and internationalization done with respect and gratitude."
             },
             {
               "title": "Internationalisation at Home through COIL: Connecting First-Generation Students Across Continents",
@@ -642,7 +674,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Nicole Horáková Hirschlerová (University of Ostrava)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "This contribution discusses five years of COIL cooperation between University of Ostrava and University of Central Arkansas as a form of internationalisation at home. For many first-generation students with limited travel opportunities, COIL provides accessible intercultural contact and collaboration without financial barriers. The paper reflects on the benefits, challenges, and practical experience of virtual international teaching and learning."
             },
             {
               "title": "Microlearning Modules on AI for University Teachers",
@@ -655,7 +688,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Nora Czechovsky (PH Oberösterreich)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "Universities worldwide must create conditions for integrating AI into teaching and assessment, equipping lecturers to teach AI-related competencies. But many institutions are insecure regarding its educational, technical, and ethical implications. We developed microlearning modules addressing AI in vocational teacher education. Microlearning refers to media-supported, flexible learning in small, clearly structured units designed to reduce cognitive load and support effective learning."
             },
             {
               "title": "Global Competence Is Not Enough: International Education in the Disinformation Age",
@@ -667,7 +701,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Todd Nesbitt (SUNY Empire State University)"
               ],
               "format": "workshop",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "“Global competence” has become a central goal of internationalisation strategies in higher education, often framed as a combination of intercultural awareness, communication skills, and international exposure. However, in an era increasingly shaped by disinformation, algorithmic media environments, and political polarization, these frameworks may be insufficient. This presentation argues that international education frequently overestimates the impact of mobility and intercultural experience while underestimating the importance of critical media literacy. Exposure to different cultures does not automatically produce informed or critically engaged global citizens. In fact, students may remain within linguistic, cultural, and digital “bubbles” even while participating in international programs. The session explores how global competence can be redefined to include the ability to critically evaluate information, understand media ecosystems, and navigate competing narratives across borders. The presentation challenges current assumptions embedded in internationalisation discourse and proposes a more rigorous, interdisciplinary model that integrates media literacy into global learning outcomes."
             },
             {
               "title": "Internationalisation Without Borders: Virtual Mobility, Structured Certification, and Intercultural Learning in the EUPeace Alliance",
@@ -681,7 +716,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Jiří Kohout (University of West Bohemia in Pilsen)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "The internationalisation of higher education has long been shaped by structural inequalities that privilege students with the financial, logistical, and personal capacity to engage in physical cross-border mobility. Despite the well-documented benefits of international academic experience for the development of intercultural competence, a significant proportion of the student population in European higher education remains effectively excluded from these opportunities. This presentation examines two interconnected initiatives developed within the EUPeace Alliance — the European University for Peace, Justice, and Inclusive Societies — as an institutional response to this equity deficit: the Virtual European Exchange Programme (VEEP) and the European Track (EUTrack) certificate. VEEP enables students enrolled at any of the nine EUPeace partner universities to complete online courses offered by other institutions within the alliance, free of charge and with academic recognition, through a formal transcript of records that includes grades and ECTS credit points. The European Track builds directly on this infrastructure, offering a cross-alliance certificate structured across three progressive levels — each requiring six ECTS points — with Level 1 completed entirely through VEEP and Levels 2 and 3 designed to encourage physical mobility via Erasmus+ programmes at partner institutions. Together, these two instruments constitute a layered internationalisation pathway integrating virtual and in-person modalities within a single coherent framework, spanning institutions in Germany, France, Spain, Italy, the Czech Republic, Bosnia and Herzegovina, and Turkey. Drawing on programme documentation and participant testimonials, the presentation identifies both the opportunities and the structural challenges this model presents. Among its principal strengths are the flexibility of delivery format, the breadth of an interdisciplinary curriculum organised across eight thematic areas encompassing the social sciences, humanities, natural sciences, engineering, and intercultural communication, and the capacity for students to earn up to three certificates formalising internationally transferable competences. At the same time, credit recognition across nine institutions operating within differing national regulatory frameworks, variation in semester calendars and registration procedures, and the pedagogical demands of digitally mediated intercultural represent challenges that the model has not yet fully resolved. Participant accounts provide important insight into the lived experience of virtual exchange. One student described the programme as recreating the international atmosphere characteristic of physical Erasmus mobility — enabling cross-cultural friendships, language practice, and a sense of belonging to a diverse international community — without the requirement of geographic relocation. A second participant reported gains in intercultural communication, critical thinking, and academic discussion skills, alongside the development of practical competencies in time management, self-directed learning, and the use of digital tools for academic purposes. These testimonials suggest that, when pedagogically purposeful, virtual exchange does not merely approximate physical mobility but constitutes a distinct and productive mode of intercultural learning with its own affordances and outcomes. The presentation concludes by arguing that VEEP and the European Track offer a substantive and potentially replicable institutional model for addressing the equity limitations of conventional internationalisation. Their integrated structure, commitment to open access, and explicit grounding in the values of peace, justice, and inclusivity make them a case of considerable relevance for scholars and practitioners working at the intersection of intercultural communication, higher education policy, and language education. Implications for curriculum design, credit recognition policy, and the pedagogical development of virtual exchange are discussed."
             },
             {
               "title": "Testing Data-Driven Marketing in High-Priority, Low-Awareness Markets",
@@ -693,7 +729,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Max Maccarone (Swedish Institute)"
               ],
               "format": "online",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "In this session, we will explore how Study in Sweden has tested a new way of data-driven marketing in high priority markets. From AI desk research to Meta marketing campaigns and new ways of CRM tracking we will talk through how Study in Sweden has tested a new marketing way of working -- embracing the Swedish philosophy of testing for learning's sake."
             },
             {
               "title": "KA2 Groundbreaking Erasmus+ Project: EQuIP (Enhancing Quality Assessment in International Partnerships)",
@@ -706,7 +743,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Jannicke Holmseth Bukve (HVL Western Norway University of Applied Sciences)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "EQuIP is an ambitious Erasmus+ project initiated 1 Nov 2025 set to elevate the quality of international partnerships in higher education. The aim is to introduce a new assessment framework and an advanced digital platform to enhance the quality and effectiveness of international collaborations in higher education. CEEDUCON offers the ideal stage to share early insights and engage participants in shaping this innovative initiative."
             },
             {
               "title": "From Signature to Impact: Making Partnerships Work Across Regions",
@@ -720,7 +758,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Jenny Oesterle-El Nabbout (University of Regensburg)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "How can strategic partnerships move from formal agreements to real impact? This session explores Masaryk University’s collaborations across regions, reflecting on their purpose, diversity, and expectations. It highlights the shift from institutional strategy to faculty-level implementation through joint activities, supported by targeted funding schemes and methodological guidance. Together, these institutional and faculty-level efforts help partnerships translate into tangible outcomes."
             },
             {
               "title": "Czech Pathways to Research Security: Embedding Risk-Aware Practices in University Structures and Processes",
@@ -735,7 +774,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Iveta Šimberová (Brno University of Technology)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "This panel offers a uniquely Czech perspective on research security, tracing how four universities – Charles University, Palacký University Olomouc, VSB – Technical University of Ostrava and Brno University of Technology – have recognized, framed and embedded research security into their governance, processes and everyday academic practice. Panelists will compare drivers, institutional models and lessons learned."
             }
           ]
         },
@@ -766,7 +806,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "tbc"
               ],
               "format": "online",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "Drawing on experience from three universities, the panel explores how ambassador programmes connect recruitment, admissions, and the student journey from a coordinator’s perspective. The focus will be on examining how ambassadors’ motivations and expectations evolve over time and how they influence the programme design. Strategies to sustain engagement and retain experienced ambassadors will be discussed, highlighting practical lessons, challenges, and insights from programme development."
             },
             {
               "title": "From Admission to Integration: Challenges of Full-Degree International Students in Czechia",
@@ -780,7 +821,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Zuzanna Łapot-Myszewska (Czech University of Life Sciences Prague), Maksud Safaraliyev (University of West Bohemia in Pilsen)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "This panel brings together full-degree international students in Czechia and ESN Czech Republic representative to explore challenges across the student journey—from admission and bureaucracy to integration and belonging. Combining lived experiences with organisational insight, the discussion highlights gaps in internationalisation and offers practical ideas for more inclusive, student-centred approaches. Join us for this panel session!"
             },
             {
               "title": "Artificial Intelligence as a Co-Leader: A Hands-on Approach to Agile Learning in International Classrooms",
@@ -792,7 +834,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Jarosław Tomaszewski (WSB Merito University in Wrocław)"
               ],
               "format": "session",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "This interactive workshop presents a Blended Intensive Programme model integrating AI into agile, international teamwork. Based on a real case with students from multiple countries, participants will explore how AI can support leadership, decision-making, and collaboration. The session combines practical exercises with insights from post-programme research, offering a transferable framework for designing AI-enhanced learning experiences."
             },
             {
               "title": "Are Universities Structurally Ready for Deep International Partnerships, or Are Individuals Compensating for Institutional Gaps?",
@@ -806,7 +849,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Francesco Girotti (University of Bologna)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "Over the past two decades, programmes such as Erasmus Mundus and the European Universities Initiative have significantly expanded the scope and ambition of international collaboration in HE, while increasing organisational complexity and new operational demands. Drawing on both contexts, this session explores a key tension: to what extent is deeper cooperation structurally embedded within universities, or does it rely on the engagement, expertise and adaptability of individuals? (484 characters)"
             },
             {
               "title": "Designing Sustainable Partnerships: A Practice-Based Workshop on Engaging Ukrainian and Accession Country Universities",
@@ -820,7 +864,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Michael Hall (Munster Technological University)"
               ],
               "format": "session",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "50+ European university alliances are currently cooperating with Ukraine and other Enlargement and Eastern neighbourhood countries. We will showcase the details of successful collaborative activities and discuss the facilitators, barriers and best practice, and possible supporting policy requirements, with the audience. Ukrainian engagement by Alliances is a preview of how European HE might build sustainable partnerships with universities in accession countries and operate in a more interconnected but quite geopolitically diverse landscape."
             },
             {
               "title": "Breaking the Routine: AI Automation for the Modern Admin",
@@ -832,7 +877,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Daria Mlejnková (Technical University of Liberec)"
               ],
               "format": "workshop",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "I will share my journey as an Erasmus+ Coordinator at TUL, demonstrating how I automated incoming student nominations using AI-assisted scripting with zero coding experience. We will move beyond basic chatbot prompts to show how to script away boring routines, saving hours and eliminating manual errors. This isn't a technical lecture, but a practical roadmap for the modern administrator. Explore AI beyond text generation and reclaim your time for the work that actually matters."
             },
             {
               "title": "Unlocking Potential: Tools and Strategies for Empowering Academic Collaboration in Multi-Actor Networks",
@@ -846,7 +892,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Anna Stina Sinisalo (University of Helsinki)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "Multi-actor networks like European Universities Alliances aim to foster dynamic academic ecosystems. However, shifting from top-down structures to academic-led collaborations requires support. This session shares lessons from three EUAs on how tools like seed funds, matchmaking, and open labs empower academics to enhance collaboration across institutions and disciplines. Participants learn the effectiveness of these tools and how they can be adapted to achieve sustainable academic collaboration."
             },
             {
               "title": "Designing Institutional Pathways for First-Year International Students",
@@ -860,7 +907,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Csilla Szabó (Tempus Public Foundation)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "The session will explore how HEIs can encourage the success of international students in their first academic year. It is designed as a practical workshop where participants map what institutions know about first-year students, define key phases of the first academic year and identify critical intervention points. Participants will also explore how digital tools can support planning, coordination and monitoring of institutional actions contributing to student pathway design. The topic and methodology is successfully piloted by TPF in a Spring 2026 workshop for international coordinators of HEIs."
             },
             {
               "title": "Internationalisation of Doctoral Education – From the IRO to Doctoral Supervision",
@@ -874,7 +922,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Katrin Kiisler (Ministry of Education and Research of Estonia)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "Research is inherently international — and yet doctoral education frequently falls outside the organizational competences of internationalization staff at every level, from the IRO’s to coordinators to senior leadership. Attracting talented doctoral students and researchers, however, demands the full strategic and operational engagement of precisely these actors. Drawing on findings from the ongoing MICHE audits of doctoral internationalization at Czech research universities — and against the backdrop of the 2024 amendment to the Higher Education Act and the national project on doctoral schools — our international panel presents key findings and actionable recommendations toward attracting, fostering, and retaining doctoral talent."
             }
           ]
         },
@@ -904,7 +953,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Tekla Gaál (Eötvös Loránd University)"
               ],
               "format": "workshop",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "This interactive workshop builds on AUREA EU co-funded project findings to explore barriers to full automatic credit recognition and their impact on mobility. It brings together students, HEIs and policymakers to compare experiences across Europe and reflect on common challenges. Participants then move from discussion to action by engaging with practical tools, including self-evaluation approaches and capacity-building methods, to support implementation in their institutions. The session is participatory, aiming to gather feedback and identify concrete steps towards more consistent and automatic credit recognition. The interactive session is co-organised by the European Students’ Union and Eotvos Lorand University."
             },
             {
               "title": "Why EDI Matters in Academic Partnerships: The Role of the Coimbra Group in Advancing Inclusive Universities",
@@ -919,7 +969,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Siobán O'Brien Green (Trinity College Dublin)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "This panel brings together experts from Charles University, Trinity College Dublin, and the Coimbra Group to discuss how international university networks support equality, diversity, and inclusion (EDI) in higher education. The discussion will focus on the Coimbra Group Equality and Diversity Working Group, the book Why EDI Matters, and the experience of Charles University and Trinity College Dublin as recipients of the EU Gender Equality Champions Award. The panel will explore how transnational partnerships foster inclusive academic cultures and equitable international cooperation."
             },
             {
               "title": "Career Pathways as a Magnet: Attracting and Retaining International Talent in Czechia",
@@ -931,7 +982,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Linnea Lindgren (Global Outreach and Student Retention Strategist at Study in Sweden)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "How can strategic communication help international students stay and work after graduation? In this session, you’ll learn how the Swedish Institute works within the government assignment Work in Sweden to help more international students remain in Sweden after their studies. The session highlights target group insights, best practices for collaboration with higher education institutions, and how career information can be integrated into student recruitment marketing."
             },
             {
               "title": "Beyond Borders: Supporting Gen Z from EU and Africa in UNICIA Erasmus+ Virtual Exchange Project",
@@ -945,7 +997,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Lenka Badinská (University of Hradec Králové)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "We will share our experiences from the Erasmus+ Virtual Exchange project coordinated by the University of Szczecin (PL), with partners from the CZ, FR, NG, SG, SA. It demonstrates how trust built through previous joint initiatives (EUA proposals) enabled to develop project design and implementation. The session reflects on challenges of diverse contexts offering lessons learned from establishing expert cooperation, joint activities, engaging young participants or aligned PR strategy."
             },
             {
               "title": "From Partnerships to Ecosystems: Governing European University Alliances",
@@ -960,7 +1013,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Ladislav Janíček (Brno University of Technology)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "European University Alliances are often understood primarily as mobility and joint-degree schemes, but this framing understates what is actually at stake. Traditional bilateral partnerships tend to stay formal and deliver limited strategic impact; alliances point toward something different: multi-actor collaboration ecosystems built on long-term engagement, shared priorities, and mutual benefit across education, research, and innovation. The real challenge is not running joint programmes but integrating alliances into regional and international innovation ecosystems so they become recognisable partners for industry and global research networks.\n\nThis contribution is proposed as a panel discussion bringing together representatives of four established alliances (EuroTeQ, Aurora, 4EU+, and EULiST) to examine how ecosystem-based models can realistically be designed, governed, and sustained. One panellist draws on two years chairing the EULiST Alliance Governing Board to offer a critical assessment of the practical obstacles technical universities face in building functional partnerships and transnational joint research projects, and to outline the strategic steps needed for alliances to gain traction with industrial and research partners. Together, the panellists will reflect on first-hand experience managing these more complex forms of cooperation, covering governance mechanisms, trade-offs, and lessons learned."
             },
             {
               "title": "Blended Intensive Programs and Short Program Opportunities: Strategies for Successful Design and Implementation",
@@ -973,7 +1027,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Christina Kampe (Vienna University of Economics and Business)"
               ],
               "format": "online",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "Short academic programs have evolved in recent years, both through Erasmus Blended Intensive Program funding and rising demand for diverse mobility. They offer valuable opportunities for students unable to join long-term exchanges and expand institutions' international engagement. Drawing on the practical experiences from VSE Prague and WU Vienna, this session explores best practices, challenges, and innovative solutions that contribute to the success of these initiatives."
             },
             {
               "title": "Beyond the Welcome Desk: Strategic Talent Development Throughout the Academic Lifecycle",
@@ -989,7 +1044,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Katarzyna Basisty (University of Warsaw)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "In an increasingly competitive global academic environment, universities must go beyond recruitment and focus on long-term retention and development of international talent. Welcome centres are evolving from administrative support units into strategic partners that accompany individuals throughout their academic and professional journey. This panel brings together four universities from Czechia and Poland, representing different models of welcome services, some focused on international students, others on employees. Together, they explore how support structures can be interconnected across the full lifecycle: from prospective student recruitment, through study experience, to PhD pathways, research careers, and institutional employment. The discussion will highlight how continuous, client centered care strengthens integration, improves retention, and supports the transition from student to researcher, employee, and even grant applicant or team leader. By sharing best practices and identifying gaps, the panel aims to demonstrate the strategic importance of welcome centres in building sustainable international academic communities."
             },
             {
               "title": "OeAD Session — Details to Be Confirmed",
@@ -1035,7 +1091,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Ewa Czarnojan (Fulbright Commission Poland)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "The Fulbright Commissions in the Czech Republic, Poland, and Slovakia serve as long-standing platforms for academic exchange, research collaboration, and institutional partnership between Central Europe and the United States. In this panel, the directors of the three Commissions will present how the Fulbright Program operates in practice and how universities, international offices, researchers, and academic leaders can strategically use Fulbright opportunities. The session will focus on concrete ways in which Fulbright can support higher education institutions: hosting American scholars and specialists, enabling Central European academics and students to conduct research or teach in the United States, strengthening alumni networks, and developing long-term transatlantic cooperation across disciplines. Drawing on examples from three national contexts, the speakers will discuss how Fulbright complements European and national internationalization instruments and how it can contribute to durable global and regional partnerships. The panel will also reflect on the role of academic exchange in a changing geopolitical environment, including the need to sustain trust, openness, research excellence, and people-to-people ties across the Atlantic. Participants will leave with a clearer understanding of Fulbright opportunities, practical entry points for cooperation, and ideas for using the program as part of a broader institutional internationalization strategy. The speakers will include: Ewa Czarnojan, Executive Director of the Fulbright Commission Poland, Jana Sehnalkova, Executive Director of the Fulbright Commission Czech Republic, and Lydia Tobiášová, Executive Director of the Fulbright Commission Slovakia."
             },
             {
               "title": "What Do They Want?! - How Student-Focused Surveys Lead to Data-Driven Decisions",
@@ -1049,7 +1106,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Eva Marková (Czech Technical University)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "Real student experiences are qualitative, but decision-making data must be quantitative. Bridging this gap is THE key to retention, as it supports best-fit recruitment, targeted program improvements, and better institutional understanding of international students. This session features the lessons from 10 years of survey data at the University of Pecs, examples of data-driven initiatives at CTU, and explains how Charles University puts student voices first."
             },
             {
               "title": "Enhancing Professional Development for Higher Education Staff through Micro-Credentials",
@@ -1062,7 +1120,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Fernando Cerdeira Pérez (University of Vigo)"
               ],
               "format": "workshop",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "Higher education institutions are under pressure to align with digital, green, and inclusion goals, yet staff development and recognition remain fragmented. This presentation examines how micro-credentials can help bridge this gap by contributing to a shared European framework, enabling targeted learning, and promoting common standards that support recognition, mobility, and continuous upskilling, also through the digitalisation of credentials."
             },
             {
               "title": "Building Sustainable Global and Regional Partnerships through Complementary Funding Frameworks: The Charles University – Macquarie University Case",
@@ -1076,7 +1135,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Tomáš Karásek (Charles University)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "The strategic partnership between CU and MQ has evolved over a decade from bilateral student exchange to a multi‑layered collaboration including Erasmus+ KA171 mobility, joint research projects, co‑authored publications, cotutelle/Global PhD and the development of double degree programs. Using concrete examples of combined European mobility funding, institutional strategic funds, and faculty‑level research budgets, the panel demonstrates how differences in funding systems, administrative procedures, and regional capacities can be effectively addressed to support sustainable global cooperation."
             },
             {
               "title": "Attracting, Admitting and Supporting International Students in Europe",
@@ -1090,7 +1150,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Phillip Höhne (ESN)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "The panel will present practical insights from Erasmus Mundus consortia on student recruitment and marketing strategies and measures in Erasmus Mundus Joint Master Programmes (EMJM), based on outcomes from peer mentoring group discussions that were facilitated by the Erasmus Mundus Support Initiative (EMSI). The Erasmus Student Network (ESN) will highlight the importance of a student-centred strategy in recruitment, admission and support services based on their annual survey results. Participants will moreover, learn about DAAD programme and study results on creating a welcoming environment for international students. The following Q&A session will encourage participants to ask questions and share experiences and takeaways from the discussions."
             },
             {
               "title": "Labelling Europe for a Global Higher Education Area",
@@ -1104,7 +1165,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Samira Bonucci (University of Padova)"
               ],
               "format": "online",
-              "type": "workshop"
+              "type": "workshop",
+              "abstract": "Labelling Europe for a Global Higher Education Area: With the European Degree Label pilot, Joint Programmes face fresh potential and challenges. We combine the first-generation Arqus Alliance perspective with views from Italy, Austria, and Germany on how this phase is more than ever oriented toward creating cooperative standards aimed at deepening cooperation and shaping an integrated, resilient, and truly European academic ecosystem. Both strategic and practical aspects will be addressed."
             },
             {
               "title": "Rethinking Internationalisation through European University Alliances",
@@ -1119,7 +1181,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Fernando Pérez (SEA-EU European University Alliance)"
               ],
               "format": "session",
-              "type": "discussion"
+              "type": "discussion",
+              "abstract": "This round table examines how EUNICE, SEA-EU, INVEST, Ulysseus and UNITA are reshaping internationalisation in higher education. Moving beyond mobility-centred models, it explores strategies based on multilingualism, internationalisation at home, innovative curricula, digital collaboration and regional engagement. The session also addresses key challenges, including governance, institutional alignment, implementation and sustainability across diverse alliance contexts."
             },
             {
               "title": "Driving Sustainable Change in Erasmus+: Practical Steps for Greener Internationalisation",
@@ -1132,7 +1195,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Peter Alexander Edinger (Technical University of Denmark)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "Higher education faces growing tension between expanding internationalisation and environmental impact. Universities must respond to this dilemma, ensuring sustainable practice does not compromise student mobility. This session explores how to reconcile these priorities using data-driven insights from ESNsurvey and focus groups with students. We will share practical tools to encourage sustainable behaviour and discuss the feasibility of a 'green label' for sustainable internationalisation."
             },
             {
               "title": "Inclusive Mobility: Real Stories, Real Solutions",
@@ -1146,7 +1210,8 @@ window.CEEDUCON_PROGRAM_DATA = {
                 "Martin Bogdan (ACA)"
               ],
               "format": "session",
-              "type": "presentation"
+              "type": "presentation",
+              "abstract": "This vivid round table will address inclusive mobility through real Erasmus+ cases involving participants with diverse needs. Drawing on CU’s and HU’s experience, we will discuss authentic situations that exceeded standard procedures, especially when issues such as limited communication, mental-health concerns, overestimation of abilities, or weak partner cooperation arose, and explore practical solutions. ACA will provide comparative view of existing support mechanisms in different EU countries."
             }
           ]
         },
