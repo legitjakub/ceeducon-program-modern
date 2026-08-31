@@ -210,7 +210,7 @@
                 { className: "hero-essential-details" },
                 rows.map((row, index) => {
                   const value = String(row.label || "").toLowerCase() === "registration" && String(row.value || "").toLowerCase() === "opens in september"
-                    ? "Registration opens in September"
+                    ? "Registration is open"
                     : row.value;
                   return el(
                     "span",

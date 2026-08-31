@@ -48,19 +48,14 @@ if (ceeducon_render_block_page_content()) {
               <p><?php ceeducon_text('info_1_text', 'All plenaries, sessions and workshops of {{event_title}} take place at {{venue}}.'); ?></p>
             </article>
             <article data-reveal="2">
-              <span><?php ceeducon_text('info_2_label', 'From the airport'); ?></span>
-              <h3><?php ceeducon_text('info_2_title', 'Around 55 minutes'); ?></h3>
-              <p><?php ceeducon_text('info_2_text', 'Take trolleybus 59 to Nádraží Veleslavín, then metro line A and line B towards Českomoravská.'); ?></p>
+              <span><?php ceeducon_text('info_2_label', 'Travel'); ?></span>
+              <h3><?php ceeducon_text('info_2_title', 'By public transport'); ?></h3>
+              <p><?php ceeducon_text('info_2_text', 'From the airport around 55 minutes by trolleybus 59 and metro. From the Main Train Station by metro to the Českomoravská station.'); ?></p>
             </article>
             <article data-reveal="3">
-              <span><?php ceeducon_text('info_3_label', 'By train'); ?></span>
-              <h3><?php ceeducon_text('info_3_title', 'Main station & Libeň'); ?></h3>
-              <p><?php ceeducon_text('info_3_text', 'From the Main Train Station use metro lines C and B. From Praha-Libeň it is a 10-minute walk or a short ride on tram 7 or 8.'); ?></p>
-            </article>
-            <article data-reveal="4">
-              <span><?php ceeducon_text('info_4_label', 'Accessibility'); ?></span>
-              <h3><?php ceeducon_text('info_4_title', 'Accessible & in English'); ?></h3>
-              <p><?php ceeducon_text('info_4_text', 'The conference is held in English and the venue is accessible for visitors using a wheelchair.'); ?></p>
+              <span><?php ceeducon_text('info_3_label', 'Inclusive'); ?></span>
+              <h3><?php ceeducon_text('info_3_title', 'Accessible'); ?></h3>
+              <p><?php ceeducon_text('info_3_text', 'The venue is fully accessible for wheelchair users.'); ?></p>
             </article>
           </div>
         </div>
@@ -77,7 +72,7 @@ if (ceeducon_render_block_page_content()) {
           <div class="faq-list" aria-label="Practical FAQ" data-reveal>
             <details open>
               <summary><?php ceeducon_text('faq_1_title', 'Is there a conference fee?'); ?></summary>
-              <p><?php ceeducon_html('faq_1_text', 'Participation at {{event_title}} is {{fee}} for registered attendees. {{registration}}.'); ?></p>
+              <p><?php ceeducon_html('faq_1_text', 'Participation at {{event_title}} is {{fee_lower}} for registered attendees. {{registration}}.'); ?></p>
             </details>
             <details>
               <summary><?php ceeducon_text('faq_capacity_title', 'Is there a limit on the number of participants?'); ?></summary>
@@ -89,7 +84,7 @@ if (ceeducon_render_block_page_content()) {
             </details>
             <details>
               <summary><?php ceeducon_text('faq_3_title', 'How do I register?'); ?></summary>
-              <p><?php ceeducon_html('faq_3_text', '{{registration}}. The registration form and practical details will be published on the official CEEDUCON website once confirmed.'); ?></p>
+              <p><?php ceeducon_html('faq_3_text', '{{registration}}. Places are allocated on a first-come, first-served basis, so register early to secure yours.'); ?></p>
             </details>
             <details>
               <summary><?php ceeducon_text('faq_4_title', 'Anything to check before travelling?'); ?></summary>

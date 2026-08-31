@@ -18,7 +18,7 @@
     "secondaryUrl": { "type": "string", "default": "/programme/" },
     "noteLabel": { "type": "string", "default": "{{event_title}}" },
     "noteTitle": { "type": "string", "default": "{{date}} · {{venue}}" },
-    "noteText": { "type": "string", "default": "Registration details will be published once confirmed by the organisers." },
+    "noteText": { "type": "string", "default": "{{registration}}. Participation is {{fee_lower}}." },
     "dark": { "type": "boolean", "default": true }
   },
   "supports": { "html": false, "align": false, "color": false, "spacing": false, "typography": false },

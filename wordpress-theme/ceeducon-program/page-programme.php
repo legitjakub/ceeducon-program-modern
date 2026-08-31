@@ -25,7 +25,7 @@ if (ceeducon_render_block_page_content()) {
           <div class="page-hero-card">
             <span><?php ceeducon_text('prog_card_label', 'Preliminary programme'); ?></span>
             <strong><?php ceeducon_text('prog_card_title', 'Online now'); ?></strong>
-            <p><?php ceeducon_text('prog_card_text', '{{registration}} and participation is {{fee}}. The programme remains subject to change.'); ?></p>
+            <p><?php ceeducon_text('prog_card_text', '{{registration}} and participation is {{fee_lower}}. The programme remains subject to change.'); ?></p>
           </div>
         </div>
       </section>

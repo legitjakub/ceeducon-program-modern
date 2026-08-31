@@ -1390,7 +1390,7 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
 .partners-card p { margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
 
 /* ---------- Info grid (practical) ---------- */
-.info-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; border: 1px solid var(--line); background: var(--line); }
+.info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border: 1px solid var(--line); background: var(--line); }
 .info-grid article { min-height: 250px; display: flex; flex-direction: column; padding: 28px 26px; background: var(--white); transition: background 0.25s; }
 .info-grid article:hover { background: var(--paper); }
 .info-grid article > span { color: var(--navy); font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
@@ -1785,7 +1785,6 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
 
 @media (max-width: 1080px) {
   .theme-grid { grid-template-columns: 1fr 1fr; }
-  .info-grid { grid-template-columns: 1fr 1fr; }
   .timeline { grid-template-columns: 1fr 1fr; }
   .media-kit-grid { grid-template-columns: 1fr 1fr; }
 }

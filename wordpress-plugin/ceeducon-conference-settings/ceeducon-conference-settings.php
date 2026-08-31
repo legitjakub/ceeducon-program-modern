@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CEEDUCON Conference Edition
  * Description: One central WordPress screen for the CEEDUCON details that change every year.
- * Version: 1.2.1
+ * Version: 1.3.0
  * Requires at least: 6.5
  * Requires PHP: 8.0
  * Author: CEEDUCON
@@ -36,7 +36,7 @@ function ceeducon_edition_defaults(): array
         'postal_code' => '190 00',
         'country_code' => 'CZ',
         'fee_text' => 'Free of charge',
-        'registration_text' => 'Registration opens in September',
+        'registration_text' => 'Registration is open',
         'registration_url' => '',
         'language' => 'English',
         'language_code' => 'en',
@@ -171,6 +171,21 @@ function ceeducon_edition_short_date(): string
     return trim(str_replace((string) ceeducon_edition_year(), '', $date));
 }
 
+/**
+ * Lowercase the first letter for tokens used mid-sentence, leaving a value that
+ * opens with an acronym or a number alone (e.g. "EUR 0", "CZK 500").
+ */
+function ceeducon_edition_lcfirst(string $value): string
+{
+    if ($value === '' || !preg_match('/^\p{Lu}\p{Ll}/u', $value)) {
+        return $value;
+    }
+
+    return function_exists('mb_strtolower')
+        ? mb_strtolower(mb_substr($value, 0, 1)) . mb_substr($value, 1)
+        : lcfirst($value);
+}
+
 function ceeducon_edition_token_values(array $tokens): array
 {
     return array_merge($tokens, [
@@ -181,6 +196,7 @@ function ceeducon_edition_token_values(array $tokens): array
         '{{venue}}' => (string) ceeducon_edition_get('venue_name'),
         '{{city}}' => (string) ceeducon_edition_get('city_label'),
         '{{fee}}' => (string) ceeducon_edition_get('fee_text'),
+        '{{fee_lower}}' => ceeducon_edition_lcfirst((string) ceeducon_edition_get('fee_text')),
         '{{registration}}' => (string) ceeducon_edition_get('registration_text'),
     ]);
 }

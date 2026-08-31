@@ -18,7 +18,7 @@
         { "question": "Is there a conference fee?", "answer": "{{fee}} for registered {{event_title}} attendees." },
         { "question": "Is there a limit on the number of participants?", "answer": "Yes. The conference venue has a limited capacity, and registration will be accepted on a first-come, first-served basis. We therefore encourage you to register as early as possible to secure your place. Once the conference reaches its maximum capacity, registration will be closed." },
         { "question": "Where should I stay?", "answer": "Participants are responsible for arranging and covering the cost of their own accommodation. Please note that neither accommodation nor travel expenses can be reimbursed by the conference organizers. Hotels within easy reach of the venue include <a href=\"https://www.stageshotel.com/\">Stages Hotel</a> and <a href=\"https://www.hotelcarol.cz/en/\">Carol Hotel</a>, while Prague city centre is approximately 20 minutes away by metro." },
-        { "question": "How do I register?", "answer": "{{registration}}. The registration form and practical details will be published once confirmed." }
+        { "question": "How do I register?", "answer": "{{registration}}. Places are allocated on a first-come, first-served basis, so register early to secure yours." }
       ]
     },
     "paper": { "type": "boolean", "default": false }
