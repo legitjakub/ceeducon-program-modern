@@ -15,6 +15,35 @@
 5. Assign the primary menu under **Appearance → Menus**.
 6. Clear the WordPress and hosting cache after replacing the theme.
 
+## Automatic updates from GitHub (WP Pusher)
+
+The theme and both plugins live in subfolders of this repository, so each one
+is installed separately and WP Pusher needs the subdirectory told to it:
+
+| Package | Repository | Subdirectory | Branch |
+| --- | --- | --- | --- |
+| Theme | `legitjakub/ceeducon-program-modern` | `wordpress-theme/ceeducon-program` | `main` |
+| Conference Edition | same | `wordpress-plugin/ceeducon-conference-settings` | `main` |
+| Programme Editor | same | `wordpress-plugin/ceeducon-programme-editor` | `main` |
+
+Three things have to be true for a push to reach the site:
+
+1. **The package was installed *by* WP Pusher.** WP Pusher only updates what it
+   installed itself — a theme uploaded as a ZIP under *Appearance → Themes* is
+   invisible to it. Install it once from *WP Pusher → Install theme* (or
+   *Install plugin*) with the subdirectory above, replacing the uploaded copy.
+2. **The work is on `main`.** WP Pusher tracks one branch; commits on a feature
+   branch never reach it.
+3. **Push-to-Deploy is switched on** for the package, and the repository has the
+   matching webhook under *Settings → Webhooks* on GitHub. Without it WP Pusher
+   only notices a new version when the Themes or Plugins screen is loaded, and
+   the update still has to be clicked.
+
+Updates are recognised by the version header, so every change that should reach
+the site needs its version bumped: `Version:` in
+`wordpress-theme/ceeducon-program/style.css` for the theme and the plugin header
+comment for each plugin.
+
 ## Editing pages
 
 Open a page in the standard WordPress block editor. Important headings, paragraphs, buttons, cards and images are edited in the CEEDUCON blocks under **Sekce webu**. Layout, colours, spacing and responsive behaviour stay controlled by the theme.
