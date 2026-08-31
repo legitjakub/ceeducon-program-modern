@@ -8,7 +8,9 @@ Adds **CEEDUCON Content → Program** in wp-admin, where an editor can:
 
 - add, edit and remove conference days (date, label, heading),
 - add and remove time slots, and switch a slot between *sessions* and *break*,
-- edit each session: title, theme, format, rooms (checkboxes) and speakers,
+- edit each session: title, theme, format, type (workshop / discussion /
+  presentation, which drives the programme filter), rooms (checkboxes),
+  speakers and the abstract shown in the session detail,
 - rename themes and change their colours,
 - maintain the room list that drives the grid columns.
 

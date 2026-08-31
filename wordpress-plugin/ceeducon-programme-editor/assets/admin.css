@@ -30,6 +30,8 @@
 .cp-session-main, .cp-session-meta { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
 .cp-session-meta { margin-top: 10px; }
 .cp-session-meta textarea { width: 100%; }
+/* The abstract runs to a few hundred words, so it takes the full row. */
+.cp-abstract { flex: 1 1 100%; }
 
 .cp-room-list { display: flex; flex-wrap: wrap; gap: 4px 10px; max-width: 420px; }
 .cp-room { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; white-space: nowrap; }

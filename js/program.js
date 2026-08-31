@@ -58,6 +58,8 @@ const elements = {
   modalFavorite: document.querySelector("[data-modal-favorite]"),
   modalNote: document.querySelector("[data-modal-note]"),
   modalAbstract: document.querySelector("[data-modal-abstract]"),
+  abstractToggle: document.querySelector("[data-abstract-toggle]"),
+  abstractToggleLabel: document.querySelector("[data-abstract-toggle-label]"),
   toast: document.querySelector("[data-toast]"),
 };
 
@@ -383,6 +385,14 @@ function toggleFavorite(id) {
   if (state.modalSessionId === id) updateModalFavorite();
 }
 
+const ABSTRACT_LABELS = { collapsed: "Read the full abstract", expanded: "Show less" };
+
+function setAbstractExpanded(expanded) {
+  elements.modalAbstract.classList.toggle("is-clamped", !expanded);
+  elements.abstractToggle.setAttribute("aria-expanded", String(expanded));
+  elements.abstractToggleLabel.textContent = expanded ? ABSTRACT_LABELS.expanded : ABSTRACT_LABELS.collapsed;
+}
+
 /** Abstracts arrive as plain text with blank lines between paragraphs. */
 function renderAbstract(text) {
   if (!elements.modalAbstract) return;
@@ -394,6 +404,25 @@ function renderAbstract(text) {
   elements.modalAbstract.innerHTML = paragraphs
     .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
     .join("");
+
+  if (!elements.abstractToggle) return;
+  elements.abstractToggle.hidden = true;
+  if (paragraphs.length) {
+    setAbstractExpanded(false);
+  } else {
+    elements.modalAbstract.classList.remove("is-clamped");
+  }
+}
+
+/**
+ * Whether the clamp actually cuts anything off can only be measured once the
+ * dialog is on screen — a hidden element reports every dimension as zero.
+ */
+function updateAbstractClamp() {
+  if (!elements.abstractToggle || elements.modalAbstract.hidden) return;
+  const clipped = elements.modalAbstract.scrollHeight > elements.modalAbstract.clientHeight + 4;
+  elements.abstractToggle.hidden = !clipped;
+  if (!clipped) elements.modalAbstract.classList.remove("is-clamped");
 }
 
 function openModal(id) {
@@ -417,6 +446,7 @@ function openModal(id) {
   updateModalFavorite();
   elements.modalBackdrop.hidden = false;
   document.body.classList.add("modal-open");
+  updateAbstractClamp();
   requestAnimationFrame(() => document.querySelector("[data-modal-close]").focus());
 }
 
@@ -585,6 +615,9 @@ function bindEvents() {
     if (event.target === elements.modalBackdrop) closeModal();
   });
   elements.modalFavorite.addEventListener("click", () => toggleFavorite(state.modalSessionId));
+  elements.abstractToggle?.addEventListener("click", () => {
+    setAbstractExpanded(elements.modalAbstract.classList.contains("is-clamped"));
+  });
   document.querySelector("[data-add-calendar]")?.addEventListener("click", addToCalendar);
   document.querySelector("[data-add-outlook]")?.addEventListener("click", addToOutlookCalendar);
 

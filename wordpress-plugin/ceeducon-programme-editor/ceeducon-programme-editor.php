@@ -2,7 +2,7 @@
 /**
  * Plugin Name: CEEDUCON Programme Editor
  * Description: Edits the conference programme — days, time slots and sessions — as a form instead of raw JSON. Saves into the same option the theme already reads, so no theme change is needed.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Requires at least: 6.0
  * Requires PHP: 8.0
  * Author: Jakub Hrncir
@@ -61,6 +61,8 @@ function ceeducon_prog_normalise(array $d): array
     $d['event'] += ['title' => '', 'dates' => [], 'location' => '', 'timezone' => 'Europe/Prague'];
     $d['rooms'] = array_values(array_filter(array_map('strval', (array) ($d['rooms'] ?? []))));
     $d['formats'] = is_array($d['formats'] ?? null) ? $d['formats'] : [];
+    // Session type drives the workshop / discussion / presentation filter.
+    $d['types'] = is_array($d['types'] ?? null) ? $d['types'] : [];
 
     $themes = [];
     foreach ((array) ($d['themes'] ?? []) as $t) {
@@ -113,6 +115,8 @@ function ceeducon_prog_normalise(array $d): array
                         'theme' => (string) ($s['theme'] ?? ''),
                         'speakers' => array_values(array_filter(array_map('strval', (array) ($s['speakers'] ?? [])))),
                         'format' => (string) ($s['format'] ?? ''),
+                        'type' => (string) ($s['type'] ?? ''),
+                        'abstract' => (string) ($s['abstract'] ?? ''),
                     ];
                 }
                 $row['sessions'] = $sessions;
@@ -153,6 +157,32 @@ function ceeducon_prog_format_choices(array $d): array
             foreach ($slot['sessions'] as $s) {
                 if ($s['format'] !== '') {
                     $choices[$s['format']] = $s['format'];
+                }
+            }
+        }
+    }
+    return $choices;
+}
+
+/** Same shape as the format list: id => label, for the session type select. */
+function ceeducon_prog_type_choices(array $d): array
+{
+    $choices = [];
+    foreach ((array) ($d['types'] ?? []) as $t) {
+        if (is_array($t) && ($t['id'] ?? '') !== '') {
+            $choices[(string) $t['id']] = (string) ($t['label'] ?? $t['id']);
+        } elseif (is_string($t)) {
+            $choices[$t] = $t;
+        }
+    }
+    if ($choices) {
+        return $choices;
+    }
+    foreach ($d['days'] as $day) {
+        foreach ($day['slots'] as $slot) {
+            foreach ($slot['sessions'] as $s) {
+                if (($s['type'] ?? '') !== '') {
+                    $choices[$s['type']] = $s['type'];
                 }
             }
         }
@@ -259,6 +289,9 @@ function ceeducon_prog_from_post(array $post, array $current): array
                             preg_split('/\r\n|\r|\n/', (string) ($s['speakers'] ?? '')) ?: []
                         ))),
                         'format' => sanitize_key((string) ($s['format'] ?? '')),
+                        'type' => sanitize_key((string) ($s['type'] ?? '')),
+                        // Keeps the blank lines that separate the abstract's paragraphs.
+                        'abstract' => trim(sanitize_textarea_field((string) ($s['abstract'] ?? ''))),
                     ];
                 }
                 $row['sessions'] = $sessions;
@@ -393,7 +426,7 @@ function ceeducon_prog_admin_assets(string $hook): void
 }
 add_action('admin_enqueue_scripts', 'ceeducon_prog_admin_assets');
 
-function ceeducon_prog_session_row(string $name, array $s, array $rooms, array $themes, array $formats): void
+function ceeducon_prog_session_row(string $name, array $s, array $rooms, array $themes, array $formats, array $types = []): void
 {
     ?>
     <div class="cp-session" data-cp-row>
@@ -420,6 +453,15 @@ function ceeducon_prog_session_row(string $name, array $s, array $rooms, array $
             <?php endforeach; ?>
           </select>
         </label>
+        <label class="cp-field">
+          <span><?php esc_html_e('Typ (filtr)', 'ceeducon-programme-editor'); ?></span>
+          <select name="<?php echo esc_attr($name); ?>[type]">
+            <option value=""><?php esc_html_e('— žádný —', 'ceeducon-programme-editor'); ?></option>
+            <?php foreach ($types as $id => $label) : ?>
+              <option value="<?php echo esc_attr($id); ?>" <?php selected($s['type'] ?? '', $id); ?>><?php echo esc_html($label); ?></option>
+            <?php endforeach; ?>
+          </select>
+        </label>
         <button type="button" class="button-link cp-remove" data-cp-remove
                 title="<?php esc_attr_e('Odebrat přednášku', 'ceeducon-programme-editor'); ?>">&times;</button>
       </div>
@@ -439,6 +481,10 @@ function ceeducon_prog_session_row(string $name, array $s, array $rooms, array $
         <label class="cp-field cp-grow">
           <span><?php esc_html_e('Řečníci (každý na svůj řádek)', 'ceeducon-programme-editor'); ?></span>
           <textarea name="<?php echo esc_attr($name); ?>[speakers]" rows="2"><?php echo esc_textarea(implode("\n", $s['speakers'])); ?></textarea>
+        </label>
+        <label class="cp-field cp-grow cp-abstract">
+          <span><?php esc_html_e('Anotace (prázdný řádek dělí odstavce)', 'ceeducon-programme-editor'); ?></span>
+          <textarea name="<?php echo esc_attr($name); ?>[abstract]" rows="4"><?php echo esc_textarea((string) ($s['abstract'] ?? '')); ?></textarea>
         </label>
       </div>
     </div>
@@ -465,6 +511,7 @@ function ceeducon_prog_render_admin(): void
 
     $stats = ceeducon_prog_stats($data);
     $formats = ceeducon_prog_format_choices($data);
+    $types = ceeducon_prog_type_choices($data);
     ?>
     <div class="wrap cp-wrap">
       <h1><?php esc_html_e('Program konference', 'ceeducon-programme-editor'); ?></h1>
@@ -588,7 +635,7 @@ function ceeducon_prog_render_admin(): void
 
                   <div class="cp-sessions" data-cp-sessions <?php echo $slot['type'] === 'break' ? 'hidden' : ''; ?>>
                     <?php foreach ($slot['sessions'] as $ei => $s) :
-                        ceeducon_prog_session_row($base . '[sessions][' . $ei . ']', $s, $data['rooms'], $data['themes'], $formats);
+                        ceeducon_prog_session_row($base . '[sessions][' . $ei . ']', $s, $data['rooms'], $data['themes'], $formats, $types);
                     endforeach; ?>
                     <button type="button" class="button cp-add" data-cp-add-session>
                       <?php esc_html_e('+ Přidat přednášku', 'ceeducon-programme-editor'); ?>

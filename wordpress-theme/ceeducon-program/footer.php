@@ -65,6 +65,10 @@ if (!defined('ABSPATH')) {
           <div><span><?php esc_html_e('Room', 'ceeducon-program'); ?></span><strong data-modal-room></strong></div>
         </div>
         <div class="modal-abstract" data-modal-abstract hidden></div>
+        <button class="modal-abstract-toggle" type="button" data-abstract-toggle aria-expanded="false" hidden>
+          <span data-abstract-toggle-label><?php esc_html_e('Read the full abstract', 'ceeducon-program'); ?></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
         <p class="modal-note" data-modal-note></p>
         <div class="modal-actions">
           <button type="button" data-modal-favorite><span>☆</span> <?php esc_html_e('Add to my programme', 'ceeducon-program'); ?></button>

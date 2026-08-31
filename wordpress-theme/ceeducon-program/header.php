@@ -31,6 +31,13 @@ if (!defined('ABSPATH')) {
         </a>
         <?php ceeducon_render_navigation('header-nav', __('Main navigation', 'ceeducon-program')); ?>
         <div class="header-actions">
+          <?php $ceeducon_registration_url = (string) ceeducon_text_value('registration_url', ''); ?>
+          <?php if ($ceeducon_registration_url !== '') : ?>
+            <a class="header-cta" href="<?php echo esc_url($ceeducon_registration_url); ?>" target="_blank" rel="noreferrer">
+              <span><?php echo esc_html(ceeducon_text_value('nav_cta_register', __('Register', 'ceeducon-program'))); ?></span>
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12.5 5.5 19 12l-6.5 6.5"/></svg>
+            </a>
+          <?php endif; ?>
           <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
             <span><?php esc_html_e('Menu', 'ceeducon-program'); ?></span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>

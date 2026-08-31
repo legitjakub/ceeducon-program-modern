@@ -319,6 +319,33 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
 .header-nav a:hover, .header-nav a.is-active { color: var(--white); }
 .header-nav a.is-active::after, .header-nav a:hover::after { transform: scaleX(1); }
 .header-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+/* Registration CTA. Orange against the navy bar so it reads as the one action
+   in the header, on every page. */
+.header-cta {
+  display: inline-flex;
+  height: 42px;
+  align-items: center;
+  gap: 9px;
+  padding: 0 18px;
+  border: 1px solid var(--orange);
+  background: var(--orange);
+  color: var(--white);
+  font-family: var(--font-accent);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background 0.18s var(--ease), border-color 0.18s var(--ease), color 0.18s var(--ease), box-shadow 0.18s var(--ease);
+}
+.header-cta:hover,
+.header-cta:focus-visible {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--navy);
+  box-shadow: var(--shadow-sm);
+}
+.header-cta svg { width: 15px; height: 15px; flex: 0 0 auto; }
 .menu-toggle {
   display: none;
   height: 42px;
@@ -428,6 +455,15 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
   color: var(--white);
 }
 .mobile-menu-actions .btn--ghost:active { background: rgba(255, 255, 255, 0.14); border-color: var(--white); }
+/* Registration leads the overlay actions: the same signal as the header button
+   it stands in for once the bar is down to logo plus Menu. */
+.mobile-menu-actions .btn--register {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: var(--white);
+  box-shadow: none;
+}
+.mobile-menu-actions .btn--register:active { background: #d5601f; border-color: #d5601f; color: var(--white); }
 
 /* Repeated close, reachable one-handed — the toggle is top-right, the hardest
    corner to hit on a phone. */
@@ -1808,6 +1844,34 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
 }
 .modal-abstract p { margin: 0; }
 .modal-abstract p + p { margin-top: 0.95em; }
+/* Most abstracts run several hundred words. Show the opening and let the
+   reader ask for the rest, so the dialog opens at a readable length. */
+.modal-abstract.is-clamped { position: relative; max-height: 12.4em; overflow: hidden; }
+.modal-abstract.is-clamped::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 3.4em;
+  background: linear-gradient(rgba(255, 255, 255, 0), var(--white) 82%);
+  pointer-events: none;
+}
+.modal-abstract-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: -8px 0 20px;
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent-text);
+  cursor: pointer;
+  font-family: var(--font-accent);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.modal-abstract-toggle:hover { color: var(--deep); text-decoration: underline; }
+.modal-abstract-toggle svg { width: 15px; height: 15px; transition: transform 0.2s var(--ease); }
+.modal-abstract-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
 .modal-note { margin: 0; padding: 15px 17px; background: var(--paper); color: var(--muted); font-size: 13.5px; line-height: 1.62; }
 /* Favourite spans the full width, the two calendar targets sit side by side. */
 .modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 24px; }
@@ -1884,6 +1948,8 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
   .brand { height: 74px; }
   .brand-mark { width: 110px; height: 56px; }
   .brand .custom-logo { max-width: 160px; height: 62px; }
+  .header-cta { height: 38px; padding: 0 12px; font-size: 11.5px; letter-spacing: 0.04em; }
+  .header-cta svg { display: none; }
 
   .hero { padding-top: 80px; }
   .hero-media { inset: 80px 0 0; opacity: 0.54; }
@@ -2322,6 +2388,11 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
     margin-inline: 0;
     font-size: clamp(42px, 14vw, 68px);
   }
+}
+
+@media (max-width: 420px) {
+  /* Only logo and Menu fit here; the overlay carries registration instead. */
+  .header-cta { display: none; }
 }
 
 @media (max-width: 360px) {
