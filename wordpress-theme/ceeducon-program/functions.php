@@ -597,17 +597,104 @@ function ceeducon_default_programme_json(): string
     return is_string($json) ? $json : '';
 }
 
+/** Title key used to line a saved session up with the one shipped in the theme. */
+function ceeducon_programme_title_key(string $title): string
+{
+    $title = function_exists('mb_strtolower') ? mb_strtolower($title, 'UTF-8') : strtolower($title);
+    return (string) preg_replace('/[^a-z0-9]+/u', '', $title);
+}
+
+/**
+ * A programme saved before the theme knew about session abstracts and types
+ * cannot carry them: the editor plugin rebuilt every session from a fixed set
+ * of keys and dropped the rest, so the saved copy has no abstract, no type and
+ * no type taxonomy — and the saved copy wins over the file shipped here.
+ *
+ * Fill only those gaps in from the bundled programme, matched on the title.
+ * Everything the editor genuinely owns — titles, rooms, speakers, themes,
+ * times — is left exactly as saved, and a field that already has a value is
+ * never touched. Once the updated editor plugin saves the programme again the
+ * fields persist on their own and this becomes a no-op.
+ */
+function ceeducon_backfill_programme(array $stored, array $bundled): array
+{
+    $index = [];
+    foreach ((array) ($bundled['days'] ?? []) as $day) {
+        foreach ((array) ($day['slots'] ?? []) as $slot) {
+            foreach ((array) ($slot['sessions'] ?? []) as $session) {
+                $title = (string) ($session['title'] ?? '');
+                if ($title === '') {
+                    continue;
+                }
+                $index[ceeducon_programme_title_key($title)] = [
+                    'abstract' => (string) ($session['abstract'] ?? ''),
+                    'type' => (string) ($session['type'] ?? ''),
+                ];
+            }
+        }
+    }
+
+    if (empty($stored['types']) && !empty($bundled['types'])) {
+        $stored['types'] = $bundled['types'];
+    }
+
+    if (!$index) {
+        return $stored;
+    }
+
+    foreach ($stored['days'] ?? [] as $di => $day) {
+        foreach ($day['slots'] ?? [] as $si => $slot) {
+            foreach ($slot['sessions'] ?? [] as $ei => $session) {
+                $key = ceeducon_programme_title_key((string) ($session['title'] ?? ''));
+                $match = $index[$key] ?? null;
+                if ($match === null && $key !== '') {
+                    // A session retitled since the save still shares its opening.
+                    // Require a long common start and exactly one candidate, so an
+                    // ambiguous pair is left alone rather than guessed at.
+                    $candidates = [];
+                    foreach ($index as $candidate => $values) {
+                        $common = 0;
+                        $limit = min(strlen($candidate), strlen($key));
+                        while ($common < $limit && $candidate[$common] === $key[$common]) {
+                            $common++;
+                        }
+                        if ($common >= 24) {
+                            $candidates[] = $values;
+                        }
+                    }
+                    if (count($candidates) === 1) {
+                        $match = $candidates[0];
+                    }
+                }
+                if ($match === null) {
+                    continue;
+                }
+                if (($session['abstract'] ?? '') === '' && $match['abstract'] !== '') {
+                    $stored['days'][$di]['slots'][$si]['sessions'][$ei]['abstract'] = $match['abstract'];
+                }
+                if (($session['type'] ?? '') === '' && $match['type'] !== '') {
+                    $stored['days'][$di]['slots'][$si]['sessions'][$ei]['type'] = $match['type'];
+                }
+            }
+        }
+    }
+
+    return $stored;
+}
+
 function ceeducon_programme_data(): array
 {
+    $default_json = ceeducon_default_programme_json();
+    $default_data = $default_json !== '' ? json_decode($default_json, true) : null;
+    $default_data = is_array($default_data) ? $default_data : [];
+
     $programme_json = ceeducon_text_value('programme_json', '');
     $programme_data = $programme_json !== '' ? json_decode($programme_json, true) : null;
     if (is_array($programme_data)) {
-        return $programme_data;
+        return ceeducon_backfill_programme($programme_data, $default_data);
     }
 
-    $default_json = ceeducon_default_programme_json();
-    $default_data = $default_json !== '' ? json_decode($default_json, true) : null;
-    return is_array($default_data) ? $default_data : [];
+    return $default_data;
 }
 
 function ceeducon_render_programme_seo_fallback(): void
