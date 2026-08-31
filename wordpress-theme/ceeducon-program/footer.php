@@ -58,7 +58,10 @@ if (!defined('ABSPATH')) {
       <section class="session-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <button class="modal-close" type="button" data-modal-close aria-label="Close detail">×</button>
         <div class="modal-track" data-modal-track></div>
-        <p class="modal-theme" data-modal-theme></p>
+        <div class="modal-eyebrow">
+          <p class="modal-theme" data-modal-theme></p>
+          <span class="type-tag" data-modal-type hidden></span>
+        </div>
         <h2 id="modal-title" data-modal-title></h2>
         <div class="modal-meta">
           <div><span><?php esc_html_e('Time', 'ceeducon-program'); ?></span><strong data-modal-time></strong></div>

@@ -58,6 +58,7 @@ const elements = {
   modalFavorite: document.querySelector("[data-modal-favorite]"),
   modalNote: document.querySelector("[data-modal-note]"),
   modalAbstract: document.querySelector("[data-modal-abstract]"),
+  modalType: document.querySelector("[data-modal-type]"),
   abstractToggle: document.querySelector("[data-abstract-toggle]"),
   abstractToggleLabel: document.querySelector("[data-abstract-toggle-label]"),
   toast: document.querySelector("[data-toast]"),
@@ -226,6 +227,7 @@ function buildSessionCard(day, slot, session) {
   const themeLabel = getThemeLabel(session.theme);
   const formatLabel = getFormatLabel(session.format);
   const categoryLabel = themeLabel || formatLabel;
+  const typeLabel = getTypeLabel(session.type);
   const placement = roomPlacement(session);
   const wide = session.rooms.length > 1;
   const preview = speakersPreview(session.speakers || []);
@@ -241,6 +243,7 @@ function buildSessionCard(day, slot, session) {
     format: formatLabel,
     color: theme.color,
     date: day.date,
+    type: typeLabel,
     abstract: session.abstract || "",
     speakers: session.speakers || [],
   });
@@ -248,7 +251,10 @@ function buildSessionCard(day, slot, session) {
   return `
     <article class="session-card${wide ? " session-card--wide" : ""}" style="--track:${escapeHtml(theme.color)};--theme-soft:${escapeHtml(theme.softColor || "#ffffff")};--room-start:${placement.start};--room-span:${placement.span}" data-room-list="${escapeHtml(session.rooms.join(","))}">
       <div class="session-card-head">
-        <span class="room-tag">${escapeHtml(session.rooms.join(" + "))}</span>
+        <span class="card-tags">
+          <span class="room-tag">${escapeHtml(session.rooms.join(" + "))}</span>
+          ${typeLabel ? `<span class="type-tag type-tag--${escapeHtml(session.type)}">${escapeHtml(typeLabel)}</span>` : ""}
+        </span>
         <button class="favorite-star${favorite ? " is-active" : ""}" type="button" data-favorite="${escapeHtml(id)}" aria-label="${favorite ? "Remove from my programme" : "Add to my programme"}" aria-pressed="${favorite}">${favorite ? "★" : "☆"}</button>
       </div>
       <button class="session-card-open" type="button" data-session-open="${escapeHtml(id)}" title="${escapeHtml(session.title)}">
@@ -433,13 +439,18 @@ function openModal(id) {
   state.modalSession = session;
   elements.modalTitle.textContent = session.title;
   elements.modalTheme.textContent = session.category;
+  if (elements.modalType) {
+    elements.modalType.textContent = session.type;
+    elements.modalType.hidden = !session.type;
+    elements.modalType.className = `type-tag${session.type ? " type-tag--" + session.type.toLowerCase() : ""}`;
+  }
   elements.modalTrack.style.background = session.color;
   elements.modalTime.textContent = `${session.start} – ${session.end}`;
   elements.modalRoom.textContent = session.rooms.join(" + ");
   renderAbstract(session.abstract);
   const parts = [];
   if (session.theme) parts.push(`Theme: ${session.theme}.`);
-  parts.push(`Format: ${session.format}.`);
+  if (!session.type) parts.push(`Format: ${session.format}.`);
   const speakers = speakersText(session.speakers);
   if (speakers) parts.push(speakers);
   elements.modalNote.textContent = parts.join(" ");
