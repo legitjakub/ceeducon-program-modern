@@ -55,13 +55,13 @@ if (ceeducon_render_block_page_content()) {
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z" /></svg>
                 <span><?php esc_html_e('My programme', 'ceeducon-program'); ?></span><b data-favorite-count>0</b>
               </button>
-              <button class="control-button mobile-filter-button" type="button" data-filter-toggle aria-expanded="false">
+              <button class="control-button filter-toggle" type="button" data-filter-toggle aria-expanded="false" aria-controls="programme-filters">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4" /></svg>
-                <span><?php esc_html_e('Filters', 'ceeducon-program'); ?></span>
+                <span><?php esc_html_e('Filters', 'ceeducon-program'); ?></span><b data-filter-count hidden>0</b>
               </button>
             </div>
 
-            <div class="filter-drawer" data-filter-drawer>
+            <div class="filter-drawer" id="programme-filters" data-filter-drawer>
               <div class="filter-group">
                 <div class="filter-label"><span><?php esc_html_e('Themes', 'ceeducon-program'); ?></span></div>
                 <div class="filter-chips" data-theme-filters></div>

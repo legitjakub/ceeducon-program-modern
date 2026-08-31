@@ -1625,9 +1625,25 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
 .control-button[aria-pressed="true"] { border-color: var(--deep); background: var(--deep); color: var(--white); }
 .favorites-button svg { width: 17px; height: 17px; }
 .favorites-button b { min-width: 22px; padding: 3px 6px; border-radius: 999px; background: var(--deep); color: var(--white); font-size: 11px; text-align: center; }
-.mobile-filter-button { display: none; }
+/* The panel is sticky, so whatever it shows is gone from the viewport for the
+   whole page. Chips are a setup step, not something you read while scrolling —
+   so the drawer collapses behind this toggle and only the search row stays
+   pinned. JS decides the starting state from the screen size. */
+.filter-toggle { display: inline-flex; }
+.filter-toggle b {
+  min-width: 20px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+.filter-toggle[aria-expanded="true"] { border-color: var(--deep); }
 
-.filter-drawer { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(190px, 0.6fr); gap: 16px; padding: 12px 2px 0; border-top: 1px solid var(--line); }
+.filter-drawer { grid-column: 1 / -1; display: none; grid-template-columns: minmax(0, 1.35fr) minmax(190px, 0.6fr); gap: 16px; padding: 12px 2px 0; border-top: 1px solid var(--line); }
+.filter-drawer.is-open { display: grid; max-height: min(58vh, 460px); overflow-y: auto; }
 .filter-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
 .filter-label span { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
 .filter-chips { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -2199,41 +2215,26 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
   .control-panel { top: 80px; grid-template-columns: 1fr; gap: 8px; padding: 8px; }
   .control-actions { display: grid; grid-template-columns: minmax(0, 1fr) 46px; }
   .control-button { padding: 0 10px; font-size: 11px; }
-  .mobile-filter-button { display: inline-flex; }
-  .mobile-filter-button span { display: none; }
-  .filter-drawer { display: none; max-height: 58vh; overflow-y: auto; gap: 12px; padding: 10px 2px 3px; }
-  .filter-drawer.is-open { display: grid; }
-  .filter-chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; }
-  .filter-chip { flex: 0 0 auto; }
-  .filter-drawer.is-open .filter-chips {
-    flex-wrap: wrap;
-    overflow-x: visible;
-    padding-bottom: 0;
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
-  .filter-drawer.is-open .filter-chip {
-    flex: 0 1 auto;
+  .filter-toggle span { display: none; }
+  .filter-drawer { gap: 12px; padding: 10px 2px 3px; }
+  /* Chips wrap into a tappable two-up grid; they never scroll sideways, so no
+     edge mask here — only the day bar still needs one. */
+  .filter-chip {
     min-height: 44px;
     min-width: 0;
     white-space: normal;
   }
-  .filter-drawer.is-open .filter-chip:not(.filter-chip--period) {
+  .filter-chip:not(.filter-chip--period) {
     flex: 1 1 calc(50% - 6px);
     justify-content: flex-start;
   }
-  .filter-drawer.is-open .filter-chip--period {
+  .filter-chip--period {
     flex: 1 1 calc(33.333% - 6px);
   }
   @supports ((mask-image: linear-gradient(90deg, #000, transparent)) or (-webkit-mask-image: linear-gradient(90deg, #000, transparent))) {
-    .day-bar,
-    .filter-chips {
+    .day-bar {
       -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent 100%);
       mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent 100%);
-    }
-    .filter-drawer.is-open .filter-chips {
-      -webkit-mask-image: none;
-      mask-image: none;
     }
   }
 

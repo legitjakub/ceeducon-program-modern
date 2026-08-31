@@ -45,6 +45,7 @@ const elements = {
   resetButtons: document.querySelectorAll("[data-reset-filters], [data-empty-reset]"),
   empty: document.querySelector("[data-empty]"),
   filterToggle: document.querySelector("[data-filter-toggle]"),
+  filterCount: document.querySelector("[data-filter-count]"),
   filterDrawer: document.querySelector("[data-filter-drawer]"),
   favoritesToggle: document.querySelector("[data-favorites-toggle]"),
   favoriteCount: document.querySelector("[data-favorite-count]"),
@@ -321,11 +322,31 @@ function renderSchedule() {
     : `${day.label}: full programme · ${visibleSessions} sessions`;
 }
 
+const ROOMY_SCREEN = "(min-width: 1200px) and (min-height: 950px)";
+
+function countActiveFilters() {
+  return [state.theme, state.type, state.period].filter(Boolean).length;
+}
+
+/** Filters are invisible while the drawer is shut, so the toggle carries a count. */
+function updateFilterToggle() {
+  if (!elements.filterCount) return;
+  const count = countActiveFilters();
+  elements.filterCount.textContent = count;
+  elements.filterCount.hidden = count === 0;
+}
+
+function setFilterDrawer(open) {
+  elements.filterDrawer.classList.toggle("is-open", open);
+  elements.filterToggle.setAttribute("aria-expanded", String(open));
+}
+
 function render() {
   renderDayBar();
   renderFilters();
   renderSchedule();
   updateFavoritesUI();
+  updateFilterToggle();
 }
 
 function updateFavoritesUI() {
@@ -531,9 +552,18 @@ function bindEvents() {
     render();
   });
 
+  const roomy = window.matchMedia(ROOMY_SCREEN);
+  setFilterDrawer(roomy.matches);
+  let toggledByHand = false;
+
   elements.filterToggle.addEventListener("click", () => {
-    const open = elements.filterDrawer.classList.toggle("is-open");
-    elements.filterToggle.setAttribute("aria-expanded", String(open));
+    toggledByHand = true;
+    setFilterDrawer(!elements.filterDrawer.classList.contains("is-open"));
+  });
+
+  // Follow the screen until the reader states a preference by using the toggle.
+  roomy.addEventListener("change", (event) => {
+    if (!toggledByHand) setFilterDrawer(event.matches);
   });
 
   document.querySelectorAll("[data-modal-close]").forEach((button) => button.addEventListener("click", closeModal));
