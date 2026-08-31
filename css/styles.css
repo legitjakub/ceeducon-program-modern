@@ -2307,7 +2307,12 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
   /* A narrow line holds far less, so the phone keeps seven of them. */
   .modal-abstract.is-clamped { max-height: 12.4em; }
   .modal-abstract.is-clamped::after { height: 3.4em; }
-  .modal-actions { grid-template-columns: 1fr; }
+  /* Keep the desktop shape: favourite across the top, the two calendars
+     side by side under it. Three stacked buttons cost a third of a phone
+     screen for a dialog that is already scrolling. */
+  .modal-actions { gap: 8px; }
+  .modal-actions button { padding: 9px 8px; font-size: 11.5px; }
+  .modal-actions .modal-calendar .ui-icon { display: none; }
   .toast { left: 14px; right: 14px; bottom: 14px; min-width: 0; }
   .footer-ghost { font-size: clamp(56px, 17vw, 96px); }
 }
