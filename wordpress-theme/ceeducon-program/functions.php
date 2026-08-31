@@ -168,6 +168,42 @@ function ceeducon_content_tokens(): array
     ]);
 }
 
+/**
+ * "Registration opens in September" sits in the edition settings of any install
+ * set up before registration opened, and a stored value beats every default —
+ * so shipping a new default never reaches it. Edition plugin 1.4.0 rewrites it
+ * in the database properly; until that plugin is in place, correct it on the
+ * way out so the site stops announcing a date that has passed.
+ *
+ * Deliberately narrow: it matches one exact superseded string, and it steps
+ * aside completely as soon as the plugin that owns this is installed, so it
+ * can never sit between an editor and a value they typed themselves.
+ */
+function ceeducon_superseded_edition_text(string $value): string
+{
+    if (function_exists('ceeducon_edition_migrate_superseded_defaults')) {
+        return $value;
+    }
+
+    $superseded = [
+        'Registration opens in September' => 'Registration is open',
+    ];
+
+    return $superseded[trim($value)] ?? $value;
+}
+
+add_filter('ceeducon_text_value', static function ($value) {
+    return ceeducon_superseded_edition_text((string) $value);
+}, 20);
+
+add_filter('ceeducon_content_tokens', static function ($tokens) {
+    if (is_array($tokens) && isset($tokens['{{registration}}'])) {
+        $tokens['{{registration}}'] = ceeducon_superseded_edition_text((string) $tokens['{{registration}}']);
+    }
+
+    return $tokens;
+}, 20);
+
 function ceeducon_expand_content_tokens(string $value): string
 {
     return strtr($value, ceeducon_content_tokens());
