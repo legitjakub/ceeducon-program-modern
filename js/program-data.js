@@ -247,8 +247,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               ],
               "theme": "recruitment-retention",
               "speakers": [
-                "Aleksandra Zhivkovikj (EQAR)",
-                "Aleksandar Susnjar (EQAR)"
+                "Aleksandra Zhivkovikj (EQAR)"
               ],
               "format": "session"
             },
@@ -333,7 +332,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               ],
               "theme": "challenges-internationalisation",
               "speakers": [
-                "Shiv Tripathi (Berlin School of Business and Innovation)",
+                "Shiv Kumar Tripathi (Berlin School of Business and Innovation)",
                 "Kyriakos Kouveliotis (Berlin School of Business and Innovation)",
                 "Pankaj Mittal (TBC)"
               ],
@@ -463,7 +462,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               "theme": "challenges-internationalisation",
               "speakers": [
                 "Laura Rumbley (European Association for International Education)",
-                "Sylvia Jons (IIE)",
+                "Mirka Martel (IIE)",
                 "Rúna Gudmarsdóttir (RANNIS)",
                 "Eveke de Louw (The Hague University of Applied Sciences)"
               ],
@@ -719,7 +718,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               "speakers": [
                 "Marta Hochmal (Prague University of Economics and Business)",
                 "Iga Fijołek (Kozminski University)",
-                "Nicole Kienel (University of Cologne)"
+                "tbc"
               ],
               "format": "online"
             },
@@ -755,7 +754,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               "theme": "global-partnerships",
               "speakers": [
                 "María-Elvira Prieto (Pompeu Fabra University)",
-                "Agata Manino (Chemnitz University of Technology)",
+                "Agata Mannino (Chemnitz University of Technology)",
                 "Francesco Girotti (University of Bologna)"
               ],
               "format": "session"
@@ -891,7 +890,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               "format": "session"
             },
             {
-              "title": "From Partnerships to Ecosystems: Rethinking International Collaboration",
+              "title": "From Partnerships to Ecosystems: Governing European University Alliances",
               "rooms": [
                 "B1"
               ],
@@ -899,7 +898,8 @@ window.CEEDUCON_PROGRAM_DATA = {
               "speakers": [
                 "Ladislav Krištoufek (Czech Technical University)",
                 "Vratislav Kozák (Charles University)",
-                "Ivona Barešová (Palacký University Olomouc)"
+                "Ivona Barešová (Palacký University Olomouc)",
+                "Ladislav Janíček (Brno University of Technology)"
               ],
               "format": "session"
             },
