@@ -528,33 +528,7 @@ function ceeducon_render_mobile_navigation(): void
         echo '<li>' . $row . '</li>';
     }
     echo '</ul>';
-    echo '<div class="mobile-menu-actions">';
-    // The header button is hidden on the narrowest bars, so registration leads
-    // the overlay actions. Renders only once a registration URL is set.
-    $registration_url = ceeducon_registration_url();
-    if ($registration_url !== '') {
-        echo ceeducon_render_block_button(
-            (string) ceeducon_text_value('nav_cta_register_long', __('Register for CEEDUCON 2026', 'ceeducon-program')),
-            $registration_url,
-            'btn btn--register'
-        );
-    }
-    echo ceeducon_render_block_button(
-        (string) ceeducon_text_value('nav_cta_primary', __('Explore programme', 'ceeducon-program')),
-        ceeducon_page_url('programme'),
-        'btn btn--primary'
-    );
-    echo ceeducon_render_block_button(
-        (string) ceeducon_text_value('nav_cta_secondary', __('Plan your visit', 'ceeducon-program')),
-        ceeducon_page_url('practical'),
-        'btn btn--ghost'
-    );
     echo '</div>';
-    echo '</div>';
-    echo '<button class="mobile-menu-close" type="button" data-menu-close aria-label="'
-        . esc_attr__('Close menu', 'ceeducon-program')
-        . '"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round">'
-        . '<path d="M6 6l12 12M18 6L6 18"/></svg></button>';
     echo '</nav>';
 }
 

@@ -46,7 +46,6 @@ function bindSiteNavigation() {
   }
 
   menuToggle.addEventListener("click", () => setOpen(!isOpen()));
-  mobileMenu.querySelector("[data-menu-close]")?.addEventListener("click", () => setOpen(false));
   mobileMenu.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => setOpen(false, { returnFocus: false }));
   });

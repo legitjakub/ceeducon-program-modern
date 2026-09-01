@@ -39,8 +39,10 @@ if (!defined('ABSPATH')) {
             </a>
           <?php endif; ?>
           <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
-            <span><?php esc_html_e('Menu', 'ceeducon-program'); ?></span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+            <span class="menu-toggle-word menu-toggle-word--open"><?php esc_html_e('Menu', 'ceeducon-program'); ?></span>
+            <span class="menu-toggle-word menu-toggle-word--close"><?php esc_html_e('Close', 'ceeducon-program'); ?></span>
+            <svg class="menu-toggle-icon menu-toggle-icon--open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+            <svg class="menu-toggle-icon menu-toggle-icon--close" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
           </button>
         </div>
       </div>
