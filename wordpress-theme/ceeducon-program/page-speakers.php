@@ -26,10 +26,6 @@ if (ceeducon_render_block_page_content()) {
             <span><?php ceeducon_text('spk_card_label', 'Speaker checklist'); ?></span>
             <strong><?php ceeducon_text('spk_card_title', 'Before conference day'); ?></strong>
             <p><?php ceeducon_text('spk_card_text', "Check your session details, complete speaker registration and submit final presentation materials according to the organisers' instructions."); ?></p>
-            <?php $spk_registration_url = ceeducon_registration_url(); ?>
-            <?php if ($spk_registration_url !== '') : ?>
-              <a class="btn btn--register page-hero-card-cta" href="<?php echo esc_url($spk_registration_url); ?>" target="_blank" rel="noreferrer"><?php echo esc_html(ceeducon_text_value('spk_card_cta', __('Speaker registration', 'ceeducon-program'))); ?></a>
-            <?php endif; ?>
           </div>
         </div>
       </section>

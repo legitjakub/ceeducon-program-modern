@@ -713,7 +713,6 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
 .page-hero-card strong { display: block; margin: 10px 0 10px; color: var(--white); font-size: clamp(21px, 1.8vw, 28px); line-height: 1.05; letter-spacing: -0.02em; }
 .page-hero-card strong a:hover { color: var(--sky-soft); }
 .page-hero-card p { margin: 0; color: rgba(255, 255, 255, 0.82); font-size: 14px; line-height: 1.6; }
-.page-hero-card-cta { align-self: flex-start; margin-top: 22px; min-height: 48px; padding: 0 20px; }
 .page-crumbs { display: flex; align-items: center; gap: 10px; margin: 0 0 22px; color: rgba(255, 255, 255, 0.78); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
 .page-crumbs a:hover { color: var(--white); }
 .page-crumbs em { font-style: normal; color: var(--sky-soft); }
