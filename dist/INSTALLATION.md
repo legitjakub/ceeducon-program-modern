@@ -2,15 +2,19 @@
 
 ## Required packages
 
-- `ceeducon-program-wordpress-theme.zip`
-- `ceeducon-conference-settings.zip`
-- `ceeducon-programme-editor.zip`
+- `ceeducon-program-wordpress-theme.zip` — the theme
+- `ceeducon-control-center.zip` — the one plugin that edits everything
+
+Superseded, kept only so an existing install can be rolled back:
+`ceeducon-conference-settings.zip` and `ceeducon-programme-editor.zip`. Control
+Center replaces both and switches them off when it is activated; all three write
+to the same options, so nothing is migrated and nothing is lost either way.
 
 ## Installation
 
 1. In **Appearance → Themes → Add New → Upload Theme**, upload and activate the theme ZIP.
-2. In **Plugins → Add New → Upload Plugin**, upload and activate the conference settings ZIP, then the programme editor ZIP.
-3. Open **CEEDUCON Content → Conference edition** and check the year, dates, venue, registration, statistics and annual images.
+2. In **Plugins → Add New → Upload Plugin**, upload and activate `ceeducon-control-center.zip`.
+3. Open **CEEDUCON → Ročník konference** and check the year, dates, venue, registration, statistics and annual images.
 4. Create the pages `about`, `programme`, `practical`, `speakers`, `media` and `contact`, then set a static homepage under **Settings → Reading**.
 5. Assign the primary menu under **Appearance → Menus**.
 6. Clear the WordPress and hosting cache after replacing the theme.
@@ -23,8 +27,9 @@ is installed separately and WP Pusher needs the subdirectory told to it:
 | Package | Repository | Subdirectory | Branch |
 | --- | --- | --- | --- |
 | Theme | `legitjakub/ceeducon-program-modern` | `wordpress-theme/ceeducon-program` | `main` |
-| Conference Edition | same | `wordpress-plugin/ceeducon-conference-settings` | `main` |
-| Programme Editor | same | `wordpress-plugin/ceeducon-programme-editor` | `main` |
+| Control Center | same | `wordpress-plugin/ceeducon-control-center` | `main` |
+| Conference Edition *(superseded)* | same | `wordpress-plugin/ceeducon-conference-settings` | `main` |
+| Programme Editor *(superseded)* | same | `wordpress-plugin/ceeducon-programme-editor` | `main` |
 
 Three things have to be true for a push to reach the site:
 
@@ -48,17 +53,35 @@ comment for each plugin.
 
 Open a page in the standard WordPress block editor. Important headings, paragraphs, buttons, cards and images are edited in the CEEDUCON blocks under **Sekce webu**. Layout, colours, spacing and responsive behaviour stay controlled by the theme.
 
-Values that change every year are edited once under **CEEDUCON Content → Conference edition** and reused throughout the site.
+Values that change every year are edited once under **CEEDUCON → Ročník konference** and reused throughout the site.
+
+## Editing the site with Control Center
+
+The plugin adds one **CEEDUCON** menu with five screens:
+
+- **Přehled** — what the site currently says, plus the checks worth running
+  before an edition goes live and the list of `{{tokens}}` with their values.
+- **Program** — the visual programme editor (below).
+- **Texty webu** — every visible text, grouped by page, with search, a preview
+  of how each `{{token}}` resolves, and a per-field way back to the theme's
+  wording. An emptied field falls back to what the theme ships.
+- **Ročník konference** — the values that change every year. One save here
+  reaches the hero, the calendar links, the SEO descriptions and the Event
+  structured data.
+- **Zálohy a nástroje** — download the whole configuration as one JSON file,
+  restore it, or read the programme exactly as the front end sees it.
 
 ## Editing the programme
 
-**CEEDUCON Content → Program** edits the interactive programme as a form: days,
-time slots, and the sessions inside them. A slot is either a set of sessions or
-a break; switching the type shows the matching fields. Rooms are ticked from the
-room list, so a typo cannot put a session in a hall that does not exist — the
-screen warns about that after saving.
+**CEEDUCON → Program** edits the interactive programme: day tabs, time slots,
+and the sessions inside them. A slot is either a set of sessions or a break.
+Clicking a session opens a side panel with its title, rooms, theme, type,
+format, speakers and abstract; sessions can be dragged from one slot to another
+or moved with the *Přesunout do bloku* selector. The second tab of the screen
+holds the rooms, themes, session types and formats.
 
-It writes to the same place the theme reads the programme from, so a save is
-live immediately. The old *Programme JSON* field on **CEEDUCON Content** still
-works and now serves as the manual escape hatch; a read-only copy of the current
-JSON sits at the bottom of the programme screen for backups.
+The whole programme is posted back as a single JSON document. That matters: a
+form with one input per field would need well over a thousand inputs for two
+days and nine rooms, and PHP accepts a thousand by default (`max_input_vars`) —
+everything past the limit is dropped without an error. Each save also writes a
+one-step backup, restorable from the same screen.
