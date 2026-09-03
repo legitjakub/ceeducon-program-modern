@@ -136,7 +136,7 @@ window.CEEDUCON_PROGRAM_DATA = {
               "speakers": [
                 "Anna Kowalczyk (ESN Poland)",
                 "Phillip Höhne (ESN Germany)",
-                "Jakub Starý (ESN Czechia)"
+                "Jakub Starý (ESN Czech Republic)"
               ],
               "format": "online",
               "type": "workshop",
@@ -815,8 +815,8 @@ window.CEEDUCON_PROGRAM_DATA = {
               ],
               "theme": "recruitment-retention",
               "speakers": [
-                "Veronika Plchová (ESN Czechia)",
-                "Jakub Starý (ESN Czechia)",
+                "Veronika Plchová (ESN Czech Republic)",
+                "Jakub Starý (ESN Czech Republic)",
                 "Zuzanna Łapot-Myszewska (Czech University of Life Sciences Prague)",
                 "Maksud Safaraliyev (University of West Bohemia in Pilsen)"
               ],

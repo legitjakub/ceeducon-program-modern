@@ -359,6 +359,68 @@ function ceeducon_cc_prog_warnings(array $d): array
     return array_slice(array_values(array_unique($warnings)), 0, 20);
 }
 
+/**
+ * A correction made in the repository reaches the bundled programme file, but
+ * the copy saved in the database wins over that file — so a fix to a speaker's
+ * institution never arrives on a site that has ever saved its programme.
+ *
+ * Rewrite such a value once, and only where it is byte-for-byte the superseded
+ * text: anything an editor typed themselves is left alone, the pass records the
+ * version it ran and never repeats, and the save it makes keeps the usual
+ * one-step backup, so it can be undone from the programme screen.
+ */
+function ceeducon_cc_prog_superseded_speakers(): array
+{
+    return [
+        // The organisers' schedule renamed the ESN sections in December 2026.
+        '(ESN Czechia)' => '(ESN Czech Republic)',
+    ];
+}
+
+function ceeducon_cc_prog_migrate_stored(): void
+{
+    $version = '1.0.1';
+    if (get_option('ceeducon_cc_programme_migration') === $version) {
+        return;
+    }
+
+    $stored = ceeducon_cc_prog_stored_json();
+    if ($stored === '') {
+        update_option('ceeducon_cc_programme_migration', $version, false);
+        return;
+    }
+
+    $data = json_decode($stored, true);
+    if (!is_array($data) || empty($data['days'])) {
+        update_option('ceeducon_cc_programme_migration', $version, false);
+        return;
+    }
+
+    $replacements = ceeducon_cc_prog_superseded_speakers();
+    $changed = 0;
+
+    foreach ($data['days'] as $di => $day) {
+        foreach ((array) ($day['slots'] ?? []) as $si => $slot) {
+            foreach ((array) ($slot['sessions'] ?? []) as $ei => $session) {
+                foreach ((array) ($session['speakers'] ?? []) as $ni => $name) {
+                    $fixed = strtr((string) $name, $replacements);
+                    if ($fixed !== (string) $name) {
+                        $data['days'][$di]['slots'][$si]['sessions'][$ei]['speakers'][$ni] = $fixed;
+                        $changed++;
+                    }
+                }
+            }
+        }
+    }
+
+    if ($changed > 0) {
+        ceeducon_cc_prog_store(ceeducon_cc_prog_sanitize($data));
+    }
+
+    update_option('ceeducon_cc_programme_migration', $version, false);
+}
+add_action('admin_init', 'ceeducon_cc_prog_migrate_stored', 5);
+
 function ceeducon_cc_prog_encode(array $data): string
 {
     return (string) wp_json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
