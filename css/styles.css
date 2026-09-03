@@ -635,6 +635,10 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
   align-items: end;
   gap: clamp(28px, 4.8vw, 68px);
 }
+/* A hero that carries no card should not keep the column the card sat in;
+   without this the heading stays squeezed into two thirds of the width with
+   an empty third beside it. */
+.page-hero-grid--single { grid-template-columns: minmax(0, 1fr); }
 .page-hero .kicker { color: var(--white); }
 .page-hero h1 { margin: 0; font-size: clamp(42px, 5.4vw, 84px); font-weight: 700; line-height: 0.95; letter-spacing: -0.035em; }
 .page-hero-note { max-width: 640px; margin: 22px 0 0; color: rgba(255, 255, 255, 0.76); font-size: clamp(15px, 1.15vw, 18px); line-height: 1.6; }

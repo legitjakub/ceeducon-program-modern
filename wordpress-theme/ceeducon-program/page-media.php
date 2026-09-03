@@ -20,17 +20,11 @@ $partners_url = ceeducon_asset_url('assets/media/ceeducon-partner-logos-white.pn
 
     <main id="main">
       <section class="page-hero">
-        <div class="shell page-hero-grid">
+        <div class="shell page-hero-grid page-hero-grid--single">
           <div>
             <p class="page-crumbs"><a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Home', 'ceeducon-program'); ?></a><span>/</span><em><?php esc_html_e('Media kit', 'ceeducon-program'); ?></em></p>
             <h1><?php esc_html_e('Media resources.', 'ceeducon-program'); ?></h1>
             <p class="page-hero-note"><?php ceeducon_text('media_hero_note', 'Official {{event_title}} visual assets, press information and a direct contact for journalists and partner organisations.'); ?></p>
-          </div>
-          <div class="page-hero-card page-hero-card--orange">
-            <span><?php esc_html_e('Media contact', 'ceeducon-program'); ?></span>
-            <strong>ceeducon@dzs.cz</strong>
-            <p><?php esc_html_e('Please include your outlet, deadline and the material you need.', 'ceeducon-program'); ?></p>
-            <a class="btn btn--outline" href="mailto:ceeducon@dzs.cz"><?php esc_html_e('Email the team', 'ceeducon-program'); ?></a>
           </div>
         </div>
       </section>
