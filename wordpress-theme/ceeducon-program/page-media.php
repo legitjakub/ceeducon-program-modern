@@ -71,18 +71,26 @@ $partners_url = ceeducon_asset_url('assets/media/ceeducon-partner-logos-white.pn
       </section>
 
       <section class="section">
-        <div class="shell press-list">
-          <div data-reveal>
-            <p class="kicker"><?php esc_html_e('Press releases', 'ceeducon-program'); ?></p>
-            <h2 class="display-2"><?php esc_html_e('News for media and partners.', 'ceeducon-program'); ?></h2>
-          </div>
-          <article class="press-item" data-reveal="2">
-            <span><?php esc_html_e('Coming soon', 'ceeducon-program'); ?></span>
-            <div>
-              <h3><?php ceeducon_text('media_press_title', '{{event_title}} press releases'); ?></h3>
-              <p><?php esc_html_e('Approved press releases and announcements will be published here as they become available.', 'ceeducon-program'); ?></p>
+        <div class="shell">
+          <?php /* The heading belongs outside .press-list: that list paints its
+                   own background so the 1px gaps between rows read as hairlines,
+                   and anything else placed inside it sits on that colour. */ ?>
+          <div class="section-head">
+            <div data-reveal>
+              <p class="kicker"><?php esc_html_e('Press releases', 'ceeducon-program'); ?></p>
+              <h2 class="display-2"><?php esc_html_e('News for media and partners.', 'ceeducon-program'); ?></h2>
             </div>
-          </article>
+            <p data-reveal="2"><?php ceeducon_text('media_press_lead', 'The {{year}} press release archive will be published here as materials are approved by the organisers.'); ?></p>
+          </div>
+          <div class="press-list" data-reveal>
+            <article class="press-item">
+              <span><?php esc_html_e('Coming soon', 'ceeducon-program'); ?></span>
+              <div>
+                <h3><?php ceeducon_text('media_press_title', '{{event_title}} press releases'); ?></h3>
+                <p><?php esc_html_e('Approved press releases and announcements will be published here as they become available.', 'ceeducon-program'); ?></p>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
     </main>

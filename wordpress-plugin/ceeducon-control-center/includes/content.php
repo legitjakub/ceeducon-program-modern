@@ -37,6 +37,7 @@ function ceeducon_cc_group_meta(): array
         'Programme page' => ['title' => 'Stránka Program', 'icon' => 'list-view'],
         'Practical page' => ['title' => 'Stránka Praktické informace', 'icon' => 'location'],
         'For speakers page' => ['title' => 'Stránka Pro řečníky', 'icon' => 'microphone'],
+        'Media kit page' => ['title' => 'Stránka Media kit', 'icon' => 'format-image'],
         'Contact page' => ['title' => 'Stránka Kontakt', 'icon' => 'email'],
     ];
 }

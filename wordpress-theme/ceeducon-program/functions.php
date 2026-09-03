@@ -1489,6 +1489,13 @@ function ceeducon_admin_content_fields(): array
             ['spk_link_3_title', 'Quick link 3 title', 'Talk to the organisers', 'text'],
             ['spk_link_3_text', 'Quick link 3 text', 'Reach the CEEDUCON team for anything the speaker information does not cover.', 'textarea'],
         ],
+        'Media kit page' => [
+            ['media_hero_note', 'Hero note', 'Official {{event_title}} visual assets, press information and a direct contact for journalists and partner organisations.', 'textarea'],
+            ['media_banner_alt', 'Banner image alt text', 'Official {{event_title}} conference banner', 'text'],
+            ['media_banner_text', 'Banner text', 'High-resolution {{event_title}} key visual for digital publication.', 'textarea'],
+            ['media_press_lead', 'Press releases lead', 'The {{year}} press release archive will be published here as materials are approved by the organisers.', 'textarea'],
+            ['media_press_title', 'Press releases item title', '{{event_title}} press releases', 'text'],
+        ],
         'Contact page' => [
             ['con_hero_title', 'Hero title', 'Talk to us.', 'textarea'],
             ['con_hero_note', 'Hero note', 'Registration updates, programme questions, speaker communication or partnerships — the organisers are happy to help.', 'textarea'],
