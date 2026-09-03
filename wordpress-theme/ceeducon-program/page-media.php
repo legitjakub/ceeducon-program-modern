@@ -106,8 +106,8 @@ $partners_url = ceeducon_asset_url('assets/media/ceeducon-partner-logos-white.pn
                   'text' => __('Explore the key topics, speakers, figures and moments from previous editions.', 'ceeducon-program'),
                   'action' => __('View highlight reports', 'ceeducon-program'),
                   'years' => [
-                      '2025' => ceeducon_text_value('media_report_2025_url', ''),
-                      '2024' => ceeducon_text_value('media_report_2024_url', ''),
+                      '2025' => ceeducon_text_value('media_report_2025_url', 'https://www.dzs.cz/clanek/budoucnost-evropy-se-pise-i-na-univerzitach-ceeducon-2025-ukazal-ze-klicem-je-digitalizovat'),
+                      '2024' => ceeducon_text_value('media_report_2024_url', 'https://www.dzs.cz/en/article/future-education-internationalization-tool-excellence-and-innovation'),
                   ],
               ],
               [
@@ -143,13 +143,6 @@ $partners_url = ceeducon_asset_url('assets/media/ceeducon-partner-logos-white.pn
                 <?php endif; ?>
               </article>
             <?php endforeach; ?>
-            <article class="press-item">
-              <span><?php esc_html_e('Coming soon', 'ceeducon-program'); ?></span>
-              <div>
-                <h3><?php ceeducon_text('media_press_title', '{{event_title}} press releases'); ?></h3>
-                <p><?php esc_html_e('Approved press releases and announcements will be published here as they become available.', 'ceeducon-program'); ?></p>
-              </div>
-            </article>
           </div>
 
           <div class="notice-cards">
