@@ -111,11 +111,14 @@ $partners_url = ceeducon_asset_url('assets/media/ceeducon-partner-logos-white.pn
                   ],
               ],
               [
-                  'format' => __('ZIP', 'ceeducon-program'),
+                  'format' => __('ZIP · 14 MB', 'ceeducon-program'),
                   'title' => __('Conference photos', 'ceeducon-program'),
-                  'text' => __('Photographs from CEEDUCON 2025, free to publish with editorial coverage. Please credit DZS.', 'ceeducon-program'),
+                  'text' => __('Twenty-three photographs from CEEDUCON 2025 at full resolution, free to publish with editorial coverage. Please credit DZS.', 'ceeducon-program'),
                   'action' => __('Download conference photos', 'ceeducon-program'),
-                  'years' => ['2025' => ceeducon_text_value('media_photos_url', '')],
+                  // The pack ships with the theme, so the link works without
+                  // anyone uploading anything; the setting overrides it once
+                  // the file lives in the media library instead.
+                  'years' => ['2025' => ceeducon_text_value('media_photos_url', ceeducon_asset_url('assets/media/ceeducon-2025-press-photos.zip'))],
               ],
           ];
           ?>

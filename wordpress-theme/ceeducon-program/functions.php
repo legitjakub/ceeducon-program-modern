@@ -1499,7 +1499,7 @@ function ceeducon_admin_content_fields(): array
             ['media_release_2024_url', 'Press release 2024 (PDF URL)', 'https://www.dzs.cz/sites/default/files/press_release/2024-11/Press_Release_CZEDUCON_2024.pdf', 'url'],
             ['media_report_2025_url', 'Highlight report 2025 (URL)', '', 'url'],
             ['media_report_2024_url', 'Highlight report 2024 (URL)', '', 'url'],
-            ['media_photos_url', 'Conference photo pack (URL)', '', 'url'],
+            ['media_photos_url', 'Conference photo pack (URL)', ceeducon_asset_url('assets/media/ceeducon-2025-press-photos.zip'), 'url'],
             ['media_note_title', 'Journalist note title', 'Interested in covering {{event_title}}?', 'text'],
             ['media_note_text', 'Journalist note text (HTML allowed)', 'Join us in {{city}} on {{date_short}}. For media accreditation, interview requests or press materials, contact us at <a href="mailto:press@dzs.cz">press@dzs.cz</a>.', 'textarea'],
         ],
