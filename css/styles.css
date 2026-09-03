@@ -1076,6 +1076,29 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
 .press-item { display: grid; grid-template-columns: 150px minmax(0, 1fr) auto; gap: 24px; align-items: center; min-height: 106px; padding: 22px 24px; background: var(--white); }
 .press-item time, .press-item span { color: var(--muted); font-size: 12px; }
 .press-item strong { color: var(--deep); }
+.press-item h3 { margin: 0 0 6px; color: var(--deep); font-size: 17px; line-height: 1.25; }
+.press-item h3 + p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; max-width: 62ch; }
+
+/* One row can offer more than one edition, so the action is a small link per
+   year rather than a single button. */
+.press-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+.press-year {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 16px;
+  border: 1px solid var(--deep);
+  color: var(--deep);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.press-year:hover, .press-year:focus-visible { background: var(--deep); color: var(--white); }
+.press-actions--empty { color: var(--muted); font-size: 12px; font-style: italic; }
+.notice-card p:last-child { margin-bottom: 0; }
+.notice-card p a { color: var(--deep); text-decoration: underline; text-underline-offset: 3px; }
+.notice-card p a:hover, .notice-card p a:focus-visible { color: var(--accent-text); }
 .partner-logo-strip { padding: 0 0 clamp(28px, 4vw, 46px); }
 .partner-logo-grid {
   display: flex;

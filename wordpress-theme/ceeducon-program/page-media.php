@@ -80,9 +80,66 @@ $partners_url = ceeducon_asset_url('assets/media/ceeducon-partner-logos-white.pn
               <p class="kicker"><?php esc_html_e('Press releases', 'ceeducon-program'); ?></p>
               <h2 class="display-2"><?php esc_html_e('News for media and partners.', 'ceeducon-program'); ?></h2>
             </div>
-            <p data-reveal="2"><?php ceeducon_text('media_press_lead', 'The {{year}} press release archive will be published here as materials are approved by the organisers.'); ?></p>
+            <p data-reveal="2"><?php ceeducon_text('media_press_lead', 'Materials from previous editions are below. {{event_title}} releases will be added here as the organisers approve them.'); ?></p>
           </div>
+          <?php
+          /**
+           * Each row offers one or two years. The URL of a year is a setting
+           * rather than markup, so a new edition is added from the admin — and
+           * a year whose URL is still empty prints nothing at all, instead of a
+           * link that leads nowhere.
+           */
+          $ceeducon_press_rows = [
+              [
+                  'format' => __('PDF', 'ceeducon-program'),
+                  'title' => __('Press releases', 'ceeducon-program'),
+                  'text' => __('Download press releases from previous editions of CEEDUCON.', 'ceeducon-program'),
+                  'action' => __('View press releases', 'ceeducon-program'),
+                  'years' => [
+                      '2025' => ceeducon_text_value('media_release_2025_url', 'https://www.dzs.cz/sites/default/files/press_release/2025-11/TZ_CEEDUCON_2025_st%C5%99edoevropsk%C3%A1%20konfernce%20V%C5%A0%20v%20Praze.pdf'),
+                      '2024' => ceeducon_text_value('media_release_2024_url', 'https://www.dzs.cz/sites/default/files/press_release/2024-11/Press_Release_CZEDUCON_2024.pdf'),
+                  ],
+              ],
+              [
+                  'format' => __('Online', 'ceeducon-program'),
+                  'title' => __('Highlight reports', 'ceeducon-program'),
+                  'text' => __('Explore the key topics, speakers, figures and moments from previous editions.', 'ceeducon-program'),
+                  'action' => __('View highlight reports', 'ceeducon-program'),
+                  'years' => [
+                      '2025' => ceeducon_text_value('media_report_2025_url', ''),
+                      '2024' => ceeducon_text_value('media_report_2024_url', ''),
+                  ],
+              ],
+              [
+                  'format' => __('ZIP', 'ceeducon-program'),
+                  'title' => __('Conference photos', 'ceeducon-program'),
+                  'text' => __('Photographs from CEEDUCON 2025, free to publish with editorial coverage. Please credit DZS.', 'ceeducon-program'),
+                  'action' => __('Download conference photos', 'ceeducon-program'),
+                  'years' => ['2025' => ceeducon_text_value('media_photos_url', '')],
+              ],
+          ];
+          ?>
           <div class="press-list" data-reveal>
+            <?php foreach ($ceeducon_press_rows as $ceeducon_row) : ?>
+              <?php $ceeducon_links = array_filter($ceeducon_row['years'], static fn($url): bool => trim((string) $url) !== ''); ?>
+              <article class="press-item">
+                <span><?php echo esc_html($ceeducon_row['format']); ?></span>
+                <div>
+                  <h3><?php echo esc_html($ceeducon_row['title']); ?></h3>
+                  <p><?php echo esc_html($ceeducon_row['text']); ?></p>
+                </div>
+                <?php if ($ceeducon_links) : ?>
+                  <p class="press-actions">
+                    <?php foreach ($ceeducon_links as $ceeducon_year => $ceeducon_url) : ?>
+                      <a class="press-year" href="<?php echo esc_url($ceeducon_url); ?>" target="_blank" rel="noreferrer"
+                         aria-label="<?php echo esc_attr($ceeducon_row['action'] . ' — ' . $ceeducon_year); ?>"><?php echo esc_html($ceeducon_year); ?></a>
+                    <?php endforeach; ?>
+                  </p>
+                <?php else : ?>
+                  <p class="press-actions press-actions--empty"><?php esc_html_e('Links coming shortly', 'ceeducon-program'); ?></p>
+                <?php endif; ?>
+              </article>
+            <?php endforeach; ?>
             <article class="press-item">
               <span><?php esc_html_e('Coming soon', 'ceeducon-program'); ?></span>
               <div>
@@ -90,6 +147,14 @@ $partners_url = ceeducon_asset_url('assets/media/ceeducon-partner-logos-white.pn
                 <p><?php esc_html_e('Approved press releases and announcements will be published here as they become available.', 'ceeducon-program'); ?></p>
               </div>
             </article>
+          </div>
+
+          <div class="notice-cards">
+            <div class="notice-card notice-card--sky notice-card--wide" data-reveal="2">
+              <span><?php esc_html_e('For journalists', 'ceeducon-program'); ?></span>
+              <h3><?php ceeducon_text('media_note_title', 'Interested in covering {{event_title}}?'); ?></h3>
+              <p><?php ceeducon_html('media_note_text', 'Join us in {{city}} on {{date_short}}. For media accreditation, interview requests or press materials, contact us at <a href="mailto:press@dzs.cz">press@dzs.cz</a>.'); ?></p>
+            </div>
           </div>
         </div>
       </section>
