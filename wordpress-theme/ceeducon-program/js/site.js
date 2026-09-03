@@ -266,12 +266,22 @@ function bindMobileCarousels() {
     const prev = nav.querySelector("[data-carousel-prev]");
     const next = nav.querySelector("[data-carousel-next]");
 
+    /* Distance from one card's start to the next, gap included. Measured
+       rather than assumed, so it stays right at any width. */
+    const stride = () =>
+      slides.length > 1 ? Math.max(1, slides[1].offsetLeft - slides[0].offsetLeft) : track.clientWidth;
+
+    /* Which card the track is resting on. Derived from scrollLeft rather than
+       from each card's distance to the track's left edge: the track carries
+       horizontal padding, so a snapped card sits a padding's width inside that
+       edge and comparing against it picked the neighbour around the midpoint. */
     const getCurrentIndex = () => {
-      const trackLeft = track.getBoundingClientRect().left;
-      return slides.reduce((best, slide, slideIndex) => {
-        const distance = Math.abs(slide.getBoundingClientRect().left - trackLeft);
-        return distance < best.distance ? { index: slideIndex, distance } : best;
-      }, { index: 0, distance: Number.POSITIVE_INFINITY }).index;
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      // A last card narrower than the space left over never reaches its own
+      // offset, so read the end of the track as the last card.
+      if (maxScroll > 0 && track.scrollLeft >= maxScroll - 2) return slides.length - 1;
+      const index = Math.round(track.scrollLeft / stride());
+      return Math.max(0, Math.min(slides.length - 1, index));
     };
 
     const updateCounter = () => {
@@ -281,20 +291,27 @@ function bindMobileCarousels() {
       next.disabled = current === slides.length - 1;
     };
 
-    const scrollToSlide = (direction) => {
-      const current = getCurrentIndex();
-      const target = slides[Math.max(0, Math.min(slides.length - 1, current + direction))];
-      if (!target) return;
-      target.scrollIntoView({
+    const goToSlide = (index) => {
+      const target = Math.max(0, Math.min(slides.length - 1, index));
+      /* Scroll the track, not the element into view: scrollIntoView also
+         scrolls every scrollable ancestor, so on a phone the whole section
+         jumped up or down with every step. */
+      track.scrollTo({
+        left: slides[target].offsetLeft - slides[0].offsetLeft,
         behavior: prefersReducedMotion.matches ? "auto" : "smooth",
-        block: "nearest",
-        inline: "start",
       });
     };
 
-    prev.addEventListener("click", () => scrollToSlide(-1));
-    next.addEventListener("click", () => scrollToSlide(1));
-    track.addEventListener("scroll", () => window.requestAnimationFrame(updateCounter), { passive: true });
+    prev.addEventListener("click", () => goToSlide(getCurrentIndex() - 1));
+    next.addEventListener("click", () => goToSlide(getCurrentIndex() + 1));
+    track.addEventListener("scroll", () => {
+      /* The reveal animation lifts each card 28px before it settles, and a
+         transformed child counts towards the scrollable area — which briefly
+         gives the track 16px to scroll on an axis that should never move.
+         Put it straight back, so nothing can leave the row sitting askew. */
+      if (track.scrollTop !== 0) track.scrollTop = 0;
+      window.requestAnimationFrame(updateCounter);
+    }, { passive: true });
     window.addEventListener("resize", updateCounter);
     updateCounter();
   });

@@ -2120,9 +2120,15 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
     margin-inline: calc(var(--pad) * -1);
     padding: 0 var(--pad) 12px;
     overflow-x: auto;
-    overflow-y: visible;
+    /* Hidden rather than visible on purpose: a cross axis left visible is
+       computed to auto as soon as the other axis scrolls, which quietly made
+       the track scrollable up and down too — the few pixels of vertical drift
+       that made a swipe feel unsteady. */
+    overflow-y: hidden;
     scroll-padding-inline: var(--pad);
-    scroll-snap-type: x proximity;
+    /* Mandatory, so a swipe always settles on a card instead of stopping
+       between two; scroll-snap-stop below keeps one swipe to one card. */
+    scroll-snap-type: x mandatory;
     overscroll-behavior-inline: contain;
     /* No touch-action here on purpose. "pan-y" told the browser this element
        may only be panned vertically, so a sideways swipe on a phone did
