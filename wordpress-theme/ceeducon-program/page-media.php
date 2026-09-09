@@ -90,7 +90,9 @@ $partners_url = ceeducon_asset_url('assets/media/ceeducon-partner-logos-white.pn
                   'text' => __('Download press releases from previous editions of CEEDUCON.', 'ceeducon-program'),
                   'action' => __('View press releases', 'ceeducon-program'),
                   'years' => [
-                      '2025' => ceeducon_text_value('media_release_2025_url', 'https://www.dzs.cz/sites/default/files/press_release/2025-11/TZ_CEEDUCON_2025_st%C5%99edoevropsk%C3%A1%20konfernce%20V%C5%A0%20v%20Praze.pdf'),
+                      // The English release is served from the site itself; the
+                      // link that stood here went to the Czech one on dzs.cz.
+                      '2025' => ceeducon_text_value('media_release_2025_url', ceeducon_asset_url('assets/media/ceeducon-2025-press-release-en.pdf')),
                       '2024' => ceeducon_text_value('media_release_2024_url', 'https://www.dzs.cz/sites/default/files/press_release/2024-11/Press_Release_CZEDUCON_2024.pdf'),
                   ],
               ],
@@ -100,7 +102,7 @@ $partners_url = ceeducon_asset_url('assets/media/ceeducon-partner-logos-white.pn
                   'text' => __('Explore the key topics, speakers, figures and moments from previous editions.', 'ceeducon-program'),
                   'action' => __('View highlight reports', 'ceeducon-program'),
                   'years' => [
-                      '2025' => ceeducon_text_value('media_report_2025_url', 'https://www.dzs.cz/clanek/budoucnost-evropy-se-pise-i-na-univerzitach-ceeducon-2025-ukazal-ze-klicem-je-digitalizovat'),
+                      '2025' => ceeducon_text_value('media_report_2025_url', 'https://www.dzs.cz/en/article/future-europe-also-being-shaped-universities-ceeducon-2025-showed-key-lies-digitizing'),
                       '2024' => ceeducon_text_value('media_report_2024_url', 'https://www.dzs.cz/en/article/future-education-internationalization-tool-excellence-and-innovation'),
                   ],
               ],
