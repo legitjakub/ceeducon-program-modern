@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
           <div>
             <h3><?php esc_html_e('Conference', 'ceeducon-program'); ?></h3>
             <?php ceeducon_render_navigation('footer-menu', __('Footer conference links', 'ceeducon-program')); ?>
-            <a href="<?php echo esc_url(ceeducon_page_url('previous-editions')); ?>">Previous editions</a>
+            <a class="footer-archive-link" href="<?php echo esc_url(ceeducon_page_url('previous-editions')); ?>">Previous editions</a>
           </div>
           <div>
             <h3><?php esc_html_e('Connect', 'ceeducon-program'); ?></h3>

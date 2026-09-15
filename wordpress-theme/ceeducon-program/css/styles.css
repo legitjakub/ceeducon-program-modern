@@ -1598,6 +1598,8 @@ body [class*="tabac-sans-regular-i-font-family"] { font-style: italic !important
 .footer-grid nav { display: grid; gap: 11px; }
 .footer-grid nav a { width: max-content; color: rgba(255, 255, 255, 0.84); font-size: 14px; transition: color 0.2s; }
 .footer-grid nav a:hover { color: var(--white); }
+.footer-archive-link { display: block; width: max-content; margin-top: 11px; color: rgba(255, 255, 255, 0.84); font-size: 14px; transition: color 0.2s; }
+.footer-archive-link:hover { color: var(--white); }
 .footer-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; padding: 6px 0 26px; color: rgba(255, 255, 255, 0.8); font-size: 12px; }
 .footer-bottom p { margin: 0; }
 .footer-bottom a { color: rgba(255, 255, 255, 0.88); }
