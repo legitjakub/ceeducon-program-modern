@@ -23,6 +23,7 @@ if (!defined('ABSPATH')) {
               <a href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $footer_phone)); ?>"><?php echo esc_html($footer_phone); ?></a>
               <a href="<?php echo esc_url(ceeducon_text_value('footer_official_url', 'https://www.ceeducon.cz/')); ?>" target="_blank" rel="noreferrer">ceeducon.cz</a>
               <a href="<?php echo esc_url(ceeducon_text_value('footer_dzs_url', 'https://www.dzs.cz/')); ?>" target="_blank" rel="noreferrer">dzs.cz</a>
+              <a href="https://www.ceeducon.cz/privacy-and-cookie-policy/" target="_blank" rel="noreferrer">Privacy and Cookie Policy</a>
             </nav>
           </div>
         </div>
