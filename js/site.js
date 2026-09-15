@@ -229,6 +229,120 @@ function bindMediaLightbox() {
   });
 }
 
+function bindArchiveLightbox() {
+  const cards = document.querySelectorAll(".archive-grid details.edition-card");
+  if (!cards.length) return;
+
+  const lightbox = document.createElement("div");
+  lightbox.className = "archive-lightbox";
+  lightbox.hidden = true;
+  lightbox.innerHTML = `
+    <div class="archive-lightbox-inner" role="dialog" aria-modal="true" aria-labelledby="archive-lightbox-title">
+      <button class="archive-lightbox-close" type="button" aria-label="Close archive preview">×</button>
+      <div class="archive-lightbox-media">
+        <img alt="" />
+        <button class="archive-gallery-button archive-gallery-button--prev" type="button" aria-label="Previous archive photo">‹</button>
+        <button class="archive-gallery-button archive-gallery-button--next" type="button" aria-label="Next archive photo">›</button>
+        <span class="archive-gallery-counter" aria-live="polite"></span>
+      </div>
+      <div class="archive-lightbox-content">
+        <p class="archive-lightbox-kicker">Conference archive</p>
+        <h2 id="archive-lightbox-title"></h2>
+        <strong></strong>
+        <p></p>
+        <ul class="archive-lightbox-topics" aria-label="Edition topics"></ul>
+      </div>
+    </div>
+  `;
+  document.body.append(lightbox);
+
+  const image = lightbox.querySelector("img");
+  const previous = lightbox.querySelector(".archive-gallery-button--prev");
+  const next = lightbox.querySelector(".archive-gallery-button--next");
+  const counter = lightbox.querySelector(".archive-gallery-counter");
+  const title = lightbox.querySelector("h2");
+  const lead = lightbox.querySelector("strong");
+  const copy = lightbox.querySelector(".archive-lightbox-content p:last-of-type");
+  const topics = lightbox.querySelector(".archive-lightbox-topics");
+  const close = lightbox.querySelector(".archive-lightbox-close");
+  let lastFocused;
+  let gallery = [];
+  let galleryIndex = 0;
+  let autoAdvanceTimer;
+
+  const restartAutoAdvance = () => {
+    window.clearInterval(autoAdvanceTimer);
+    if (gallery.length < 2) return;
+    autoAdvanceTimer = window.setInterval(() => showGalleryImage(galleryIndex + 1), 300000);
+  };
+
+  const showGalleryImage = (index) => {
+    if (!gallery.length) return;
+    galleryIndex = (index + gallery.length) % gallery.length;
+    const current = gallery[galleryIndex];
+    image.src = current.src;
+    image.alt = current.alt;
+    counter.textContent = `${galleryIndex + 1} / ${gallery.length}`;
+    previous.hidden = gallery.length < 2;
+    next.hidden = gallery.length < 2;
+  };
+
+  const closeLightbox = () => {
+    lightbox.hidden = true;
+    document.body.classList.remove("modal-open");
+    image.removeAttribute("src");
+    window.clearInterval(autoAdvanceTimer);
+    gallery = [];
+    lastFocused?.focus();
+  };
+
+  cards.forEach((card) => {
+    const summary = card.querySelector("summary");
+    const preview = card.querySelector(".edition-preview");
+    if (!summary || !preview) return;
+    summary.setAttribute("aria-haspopup", "dialog");
+    summary.addEventListener("click", (event) => {
+      event.preventDefault();
+      const year = card.querySelector(".edition-year")?.textContent.trim() || "CEEDUCON";
+      const previewImage = preview.querySelector("img");
+      gallery = [...preview.querySelectorAll(".edition-gallery img")].map((galleryImage) => ({
+        src: galleryImage.src,
+        alt: galleryImage.alt,
+      }));
+      if (!gallery.length && previewImage) gallery = [{ src: previewImage.src, alt: previewImage.alt }];
+      const previewCopy = preview.querySelector(".edition-preview-copy");
+      lastFocused = summary;
+      title.textContent = `CEEDUCON ${year}`;
+      lead.textContent = previewCopy?.querySelector("strong")?.textContent.trim() || "Archive highlights";
+      copy.textContent = previewCopy?.querySelector("p")?.textContent.trim() || "Explore the conference archive.";
+      topics.innerHTML = [...preview.querySelectorAll(".topic-list li")]
+        .map((topic) => `<li>${topic.textContent.trim()}</li>`)
+        .join("");
+      showGalleryImage(0);
+      lightbox.hidden = false;
+      document.body.classList.add("modal-open");
+      restartAutoAdvance();
+      close.focus();
+    });
+  });
+
+  close.addEventListener("click", closeLightbox);
+  previous.addEventListener("click", () => {
+    showGalleryImage(galleryIndex - 1);
+    restartAutoAdvance();
+  });
+  next.addEventListener("click", () => {
+    showGalleryImage(galleryIndex + 1);
+    restartAutoAdvance();
+  });
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+  window.addEventListener("keydown", (event) => {
+    if (!lightbox.hidden && event.key === "Escape") closeLightbox();
+  });
+}
+
 function bindMobileCarousels() {
   const tracks = document.querySelectorAll(
     ".theme-grid, .day-cards, .tile-grid, .info-grid, .timeline, .step-list"
@@ -574,6 +688,7 @@ bindHeaderScroll();
 bindReveals();
 bindStatCounters();
 bindMediaLightbox();
+bindArchiveLightbox();
 bindThemeDetails();
 bindMobileCarousels();
 bindFloorplan();
